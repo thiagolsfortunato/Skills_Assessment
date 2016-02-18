@@ -8,7 +8,24 @@ public class User {
 	private int situation;
 	private int verification;
 	private String kindPerson;
+	private String token;
 	
+	public User(){};	
+	
+	public User(int userCode, String userName, String password, int situation, int verification, String kindPerson,
+			String token) {
+		
+		this.userCode = userCode;
+		this.userName = userName;
+		this.password = password;
+		this.situation = situation;
+		this.verification = verification;
+		this.kindPerson = kindPerson;
+		this.token = token;
+	}
+
+
+
 	public int getUserCode() {
 		return userCode;
 	}
@@ -62,5 +79,15 @@ public class User {
 
 	public void setKindPerson(String kindPerson) {
 		this.kindPerson = kindPerson;
+	}
+
+
+	public String getToken() {
+		return token;
+	}
+
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

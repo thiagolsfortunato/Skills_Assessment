@@ -23,11 +23,14 @@ public class Student extends User{
 	private String cellphone;
 	private Date register;
 	private Long user_register;
+	private User user;
+	
+	public Student (){};
 	
 	public Student(Long number, String name, String ra, String cpf, Date birthDay, String cep, String address,
 			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
-			String cellphone, Date register, Long user_register) {
-		super();
+			String cellphone, Date register, Long user_register, User user) {
+		
 		this.number = number;
 		this.name = name;
 		this.ra = ra;
@@ -44,6 +47,7 @@ public class Student extends User{
 		this.cellphone = cellphone;
 		this.register = register;
 		this.user_register = user_register;
+		this.user = user;
 	}
 
 	public Long getNumber() {

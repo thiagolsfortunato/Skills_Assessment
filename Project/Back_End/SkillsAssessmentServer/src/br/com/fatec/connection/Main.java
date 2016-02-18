@@ -10,6 +10,7 @@ import java.util.List;
 import org.json.JSONException;
 
 import br.com.fatec.dao.DaoEmployee;
+import br.com.fatec.dao.DaoStudent;
 import br.com.fatec.model.ModelQuestion;
 import br.com.fatec.model.Competencies.Competence;
 import br.com.fatec.model.question.Answer;
@@ -37,9 +38,10 @@ public class Main {
 		//ConnectionMySql connection = new ConnectionMySql();
 		//connection.getConnection();
 		
-		DaoEmployee dao = new DaoEmployee();
+		DaoStudent dao = new DaoStudent();
 		try {
-			dao.searchForName();
+			Student st = dao.searchStudentByRa("123456789");
+			System.out.println(st.getName());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -21,11 +21,12 @@ public class Employee extends User{
 	private String cellphone;
 	private Date register;
 	private Long user_register;
+	private User user;
 	
 	public Employee(Long number, String name, String cpf, Date birthDay, String cep, String address,
 			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
-			String cellphone, Date register, Long user_register) {
-		super();
+			String cellphone, Date register, Long user_register, User user) {
+		
 		this.number = number;
 		this.name = name;
 		this.cpf = cpf;
@@ -41,6 +42,7 @@ public class Employee extends User{
 		this.cellphone = cellphone;
 		this.register = register;
 		this.user_register = user_register;
+		this.user = user;
 	}
 
 	public Long getNumber() {
@@ -161,5 +163,13 @@ public class Employee extends User{
 
 	public void setUser_register(Long user_register) {
 		this.user_register = user_register;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
