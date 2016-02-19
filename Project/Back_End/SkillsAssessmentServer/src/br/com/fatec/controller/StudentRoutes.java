@@ -14,18 +14,6 @@ import spark.Route;
 
 public class StudentRoutes {
 	
-	public void getLogin(){
-		get(new Route("/login/:user/:password"){
-			@Override
-	         public Object handle(Request request, Response response){
-				
-				try{
-					
-				}
-			}
-		}
-	}
-	
 	/*public void getStudentCompetencies(){
 		
 		get(new Route("/competencies/:ra") {

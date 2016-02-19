@@ -7,6 +7,26 @@ import br.com.fatec.model.Competencies.Competence;
 
 public class Student extends User{
 	
+	public static final String TABLE = "ALUNO";
+	public static final String COL_CODIGO = "ALU_CODIGO";
+	public static final String COL_NOME = "ALU_NOME";
+	public static final String COL_RA = "ALU_RA";
+	public static final String COL_CPF = "ALU_CPF";
+	public static final String COL_NASCIMENTO = "ALU_NASCIMENTO";
+	public static final String COL_CEP = "ALU_CEP";
+	public static final String COL_ENDERECO = "ALU_ENDERECO";
+	public static final String COL_BAIRRO = "ALU_BAIRRO";
+	public static final String COL_CIDADE = "ALU_CIDADE";
+	public static final String COL_UF = "ALU_UF";
+	public static final String COL_NUMERO = "ALU_NUMERO";
+	public static final String COL_COMPLEMENTO = "ALU_COMPLEMENO";
+	public static final String COL_TELEFONE = "ALU_TELEFONE";
+	public static final String COL_CELULAR = "ALU_CELULAR";
+	public static final String COL_DATA_CADASTRO = "ALU_DATA_CADASTRO";
+	public static final String COL_USUARIO_CADASTRO = "ALU_USUARIO_CADASTRO";
+	public static final String COL_USUARIO_CODIGO = "USU_CODIGO";
+	
+	
 	private Long number;
 	private String name;
 	private String ra;
@@ -23,14 +43,11 @@ public class Student extends User{
 	private String cellphone;
 	private Date register;
 	private Long user_register;
-	private User user;
-	
-	public Student (){};
 	
 	public Student(Long number, String name, String ra, String cpf, Date birthDay, String cep, String address,
 			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
-			String cellphone, Date register, Long user_register, User user) {
-		
+			String cellphone, Date register, Long user_register) {
+		super();
 		this.number = number;
 		this.name = name;
 		this.ra = ra;
@@ -47,7 +64,6 @@ public class Student extends User{
 		this.cellphone = cellphone;
 		this.register = register;
 		this.user_register = user_register;
-		this.user = user;
 	}
 
 	public Long getNumber() {
