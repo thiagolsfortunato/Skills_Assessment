@@ -25,8 +25,7 @@ public class Student extends User{
 	public static final String COL_DATA_CADASTRO = "ALU_DATA_CADASTRO";
 	public static final String COL_USUARIO_CADASTRO = "ALU_USUARIO_CADASTRO";
 	public static final String COL_USUARIO_CODIGO = "USU_CODIGO";
-	
-	
+		
 	private Long number;
 	private String name;
 	private String ra;
@@ -43,6 +42,7 @@ public class Student extends User{
 	private String cellphone;
 	private Date register;
 	private Long user_register;
+	private User user;
 	
 	public Student(Long number, String name, String ra, String cpf, Date birthDay, String cep, String address,
 			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
@@ -66,6 +66,9 @@ public class Student extends User{
 		this.user_register = user_register;
 	}
 
+	public Student(){
+		
+	}
 	public Long getNumber() {
 		return number;
 	}
@@ -192,6 +195,14 @@ public class Student extends User{
 
 	public void setUser_register(Long user_register) {
 		this.user_register = user_register;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

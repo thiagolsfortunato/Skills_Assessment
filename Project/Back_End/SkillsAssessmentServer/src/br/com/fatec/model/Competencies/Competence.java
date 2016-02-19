@@ -4,6 +4,12 @@ import java.util.Date;
 
 public class Competence {
 	
+	public static final String TABLE = "COMPETENCIA";
+	public static final String COL_CODIGO = "COM_CODIGO";
+	public static final String COL_TIPO = "COM_TIPO";
+	public static final String COL_DATA_CADASTRO = "COM_DATA_CADASTRO";
+	
+	
 	private int number;
 	private String description;
 	private Date register;

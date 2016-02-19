@@ -2,17 +2,26 @@ package br.com.fatec.model;
 
 public class User {
 	
+	public static final String TABLE = "USUARIO";
+	public static final String COL_CODIGO = "USU_CODIGO";
+	public static final String COL_LOGIN = "USU_LOGIN";
+	public static final String COL_SENHA = "USU_SENHA";
+	public static final String COL_SITUACAO = "USU_SITUACAO";
+	public static final String COL_VERIFICACAO = "USU_VERIFICACAO";
+	public static final String COL_TIPO = "USU_TIPO";
+	public static final String COL_TOKEN = "USU_TOKEN";
+	
 	private int userCode;
 	private String userName;
 	private String password;
 	private int situation;
 	private int verification;
 	private String kindPerson;
+	private String token;
 	
 	public int getUserCode() {
 		return userCode;
 	}
-
 
 	public void setUserCode(int userCode) {
 		this.userCode = userCode;
@@ -62,5 +71,13 @@ public class User {
 
 	public void setKindPerson(String kindPerson) {
 		this.kindPerson = kindPerson;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

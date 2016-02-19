@@ -1,8 +1,4 @@
 package br.com.fatec.connection;
-
-
-
-
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;

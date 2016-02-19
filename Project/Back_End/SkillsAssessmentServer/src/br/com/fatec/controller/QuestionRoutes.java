@@ -2,7 +2,6 @@ package br.com.fatec.controller;
 
 import static spark.Spark.get;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
