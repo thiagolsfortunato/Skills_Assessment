@@ -34,6 +34,13 @@ create table aluno (
 	constraint fk_usr foreign key (usu_codigo) references usuario (usu_codigo)
 )engine=innodb;
 
+create table semestre (
+	sem_codigo int auto_increment,
+	sem_ano int ,
+	sem_semestre int,
+	constraint pk_sem primary key (sem_codigo);
+)engine=innodb;
+
 create table funcionario (
 	fun_codigo int auto_increment,
     fun_nome varchar(250) ,
@@ -118,7 +125,7 @@ create table media(
     constraint pk_med primary key (med_codigo),
     constraint fk_rst foreign key (rst_codigo) references resultado (rst_codigo),
     constraint fk_cpt foreign key (com_codigo) references competencia (com_codigo)
-);
+)engine=innodb;
 
 insert into aluno (alu_nome,alu_ra,alu_cpf,alu_nascimento,alu_cep,
 		alu_endereco,alu_bairro,alu_cidade,alu_uf,alu_numero,alu_complemento,alu_telefone,
