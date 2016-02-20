@@ -22,7 +22,7 @@ public class Main {
 	public static void main(String[] args) throws JSONException{
 		
 		
-		//initializeModel();
+		initializeModel();
 			
 		//REST controller = new REST(model); 
 		
