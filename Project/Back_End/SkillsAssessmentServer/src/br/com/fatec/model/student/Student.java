@@ -7,24 +7,24 @@ import br.com.fatec.model.user.User;
 
 public class Student extends User{
 	
-	public static final String TABLE = "ALUNO";
-	public static final String COL_CODIGO = "ALU_CODIGO";
-	public static final String COL_NOME = "ALU_NOME";
-	public static final String COL_RA = "ALU_RA";
-	public static final String COL_CPF = "ALU_CPF";
-	public static final String COL_NASCIMENTO = "ALU_NASCIMENTO";
-	public static final String COL_CEP = "ALU_CEP";
-	public static final String COL_ENDERECO = "ALU_ENDERECO";
-	public static final String COL_BAIRRO = "ALU_BAIRRO";
-	public static final String COL_CIDADE = "ALU_CIDADE";
-	public static final String COL_UF = "ALU_UF";
-	public static final String COL_NUMERO = "ALU_NUMERO";
-	public static final String COL_COMPLEMENTO = "ALU_COMPLEMENO";
-	public static final String COL_TELEFONE = "ALU_TELEFONE";
-	public static final String COL_CELULAR = "ALU_CELULAR";
-	public static final String COL_DATA_CADASTRO = "ALU_DATA_CADASTRO";
-	public static final String COL_USUARIO_CADASTRO = "ALU_USUARIO_CADASTRO";
-	public static final String COL_USUARIO_CODIGO = "USU_CODIGO";
+	public static final String TABLE = "STUDENT";
+	public static final String COL_CODE = "STD_CODE";
+	public static final String COL_NAME = "STD_NAME";
+	public static final String COL_RA = "STD_RA";
+	public static final String COL_CPF = "STD_CPF";
+	public static final String COL_BIRTH = "STD_BIRTH";
+	public static final String COL_CEP = "STD_CEP";
+	public static final String COL_ADDRESS = "STD_ADDRESS";
+	public static final String COL_NEIGHBORHOOD = "STD_NEIGHBORHOOD";
+	public static final String COL_CITY = "STD_CITY";
+	public static final String COL_UF = "STD_UF";
+	public static final String COL_NUMBER = "STD_NUMBER";
+	public static final String COL_COMPLEMENT = "STD_COMPLEMENT";
+	public static final String COL_TELEPHONE = "STD_TELEPHONE";
+	public static final String COL_CELLPHONE = "STD_CELLPHONE";
+	public static final String COL_REGISTRATION_DATE = "STD_REGISTRATION_DATE";
+	public static final String COL_USER_REGISTER = "STD_USER_REGISTER";
+	public static final String COL_USER_CODE = "USU_CODE";
 		
 	private Long number;
 	private String name;

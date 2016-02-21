@@ -6,21 +6,21 @@ import br.com.fatec.model.user.User;
 
 public class Employee extends User{
 	
-	public static final String TABLE = "FUNCIONARIO";
-	public static final String COL_CODIGO = "FUN_CODIGO";
-	public static final String COL_NOME = "FUN_NOME";
-	public static final String COL_RG = "FUN_RG";
-	public static final String COL_NASCIMENTO = "FUN_NASCIMENTO";
-	public static final String COL_SEXO = "FUN_SEXO";
-	public static final String COL_CEP = "FUN_CEP";
-	public static final String COL_ENDERECO = "FUN_ENDERECO";
-	public static final String COL_BAIRRO = "FUN_BAIRRO";
-	public static final String COL_CIDADE = "FUN_CIDADE";
-	public static final String COL_NUMERO = "FUN_NUMERO";
-	public static final String COL_TELEFONE = "FUN_TELEFONE";
-	public static final String COL_CELULAR = "FUN_CELULAR";
-	public static final String COL_DATA_CADASTRO = "FUN_DATA_CADASTRO";
-	public static final String COL_USUARIO = "USU_CODIGO";
+	public static final String TABLE = "EMPLOYEE";
+	public static final String COL_CODE = "EMP_CODE";
+	public static final String COL_NAME = "EMP_NAME";
+	public static final String COL_RG = "EMP_RG";
+	public static final String COL_BIRTH = "EMP_BIRTH";
+	public static final String COL_SEX = "EMP_SEXO";
+	public static final String COL_CEP = "EMP_CEP";
+	public static final String COL_ADDRESS = "EMP_ADDRESS";
+	public static final String COL_NEIGHBORHOOD = "EMP_NEIGHBORHOOD";
+	public static final String COL_CITY = "EMP_CITY";
+	public static final String COL_NUMBER = "EMP_NUMBER";
+	public static final String COL_TELEPHONE = "EMP_TELEPHONE";
+	public static final String COL_CELLPHONE = "EMP_CELLPHONE";
+	public static final String COL_REGISTRATION_DATE = "EMP_REGISTRATION_DATE";
+	public static final String COL_USRARIO = "USR_CODE";
 	
 	private Long number;
 	private String name;

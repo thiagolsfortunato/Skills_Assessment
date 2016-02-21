@@ -2,182 +2,182 @@ create database SkillsAssessment;
 use SkillsAssessment;
 
 
-create table usuario (
-	usu_codigo int auto_increment,
-    usu_login varchar(250) ,
-    usu_senha varchar(100) ,
-    usu_situacao smallint default 0,
-    usu_verificado smallint default 0,
-    usu_tipo varchar (50) ,
-    usu_token varchar(500),
-    constraint pk_usu primary key (usu_codigo)
+create table user (
+	usr_code int auto_increment,
+    usr_userName varchar(250) ,
+    usr_password varchar(100) ,
+    usr_situation smallint default 0,
+    usr_verified smallint default 0,
+    usr_kind varchar (50) ,
+    usr_token varchar(500),
+    constraint pk_usr primary key (usr_code)
 )engine=innodb;
 
-create table aluno (
-	alu_codigo int not null auto_increment,
-    alu_nome varchar(250) ,
-    alu_ra varchar(25) ,
-    alu_cpf varchar (25) ,
-    alu_nascimento date,
-    alu_cep varchar (25) ,
-    alu_endereco varchar (250),
-    alu_bairro varchar (250) ,
-    alu_cidade varchar (250) ,
-	alu_uf varchar(10) ,
-    alu_numero int ,
-    alu_complemento varchar (250) ,
-    alu_telefone varchar (20),
-    alu_celular varchar (25),
-    alu_data_cadastro timestamp,
-    alu_usuario_cadastro int,
-    usu_codigo int ,
-    constraint pk_alu primary key (alu_codigo),
-	constraint fk_usr foreign key (usu_codigo) references usuario (usu_codigo)
+create table student (
+	std_code int not null auto_increment,
+    std_name varchar(250) ,
+    std_ra varchar(25) ,
+    std_cpf varchar (25) ,
+    std_birth date,
+    std_cep varchar (25) ,
+    std_address varchar (250),
+    std_neighborhood varchar (250) ,
+    std_city varchar (250) ,
+	std_uf varchar(10) ,
+    std_number int ,
+    std_complement varchar (250) ,
+    std_telephone varchar (20),
+    std_cellphone varchar (25),
+    std_registration_date timestamp,
+    std_user_register int,
+    usr_code int ,
+    constraint pk_alu primary key (std_code),
+	constraint fk_usr foreign key (usr_code) references user (usr_code)
 )engine=innodb;
 
 
-create table curso (
-	cur_codigo int auto_increment,
-    cur_nome varchar (250),
-    cur_situacao smallint,
-    cur_data_cadastro timestamp,
-    constraint cur_pk primary key (cur_codigo)
+create table course (
+	crs_code int auto_increment,
+    crs_name varchar (250),
+    crs_situation smallint,
+    crs_registration_date timestamp,
+    constraint crs_pk primary key (crs_code)
 )engine=innodb;
 
-create table semestre (
-	sem_codigo int auto_increment,
-	sem_ano int ,
-	sem_semestre int,
-    cur_codigo int,
-	constraint pk_sem primary key (sem_codigo),
-    constraint fk_cur foreign key (cur_codigo) references curso (cur_codigo)
+create table period (
+	prd_code int auto_increment,
+	prd_year int ,
+	prd_period int,
+    crs_code int,
+	constraint pk_prd primary key (prd_code),
+    constraint fk_crs foreign key (crs_code) references course (crs_code)
 )engine=innodb;
 
-create table funcionario (
-	fun_codigo int auto_increment,
-    fun_nome varchar(250) ,
-    fun_rg varchar(25) ,
-    fun_nascimento date ,
-    fun_sexo smallint ,
-    fun_cep varchar(25) ,
-    fun_endereco varchar(250) ,
-    fun_bairro varchar(250),
-    fun_cidade varchar(250) ,
-    fun_numero int not null,
-    fun_telefone varchar(25),
-    fun_celular varchar(25),
-    fun_data_cadastro timestamp,
-    usu_codigo int,
-    constraint fk_usr_fun foreign key (usu_codigo) references usuario (usu_codigo),
-    constraint pk_fun primary key (fun_codigo)
+create table employee (
+	emp_code int auto_increment,
+    emp_name varchar(250) ,
+    emp_rg varchar(25) ,
+    emp_birth date ,
+    emp_sex smallint ,
+    emp_cep varchar(25) ,
+    emp_address varchar(250) ,
+    emp_neighborhood varchar(250),
+    emp_city varchar(250) ,
+    emp_number int not null,
+    emp_telephone varchar(25),
+    emp_cellphone varchar(25),
+    emp_registration_date timestamp,
+    usr_code int,
+    constraint fk_usr_emp foreign key (usr_code) references user (usr_code),
+    constraint pk_emp primary key (emp_code)
 )engine=innodb;
 
-create table pergunta(
-	per_codigo int auto_increment,
-    per_pergunta varchar(250) ,
-    per_fundo varchar(250),
-    per_introducao varchar(250) ,
-    per_situacao int,
-    constraint pk_per primary key (per_codigo)
+create table question(
+	qst_code int auto_increment,
+    qst_question varchar(250) ,
+    qst_background varchar(250),
+    qst_introduction varchar(250) ,
+    qst_situation int,
+    constraint pk_qst primary key (qst_code)
 )engine=innodb;
 
-create table competencia (
-	com_codigo int auto_increment,
-    com_tipo  varchar(250) ,
-    com_data_cadastro timestamp,
-    constraint pk_com primary key (com_codigo)
+create table competence (
+	com_code int auto_increment,
+    com_kind  varchar(250) ,
+    com_registration_date timestamp,
+    constraint pk_com primary key (com_code)
 )engine=innodb;
 
-create table alternativas(
-	alt_codigo int auto_increment,
-    alt_descricao varchar(250) ,
-    per_codigo int ,
-    constraint pk_alt primary key (alt_codigo),
-    constraint fk_per foreign key (per_codigo) references pergunta (per_codigo)
+create table alternatives(
+	alt_code int auto_increment,
+    alt_description varchar(250) ,
+    qst_code int ,
+    constraint pk_alt primary key (alt_code),
+    constraint fk_qst foreign key (qst_code) references question (qst_code)
 )engine=innodb;
 
-create table rsp_com (
-	rsc_codigo int auto_increment,
-    alt_codigo int,
-    com_codigo int,
-    rsc_peso int,
-    constraint pf_rsc primary key (rsc_codigo),
-    constraint fk_alt foreign key (alt_codigo) references alternativas(alt_codigo),
-    constraint fk_cmp foreign key (com_codigo) references competencia (com_codigo)
+create table alt_com (
+	rsc_code int auto_increment,
+    alt_code int,
+    com_code int,
+    rsc_weight int,
+    constraint pf_rsc primary key (rsc_code),
+    constraint fk_alt foreign key (alt_code) references alternatives(alt_code),
+    constraint fk_cmp foreign key (com_code) references competence (com_code)
 );
 
-create table questionario(
-	que_codigo int auto_increment,
-    alu_codigo int ,
-    per_codigo int ,
-    alt_codigo int ,
-    que_data timestamp,
-    que_duracao time,
-    constraint pk_pro primary key (que_codigo),
-    constraint fk_alu foreign key (alu_codigo) references aluno (alu_codigo),
-    constraint fk_pgt foreign key (per_codigo) references pergunta (per_codigo),
-    constraint fk_rsp foreign key (alt_codigo) references alternativas (alt_codigo)
+create table quiz(
+	quz_code int auto_increment,
+    std_code int ,
+    qst_code int ,
+    alt_code int ,
+    quz_date timestamp,
+    quz_duration time,
+    constraint pk_pro primary key (quz_code),
+    constraint fk_alu foreign key (std_code) references student (std_code),
+    constraint fk_pgt foreign key (qst_code) references question (qst_code),
+    constraint fk_rsp foreign key (alt_code) references alternatives (alt_code)
 )engine=innodb;
 
-create table resultado(
-	rst_codigo int auto_increment,
-    alu_codigo int ,
-    rst_data_final timestamp,
-    rst_concluido smallint default 0,
-    rst_avaliado smallint default 0,
-    constraint pk_rlt primary key (rst_codigo),
-    constraint fk_alo foreign key (alu_codigo) references aluno (alu_codigo)
+create table result(
+	rst_code int auto_increment,
+    std_code int ,
+    rst_date_final timestamp,
+    rst_completed smallint default 0,
+    rst_measured smallint default 0,
+    constraint pk_rlt primary key (rst_code),
+    constraint fk_alo foreign key (std_code) references student (std_code)
 )engine=innodb;
 
-create table media(
-	med_codigo int auto_increment,
-    rst_codigo int,
-    com_codigo int,
-    med_final int,
-    constraint pk_med primary key (med_codigo),
-    constraint fk_rst foreign key (rst_codigo) references resultado (rst_codigo),
-    constraint fk_cpt foreign key (com_codigo) references competencia (com_codigo)
+create table average(
+	avr_code int auto_increment,
+    rst_code int,
+    com_code int,
+    avr_final int,
+    constraint pk_avr primary key (avr_code),
+    constraint fk_rst foreign key (rst_code) references result (rst_code),
+    constraint fk_cpt foreign key (com_code) references competence (com_code)
 )engine=innodb;
 
-insert into aluno (alu_nome,alu_ra,alu_cpf,alu_nascimento,alu_cep,
-		alu_endereco,alu_bairro,alu_cidade,alu_uf,alu_numero,alu_complemento,alu_telefone,
-        alu_celular,alu_data_cadastro,alu_usuario_cadastro,usu_codigo) values (
-		'EDUARDO ALVES','123456789','42487690852','1994-08-07','12232-090','RUA ALFREDO C', 'BOSQUE', 'SJC', 'SP', 1602, 'CASA', '39334446', '988849273',
+insert into student (std_name,std_ra,std_cpf,std_birth,std_cep,
+		std_address,std_neighborhood,std_city,std_uf,std_number,std_complement,std_telephone,
+        std_cellphone,std_registration_date,std_user_register,usr_code) values (
+		'EDUARDO ALVES','123456789','42487690852','1994-08-07','12232-090','RUA ALFREDO C', 'BOSquz', 'SJC', 'SP', 1602, 'CASA', '39334446', '988849273',
         '2008-01-01 00:00:01',1,2);
         
-insert into aluno (alu_nome,alu_ra,alu_cpf,alu_nascimento,alu_cep,
-		alu_endereco,alu_bairro,alu_cidade,alu_uf,alu_numero,alu_complemento,alu_telefone,
-        alu_celular,alu_data_cadastro,alu_usuario_cadastro,usu_codigo) values (
-		'Pedro alves','123456789','42487690852','1994-08-07','12232-090','RUA ALFREDO C', 'BOSQUE', 'SJC', 'SP', 1602, 'CASA', '39334446', '988849273',
+insert into student (std_name,std_ra,std_cpf,std_birth,std_cep,
+		std_address,std_neighborhood,std_city,std_uf,std_number,std_complement,std_telephone,
+        std_cellphone,std_registration_date,std_user_register,usr_code) values (
+		'Pedro alves','123456789','42487690852','1994-08-07','12232-090','RUA ALFREDO C', 'BOSquz', 'SJC', 'SP', 1602, 'CASA', '39334446', '988849273',
         '2008-01-01 00:00:01',1,3);
 
-insert into funcionario (
-    fun_nome,fun_rg,fun_nascimento,fun_sexo,fun_cep ,fun_endereco ,fun_bairro ,fun_cidade ,
-    fun_numero ,fun_telefone,fun_celular ,fun_data_cadastro,usu_codigo) values (
+insert into employee (
+    emp_name,emp_rg,emp_birth,emp_sex,emp_cep ,emp_address ,emp_neighborhood ,emp_city ,
+    emp_number ,emp_telephone,emp_cellphone ,emp_registration_date,usr_code) values (
     'JOAO' , '26125181515', '1992-05-04',1,'12232050','AQUI','LA', 'SJC', 100,
     '1239335566','955145151','2016-01-01 00:00:01',1);
 
-insert into usuario (
-    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo) 
-    values ('joao','1234',1,1,'funcionario');  
+insert into user (
+    usr_userName ,usr_password ,usr_situation ,usr_verified ,usr_kind) 
+    values ('joao','1234',1,1,'employee');  
     
-insert into usuario (
-    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo) 
-    values ('edu','1234',1,1,'aluno');
+insert into user (
+    usr_userName ,usr_password ,usr_situation ,usr_verified ,usr_kind) 
+    values ('edu','1234',1,1,'student');
     
-insert into usuario (
-    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo) 
-    values ('pedro','1234',1,1,'aluno'); 
+insert into user (
+    usr_userName ,usr_password ,usr_situation ,usr_verified ,usr_kind) 
+    values ('pedro','1234',1,1,'student'); 
     
   
 
     
-select funcionario.fun_nome ,
-		aluno.alu_nome
-from aluno inner join funcionario on aluno.alu_usuario_cadastro = funcionario.fun_codigo
-where funcionario.fun_codigo=1;
+select employee.emp_name ,
+		student.std_name
+from student inner join employee on student.std_user_register = employee.emp_code
+where employee.emp_code=1;
 
-select * from aluno;
-select * from funcionario;
-select * from usuario;
+select * from student;
+select * from employee;
+select * from user;
 drop database SkillsAssessment;

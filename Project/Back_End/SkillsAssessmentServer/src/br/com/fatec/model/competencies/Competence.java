@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class Competence {
 	
-	public static final String TABLE = "COMPETENCIA";
-	public static final String COL_CODIGO = "COM_CODIGO";
-	public static final String COL_TIPO = "COM_TIPO";
-	public static final String COL_DATA_CADASTRO = "COM_DATA_CADASTRO";
+	public static final String TABLE = "COMPETENCE";
+	public static final String COL_CODE = "COM_CODE";
+	public static final String COL_KIND = "COM_KIND";
+	public static final String COL_REGISTRATION_DATE = "COM_REGISTRATION_DATE";
 	
 	
 	private int number;

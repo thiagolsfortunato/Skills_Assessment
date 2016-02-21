@@ -11,6 +11,7 @@ import br.com.fatec.model.user.User;
 
 public class DaoUser {
 
+	@SuppressWarnings("finally")
 	public static User getLogin(String userName, String password) throws SQLException {
 
 		Connection conn = ConnectionMySql.getConnection();
@@ -19,16 +20,16 @@ public class DaoUser {
 		ResultSet rs = null;
 		try {
 
-			String query = "select usu_tipo, usu_codigo, usu_token from usuario where usu_login = '" + userName
-					+ "' and usu_senha = '" + password + "';";
+			String query = "select usr_kind, usr_code, usr_token from user where usr_username = '" + userName
+					+ "' and usr_password = '" + password + "';";
 			PreparedStatement cmd;
 			cmd = (PreparedStatement) conn.prepareStatement(query);
 			rs = cmd.executeQuery();
 			if (rs != null) {
 				rs.next();
-				updateTokenUser(rs.getString(User.COL_CODIGO));
-				user.setKindPerson(rs.getString(User.COL_TIPO));
-				user.setUserCode(Integer.parseInt(rs.getString(User.COL_CODIGO)));
+				updateTokenUser(rs.getString(User.COL_CODE));
+				user.setKindPerson(rs.getString(User.COL_KIND));
+				user.setUserCode(Integer.parseInt(rs.getString(User.COL_CODE)));
 				user.setToken(rs.getString(User.COL_TOKEN));
 			}
 
@@ -44,7 +45,7 @@ public class DaoUser {
 	private static void updateTokenUser(String id) throws SQLException {
 		Connection conn = ConnectionMySql.getConnection();
 		String tk = Token.createJsonWebToken(id, (long) 1);
-		String query = "UPDATE usuario SET usu_token=?  WHERE usu_codigo=?";
+		String query = "UPDATE USER SET usr_token=?  WHERE usr_code=?";
 
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);

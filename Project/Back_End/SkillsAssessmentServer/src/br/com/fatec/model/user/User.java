@@ -2,14 +2,14 @@ package br.com.fatec.model.user;
 
 public class User {
 	
-	public static final String TABLE = "USUARIO";
-	public static final String COL_CODIGO = "USU_CODIGO";
-	public static final String COL_LOGIN = "USU_LOGIN";
-	public static final String COL_SENHA = "USU_SENHA";
-	public static final String COL_SITUACAO = "USU_SITUACAO";
-	public static final String COL_VERIFICACAO = "USU_VERIFICACAO";
-	public static final String COL_TIPO = "USU_TIPO";
-	public static final String COL_TOKEN = "USU_TOKEN";
+	public static final String TABLE = "USER";
+	public static final String COL_CODE = "USR_CODE";
+	public static final String COL_USERNAME = "USR_USERNAME";
+	public static final String COL_PASSWORD = "USR_PASSWORD";
+	public static final String COL_SITUATION = "USR_SITUATION";
+	public static final String COL_VERIFIED = "USR_VERIFIED";
+	public static final String COL_KIND = "USR_KIND";
+	public static final String COL_TOKEN = "USR_TOKEN";
 	
 	private Integer userCode;
 	private String userName;

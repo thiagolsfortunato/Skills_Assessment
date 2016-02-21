@@ -33,16 +33,16 @@ public class UserRoutes {
 					ModelUser user = new ModelUser();
 					User login = user.getLogin(request.params(":user"), request.params(":password"));
 					
-					if( (login != null) && (login.getKindPerson().equals("aluno")) ){
+					if( (login != null) && (login.getKindPerson().equals("student")) ){
 						ModelStudent modelSt = new ModelStudent();
 						Student stu = modelSt.searchStudentById(login.getUserCode());
 						
 						JSONArray jsonResult = new JSONArray();
 							JSONObject jsonStudent = new JSONObject();
 
-			        		jsonStudent.put("nome", stu.getName());
+			        		jsonStudent.put("name", stu.getName());
 			        		jsonStudent.put("ra", stu.getRa());
-			        		jsonStudent.put("tipo", login.getKindPerson());
+			        		jsonStudent.put("kind", login.getKindPerson());
 			        		jsonStudent.put("token", login.getToken());
 		        		
 			        		jsonResult.put(jsonStudent);

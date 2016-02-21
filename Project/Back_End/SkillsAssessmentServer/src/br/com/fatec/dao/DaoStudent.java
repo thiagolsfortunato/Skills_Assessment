@@ -18,33 +18,33 @@ public class DaoStudent {
 	public static Student searchStudentByCode(Integer code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select alu_codigo , alu_nome, alu_ra  from aluno where usu_codigo = " + code +";"; //MUDEI
+		String query = "select std_code , std_name, std_ra  from student where std_code = " + code +";"; //join table with User to bring the rest of the information
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
 		while (rs.next()) {
-			student.setNumber(Long.parseLong(rs.getString(Student.COL_CODIGO))); // CONVERT TO LONG
-			student.setName(rs.getString(Student.COL_NOME));
+			student.setNumber(Long.parseLong(rs.getString(Student.COL_CODE))); // CONVERT TO LONG
+			student.setName(rs.getString(Student.COL_NAME));
 			student.setRa(rs.getString(Student.COL_RA));
 			/*student.setCpf(rs.getString(Student.COL_CPF));
-			student.setBirthDay(new Date(rs.getString(Student.COL_NASCIMENTO))); // CONVERTER TO DATE
+			student.setBirthDay(new Date(rs.getString(Student.COL_BIRTH))); // CONVERTER TO DATE
 			student.setCep(rs.getString(Student.COL_CEP));
-			student.setAddress(rs.getString(Student.COL_ENDERECO));
-			student.setNeighborhood(rs.getString(Student.COL_BAIRRO));
-			student.setCity(rs.getString(Student.COL_CIDADE));
+			student.setAddress(rs.getString(Student.COL_ADDRESS));
+			student.setNeighborhood(rs.getString(Student.COL_NEIGHBORHOOD));
+			student.setCity(rs.getString(Student.COL_CITY));
 			student.setUf(rs.getString(Student.COL_UF));
-			student.setNumberHouse(Integer.parseInt(rs.getString(Student.COL_NUMERO)));
-			student.setComplement(rs.getString(Student.COL_COMPLEMENTO));
-			student.setTelephone(rs.getString(Student.COL_TELEFONE));
-			student.setCellphone(rs.getString(Student.COL_CELULAR));
-			student.setRegister(new Date(rs.getString(Student.COL_DATA_CADASTRO)));
-			student.setUser_register(Long.parseLong(rs.getString(Student.COL_USUARIO_CADASTRO)));
-			student.getUser().setUserCode(Integer.parseInt(rs.getString(Student.COL_USUARIO_CODIGO)));
-			student.getUser().setUserName(rs.getString(User.COL_LOGIN));
-			student.getUser().setPassword(rs.getString(User.COL_SENHA));
-			student.getUser().setSituation(Integer.parseInt(rs.getString(User.COL_SITUACAO)));
-			student.getUser().setVerification(Integer.parseInt(rs.getString(User.COL_VERIFICACAO)));
-			student.getUser().setKindPerson(rs.getString(User.COL_TIPO));
+			student.setNumberHouse(Integer.parseInt(rs.getString(Student.COL_NUMBER)));
+			student.setComplement(rs.getString(Student.COL_COMPLEMENT));
+			student.setTelephone(rs.getString(Student.COL_TELEPHONE));
+			student.setCellphone(rs.getString(Student.COL_CELLPHONE));
+			student.setRegister(new Date(rs.getString(Student.COL_REGISTRATION_DATE)));
+			student.setUser_register(Long.parseLong(rs.getString(Student.COL_USER_REGISTER)));
+			student.getUser().setUserCode(Integer.parseInt(rs.getString(Student.COL_USER_CODE)));
+			student.getUser().setUserName(rs.getString(User.COL_USERNAME));
+			student.getUser().setPassword(rs.getString(User.COL_PASSWORD));
+			student.getUser().setSituation(Integer.parseInt(rs.getString(User.COL_SITUATION)));
+			student.getUser().setVerification(Integer.parseInt(rs.getString(User.COL_VERIFIED)));
+			student.getUser().setKindPerson(rs.getString(User.COL_KIND));
 			student.getUser().setToken(rs.getString(User.COL_TOKEN));*/
 		}
 		rs.close();
