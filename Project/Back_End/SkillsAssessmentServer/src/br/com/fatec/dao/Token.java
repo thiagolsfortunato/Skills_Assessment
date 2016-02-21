@@ -18,7 +18,7 @@ import org.joda.time.DateTime;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 
-import br.com.fatec.model.TokenInfo;
+import br.com.fatec.model.token.TokenInfo;
 
 public class Token {
 
