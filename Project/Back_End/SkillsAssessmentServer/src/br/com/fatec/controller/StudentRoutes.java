@@ -14,6 +14,8 @@ import spark.Route;
 
 public class StudentRoutes {
 	
+	
+	
 	/*public void getStudentCompetencies(){
 		
 		get(new Route("/competencies/:ra") {

@@ -2,7 +2,7 @@ package br.com.fatec.model.employee;
 
 import java.util.Date;
 
-import br.com.fatec.model.User;
+import br.com.fatec.model.user.User;
 
 public class Employee extends User{
 	
@@ -21,7 +21,6 @@ public class Employee extends User{
 	public static final String COL_CELULAR = "FUN_CELULAR";
 	public static final String COL_DATA_CADASTRO = "FUN_DATA_CADASTRO";
 	public static final String COL_USUARIO = "USU_CODIGO";
-
 	
 	private Long number;
 	private String name;
@@ -32,17 +31,20 @@ public class Employee extends User{
 	private String neighborhood;
 	private String city;
 	private String uf;
-	private int numberHouse;
+	private Integer numberHouse;
 	private String complement;
 	private String telephone;
 	private String cellphone;
 	private Date register;
 	private Long user_register;
+	private User user;
+	
+	public Employee(){};
 	
 	public Employee(Long number, String name, String cpf, Date birthDay, String cep, String address,
 			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
-			String cellphone, Date register, Long user_register) {
-		super();
+			String cellphone, Date register, Long user_register, User user) {
+	
 		this.number = number;
 		this.name = name;
 		this.cpf = cpf;
@@ -58,7 +60,11 @@ public class Employee extends User{
 		this.cellphone = cellphone;
 		this.register = register;
 		this.user_register = user_register;
+		this.setUser(user);
 	}
+
+
+
 
 	public Long getNumber() {
 		return number;
@@ -178,5 +184,13 @@ public class Employee extends User{
 
 	public void setUser_register(Long user_register) {
 		this.user_register = user_register;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

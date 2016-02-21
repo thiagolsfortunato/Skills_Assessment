@@ -1,14 +1,13 @@
 package br.com.fatec.model.question;
 import java.util.List;
 
-
 public class Question {
 	
 	private Long number;
 	private String introduction;
 	private String question;
 	private List<Answer> answers;
-	private int situation;
+	private Integer situation;
 	
 	public Question(Long number, String introduction, String question,
 			List<Answer> answers) {
@@ -17,6 +16,7 @@ public class Question {
 		this.question = question;
 		this.answers = answers;
 	}
+	
 	public Long getNumber() {
 		return number;
 	}

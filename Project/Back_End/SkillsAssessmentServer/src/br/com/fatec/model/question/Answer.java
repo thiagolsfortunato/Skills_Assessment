@@ -14,6 +14,7 @@ public class Answer {
 		this.answer = answer;
 		this.competencies = competencies;
 	}
+	
 	public Long getCode() {
 		return code;
 	}

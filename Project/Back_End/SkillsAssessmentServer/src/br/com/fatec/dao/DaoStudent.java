@@ -9,16 +9,16 @@ import java.util.Date;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.User;
+import br.com.fatec.model.user.User;
 import br.com.fatec.model.student.Student;
 
 public class DaoStudent {
 
 	@SuppressWarnings("deprecation")
-	public static Student searchStudentByRa(String ra) throws SQLException {
+	public static Student searchStudentByCode(Integer code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select alu_nome from aluno where alu_ra = '" + ra + "';";
+		String query = "select alu_nome, alu_ra  from aluno where usu_codigo = '" + code +"';"; //MUDEI
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();

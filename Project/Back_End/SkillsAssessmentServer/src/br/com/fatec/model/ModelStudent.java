@@ -1,4 +1,7 @@
 package br.com.fatec.model;
+import java.sql.SQLException;
+
+import br.com.fatec.dao.DaoStudent;
 import br.com.fatec.model.student.Student;
 
 public class ModelStudent {
@@ -7,13 +10,24 @@ public class ModelStudent {
 		return false;
 	}
 	
-	public Student searchStudentByCode(Long code) {
-
-		return null;
+	public Student searchStudentById(Integer code) { //MUDEI
+		
+		try {
+			Student student = new Student();
+			student = DaoStudent.searchStudentByCode(code); //MUDEI
+			
+			return student;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Could not find data");
+			return null;
+		}
+		
 	}
-	
 	
 	public Long updateStudent(Student comp, Long code){
 		return null;
 	}
+	
 }
