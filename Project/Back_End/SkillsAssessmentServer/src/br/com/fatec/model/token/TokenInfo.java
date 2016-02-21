@@ -1,6 +1,5 @@
 package br.com.fatec.model.token;
 
-import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 
 public class TokenInfo {
@@ -8,12 +7,6 @@ public class TokenInfo {
     private DateTime issued;
     private DateTime expires;
     
-    /*public ObjectId getUserId() {
-        return userId;
-    }
-    public void setUserId(ObjectId userId) {
-        this.userId = userId;
-    }*/
     public DateTime getIssued() {
         return issued;
     }

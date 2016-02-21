@@ -13,7 +13,6 @@ import net.oauth.jsontoken.crypto.Verifier;
 import net.oauth.jsontoken.discovery.VerifierProvider;
 import net.oauth.jsontoken.discovery.VerifierProviders;
 import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
@@ -22,9 +21,7 @@ import br.com.fatec.model.token.TokenInfo;
 
 public class Token {
 
-	private static final String AUDIENCE = "NotReallyImportant";
-
-	private static final String ISSUER = "YourCompanyOrAppNameHere";
+	private static final String ISSUER = "SkillsAssessmentServer";
 
 	private static final String SIGNING_KEY = "LongAndHardToGuessValueWithSpecialCharacters@^($%*$%";
 
@@ -38,16 +35,13 @@ public class Token {
 			throw new RuntimeException(e);
 		}
 
-		// Configure JSON token
 		JsonToken token = new net.oauth.jsontoken.JsonToken(signer);
-		token.setAudience(AUDIENCE);
 		token.setIssuedAt(new org.joda.time.Instant(cal.getTimeInMillis()));
 		token.setExpiration(new org.joda.time.Instant(cal.getTimeInMillis() + 1000L * 60L * 60L * 24L * durationDays));
-
-		// Configure request object, which provides information of the item
 		JsonObject request = new JsonObject();
 		request.addProperty("userId", userId);
-
+		request.addProperty("issuer", token.getIssuedAt().toString());
+		request.addProperty("expiration", token.getExpiration().toString());
 		JsonObject payload = token.getPayloadAsJsonObject();
 		payload.add("info", request);
 
@@ -72,14 +66,11 @@ public class Token {
 			VerifierProviders locators = new VerifierProviders();
 			locators.setVerifierProvider(SignatureAlgorithm.HS256, hmacLocator);
 			net.oauth.jsontoken.Checker checker = new net.oauth.jsontoken.Checker() {
-
 				@Override
 				public void check(JsonObject payload) throws SignatureException {
-					// don't throw - allow anything
 				}
 
 			};
-			// Ignore Audience does not mean that the Signature is ignored
 			JsonTokenParser parser = new JsonTokenParser(locators, checker);
 			JsonToken jt;
 			try {
@@ -91,11 +82,13 @@ public class Token {
 			TokenInfo t = new TokenInfo();
 			String issuer = payload.getAsJsonPrimitive("iss").getAsString();
 			String userIdString = payload.getAsJsonObject("info").getAsJsonPrimitive("userId").getAsString();
+
 			if (issuer.equals(ISSUER) && !StringUtils.isBlank(userIdString)) {
 				t.setUserId(userIdString);
-				//t.setUserId(new ObjectId(userIdString));
-				t.setIssued(new DateTime(payload.getAsJsonPrimitive("iat").getAsLong()));
-				t.setExpires(new DateTime(payload.getAsJsonPrimitive("exp").getAsLong()));
+				String issuerN = payload.getAsJsonObject("info").getAsJsonPrimitive("issuer").getAsString();
+				String expirationN = payload.getAsJsonObject("info").getAsJsonPrimitive("expiration").getAsString();
+				t.setIssued(new DateTime(issuerN));
+				t.setExpires(new DateTime(expirationN));
 				return t;
 			} else {
 				return null;
@@ -108,12 +101,10 @@ public class Token {
 	public static void main(String[] args) {
 		String token = Token.createJsonWebToken("12568", (long) 10);
 		TokenInfo tf = Token.verifyToken(token);
-		
+
 		System.out.println(token);
-		
-		System.out.println(tf.getExpires().getDayOfMonth());
 		System.out.println(tf.getUserId());
-		System.out.println(tf.getIssued());
-		
+		System.out.println(tf.getIssued().getDayOfMonth());
+
 	}
 }

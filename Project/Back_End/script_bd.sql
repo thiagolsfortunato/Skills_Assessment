@@ -9,6 +9,7 @@ create table usuario (
     usu_situacao smallint default 0,
     usu_verificado smallint default 0,
     usu_tipo varchar (50) ,
+    usu_token varchar(500),
     constraint pk_usu primary key (usu_codigo)
 )engine=innodb;
 
@@ -34,11 +35,22 @@ create table aluno (
 	constraint fk_usr foreign key (usu_codigo) references usuario (usu_codigo)
 )engine=innodb;
 
+
+create table curso (
+	cur_codigo int auto_increment,
+    cur_nome varchar (250),
+    cur_situacao smallint,
+    cur_data_cadastro timestamp,
+    constraint cur_pk primary key (cur_codigo)
+)engine=innodb;
+
 create table semestre (
 	sem_codigo int auto_increment,
 	sem_ano int ,
 	sem_semestre int,
-	constraint pk_sem primary key (sem_codigo);
+    cur_codigo int,
+	constraint pk_sem primary key (sem_codigo),
+    constraint fk_cur foreign key (cur_codigo) references curso (cur_codigo)
 )engine=innodb;
 
 create table funcionario (
@@ -129,32 +141,36 @@ create table media(
 
 insert into aluno (alu_nome,alu_ra,alu_cpf,alu_nascimento,alu_cep,
 		alu_endereco,alu_bairro,alu_cidade,alu_uf,alu_numero,alu_complemento,alu_telefone,
-        alu_celular,alu_data_cadastro) values (
+        alu_celular,alu_data_cadastro,alu_usuario_cadastro,usu_codigo) values (
 		'EDUARDO ALVES','123456789','42487690852','1994-08-07','12232-090','RUA ALFREDO C', 'BOSQUE', 'SJC', 'SP', 1602, 'CASA', '39334446', '988849273',
-        '2008-01-01 00:00:01');
+        '2008-01-01 00:00:01',1,2);
         
 insert into aluno (alu_nome,alu_ra,alu_cpf,alu_nascimento,alu_cep,
 		alu_endereco,alu_bairro,alu_cidade,alu_uf,alu_numero,alu_complemento,alu_telefone,
-        alu_celular,alu_data_cadastro) values (
+        alu_celular,alu_data_cadastro,alu_usuario_cadastro,usu_codigo) values (
 		'Pedro alves','123456789','42487690852','1994-08-07','12232-090','RUA ALFREDO C', 'BOSQUE', 'SJC', 'SP', 1602, 'CASA', '39334446', '988849273',
-        '2008-01-01 00:00:01');
+        '2008-01-01 00:00:01',1,3);
 
 insert into funcionario (
     fun_nome,fun_rg,fun_nascimento,fun_sexo,fun_cep ,fun_endereco ,fun_bairro ,fun_cidade ,
-    fun_numero ,fun_telefone,fun_celular ,fun_data_cadastro) values (
+    fun_numero ,fun_telefone,fun_celular ,fun_data_cadastro,usu_codigo) values (
     'JOAO' , '26125181515', '1992-05-04',1,'12232050','AQUI','LA', 'SJC', 100,
-    '1239335566','955145151','2016-01-01 00:00:01');
+    '1239335566','955145151','2016-01-01 00:00:01',1);
 
+insert into usuario (
+    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo) 
+    values ('joao','1234',1,1,'funcionario');  
+    
+insert into usuario (
+    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo) 
+    values ('edu','1234',1,1,'aluno');
+    
+insert into usuario (
+    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo) 
+    values ('pedro','1234',1,1,'aluno'); 
+    
+  
 
-insert into usuario (
-    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo,frk_pessoa) 
-    values ('edu','1234',1,1,'aluno',1);
-insert into usuario (
-    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo,frk_pessoa) 
-    values ('joao','1234',1,1,'funcionario',1);    
-insert into usuario (
-    usu_login ,usu_senha ,usu_situacao ,usu_verificado ,usu_tipo,frk_pessoa) 
-    values ('pedro','1234',1,1,'aluno',2); 
     
 select funcionario.fun_nome ,
 		aluno.alu_nome
@@ -163,4 +179,5 @@ where funcionario.fun_codigo=1;
 
 select * from aluno;
 select * from funcionario;
+select * from usuario;
 drop database SkillsAssessment;

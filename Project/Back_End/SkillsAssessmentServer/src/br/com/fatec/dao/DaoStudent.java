@@ -18,20 +18,16 @@ public class DaoStudent {
 	public static Student searchStudentByCode(Integer code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select alu_nome, alu_ra  from aluno where usu_codigo = '" + code +"';"; //MUDEI
+		String query = "select alu_codigo , alu_nome, alu_ra  from aluno where usu_codigo = " + code +";"; //MUDEI
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
 		while (rs.next()) {
-			student.setNumber(Long.parseLong(rs.getString(Student.COL_CODIGO))); // CONVERT
-																					// TO
-																					// LONG
+			student.setNumber(Long.parseLong(rs.getString(Student.COL_CODIGO))); // CONVERT TO LONG
 			student.setName(rs.getString(Student.COL_NOME));
 			student.setRa(rs.getString(Student.COL_RA));
-			student.setCpf(rs.getString(Student.COL_CPF));
-			student.setBirthDay(new Date(rs.getString(Student.COL_NASCIMENTO))); // CONVERTER
-																					// TO
-																					// DATE
+			/*student.setCpf(rs.getString(Student.COL_CPF));
+			student.setBirthDay(new Date(rs.getString(Student.COL_NASCIMENTO))); // CONVERTER TO DATE
 			student.setCep(rs.getString(Student.COL_CEP));
 			student.setAddress(rs.getString(Student.COL_ENDERECO));
 			student.setNeighborhood(rs.getString(Student.COL_BAIRRO));
@@ -49,10 +45,10 @@ public class DaoStudent {
 			student.getUser().setSituation(Integer.parseInt(rs.getString(User.COL_SITUACAO)));
 			student.getUser().setVerification(Integer.parseInt(rs.getString(User.COL_VERIFICACAO)));
 			student.getUser().setKindPerson(rs.getString(User.COL_TIPO));
-			student.getUser().setToken(rs.getString(User.COL_TOKEN));
+			student.getUser().setToken(rs.getString(User.COL_TOKEN));*/
 		}
 		rs.close();
-
+		conn.close();
 		return student;
 	}
 
