@@ -26,7 +26,7 @@ public class DaoStudent {
 			student.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
 			student.setName(rs.getString("STD_NAME"));
 			student.setRa(rs.getString("STD_RA"));
-			student.setCpf(rs.getString("STD_CPF"));
+			/*student.setCpf(rs.getString("STD_CPF"));
 			student.setBirthDay(new Date(rs.getString("STD_BIRTH"))); // CONVERTER TO DATE
 			student.setCep(rs.getString("STD_CEP"));
 			student.setAddress(rs.getString("STD_ADDRESS"));
@@ -45,7 +45,7 @@ public class DaoStudent {
 			student.getUser().setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
 			student.getUser().setVerification(Integer.parseInt(rs.getString("USR_VERIFED")));
 			student.getUser().setKindPerson(rs.getString("USR_KIND"));
-			student.getUser().setToken(rs.getString("USR_TOKEN"));
+			student.getUser().setToken(rs.getString("USR_TOKEN"));*/
 		}
 		rs.close();
 		conn.close();
