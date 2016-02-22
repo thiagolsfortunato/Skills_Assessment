@@ -14,11 +14,10 @@ import br.com.fatec.model.student.Student;
 
 public class DaoStudent {
 
-	@SuppressWarnings("deprecation")
 	public static Student searchStudentByCode(Integer code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select STD_CODE, STD_NAME, STD_RA from STUDENT where STD_CODE = " + code +";"; //join table with User to bring the rest of the information
+		String query = "select STD_CODE, STD_NAME, STD_RA, STD_CPF, STD_BIRTH, STD_CEP, STD_ADDRESS, STD_NEIGHBORHOOD, STD_CITY, STD_UF, STD_NUMBER, STD_COMPLEMENT, STD_TELEPHONE, STD_CELLPHONE, STD_REGISTRATION_DATE, STD_USER_REGISTER, STUDENT.USR_CODE, USR_USERNAME, USR_PASSWORD, USR_SITUATION,USR_VERIFIED,USR_KIND from STUDENT INNER JOIN USER ON STUDENT.USR_CODE = USER.USR_CODE where STUDENT.USR_CODE = " + code +";"; //join table with User to bring the rest of the information
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
@@ -26,27 +25,27 @@ public class DaoStudent {
 			student.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
 			student.setName(rs.getString("STD_NAME"));
 			student.setRa(rs.getString("STD_RA"));
-			/*student.setCpf(rs.getString("STD_CPF"));
-			student.setBirthDay(new Date(rs.getString("STD_BIRTH"))); // CONVERTER TO DATE
+			student.setCpf(rs.getString("STD_CPF"));
+			//student.setBirthDay(new Date(rs.getString("STD_BIRTH"))); // CONVERTER TO DATE
 			student.setCep(rs.getString("STD_CEP"));
 			student.setAddress(rs.getString("STD_ADDRESS"));
 			student.setNeighborhood(rs.getString("STD_NEIGHBORHOOD"));
-			student.setCity(rs.getString("STD)_CITY"));
+			student.setCity(rs.getString("STD_CITY"));
 			student.setUf(rs.getString("STD_UF"));
-			student.setNumberHouse(Integer.parseInt(rs.getString("STD_NUMER")));
+			student.setNumberHouse(Integer.parseInt(rs.getString("STD_NUMBER")));
 			student.setComplement(rs.getString("STD_COMPLEMENT"));
 			student.setTelephone(rs.getString("STD_TELEPHONE"));
 			student.setCellphone(rs.getString("STD_CELLPHONE"));
-			student.setRegister(new Date(rs.getString("STD_REGISTRATION_DATE")));
+			//student.setRegister(new Date(rs.getString("STD_REGISTRATION_DATE")));
 			student.setUser_register(Long.parseLong(rs.getString("STD_USER_REGISTER")));
-			student.getUser().setUserCode(Integer.parseInt(rs.getString("USR_CODE")));
-			student.getUser().setUserName(rs.getString("USR_USERNAME"));
-			student.getUser().setPassword(rs.getString("USR_PASSWORD"));
-			student.getUser().setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
-			student.getUser().setVerification(Integer.parseInt(rs.getString("USR_VERIFED")));
-			student.getUser().setKindPerson(rs.getString("USR_KIND"));
-			student.getUser().setToken(rs.getString("USR_TOKEN"));*/
+			student.setUserCode(Integer.parseInt(rs.getString("STUDENT.USR_CODE")));
+			student.setPassword(rs.getString("USR_PASSWORD"));
+			student.setUserName(rs.getString("USR_USERNAME"));
+			student.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
+			student.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
+			student.setKindPerson(rs.getString("USR_KIND"));
 		}
+		
 		rs.close();
 		conn.close();
 		return student;

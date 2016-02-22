@@ -23,7 +23,7 @@ public class Student extends User{
 	private String cellphone;
 	private Date register;
 	private Long user_register;
-	private User user;
+	
 	
 	public Student(){};
 		
@@ -47,7 +47,7 @@ public class Student extends User{
 		this.cellphone = cellphone;
 		this.register = register;
 		this.user_register = user_register;
-		this.user = user;
+		
 	}
 
 
@@ -179,11 +179,4 @@ public class Student extends User{
 		this.user_register = user_register;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 }

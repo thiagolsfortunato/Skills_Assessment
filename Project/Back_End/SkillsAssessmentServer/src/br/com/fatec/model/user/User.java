@@ -10,7 +10,6 @@ public class User {
 	private String kindPerson;
 	private String token;
 	
-	public User(){};
 	
 	public int getUserCode() {
 		return userCode;
