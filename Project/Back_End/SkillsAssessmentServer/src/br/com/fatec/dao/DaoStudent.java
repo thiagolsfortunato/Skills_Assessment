@@ -18,34 +18,34 @@ public class DaoStudent {
 	public static Student searchStudentByCode(Integer code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select std_code , std_name, std_ra  from student where std_code = " + code +";"; //join table with User to bring the rest of the information
+		String query = "select STD_CODE, STD_NAME, STD_RA from STUDENT where STD_CODE = " + code +";"; //join table with User to bring the rest of the information
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
 		while (rs.next()) {
-			student.setNumber(Long.parseLong(rs.getString(Student.COL_CODE))); // CONVERT TO LONG
-			student.setName(rs.getString(Student.COL_NAME));
-			student.setRa(rs.getString(Student.COL_RA));
-			/*student.setCpf(rs.getString(Student.COL_CPF));
-			student.setBirthDay(new Date(rs.getString(Student.COL_BIRTH))); // CONVERTER TO DATE
-			student.setCep(rs.getString(Student.COL_CEP));
-			student.setAddress(rs.getString(Student.COL_ADDRESS));
-			student.setNeighborhood(rs.getString(Student.COL_NEIGHBORHOOD));
-			student.setCity(rs.getString(Student.COL_CITY));
-			student.setUf(rs.getString(Student.COL_UF));
-			student.setNumberHouse(Integer.parseInt(rs.getString(Student.COL_NUMBER)));
-			student.setComplement(rs.getString(Student.COL_COMPLEMENT));
-			student.setTelephone(rs.getString(Student.COL_TELEPHONE));
-			student.setCellphone(rs.getString(Student.COL_CELLPHONE));
-			student.setRegister(new Date(rs.getString(Student.COL_REGISTRATION_DATE)));
-			student.setUser_register(Long.parseLong(rs.getString(Student.COL_USER_REGISTER)));
-			student.getUser().setUserCode(Integer.parseInt(rs.getString(Student.COL_USER_CODE)));
-			student.getUser().setUserName(rs.getString(User.COL_USERNAME));
-			student.getUser().setPassword(rs.getString(User.COL_PASSWORD));
-			student.getUser().setSituation(Integer.parseInt(rs.getString(User.COL_SITUATION)));
-			student.getUser().setVerification(Integer.parseInt(rs.getString(User.COL_VERIFIED)));
-			student.getUser().setKindPerson(rs.getString(User.COL_KIND));
-			student.getUser().setToken(rs.getString(User.COL_TOKEN));*/
+			student.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
+			student.setName(rs.getString("STD_NAME"));
+			student.setRa(rs.getString("STD_RA"));
+			student.setCpf(rs.getString("STD_CPF"));
+			student.setBirthDay(new Date(rs.getString("STD_BIRTH"))); // CONVERTER TO DATE
+			student.setCep(rs.getString("STD_CEP"));
+			student.setAddress(rs.getString("STD_ADDRESS"));
+			student.setNeighborhood(rs.getString("STD_NEIGHBORHOOD"));
+			student.setCity(rs.getString("STD)_CITY"));
+			student.setUf(rs.getString("STD_UF"));
+			student.setNumberHouse(Integer.parseInt(rs.getString("STD_NUMER")));
+			student.setComplement(rs.getString("STD_COMPLEMENT"));
+			student.setTelephone(rs.getString("STD_TELEPHONE"));
+			student.setCellphone(rs.getString("STD_CELLPHONE"));
+			student.setRegister(new Date(rs.getString("STD_REGISTRATION_DATE")));
+			student.setUser_register(Long.parseLong(rs.getString("STD_USER_REGISTER")));
+			student.getUser().setUserCode(Integer.parseInt(rs.getString("USR_CODE")));
+			student.getUser().setUserName(rs.getString("USR_USERNAME"));
+			student.getUser().setPassword(rs.getString("USR_PASSWORD"));
+			student.getUser().setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
+			student.getUser().setVerification(Integer.parseInt(rs.getString("USR_VERIFED")));
+			student.getUser().setKindPerson(rs.getString("USR_KIND"));
+			student.getUser().setToken(rs.getString("USR_TOKEN"));
 		}
 		rs.close();
 		conn.close();

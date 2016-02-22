@@ -6,22 +6,6 @@ import br.com.fatec.model.user.User;
 
 public class Employee extends User{
 	
-	public static final String TABLE = "EMPLOYEE";
-	public static final String COL_CODE = "EMP_CODE";
-	public static final String COL_NAME = "EMP_NAME";
-	public static final String COL_RG = "EMP_RG";
-	public static final String COL_BIRTH = "EMP_BIRTH";
-	public static final String COL_SEX = "EMP_SEXO";
-	public static final String COL_CEP = "EMP_CEP";
-	public static final String COL_ADDRESS = "EMP_ADDRESS";
-	public static final String COL_NEIGHBORHOOD = "EMP_NEIGHBORHOOD";
-	public static final String COL_CITY = "EMP_CITY";
-	public static final String COL_NUMBER = "EMP_NUMBER";
-	public static final String COL_TELEPHONE = "EMP_TELEPHONE";
-	public static final String COL_CELLPHONE = "EMP_CELLPHONE";
-	public static final String COL_REGISTRATION_DATE = "EMP_REGISTRATION_DATE";
-	public static final String COL_USRARIO = "USR_CODE";
-	
 	private Long number;
 	private String name;
 	private String cpf;

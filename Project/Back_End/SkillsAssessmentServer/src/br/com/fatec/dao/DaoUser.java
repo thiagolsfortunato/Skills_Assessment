@@ -19,22 +19,20 @@ public class DaoUser {
 		
 		ResultSet rs = null;
 		try {
-
-			String query = "select usr_kind, usr_code, usr_token from user where usr_username = '" + userName
-					+ "' and usr_password = '" + password + "';";
+			String query = "select usr_kind, usr_code, usr_token from user where usr_username = '" + userName + "' and usr_password = '" + password + "';";
 			PreparedStatement cmd;
 			cmd = (PreparedStatement) conn.prepareStatement(query);
 			rs = cmd.executeQuery();
 			if (rs != null) {
 				rs.next();
-				updateTokenUser(rs.getString(User.COL_CODE));
-				user.setKindPerson(rs.getString(User.COL_KIND));
-				user.setUserCode(Integer.parseInt(rs.getString(User.COL_CODE)));
-				user.setToken(rs.getString(User.COL_TOKEN));
+				updateTokenUser(rs.getString("USR_CODE"));
+				user.setKindPerson(rs.getString("USR_KIND"));
+				user.setUserCode(Integer.parseInt(rs.getString("USR_CODE")));
+				user.setToken(rs.getString("USR_TOKEN"));
 			}
 
 		} catch (SQLException e) {
-			// TODO: handle exception
+			// TODO: handle exceptions
 		} finally {
 			rs.close();
 			conn.close();

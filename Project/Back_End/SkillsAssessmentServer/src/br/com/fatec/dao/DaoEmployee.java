@@ -14,14 +14,14 @@ public class DaoEmployee {
 		
 		Employee employee = new Employee();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select fun_nome, fun_rg from funcionario where usu_codigo = '" + code +"';"; //MUDEI
+		String query = "select EMP_NAME, EMP_RG from EMPLOYEE where USR_CODE = '" + code +"';"; //MUDEI
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
 		
 		while (rs.next()) {
-			employee.setName(rs.getString("fun_nome"));
-			employee.setCpf(rs.getString("fun_rg")); //ARRUMAR BANCO
+			employee.setName(rs.getString("EMP_NAME"));
+			employee.setCpf(rs.getString("EMP_RG")); //ARRUMAR BANCO
 		}
 		rs.close();
 		
@@ -30,12 +30,12 @@ public class DaoEmployee {
 	
 	public void searchForName() throws SQLException {
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select * from funcionario;";
+		String query = "select * from EMPLOYEE ;";
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
 		while (rs.next()) {
-			System.out.println(rs.getString("fun_nome"));
+			System.out.println(rs.getString("EMP_NAME"));
 		}
 		rs.close();
 	}

@@ -1,6 +1,5 @@
 package br.com.fatec.model;
 
-import br.com.fatec.model.competencies.Competence;
 import br.com.fatec.model.course.Course;
 
 public class ModelCourse {
