@@ -151,9 +151,9 @@ insert into student (std_name,std_ra,std_cpf,std_birth,std_cep,
         '2008-01-01 00:00:01',1,3);
 
 insert into employee (
-    emp_name,emp_rg,emp_birth,emp_sex,emp_cep ,emp_address ,emp_neighborhood ,emp_city ,
+    emp_name,emp_cpf,emp_birth,emp_cep ,emp_address ,emp_neighborhood ,emp_city ,
     emp_number ,emp_telephone,emp_cellphone ,emp_registration_date,usr_code) values (
-    'JOAO' , '26125181515', '1992-05-04',1,'12232050','AQUI','LA', 'SJC', 100,
+    'JOAO' , '26125181515', '1992-05-04','12232050','AQUI','LA', 'SJC', 100,
     '1239335566','955145151','2016-01-01 00:00:01',1);
 
 insert into user (
