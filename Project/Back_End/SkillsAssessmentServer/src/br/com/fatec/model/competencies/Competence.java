@@ -1,4 +1,4 @@
-package br.com.fatec.model.Competencies;
+package br.com.fatec.model.competencies;
 
 import java.util.Date;
 

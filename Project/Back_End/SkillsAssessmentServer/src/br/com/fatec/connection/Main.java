@@ -11,7 +11,7 @@ import br.com.fatec.dao.DaoEmployee;
 import br.com.fatec.dao.DaoStudent;
 import br.com.fatec.dao.DaoUser;
 import br.com.fatec.model.ModelQuestion;
-import br.com.fatec.model.Competencies.Competence;
+import br.com.fatec.model.competencies.Competence;
 import br.com.fatec.model.employee.Employee;
 import br.com.fatec.model.question.Answer;
 import br.com.fatec.model.question.Competencies;
