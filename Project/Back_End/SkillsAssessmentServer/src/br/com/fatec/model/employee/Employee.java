@@ -19,16 +19,14 @@ public class Employee extends User{
 	private String complement;
 	private String telephone;
 	private String cellphone;
-	private Date register;
-	private Long user_register;
+	private Date registration_date;
 	private User user;
 	
-	public Employee(){};
-	
+	public Employee(){}
+
 	public Employee(Long number, String name, String cpf, Date birthDay, String cep, String address,
-			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
-			String cellphone, Date register, Long user_register, User user) {
-	
+			String neighborhood, String city, String uf, Integer numberHouse, String complement, String telephone,
+			String cellphone, Date registration_date, User user) {
 		this.number = number;
 		this.name = name;
 		this.cpf = cpf;
@@ -42,13 +40,9 @@ public class Employee extends User{
 		this.complement = complement;
 		this.telephone = telephone;
 		this.cellphone = cellphone;
-		this.register = register;
-		this.user_register = user_register;
-		this.setUser(user);
+		this.registration_date = registration_date;
+		this.user = user;
 	}
-
-
-
 
 	public Long getNumber() {
 		return number;
@@ -122,11 +116,11 @@ public class Employee extends User{
 		this.uf = uf;
 	}
 
-	public int getNumberHouse() {
+	public Integer getNumberHouse() {
 		return numberHouse;
 	}
 
-	public void setNumberHouse(int numberHouse) {
+	public void setNumberHouse(Integer numberHouse) {
 		this.numberHouse = numberHouse;
 	}
 
@@ -154,20 +148,12 @@ public class Employee extends User{
 		this.cellphone = cellphone;
 	}
 
-	public Date getRegister() {
-		return register;
+	public Date getRegistration_date() {
+		return registration_date;
 	}
 
-	public void setRegister(Date register) {
-		this.register = register;
-	}
-
-	public Long getUser_register() {
-		return user_register;
-	}
-
-	public void setUser_register(Long user_register) {
-		this.user_register = user_register;
+	public void setRegistration_date(Date registration_date) {
+		this.registration_date = registration_date;
 	}
 
 	public User getUser() {
@@ -176,5 +162,7 @@ public class Employee extends User{
 
 	public void setUser(User user) {
 		this.user = user;
-	}
+	};
+	
+	
 }

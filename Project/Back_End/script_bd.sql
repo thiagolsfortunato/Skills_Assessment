@@ -56,9 +56,8 @@ create table period (
 create table employee (
 	emp_code int auto_increment,
     emp_name varchar(250) ,
-    emp_rg varchar(25) ,
+    emp_cpf varchar(25) ,
     emp_birth date ,
-    emp_sex smallint ,
     emp_cep varchar(25) ,
     emp_address varchar(250) ,
     emp_neighborhood varchar(250),
