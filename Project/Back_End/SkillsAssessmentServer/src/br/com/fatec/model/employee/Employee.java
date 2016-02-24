@@ -1,11 +1,11 @@
 package br.com.fatec.model.employee;
 
-import java.util.Date;
+import java.sql.Date;
 
 import br.com.fatec.model.user.User;
 
-public class Employee extends User{
-	
+public class Employee extends User {
+
 	private Long code;
 	private String name;
 	private String cpf;
@@ -20,13 +20,12 @@ public class Employee extends User{
 	private String telephone;
 	private String cellphone;
 	private Date registration_date;
-	
-	public Employee(){}
 
-	public Employee(Long code, String name, String cpf, Date birthDay, String cep, String address,
-			String neighborhood, String city, String uf, Integer numberHouse, String complement, String telephone,
-			String cellphone, Date registration_date) {
-		
+	public Employee(){};
+
+	public Employee(Long code, String name, String cpf, Date birthDay, String cep, String address, String neighborhood,
+			String city, String uf, Integer numberHouse, String complement, String telephone, String cellphone,
+			Date registration_date) {
 		this.code = code;
 		this.name = name;
 		this.cpf = cpf;
@@ -155,4 +154,3 @@ public class Employee extends User{
 		this.registration_date = registration_date;
 	}
 }
-

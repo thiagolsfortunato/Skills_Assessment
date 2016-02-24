@@ -18,11 +18,11 @@ public class DaoEmployee {
 		Connection conn = ConnectionMySql.getConnection();
 
 		String sql = "insert into EMPLOYEE (emp_name, emp_cpf, emp_birth, emp_cep, emp_address, emp_neighborhood,"
-				+ "emp_city, emp_number, emp_telephone, emp_cellphone, emp_registration_date, usr_code) " + "values ("
+				+ "emp_city, emp_number, emp_telephone, emp_cellphone, emp_registration_date) " + "values ("
 				+ employee.getName() + "," + employee.getCpf() + "," + employee.getBirthDay() + "," + employee.getCep() + "," 
 				+ employee.getAddress() + "," + employee.getNeighborhood() + "," + employee.getCity() + "," 
 				+ employee.getNumberHouse() + "," + employee.getTelephone() + "," + employee.getCellphone() + "," 
-				+ employee.getRegistration_date() + "," + employee.getUserCode() + ")";
+				+ employee.getRegistration_date() + "," + employee.getUserCode() + ")"; //verificar como vai ser feito
 		
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(sql);
@@ -102,7 +102,7 @@ public class DaoEmployee {
 	}
 
 	//BUSCA POR NOME 
-	public void searchForName() throws SQLException {
+	public static void searchForName() throws SQLException {
 		Connection conn = ConnectionMySql.getConnection();
 		String query = "select * from EMPLOYEE ;";
 		PreparedStatement cmd;
@@ -114,5 +114,18 @@ public class DaoEmployee {
 		rs.close();
 	}
 	
+	
+	public static boolean update(Employee employee, Long code) throws SQLException{
+		Connection conn = ConnectionMySql.getConnection();
+		String sql = "update employee set emp_name='"+employee.getName()+"', emp_cpf='"+employee.getCpf()+"', emp_birth='"+employee.getBirthDay()+"', emp_cep='"+employee.getCep()+"', emp_address='"+employee.getAddress()+"', emp_neighborhood='"+employee.getNeighborhood()+"',"
+				+ "emp_city='"+employee.getCity()+"', emp_number='"+employee.getNumberHouse()+"', emp_telephone='"+employee.getTelephone()+"', emp_cellphone'"+employee.getCellphone()+"', emp_registration_date='"+employee.getRegistration_date()+"' where code="+code+";";
+		PreparedStatement cmd;
+		cmd = (PreparedStatement) conn.prepareStatement(sql);
+		if(cmd.execute()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }

@@ -9,7 +9,7 @@ import br.com.fatec.model.student.Student;
 
 public class ModelEmployee {
 	
-	public boolean addEmployee(Employee employee){
+	public boolean addEmployee(Employee employee, Long code){
 		try{
 			if (DaoEmployee.addEmployee(employee)){
 				return true;
@@ -18,7 +18,7 @@ public class ModelEmployee {
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
-			
+			System.out.println("Error when registering");
 		}
 		return false;
 	}
@@ -32,13 +32,23 @@ public class ModelEmployee {
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
-			
+			System.out.println("Error delete");
 		}
 		return false;
 	}	
 	
-	public Long updateEmployee(Employee comp, Long code){
-		return null;
+	public boolean updateEmployee(Employee employee, Long code){
+		try{
+			if(DaoEmployee.update(employee, code)){
+				return true;
+			}else{
+				return false;
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+			System.out.println("Error update");
+		}
+		return false;
 	}
 	
 	public Employee searchEmployeeByCode(Long code) {
