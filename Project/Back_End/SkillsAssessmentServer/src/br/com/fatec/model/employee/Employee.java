@@ -6,7 +6,7 @@ import br.com.fatec.model.user.User;
 
 public class Employee extends User{
 	
-	private Long number;
+	private Long code;
 	private String name;
 	private String cpf;
 	private Date birthDay;
@@ -20,14 +20,14 @@ public class Employee extends User{
 	private String telephone;
 	private String cellphone;
 	private Date registration_date;
-	private User user;
 	
 	public Employee(){}
 
-	public Employee(Long number, String name, String cpf, Date birthDay, String cep, String address,
+	public Employee(Long code, String name, String cpf, Date birthDay, String cep, String address,
 			String neighborhood, String city, String uf, Integer numberHouse, String complement, String telephone,
-			String cellphone, Date registration_date, User user) {
-		this.number = number;
+			String cellphone, Date registration_date) {
+		
+		this.code = code;
 		this.name = name;
 		this.cpf = cpf;
 		this.birthDay = birthDay;
@@ -41,15 +41,14 @@ public class Employee extends User{
 		this.telephone = telephone;
 		this.cellphone = cellphone;
 		this.registration_date = registration_date;
-		this.user = user;
 	}
 
-	public Long getNumber() {
-		return number;
+	public Long getCode() {
+		return code;
 	}
 
-	public void setNumber(Long number) {
-		this.number = number;
+	public void setCode(Long code) {
+		this.code = code;
 	}
 
 	public String getName() {
@@ -155,14 +154,5 @@ public class Employee extends User{
 	public void setRegistration_date(Date registration_date) {
 		this.registration_date = registration_date;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	};
-	
-	
 }
+

@@ -14,7 +14,7 @@ import br.com.fatec.model.student.Student;
 
 public class DaoStudent {
 
-	public static Student searchStudentByCode(Integer code) throws SQLException {
+	public static Student searchStudentByCode(Long code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
 		String query = "select STD_CODE, STD_NAME, STD_RA, STD_CPF, STD_BIRTH, STD_CEP, STD_ADDRESS, STD_NEIGHBORHOOD, STD_CITY, STD_UF, STD_NUMBER, STD_COMPLEMENT, STD_TELEPHONE, STD_CELLPHONE, STD_REGISTRATION_DATE, STD_USER_REGISTER, STUDENT.USR_CODE, USR_USERNAME, USR_PASSWORD, USR_SITUATION,USR_VERIFIED,USR_KIND from STUDENT INNER JOIN USER ON STUDENT.USR_CODE = USER.USR_CODE where STUDENT.USR_CODE = " + code +";"; //join table with User to bring the rest of the information
@@ -38,7 +38,7 @@ public class DaoStudent {
 			student.setCellphone(rs.getString("STD_CELLPHONE"));
 			//student.setRegister(new Date(rs.getString("STD_REGISTRATION_DATE")));
 			student.setUser_register(Long.parseLong(rs.getString("STD_USER_REGISTER")));
-			student.setUserCode(Integer.parseInt(rs.getString("STUDENT.USR_CODE")));
+			student.setUserCode(Long.parseLong(rs.getString("STUDENT.USR_CODE")));
 			student.setPassword(rs.getString("USR_PASSWORD"));
 			student.setUserName(rs.getString("USR_USERNAME"));
 			student.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));

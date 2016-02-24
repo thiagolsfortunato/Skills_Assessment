@@ -27,7 +27,7 @@ public class DaoUser {
 				rs.next();
 				updateTokenUser(rs.getString("USR_CODE"));
 				user.setKindPerson(rs.getString("USR_KIND"));
-				user.setUserCode(Integer.parseInt(rs.getString("USR_CODE")));
+				user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
 				user.setToken(rs.getString("USR_TOKEN"));
 			}
 

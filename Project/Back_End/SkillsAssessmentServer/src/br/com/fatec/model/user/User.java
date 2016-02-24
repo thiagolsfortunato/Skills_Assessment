@@ -2,7 +2,7 @@ package br.com.fatec.model.user;
 
 public class User {
 	
-	private Integer userCode;
+	private Long userCode;
 	private String userName;
 	private String password;
 	private Integer situation;
@@ -11,11 +11,11 @@ public class User {
 	private String token;
 	
 	
-	public int getUserCode() {
+	public Long getUserCode() {
 		return userCode;
 	}
 
-	public void setUserCode(int userCode) {
+	public void setUserCode(Long userCode) {
 		this.userCode = userCode;
 	}
 

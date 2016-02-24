@@ -10,7 +10,7 @@ public class ModelStudent {
 		return false;
 	}
 	
-	public Student searchStudentById(Integer code) { //MUDEI
+	public Student searchStudentById(Long code) { //MUDEI
 		
 		try {
 			Student student = new Student();
