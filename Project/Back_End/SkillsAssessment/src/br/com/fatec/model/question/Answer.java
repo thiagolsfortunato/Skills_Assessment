@@ -5,15 +5,8 @@ import java.util.List;
 public class Answer {
 	
 	private Long code;
-	private String answer;
-	private List<Competencies> competencies;
-	
-	public Answer(Long code, String answer, List<Competencies> competencies) {
-
-		this.code = code;
-		this.answer = answer;
-		this.competencies = competencies;
-	}
+	private String description;
+	private List<Competence> competencies;
 	
 	public Long getCode() {
 		return code;
@@ -21,16 +14,18 @@ public class Answer {
 	public void setCode(Long code) {
 		this.code = code;
 	}
-	public String getAnswer() {
-		return answer;
+	public String getDescription() {
+		return description;
 	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public List<Competencies> getCompetencies() {
+	public List<Competence> getCompetencies() {
 		return competencies;
 	}
-	public void setCompetencies(List<Competencies> competencies) {
+	public void setCompetencies(List<Competence> competencies) {
 		this.competencies = competencies;
-	}	
+	}
+	
+	
 }

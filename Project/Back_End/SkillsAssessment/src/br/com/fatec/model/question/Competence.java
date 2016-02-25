@@ -1,25 +1,19 @@
-package br.com.fatec.model.competencies;
+package br.com.fatec.model.question;
 
 import java.util.Date;
 
 public class Competence {
 	
-	private int number;
+	private Long number;
 	private String description;
 	private Date register;
+	private int weight;
 	
-	public Competence(int number, String description, Date register) {
-		super();
-		this.number = number;
-		this.description = description;
-		this.register = register;
-	}
-
-	public int getNumber() {
+	public Long getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Long number) {
 		this.number = number;
 	}
 
@@ -37,5 +31,13 @@ public class Competence {
 
 	public void setRegister(Date register) {
 		this.register = register;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 }

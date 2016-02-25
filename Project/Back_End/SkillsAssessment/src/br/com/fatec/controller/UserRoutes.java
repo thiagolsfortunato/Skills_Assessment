@@ -45,7 +45,6 @@ public class UserRoutes {
 			  res.status(400);
 			  return "ops, algum erro com LOGIN";
 			}, JsonUtil.json());
-
 	}
 
 }
