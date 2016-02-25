@@ -1,25 +1,8 @@
 package br.com.fatec.connection;
 
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.json.JSONException;
 
 import br.com.fatec.controller.UserRoutes;
-import br.com.fatec.dao.DaoEmployee;
-import br.com.fatec.dao.DaoStudent;
-import br.com.fatec.dao.DaoUser;
-import br.com.fatec.model.ModelQuestion;
-import br.com.fatec.model.competencies.Competence;
-import br.com.fatec.model.employee.Employee;
-import br.com.fatec.model.question.Answer;
-import br.com.fatec.model.question.Competencies;
-import br.com.fatec.model.question.Question;
-import br.com.fatec.model.student.Student;
-import br.com.fatec.model.user.User;
-
-
 
 public class Main {
 	
