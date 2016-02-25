@@ -25,10 +25,10 @@ public class DaoUser {
 			rs = cmd.executeQuery();
 			if (rs != null) {
 				rs.next();
-				updateTokenUser(rs.getString("USR_CODE"));
+				String token = updateTokenUser(rs.getString("USR_CODE"));
 				user.setKindPerson(rs.getString("USR_KIND"));
 				user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-				user.setToken(rs.getString("USR_TOKEN"));
+				user.setToken(rs.getString(token));
 			}
 
 		} catch (SQLException e) {
@@ -40,7 +40,7 @@ public class DaoUser {
 		}
 	}
 
-	private static void updateTokenUser(String id) throws SQLException {
+	private static String updateTokenUser(String id) throws SQLException {
 		Connection conn = ConnectionMySql.getConnection();
 		String tk = Token.createJsonWebToken(id, (long) 1);
 		String query = "UPDATE USER SET usr_token=?  WHERE usr_code=?";
@@ -52,7 +52,9 @@ public class DaoUser {
 		int rowsUpdated = cmd.executeUpdate();
 		if (rowsUpdated > 0){
 			System.out.println("An existing user was updated successfully!");
+			return tk;
 		}
+		return null;
 	}
 
 }
