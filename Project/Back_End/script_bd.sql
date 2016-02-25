@@ -74,7 +74,6 @@ create table employee (
 create table question(
 	qst_code int auto_increment,
     qst_question varchar(250) ,
-    qst_background varchar(250),
     qst_introduction varchar(250) ,
     qst_situation int,
     constraint pk_qst primary key (qst_code)
@@ -169,8 +168,75 @@ insert into user (
     values ('pedro','1234',1,1,'student'); 
     
   
+insert into question (qst_introduction,qst_question,qst_situation) 
+values ("imagem.jpeg","Quando terminou a 2º guerra?", 0);
 
-    
+insert into question (qst_introduction,qst_question,qst_situation) 
+values ("imagem.jpeg","Quem criou o computdor?", 0);
+
+insert into question (qst_introduction,qst_question,qst_situation) 
+values ( "imagem.jpeg","2 + 2 ?", 0);
+
+insert into question (qst_introduction,qst_question,qst_situation) 
+values ( "imagem.jpeg","5 + 4 ?", 0);
+
+insert into question (qst_introduction,qst_question,qst_situation) 
+values ("imagem.jpeg","Quando acaba?", 1);
+
+insert into question (qst_introduction,qst_question,qst_situation) 
+values ("imagem.jpeg","Quando vou tirar carta?", 1);
+
+insert into alternatives (alt_description,qst_code) values ("A",1);
+insert into alternatives (alt_description,qst_code) values ("B",2);
+insert into alternatives (alt_description,qst_code) values ("C",3);
+insert into alternatives (alt_description,qst_code) values ("D",4);
+insert into alternatives (alt_description,qst_code) values ("E",5);
+
+insert into alternatives (alt_description,qst_code) values ("F",1);
+insert into alternatives (alt_description,qst_code) values ("G",2);
+insert into alternatives (alt_description,qst_code) values ("H",3);
+insert into alternatives (alt_description,qst_code) values ("I",4);
+insert into alternatives (alt_description,qst_code) values ("J",5);
+insert into alternatives (alt_description,qst_code) values ("K",6);
+insert into alternatives (alt_description,qst_code) values ("L",6);
+
+insert into competence (com_kind,com_registration_date) values ('Determinação','2008-01-01 00:00:01');
+insert into competence (com_kind,com_registration_date) values ('Individualismo','2008-01-01 00:00:02');
+insert into competence (com_kind,com_registration_date) values ('Persuasão','2008-01-01 00:00:03');
+insert into competence (com_kind,com_registration_date) values ('Persistência','2008-01-01 00:00:04');
+insert into competence (com_kind,com_registration_date) values ('Obediência','2008-01-01 00:00:05');
+
+insert into alt_com (alt_code,com_code,rsc_weight) values (1,1,1);
+insert into alt_com (alt_code,com_code,rsc_weight) values (1,2,7);
+insert into alt_com (alt_code,com_code,rsc_weight) values (2,4,8);
+insert into alt_com (alt_code,com_code,rsc_weight) values (2,3,5);
+insert into alt_com (alt_code,com_code,rsc_weight) values (3,1,8);
+insert into alt_com (alt_code,com_code,rsc_weight) values (3,5,5);
+
+select * from alternatives where qst_code = 2;
+
+insert into quiz (std_code,qst_code,alt_code,quz_date,quz_duration) values (1,1,1,current_date(),'00:39:38');
+-- insert into quiz (std_code,qst_code,alt_code,quz_date,quz_duration) values (2,1,1,current_date(),'00:40:38');
+-- insert into quiz (std_code,qst_code,alt_code,quz_date,quz_duration) values (1,2,2,current_date(),'00:41:38');
+-- insert into quiz (std_code,qst_code,alt_code,quz_date,quz_duration) values (2,2,2,current_date(),'00:45:38');
+-- insert into quiz (std_code,qst_code,alt_code,quz_date,quz_duration) values (1,3,3,current_date(),'00:41:38');
+truncate quiz;
+
+
+
+select question.qst_code as qst_code,question.qst_question,qst_introduction,alternatives.alt_code,alt_description,
+competence.com_code,competence.com_kind
+from question inner join alternatives on alternatives.qst_code = question.qst_code 
+inner join alt_com on alt_com.alt_code = alternatives.alt_code
+inner join competence on alt_com.com_code = competence.com_code
+where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where std_code = 1) order by question.qst_code ;
+
+select * from question where qst_code = 2;
+
+select min(question.qst_code) 
+from question where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where std_code = 1) order by question.qst_code;
+
+
 select employee.emp_name ,
 		student.std_name
 from student inner join employee on student.std_user_register = employee.emp_code
