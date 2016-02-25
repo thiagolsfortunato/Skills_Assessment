@@ -10,8 +10,8 @@ public class Main {
 	
 	public static void main(String[] args) throws JSONException{
 		
-		final UserRoutes rest = new UserRoutes();
-		
+		 UserRoutes rest = new UserRoutes();
+		 rest.getLogin();
 		//rest.getLogin(); CODIGO COMENTADO POR CONTA DOS OUTROS COMENTARIOS
 
 /*		try {

@@ -35,6 +35,7 @@ public class UserRoutes {
 				  System.out.println("aqui funfou");
 				  ModelStudent modelSt = new ModelStudent();
 				  Student stu = modelSt.searchStudentById(user.getUserCode());
+				  Object studentLogin = null;
 				  return stu;
 			  }
 			  else if( (user.getKindPerson() != null) && (user.getKindPerson().equals("psicologo")) ){

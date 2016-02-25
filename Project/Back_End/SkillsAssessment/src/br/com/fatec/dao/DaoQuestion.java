@@ -134,7 +134,7 @@ public class DaoQuestion {
 		}
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		DaoQuestion dao = new DaoQuestion();
 		try {
 			Question d = new Question();
@@ -146,5 +146,5 @@ public class DaoQuestion {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
