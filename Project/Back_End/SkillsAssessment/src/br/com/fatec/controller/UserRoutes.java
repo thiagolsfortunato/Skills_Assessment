@@ -22,71 +22,30 @@ import spark.Response;
 import spark.Route;
 
 public class UserRoutes {
-
-	/* 
-	 * CODIGO COMENTADO PARA ALTERAR A CLASSE PARA O NOVO FORMATO DE JSON
-	 * PASSANDO COMO PARAMETRO UM OBJETO !!!!!
-	 * 
-
+	
 	public void getLogin(){
-		
-		
-		get(new Route("/login/:user/:password"){
-			@Override
-	         public Object handle(Request request, Response response){
+		ModelUser login = new ModelUser();
 				
-				try{
-					ModelUser user = new ModelUser();
-					User login = user.getLogin(request.params(":user"), request.params(":password"));
-					
-					if( (login != null) && (login.getKindPerson().equals("student")) ){
-						ModelStudent modelSt = new ModelStudent();
-						Student stu = modelSt.searchStudentById(login.getUserCode());
-						
-						JSONArray jsonResult = new JSONArray();
-							JSONObject jsonStudent = new JSONObject();
+		get("/login/:email/:password", (req, res) -> {
+			  String email = req.params(":email");
+			  String senha = req.params(":password");
+			  User user = login.getLogin(email, senha);
+			  
+			  if ( (user.getKindPerson() != null) && (user.getKindPerson().equals("student")) ) {
+				  System.out.println("aqui funfou");
+				  ModelStudent modelSt = new ModelStudent();
+				  Student stu = modelSt.searchStudentById(user.getUserCode());
+				  return stu;
+			  }
+			  else if( (user.getKindPerson() != null) && (user.getKindPerson().equals("psicologo")) ){
+				  ModelEmployee modelEmp = new ModelEmployee();
+				  Employee emp = modelEmp.searchEmployeeByCode(user.getUserCode());
+				  return emp;
+			  }
+			  res.status(400);
+			  return "ops, algum erro com LOGIN";
+			}, JsonUtil.json());
 
-			        		jsonStudent.put("name", stu.getName());
-			        		jsonStudent.put("ra", stu.getRa());
-			        		jsonStudent.put("kind", login.getKindPerson());
-			        		jsonStudent.put("token", login.getToken());
-		        		
-			        		jsonResult.put(jsonStudent);
-		        		
-		        		return jsonResult;
-
-					}else if( (login != null) && login.getKindPerson().equals("psicologo")){
-						ModelEmployee modelEmp = new ModelEmployee();
-						Employee emp = modelEmp.searchEmployeeByCode(login.getUserCode());
-						
-						JSONArray jsonResult = new JSONArray();
-							JSONObject jsonEmployee = new JSONObject();
-						
-							jsonEmployee.put("name", emp.getName().toLowerCase());
-							jsonEmployee.put("cpf", emp.getCpf());
-							jsonEmployee.put("tipo", login.getKindPerson());
-							jsonEmployee.put("token", login.getToken());
-							
-							jsonResult.put(jsonEmployee);
-							
-						return jsonResult;
-					}else{
-						JSONObject jsonFail = new JSONObject();
-						
-						jsonFail.put("-2020", "Ops, algo deu errado. LOGIN ou SENHA");
-						
-						
-						return jsonFail;
-					}
-				}
-				catch (JSONException e){
-					e.printStackTrace();
-					System.out.println("erro, JSON");
-				}
-			
-				return null;
-			}
-		});
 	}
-*/
+
 }
