@@ -17,7 +17,7 @@ public class DaoStudent {
 	public static Student searchStudentByCode(Long code) throws SQLException {
 		Student student = new Student();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select STD_CODE, STD_NAME, STD_RA, STD_CPF, STD_BIRTH, STD_CEP, STD_ADDRESS, STD_NEIGHBORHOOD, STD_CITY, STD_UF, STD_NUMBER, STD_COMPLEMENT, STD_TELEPHONE, STD_CELLPHONE, STD_REGISTRATION_DATE, STD_USER_REGISTER, STUDENT.USR_CODE, USR_USERNAME, USR_PASSWORD, USR_SITUATION,USR_VERIFIED,USR_KIND from STUDENT INNER JOIN USER ON STUDENT.USR_CODE = USER.USR_CODE where STUDENT.USR_CODE = " + code +";"; //join table with User to bring the rest of the information
+		String query = "select STD_CODE, STD_NAME, STD_RA, STD_CPF, STD_BIRTH, STD_CEP, STD_ADDRESS, STD_NEIGHBORHOOD, STD_CITY, STD_UF, STD_NUMBER, STD_COMPLEMENT, STD_TELEPHONE, STD_CELLPHONE, STD_REGISTRATION_DATE, STD_USER_REGISTER, STUDENT.USR_CODE, USR_USERNAME, USR_PASSWORD, USR_SITUATION,USR_VERIFIED,USR_KIND,USR_TOKEN from STUDENT INNER JOIN USER ON STUDENT.USR_CODE = USER.USR_CODE where STUDENT.USR_CODE = " + code +";"; //join table with User to bring the rest of the information
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
@@ -44,6 +44,7 @@ public class DaoStudent {
 			student.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
 			student.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
 			student.setKindPerson(rs.getString("USR_KIND"));
+			student.setToken(rs.getString("USR_TOKEN"));
 		}
 		
 		rs.close();

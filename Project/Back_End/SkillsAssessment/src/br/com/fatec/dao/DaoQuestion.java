@@ -134,17 +134,17 @@ public class DaoQuestion {
 		}
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		DaoQuestion dao = new DaoQuestion();
 		try {
 			Question d = new Question();
 			d = dao.getQuestion((long)1);
-			System.out.println(d.getCode());
-			System.out.println(d.getQuestion());
-			
+			//System.out.println(d.getCode());
+			//System.out.println(d.getQuestion());
+						
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
 }
