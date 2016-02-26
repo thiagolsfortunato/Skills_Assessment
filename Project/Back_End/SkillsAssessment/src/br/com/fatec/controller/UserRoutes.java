@@ -22,30 +22,28 @@ import spark.Response;
 import spark.Route;
 
 public class UserRoutes {
-	
-	public void getLogin(){
+
+	public void getLogin() {
 		ModelUser login = new ModelUser();
-				
+
 		get("/login/:email/:password", (req, res) -> {
-			  String email = req.params(":email");
-			  String senha = req.params(":password");
-			  User user = login.getLogin(email, senha);
-			  
-			  if ( (user.getKindPerson() != null) && (user.getKindPerson().equals("student")) ) {
-				  System.out.println("aqui funfou");
-				  ModelStudent modelSt = new ModelStudent();
-				  Student stu = modelSt.searchStudentById(user.getUserCode());
-				  Object studentLogin = null;
-				  return stu;
-			  }
-			  else if( (user.getKindPerson() != null) && (user.getKindPerson().equals("psicologo")) ){
-				  ModelEmployee modelEmp = new ModelEmployee();
-				  Employee emp = modelEmp.searchEmployeeByCode(user.getUserCode());
-				  return emp;
-			  }
-			  res.status(400);
-			  return "ops, algum erro com LOGIN";
-			}, JsonUtil.json());
+			String email = req.params(":email");
+			String senha = req.params(":password");
+			User user = login.getLogin(email, senha);
+
+			if ((user.getKindPerson() != null) && (user.getKindPerson().equals("student"))) {
+				System.out.println("aqui funfou");
+				ModelStudent modelSt = new ModelStudent();
+				Student stu = modelSt.searchStudentById(user.getUserCode());
+				return stu;
+			} else if ((user.getKindPerson() != null) && (user.getKindPerson().equals("psicologo"))) {
+				ModelEmployee modelEmp = new ModelEmployee();
+				Employee emp = modelEmp.searchEmployeeByCode(user.getUserCode());
+				return emp;
+			}
+			res.status(400);
+			return "ops, algum erro com LOGIN";
+		} , JsonUtil.json());
 	}
 
 }
