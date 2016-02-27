@@ -1,0 +1,26 @@
+
+//Classe teste
+private class Usuario {
+
+    public String nome;
+
+    public Usuario(String Nome) {
+        this.nome = Nome;
+    }
+}
+
+//https://github.com/google/gson   (Download do pacote) Gson
+Gson g = new Gson();
+
+//Recebe string json da api e converte em objeto 
+Usuario usuario = g.fromJson("{\"nome\": \"diego\"}", Usuario.class);
+
+System.out.println(usuario.nome); //diego
+
+
+//Converter para String Json (Para devolver ao front-end)
+
+System.out.println(g.toJson(usuario)); // {"nome":"diego"}
+
+
+//Source:	http://stackoverflow.com/questions/2591098/how-to-parse-json-in-java
