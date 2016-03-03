@@ -2,7 +2,7 @@ package br.com.fatec.connection;
 
 import org.json.JSONException;
 
-import br.com.fatec.controller.UserRoutes;
+import br.com.fatec.controller.CourseRoutes;
 
 public class Main {
 	
@@ -10,8 +10,8 @@ public class Main {
 	
 	public static void main(String[] args) throws JSONException{
 		
-		 UserRoutes rest = new UserRoutes();
-		 rest.getLogin();
+		 CourseRoutes rest = new CourseRoutes();
+		 rest.getCourse();
 		//rest.getLogin(); CODIGO COMENTADO POR CONTA DOS OUTROS COMENTARIOS
 
 /*		try {

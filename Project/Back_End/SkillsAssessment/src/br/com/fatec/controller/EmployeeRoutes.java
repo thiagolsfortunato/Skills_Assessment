@@ -13,12 +13,17 @@ import br.com.fatec.model.employee.Employee;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 public class EmployeeRoutes {
 	ModelEmployee modelEmployee = new ModelEmployee();
+		
+	
 	/*
 	 * CODIGO COMENTADO PARA ALTERAR A CLASSE PARA O NOVO FORMATO DE JSON
 	 * PASSANDO COMO PARAMETRO UM OBJETO !!!!!

@@ -245,4 +245,17 @@ where employee.emp_code=1;
 select * from student;
 select * from employee;
 select * from user;
+
+select * from course;
+
+
+insert into course values (1,'Banco de Dados',1,'2008-01-01 00:00:01');
+insert into course values (2,'Estrutura Leves',1,'2008-01-01 00:00:01');
+insert into course values (3,'Logistica',1,'2008-01-01 00:00:01');
+insert into course values (4,'Manutenção de Aeronaves',1,'2008-01-01 00:00:01');
+insert into course values (5,'Gestão de Produção Industrial',1,'2008-01-01 00:00:01');
+insert into course values (5,'Gestão de Produção Industrial',1,sysdate());
+
+delete from course where crs_code = 1;
+
 drop database SkillsAssessment;
