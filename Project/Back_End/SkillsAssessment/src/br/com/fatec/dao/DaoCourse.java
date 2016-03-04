@@ -32,6 +32,7 @@ public class DaoCourse {
 		List<Course> listCourse = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course;";
+		connection.conect();
 		if (connection.executeQuery(query)) {
 			do {
 				Course course = new Course();
@@ -48,8 +49,6 @@ public class DaoCourse {
 			connection.close();
 			return null;
 		}
-		
-
 	}
 
 }

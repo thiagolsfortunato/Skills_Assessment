@@ -101,7 +101,6 @@ public class ConnectionMySql {
         } else {
             return true;
         }
-
     }
 
 	public static java.sql.Connection restartConnection() {
