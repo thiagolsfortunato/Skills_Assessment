@@ -48,3 +48,9 @@ local.properties
 
 # Code Recommenders
 .recommenders/
+
+#Main
+MainThiago.java
+MainEduardo.java
+MainMarcelo.java
+MainWilliam.java
