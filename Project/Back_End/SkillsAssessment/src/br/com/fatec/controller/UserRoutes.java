@@ -27,28 +27,32 @@ import spark.Route;
 
 public class UserRoutes {
 	String loginData = null;
+	String token = null;
+
 	public void getLogin() {
 		ModelUser login = new ModelUser();
 
 		post("/token", (req, res) -> {
+			token = req.headers("token");
 			loginData = req.body();
 			Gson gson = new Gson();
 
 			UserLogin usu = gson.fromJson(loginData, UserLogin.class);
 			System.out.println(usu.getPassword());
 
-			/*
-			 * User user = login.getLogin(usu.getUserName(), usu.getPassword());
-			 * 
-			 * if ((user.getKindPerson() != null) &&
-			 * (user.getKindPerson().equals("student"))) { System.out.println(
-			 * "aqui funfou"); ModelStudent modelSt = new ModelStudent();
-			 * Student stu = modelSt.searchStudentById(user.getUserCode());
-			 * return stu; } else if ((user.getKindPerson() != null) &&
-			 * (user.getKindPerson().equals("psicologo"))) { ModelEmployee
-			 * modelEmp = new ModelEmployee(); Employee emp =
-			 * modelEmp.searchEmployeeByCode(user.getUserCode()); return emp; }
-			 */
+			User user = login.getLogin(usu.getEmail(), usu.getPassword());
+
+			/*if ((user.getKindPerson() != null) && (user.getKindPerson().equals("student"))) {
+				System.out.println("aqui funfou");
+				ModelStudent modelSt = new ModelStudent();
+				Student stu = modelSt.searchStudentById(user.getUserCode());
+				return stu;
+			} else if ((user.getKindPerson() != null) && (user.getKindPerson().equals("psicologo"))) {
+				ModelEmployee modelEmp = new ModelEmployee();
+				Employee emp = modelEmp.searchEmployeeByCode(user.getUserCode());
+				return emp;
+			}*/
+
 			// res.status(400);
 			return "ops, algum erro com LOGIN";
 		} , JsonUtil.json());
