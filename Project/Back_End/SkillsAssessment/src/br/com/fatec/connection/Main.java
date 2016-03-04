@@ -9,7 +9,8 @@ public class Main {
 	//static ModelQuestion model = new ModelQuestion();
 	
 	public static void main(String[] args) throws JSONException{
-		
+		 
+		 CorsFilter.apply();
 		 CourseRoutes rest = new CourseRoutes();
 		 rest.getCourse();
 		//rest.getLogin(); CODIGO COMENTADO POR CONTA DOS OUTROS COMENTARIOS
