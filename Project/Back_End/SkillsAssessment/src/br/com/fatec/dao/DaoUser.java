@@ -28,7 +28,7 @@ public class DaoUser {
 				String token = updateTokenUser(rs.getString("USR_CODE"));
 				user.setKindPerson(rs.getString("USR_KIND"));
 				user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-				user.setToken(rs.getString(token));
+				user.setToken(token); //arrumado Marcelo.
 			}
 
 		} catch (SQLException e) {

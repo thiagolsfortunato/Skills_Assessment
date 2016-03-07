@@ -14,48 +14,88 @@ import com.google.gson.Gson;
 import br.com.fatec.dao.DaoEmployee;
 import br.com.fatec.dao.DaoStudent;
 import br.com.fatec.dao.DaoUser;
+import br.com.fatec.dao.Token;
 import br.com.fatec.model.ModelEmployee;
 import br.com.fatec.model.ModelStudent;
 import br.com.fatec.model.ModelUser;
 import br.com.fatec.model.employee.Employee;
 import br.com.fatec.model.student.Student;
+import br.com.fatec.model.token.TokenInfo;
 import br.com.fatec.model.user.User;
-import br.com.fatec.model.user.UserLogin;
+//import br.com.fatec.model.user.UserLogin;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 public class UserRoutes {
-	String loginData = null;
-	String token = null;
+	private String loginData = null;
+	private String token = null;
 
 	public void getLogin() {
 		ModelUser login = new ModelUser();
 
-		post("/token", (req, res) -> {
-			token = req.headers("token");
+		//minha idéia, é só devolver o TOKEN do usuário
+		post("/login", (req, res) -> {
+//			token = req.headers("token");
 			loginData = req.body();
 			Gson gson = new Gson();
 
-			UserLogin usu = gson.fromJson(loginData, UserLogin.class);
-			System.out.println(usu.getPassword());
+			User user = gson.fromJson(loginData, User.class);
+			System.out.println("Senha: " + user.getPassword());
+			try{
+				user = login.getLogin(user.getUserName(), user.getPassword());
 
-			User user = login.getLogin(usu.getEmail(), usu.getPassword());
-
-			/*if ((user.getKindPerson() != null) && (user.getKindPerson().equals("student"))) {
-				System.out.println("aqui funfou");
-				ModelStudent modelSt = new ModelStudent();
-				Student stu = modelSt.searchStudentById(user.getUserCode());
-				return stu;
-			} else if ((user.getKindPerson() != null) && (user.getKindPerson().equals("psicologo"))) {
-				ModelEmployee modelEmp = new ModelEmployee();
-				Employee emp = modelEmp.searchEmployeeByCode(user.getUserCode());
-				return emp;
-			}*/
-
-			// res.status(400);
-			return "ops, algum erro com LOGIN";
+				/*if ( user.getKindPerson().equals("student") ) {
+					System.out.println("aqui funfou");
+					System.out.println("TOKEN: " + user.getToken());
+					ModelStudent modelSt = new ModelStudent();
+					Student stu = modelSt.searchStudentById(user.getUserCode());
+					if( user.getToken() == null ){
+						TokenInfo token = Token.verifyToken( Token.createJsonWebToken(String.valueOf(user.getUserCode()), Long.parseLong("1")) ); 
+						return Token.verifyToken( Token.createJsonWebToken(String.valueOf(user.getUserCode()), Long.parseLong("1")) );
+					}				
+				} */
+				
+				return user.getToken();
+				// res.status(400);
+			} catch (NullPointerException e){
+				e.printStackTrace();
+				return "ops, algum erro com LOGIN, verifique os campos!";
+			}
+			return null;
 		} , JsonUtil.json());
 	}
+	
+	public void getToken() {
+		//aqui, apartir do token saber a quem pertence e fazer sub-chamadas
+		get("/token", (req, res) -> {
+			token = req.headers("token");
+						
+			try{
+				TokenInfo tokenInfo = Token.verifyToken(token);
+				switch (tokenInfo.getkindPerson()){ //ATENÇÃO-> ADICIONAR ATRIBUTO!
+					case "student":
+						//alguma coisa.
+						//chama StudentRoutes
+							//passando id;
+						break;
+					case "employee":
+						//alguma coisa.
+						//chama EmployeeRoutes
+						//passando id;
+						break;
+					default:
+						//alguma coisa.
+						break;	
+				}
+				
+			} catch (NullPointerException e){
+				e.printStackTrace();
+				return "ops, algum erro com TOKEN!";
+			}
+			return null;
+		} , JsonUtil.json());
+	}
+
 
 }
