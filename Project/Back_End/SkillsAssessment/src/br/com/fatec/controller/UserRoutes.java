@@ -62,18 +62,18 @@ public class UserRoutes {
 				e.printStackTrace();
 				return "ops, algum erro com LOGIN, verifique os campos!";
 			}
-			return null;
+			
 		} , JsonUtil.json());
 	}
 	
-	public void getToken() {
+	/*public void getToken() {
 		//aqui, apartir do token saber a quem pertence e fazer sub-chamadas
 		get("/token", (req, res) -> {
 			token = req.headers("token");
 						
 			try{
 				TokenInfo tokenInfo = Token.verifyToken(token);
-				switch (tokenInfo.getkindPerson()){ //ATENÇÃO-> ADICIONAR ATRIBUTO!
+				switch (tokenInfo.getKindPerson()){ //ATENÇÃO-> ADICIONAR ATRIBUTO!
 					case "student":
 						//alguma coisa.
 						//chama StudentRoutes
@@ -95,7 +95,7 @@ public class UserRoutes {
 			}
 			return null;
 		} , JsonUtil.json());
-	}
+	}*/
 
 
 }
