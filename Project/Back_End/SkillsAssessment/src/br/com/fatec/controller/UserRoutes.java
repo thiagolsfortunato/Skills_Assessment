@@ -3,34 +3,18 @@ package br.com.fatec.controller;
 import static spark.Spark.post;
 import static spark.Spark.get;
 
-import java.sql.SQLException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.google.gson.Gson;
-
-import br.com.fatec.dao.DaoEmployee;
-import br.com.fatec.dao.DaoStudent;
-import br.com.fatec.dao.DaoUser;
-import br.com.fatec.dao.Token;
 import br.com.fatec.model.ModelEmployee;
 import br.com.fatec.model.ModelStudent;
 import br.com.fatec.model.ModelUser;
-import br.com.fatec.model.employee.Employee;
-import br.com.fatec.model.student.Student;
-import br.com.fatec.model.token.TokenInfo;
 import br.com.fatec.model.user.User;
-//import br.com.fatec.model.user.UserLogin;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 public class UserRoutes {
 	private String loginData = null;
 	private String token = null;
 
+	@SuppressWarnings("finally")
 	public void getLogin() {
 		ModelUser login = new ModelUser();
 		post("/login", (req, res) -> {
