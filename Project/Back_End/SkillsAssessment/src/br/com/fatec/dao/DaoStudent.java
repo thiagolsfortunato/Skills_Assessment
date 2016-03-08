@@ -19,7 +19,7 @@ public class DaoStudent {
 	public static Student getStudentByCode(Long code) throws SQLException {
 		Connection conn = null;
 		PreparedStatement cmd = null;
-		String query = "select STD_NAME from STUDENT S inner join USER U on S.USR_CODE = U.USR_CODE WHERE s.usr_code = " + code + ";"; //join table with User to bring the rest of the information
+		String query = "select STD_CODE,STD_NAME from STUDENT S inner join USER U on S.USR_CODE = U.USR_CODE WHERE s.usr_code = " + code + ";"; //join table with User to bring the rest of the information
 		try{
 			conn = ConnectionMySql.getConnection();
 			cmd = (PreparedStatement) conn.prepareStatement(query);
@@ -68,8 +68,8 @@ public class DaoStudent {
 		Student retorno = new Student();
 			rs.next();
 			retorno.setName(rs.getString("STD_NAME"));
-			/*retorno.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
-			retorno.setName(rs.getString("STD_NAME"));
+			retorno.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
+			/*retorno.setName(rs.getString("STD_NAME"));
 			retorno.setRa(rs.getString("STD_RA"));
 			retorno.setCpf(rs.getString("STD_CPF"));
 			//retorno.setBirthDay(new Date(rs.getString("STD_BIRTH"))); // CONVERTER TO DATE

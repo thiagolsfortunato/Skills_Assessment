@@ -14,7 +14,6 @@ import br.com.fatec.model.ModelUser;
 import br.com.fatec.model.question.Question;
 import br.com.fatec.model.student.Student;
 import br.com.fatec.model.user.User;
-import br.com.fatec.model.user.UserLogin;
 import spark.Request;
 import spark.Response;
 import spark.Route;

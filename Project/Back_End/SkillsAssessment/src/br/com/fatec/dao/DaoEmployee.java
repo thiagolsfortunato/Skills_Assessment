@@ -87,14 +87,14 @@ public class DaoEmployee {
 	public static Employee searchByCode(Long code) throws SQLException {
 		Employee employee = new Employee();
 		Connection conn = ConnectionMySql.getConnection();
-		String query = "select EMP_NAME, EMP_CPF from EMPLOYEE where USR_CODE = '" + code + "';"; // MUDEI
+		String query = "select EMP_NAME, EMP_CPF from EMPLOYEE where USR_CODE = " + code + ";"; 
 		PreparedStatement cmd;
 		cmd = (PreparedStatement) conn.prepareStatement(query);
 		ResultSet rs = cmd.executeQuery();
 
 		while (rs.next()) {
 			employee.setName(rs.getString("EMP_NAME"));
-			employee.setCpf(rs.getString("EMP_CPF")); // ARRUMAR BANCO
+			employee.setCpf(rs.getString("EMP_CPF")); 
 		}
 		rs.close();
 
