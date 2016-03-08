@@ -19,7 +19,7 @@ public class DaoStudent {
 	public static Student getStudentByCode(Long code) throws SQLException {
 		Connection conn = null;
 		PreparedStatement cmd = null;
-		String query = "select * from STUDENT S inner join USER U on S.USR_CODE = U.USR_CODE WHERE s.usr_code = " + code + ";"; //join table with User to bring the rest of the information
+		String query = "select STD_NAME from STUDENT S inner join USER U on S.USR_CODE = U.USR_CODE WHERE s.usr_code = " + code + ";"; //join table with User to bring the rest of the information
 		try{
 			conn = ConnectionMySql.getConnection();
 			cmd = (PreparedStatement) conn.prepareStatement(query);
@@ -36,7 +36,6 @@ public class DaoStudent {
 		
 	}
 
-	//retorna lista com todos alunos
 	public static List<Student> findAll() throws SQLException {
 		 Connection conn = null;
 		 PreparedStatement findAll = null;
@@ -56,7 +55,7 @@ public class DaoStudent {
 		 }
 		
 	}
-	//cria a lista com todos alunos
+
 	private static List<Student> buildStudents(ResultSet rs) throws SQLException{
 		List<Student> students = Lists.newArrayList();
 		while(rs.next()){
@@ -64,12 +63,12 @@ public class DaoStudent {
 		}
 		return students;
 	}
-	//retorna um aluno, através do ResultSet
+	
 	private static Student buildStudent(ResultSet rs) throws SQLException {
 		Student retorno = new Student();
-		
+			rs.next();
 			retorno.setName(rs.getString("STD_NAME"));
-			retorno.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
+			/*retorno.setNumber(Long.parseLong(rs.getString("STD_CODE"))); // CONVERT TO LONG
 			retorno.setName(rs.getString("STD_NAME"));
 			retorno.setRa(rs.getString("STD_RA"));
 			retorno.setCpf(rs.getString("STD_CPF"));
@@ -87,17 +86,16 @@ public class DaoStudent {
 			retorno.setUser_register(Long.parseLong(rs.getString("STD_USER_REGISTER")));
 			retorno.setUserCode(Long.parseLong(rs.getString("STUDENT.USR_CODE")));
 			retorno.setPassword(rs.getString("USR_PASSWORD"));
-			retorno.setUserName(rs.getString("USR_USERNAME"));
+			retorno.setEmail(rs.getString("USR_USERNAME"));
 			retorno.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
 			retorno.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
 			retorno.setKindPerson(rs.getString("USR_KIND"));
-			retorno.setToken(rs.getString("USR_TOKEN"));
-		
+			retorno.setToken(rs.getString("USR_TOKEN"));*/
 		return retorno;
 	} 
 	
 	public static boolean addStudent(Student student) {
-		//adiciona um novo aluno no banco
+		
 		return false;
 	}
 

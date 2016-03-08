@@ -11,9 +11,9 @@ import com.mysql.jdbc.Statement;
 public class ConnectionMySql {
 
 	private static String user="root";
-    private static String password="1234";
+    private static String password="eduardo";
     private static String database="SkillsAssessment";
-    private static String ip="localhost:3306/SkillsAssessment?useSSL=false";
+    private static String ip="192.168.98.128:3306/SkillsAssessment?useSSL=false";
     private static String driver="com.mysql.jdbc.Driver";
     private static Connection connection = null;
     private static Statement statement = null;

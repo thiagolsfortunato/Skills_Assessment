@@ -33,66 +33,36 @@ public class UserRoutes {
 
 	public void getLogin() {
 		ModelUser login = new ModelUser();
-
-		//minha idéia, é só devolver o TOKEN do usuário
 		post("/login", (req, res) -> {
-//			token = req.headers("token");
 			loginData = req.body();
 			Gson gson = new Gson();
-
 			User user = gson.fromJson(loginData, User.class);
-			System.out.println("Senha: " + user.getPassword());
-			try{
-				user = login.getLogin(user.getUserName(), user.getPassword());
-
-				if ( user.getKindPerson().equals("student") ) {
+			Object returnUser = null;
+			try {
+				user = login.getLogin(user.getEmail(), user.getPassword());
+				switch (user.getKindPerson()) {
+				case "student":
 					ModelStudent modelSt = new ModelStudent();
-					Student stu = modelSt.getStudentById(user.getUserCode());
-					token = user.getToken();
-					res.body(stu.getName());
-				} 
-				res.header("token", token);
-				
-				return "Logged in successfully";
-				// res.status(400);
-			} catch (NullPointerException e){
+					returnUser = modelSt.getStudentById(user.getUserCode());
+					break;
+				case "employee":
+					ModelEmployee modelEpl = new ModelEmployee();
+					returnUser = modelEpl.searchEmployeeByCode(user.getUserCode());
+					break;
+				case "psychologist":
+					break;
+				default:
+					res.status(400);
+					break;
+				}
+			} catch (NullPointerException e) {
 				e.printStackTrace();
-				return "ops, algum erro com LOGIN, verifique os campos!";
+				return "ops, an error with LOGIN, check the fields!";
+			} finally {
+				token = user.getToken();
+				res.header("token",token);
+				return returnUser;
 			}
-			
 		} , JsonUtil.json());
 	}
-	
-	/*public void getToken() {
-		//aqui, apartir do token saber a quem pertence e fazer sub-chamadas
-		get("/token", (req, res) -> {
-			token = req.headers("token");
-						
-			try{
-				TokenInfo tokenInfo = Token.verifyToken(token);
-				switch (tokenInfo.getKindPerson()){ //ATENÇÃO-> ADICIONAR ATRIBUTO!
-					case "student":
-						//alguma coisa.
-						//chama StudentRoutes
-							//passando id;
-						break;
-					case "employee":
-						//alguma coisa.
-						//chama EmployeeRoutes
-						//passando id;
-						break;
-					default:
-						//alguma coisa.
-						break;	
-				}
-				
-			} catch (NullPointerException e){
-				e.printStackTrace();
-				return "ops, algum erro com TOKEN!";
-			}
-			return null;
-		} , JsonUtil.json());
-	}*/
-
-
 }

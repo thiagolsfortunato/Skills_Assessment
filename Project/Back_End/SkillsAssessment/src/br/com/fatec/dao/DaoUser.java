@@ -12,14 +12,14 @@ import br.com.fatec.model.user.User;
 public class DaoUser {
 
 	@SuppressWarnings("finally")
-	public static User getLogin(String userName, String password) throws SQLException {
+	public static User getLogin(String email, String password) throws SQLException {
 
 		Connection conn = ConnectionMySql.getConnection();
 		User user = new User();
 		
 		ResultSet rs = null;
 		try {
-			String query = "select usr_kind, usr_code, usr_token from user where usr_username = '" + userName + "' and usr_password = '" + password + "';";
+			String query = "select usr_kind, usr_code, usr_token from user where usr_username = '" + email + "' and usr_password = '" + password + "';";
 			PreparedStatement cmd;
 			cmd = (PreparedStatement) conn.prepareStatement(query);
 			rs = cmd.executeQuery();
@@ -28,7 +28,7 @@ public class DaoUser {
 				String token = updateTokenUser(rs.getString("USR_CODE"));
 				user.setKindPerson(rs.getString("USR_KIND"));
 				user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-				user.setToken(token); //arrumado Marcelo.
+				user.setToken(token); 
 			}
 
 		} catch (SQLException e) {
