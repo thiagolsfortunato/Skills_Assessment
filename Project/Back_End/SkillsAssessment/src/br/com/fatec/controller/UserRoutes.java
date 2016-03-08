@@ -45,18 +45,15 @@ public class UserRoutes {
 			try{
 				user = login.getLogin(user.getUserName(), user.getPassword());
 
-				/*if ( user.getKindPerson().equals("student") ) {
-					System.out.println("aqui funfou");
-					System.out.println("TOKEN: " + user.getToken());
+				if ( user.getKindPerson().equals("student") ) {
 					ModelStudent modelSt = new ModelStudent();
-					Student stu = modelSt.searchStudentById(user.getUserCode());
-					if( user.getToken() == null ){
-						TokenInfo token = Token.verifyToken( Token.createJsonWebToken(String.valueOf(user.getUserCode()), Long.parseLong("1")) ); 
-						return Token.verifyToken( Token.createJsonWebToken(String.valueOf(user.getUserCode()), Long.parseLong("1")) );
-					}				
-				} */
+					Student stu = modelSt.getStudentById(user.getUserCode());
+					token = user.getToken();
+					res.body(stu.getName());
+				} 
+				res.header("token", token);
 				
-				return user.getToken();
+				return "Logged in successfully";
 				// res.status(400);
 			} catch (NullPointerException e){
 				e.printStackTrace();
