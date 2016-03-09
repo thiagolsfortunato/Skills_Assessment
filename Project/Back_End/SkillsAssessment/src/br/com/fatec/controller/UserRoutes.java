@@ -24,7 +24,6 @@ public class UserRoutes {
 			loginData = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(loginData, User.class);
-			Object returnUser = null;
 			try {
 				user = login.getLogin(user.getEmail(), user.getPassword());
 				token = user.getToken();

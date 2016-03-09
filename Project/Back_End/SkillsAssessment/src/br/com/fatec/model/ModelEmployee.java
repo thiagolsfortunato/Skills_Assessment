@@ -9,7 +9,7 @@ import br.com.fatec.model.student.Student;
 
 public class ModelEmployee {
 	
-	public boolean addEmployee(Employee employee, Long code){
+	public boolean addEmployee(Employee employee){
 		try{
 			if (DaoEmployee.addEmployee(employee)){
 				return true;

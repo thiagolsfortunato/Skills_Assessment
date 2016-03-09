@@ -25,7 +25,7 @@ import spark.Response;
 import spark.Route;
 
 public class EmployeeRoutes {
-	Employee emp = null;
+	Employee empObj = null;
 	ModelEmployee modelEmployee = new ModelEmployee();
 	TokenInfo tk = new TokenInfo();
 	private String employee = null;
@@ -40,8 +40,8 @@ public class EmployeeRoutes {
 			Gson gson = new Gson();
 			tk = Token.verifyToken(token);
 			try {
-				emp = gson.fromJson(employee, Employee.class);
-				emp = modelEmployee.searchEmployeeByCode(Long.parseLong(tk.getUserId()));
+				empObj = gson.fromJson(employee, Employee.class);
+				empObj = modelEmployee.searchEmployeeByCode(Long.parseLong(tk.getUserId()));
 					
 			} catch (NullPointerException e) {
 				e.printStackTrace();
@@ -49,9 +49,69 @@ public class EmployeeRoutes {
 				return "ops, an error with LOGIN, check the fields!";
 			} finally {
 				res.header("token", token);
-				return emp;
+				return empObj;
 			}
 		} , JsonUtil.json());
+		
+		get("/insertEmployee", (req, res) -> {
+			boolean response = false;
+			employee = req.body();
+			token = req.headers("token");
+			Gson gson = new Gson();
+			try {
+				empObj = gson.fromJson(employee, Employee.class);
+				response = modelEmployee.addEmployee(empObj);
+					
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				res.status(400);
+				return "ops, an error with INSERT, check the fields!";
+			} finally {
+				res.header("token", token);
+				return response;
+			}
+		} , JsonUtil.json());
+		
+		post("/deleteEmployee", (req, res) -> {
+			boolean response = false;
+			employee = req.body();
+			token = req.headers("token");
+			Gson gson = new Gson();
+			tk = Token.verifyToken(token);
+			try {
+				empObj = gson.fromJson(employee, Employee.class);
+				response = modelEmployee.deleteEmployee(empObj.getCode());
+					
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				res.status(400);
+				return "ops, an error with DELETE, check the fields!";
+			} finally {
+				res.header("token", token);
+				return response;
+			}
+		} , JsonUtil.json());
+		
+		post("/updateEmployee", (req, res) -> {
+			boolean response = false;
+			employee = req.body();
+			token = req.headers("token");
+			Gson gson = new Gson();
+			tk = Token.verifyToken(token);
+			try {
+				empObj = gson.fromJson(employee, Employee.class);
+				//response = modelEmployee.updateEmployee(employee, code);
+						
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				res.status(400);
+				return "ops, an error with INSERT, check the fields!";
+			} finally {
+				res.header("token", token);
+				return response;
+			}
+		} , JsonUtil.json());
+		
 
 	}
 }
