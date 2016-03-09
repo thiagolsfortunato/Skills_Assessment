@@ -7,13 +7,12 @@ import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
-import br.com.fatec.model.ModelCourse;
-import br.com.fatec.model.ModelPeriod;
+import br.com.fatec.model.ModelEnrolls;
 
-public class PeriodRoutes {
-	ModelPeriod modelPeriod = new ModelPeriod();
+public class EnrollsRoutes {
+	ModelEnrolls modelPeriod = new ModelEnrolls();
 	Gson gson = new Gson();
-
+	
 	public void getCourse() {
 		post("/insertCourse", (req, res) -> {
 			return null;

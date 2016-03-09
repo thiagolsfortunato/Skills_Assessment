@@ -1,25 +1,27 @@
 package br.com.fatec.entity;
 
-public class Period extends Course{
+public class Enrolls {
 	
-	private Long codePeriod;
+	private Long codeEnrolls;
 	private int year;
 	private int period;
+	private Long codeCourse;
 	
-	public Period(){};
+	public Enrolls(){};
 	
-	public Period(Long code, int year, int period) {
-		this.codePeriod = code;
+	public Enrolls(Long code, int year, int period, Long codeCourse) {
+		this.codeEnrolls = code;
 		this.year = year;
 		this.period = period;
+		this.setCodeCourse(codeCourse);
 	}
 
 	public Long getCodePeriod() {
-		return codePeriod;
+		return codeEnrolls;
 	}
 
 	public void setCodePeriod(Long code) {
-		this.codePeriod = code;
+		this.codeEnrolls = code;
 	}
 
 	public int getYear() {
@@ -36,5 +38,13 @@ public class Period extends Course{
 
 	public void setPeriod(int period) {
 		this.period = period;
+	}
+
+	public Long getCodeCourse() {
+		return codeCourse;
+	}
+
+	public void setCodeCourse(Long codeCourse) {
+		this.codeCourse = codeCourse;
 	}	
 }

@@ -6,18 +6,17 @@ import java.util.List;
 
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Course;
-import br.com.fatec.entity.Period;
+import br.com.fatec.entity.Enrolls;
 
-public class DaoPeriod {
+public class DaoEnrolls {
 	
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static boolean insertPeriod(Period period){
+	public static boolean insertPeriod(Enrolls period){
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSER INTO PERIOD (prd_name, prd_year, prd_period, crs_code) VALUES ("+ period.getName() +","+ 
-																							  period.getYear() +","+ 
-																							  period.getPeriod() +","+
-																							  period.getCodeCourse() +");";
+		String sql = "INSER INTO PERIOD (prd_year, prd_period, crs_code) VALUES ("+ period.getYear() +","+
+																				    period.getPeriod() +","+
+																				    period.getCodeCourse() +");";
 		boolean insert = false;
 		try{
 			connection.conect();
@@ -50,11 +49,11 @@ public class DaoPeriod {
 		}
 	}
 	
-	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
+	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) --- VERIFICAR AQUI
 	@SuppressWarnings("finally")
-	public static boolean updatePeriod(Period period){
+	public static boolean updatePeriod(Enrolls period){
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE COURSES SET crs_name = "+ period.getName() +", "
+		String sql = "UPDATE COURSES SET crs_code = "+ period.getCodePeriod() +", "
 								      + "prd_year = "+ period.getYear()+", "
 						            + "prd_period = "+ period.getPeriod()+", "
 								      + "crs_code = "+ period.getCodeCourse()+", "
@@ -75,15 +74,15 @@ public class DaoPeriod {
 
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static List<Period> searchAllPeriod() {
-		List<Period> listPeriod = new ArrayList<>();
+	public static List<Enrolls> searchAllPeriod() {
+		List<Enrolls> listPeriod = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from period;";
 		try {
 			connection.conect();
 			if (connection.executeQuery(query)) {
 				do {
-					Period period = new Period();
+					Enrolls period = new Enrolls();
 					period.setCodePeriod(Long.parseLong(connection.returnField("PRD_CODE")));
 					period.setYear(Integer.parseInt(connection.returnField("PRD_YEAR")));
 					period.setPeriod(Integer.parseInt(connection.returnField("PRD_PERIOD")));
@@ -102,10 +101,10 @@ public class DaoPeriod {
 	
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static Period searchPeriodById(Long code){
+	public static Enrolls searchPeriodById(Long code){
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course where crs_code = "+ code +";";
-		Period period = new Period();
+		Enrolls period = new Enrolls();
 		try {
 			connection.conect();
 			if(connection.executeQuery(query)){
