@@ -3,7 +3,7 @@ package br.com.fatec.model;
 import java.util.List;
 
 import br.com.fatec.dao.DaoPeriod;
-import br.com.fatec.model.period.Period;
+import br.com.fatec.entity.Period;
 
 public class ModelPeriod {
 	

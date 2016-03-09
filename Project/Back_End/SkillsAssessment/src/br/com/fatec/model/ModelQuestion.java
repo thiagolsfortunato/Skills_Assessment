@@ -1,5 +1,5 @@
 package br.com.fatec.model;
-import br.com.fatec.model.question.Question;
+import br.com.fatec.entity.Question;
 
 public class ModelQuestion {
 	

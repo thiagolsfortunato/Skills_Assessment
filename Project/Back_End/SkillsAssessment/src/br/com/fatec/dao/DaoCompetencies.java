@@ -9,7 +9,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.question.Competence;
+import br.com.fatec.entity.Competence;
 
 public class DaoCompetencies {
 	

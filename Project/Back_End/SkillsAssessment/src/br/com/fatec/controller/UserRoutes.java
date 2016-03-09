@@ -3,12 +3,13 @@ package br.com.fatec.controller;
 import static spark.Spark.post;
 import static spark.Spark.get;
 import com.google.gson.Gson;
+
+import br.com.fatec.entity.Employee;
+import br.com.fatec.entity.Student;
+import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEmployee;
 import br.com.fatec.model.ModelStudent;
 import br.com.fatec.model.ModelUser;
-import br.com.fatec.model.employee.Employee;
-import br.com.fatec.model.student.Student;
-import br.com.fatec.model.user.User;
 
 public class UserRoutes {
 	private String loginData = null;

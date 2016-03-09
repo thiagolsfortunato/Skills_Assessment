@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fatec.dao.DaoStudent;
-import br.com.fatec.model.student.Student;
+import br.com.fatec.entity.Student;
 
 public class ModelStudent {
 	

@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.token.TokenInfo;
-import br.com.fatec.model.user.User;
+import br.com.fatec.entity.TokenInfo;
+import br.com.fatec.entity.User;
 
 public class DaoUser {
 

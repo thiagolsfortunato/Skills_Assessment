@@ -16,23 +16,23 @@ public class PeriodRoutes {
 
 	public void getCourse() {
 		post("/insertCourse", (req, res) -> {
-
+			return null;
 		}, JsonUtil.json());
 
 		delete("/deleteCourse", (req, res) -> {
-
+			return null;
 		}, JsonUtil.json());
 
 		put("/updateCourse", (req, res) -> {
-
+			return null;
 		}, JsonUtil.json());
 
 		get("/searchAllCourses", (req, res) -> {
-
+			return null;
 		}, JsonUtil.json());
 
 		get("/searchCourseById", (req, res) -> {
-
+			return null;
 		}, JsonUtil.json());
 	}
 }

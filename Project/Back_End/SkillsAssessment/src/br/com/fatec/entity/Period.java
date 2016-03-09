@@ -1,6 +1,4 @@
-package br.com.fatec.model.period;
-
-import br.com.fatec.model.course.Course;
+package br.com.fatec.entity;
 
 public class Period extends Course{
 	

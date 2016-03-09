@@ -1,4 +1,4 @@
-package br.com.fatec.model.question;
+package br.com.fatec.entity;
 import java.util.List;
 
 

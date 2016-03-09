@@ -8,12 +8,12 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import br.com.fatec.entity.Question;
+import br.com.fatec.entity.Student;
+import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelQuestion;
 import br.com.fatec.model.ModelStudent;
 import br.com.fatec.model.ModelUser;
-import br.com.fatec.model.question.Question;
-import br.com.fatec.model.student.Student;
-import br.com.fatec.model.user.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;

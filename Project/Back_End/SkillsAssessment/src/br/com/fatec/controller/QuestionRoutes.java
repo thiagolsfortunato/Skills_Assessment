@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.fatec.entity.Question;
+import br.com.fatec.entity.Student;
 import br.com.fatec.model.ModelQuestion;
-import br.com.fatec.model.question.Question;
-import br.com.fatec.model.student.Student;
 import spark.Request;
 import spark.Response;
 import spark.Route;

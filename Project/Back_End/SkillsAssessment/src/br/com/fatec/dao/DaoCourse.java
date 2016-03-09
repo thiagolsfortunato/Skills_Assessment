@@ -8,7 +8,7 @@ import java.util.List;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.course.Course;
+import br.com.fatec.entity.Course;
 
 public class DaoCourse {
 

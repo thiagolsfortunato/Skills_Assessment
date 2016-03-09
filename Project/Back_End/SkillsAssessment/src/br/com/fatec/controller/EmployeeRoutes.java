@@ -7,12 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.dao.Token;
+import br.com.fatec.entity.Employee;
+import br.com.fatec.entity.TokenInfo;
+import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEmployee;
 import br.com.fatec.model.ModelStudent;
 import br.com.fatec.model.ModelUser;
-import br.com.fatec.model.employee.Employee;
-import br.com.fatec.model.token.TokenInfo;
-import br.com.fatec.model.user.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -11,9 +11,9 @@ import java.util.Vector;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.question.Answer;
-import br.com.fatec.model.question.Competence;
-import br.com.fatec.model.question.Question; 
+import br.com.fatec.entity.Answer;
+import br.com.fatec.entity.Competence;
+import br.com.fatec.entity.Question; 
 
 public class DaoQuestion {
 	private static String getUnansweredQuestions(Long id) throws SQLException {

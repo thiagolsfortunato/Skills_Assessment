@@ -1,4 +1,4 @@
-package br.com.fatec.model.token;
+package br.com.fatec.entity;
 
 import org.joda.time.DateTime;
 

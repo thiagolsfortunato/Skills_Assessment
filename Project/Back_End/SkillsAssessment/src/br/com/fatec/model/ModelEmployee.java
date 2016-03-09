@@ -4,8 +4,8 @@ import java.util.List;
 
 import br.com.fatec.dao.DaoEmployee;
 import br.com.fatec.dao.DaoStudent;
-import br.com.fatec.model.employee.Employee;
-import br.com.fatec.model.student.Student;
+import br.com.fatec.entity.Employee;
+import br.com.fatec.entity.Student;
 
 public class ModelEmployee {
 	

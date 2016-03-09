@@ -1,4 +1,4 @@
-package br.com.fatec.model.user;
+package br.com.fatec.entity;
 
 public class User {
 	

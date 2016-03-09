@@ -1,9 +1,6 @@
-package br.com.fatec.model.student;
+package br.com.fatec.entity;
 
 import java.util.Date;
-
-import br.com.fatec.model.question.Competence;
-import br.com.fatec.model.user.User;
 
 public class Student extends User{
 	

@@ -1,4 +1,4 @@
-package br.com.fatec.model.course;
+package br.com.fatec.entity;
 
 import java.sql.Date;
 

@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.fatec.dao.DaoCompetencies;
-import br.com.fatec.model.question.Competence;
+import br.com.fatec.entity.Competence;
 
 public class ModelCompetencies {
 	

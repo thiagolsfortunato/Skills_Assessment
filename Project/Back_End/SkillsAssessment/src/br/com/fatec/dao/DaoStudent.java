@@ -11,8 +11,8 @@ import com.google.common.collect.Lists;
 import com.mysql.jdbc.PreparedStatement;
 
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.user.User;
-import br.com.fatec.model.student.Student;
+import br.com.fatec.entity.Student;
+import br.com.fatec.entity.User;
 
 public class DaoStudent {
 

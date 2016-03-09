@@ -9,8 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.fatec.entity.Competence;
 import br.com.fatec.model.ModelCompetencies;
-import br.com.fatec.model.question.Competence;
 
 public class CompetenciesRoutes {
 	

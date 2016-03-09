@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.model.course.Course;
-import br.com.fatec.model.period.Period;
+import br.com.fatec.entity.Course;
+import br.com.fatec.entity.Period;
 
 public class DaoPeriod {
 	
@@ -16,7 +16,7 @@ public class DaoPeriod {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "INSER INTO PERIOD (prd_name, prd_year, prd_period, crs_code) VALUES ("+ period.getName() +","+ 
 																							  period.getYear() +","+ 
-																							  period.getPeriod()+","+
+																							  period.getPeriod() +","+
 																							  period.getCodeCourse() +");";
 		boolean insert = false;
 		try{

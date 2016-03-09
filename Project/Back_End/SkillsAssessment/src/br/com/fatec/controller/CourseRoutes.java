@@ -9,8 +9,8 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import br.com.fatec.entity.Course;
 import br.com.fatec.model.ModelCourse;
-import br.com.fatec.model.course.Course;
 
 public class CourseRoutes {
 	ModelCourse modelCourses = new ModelCourse();

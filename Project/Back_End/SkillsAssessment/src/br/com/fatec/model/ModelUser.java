@@ -3,7 +3,7 @@ package br.com.fatec.model;
 import java.sql.SQLException;
 
 import br.com.fatec.dao.DaoUser;
-import br.com.fatec.model.user.User;
+import br.com.fatec.entity.User;
 
 public class ModelUser {
 	

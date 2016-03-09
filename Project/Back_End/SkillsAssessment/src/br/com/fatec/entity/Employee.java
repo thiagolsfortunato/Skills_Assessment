@@ -1,8 +1,6 @@
-package br.com.fatec.model.employee;
+package br.com.fatec.entity;
 
 import java.sql.Date;
-
-import br.com.fatec.model.user.User;
 
 public class Employee extends User {
 
