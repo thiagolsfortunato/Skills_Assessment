@@ -2,6 +2,11 @@ package br.com.fatec.controller;
 
 import com.google.gson.Gson;
 
+import static spark.Spark.get; // select
+import static spark.Spark.put; // update
+import static spark.Spark.delete; // delete
+import static spark.Spark.post; // insert
+
 import br.com.fatec.model.ModelCourse;
 import br.com.fatec.model.ModelPeriod;
 
