@@ -7,10 +7,6 @@ import static spark.Spark.post; // insert
 
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
 
 import br.com.fatec.model.ModelCourse;
