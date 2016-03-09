@@ -4,24 +4,24 @@ import br.com.fatec.model.course.Course;
 
 public class Period extends Course{
 	
-	private Long code;
+	private Long codePeriod;
 	private int year;
 	private int period;
 	
 	public Period(){};
 	
 	public Period(Long code, int year, int period) {
-		this.code = code;
+		this.codePeriod = code;
 		this.year = year;
 		this.period = period;
 	}
 
-	public Long getCode() {
-		return code;
+	public Long getCodePeriod() {
+		return codePeriod;
 	}
 
-	public void setCode(Long code) {
-		this.code = code;
+	public void setCodePeriod(Long code) {
+		this.codePeriod = code;
 	}
 
 	public int getYear() {

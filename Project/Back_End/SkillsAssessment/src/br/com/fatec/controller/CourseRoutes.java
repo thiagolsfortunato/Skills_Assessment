@@ -31,7 +31,7 @@ public class CourseRoutes {
 		delete("/deleteCourse", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
-			return modelCourses.deleteCourse(course.getCode());
+			return modelCourses.deleteCourse(course.getCodeCourse());
 		}, JsonUtil.json());
 		
 		put("/updateCourse", (req, res) -> {
@@ -48,7 +48,7 @@ public class CourseRoutes {
 		get("/searchCourseById", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
-			return  modelCourses.searchCourseByCode(course.getCode());					 
+			return  modelCourses.searchCourseByCode(course.getCodeCourse());					 
 		}, JsonUtil.json());
 	}
 }

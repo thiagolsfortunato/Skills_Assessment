@@ -31,8 +31,7 @@ public class DaoCourse {
 			return insert;
 		}
 	}
-	
-	
+		
 	@SuppressWarnings("finally")
 	public static boolean deleteCourse(Long code) {
 		ConnectionMySql connection = new ConnectionMySql();
@@ -57,7 +56,7 @@ public class DaoCourse {
 		String sql = "UPDATE COURSES SET crs_name = "+ course.getName() +", "
 								 + "crs_situation = "+ course.getSituation()+", "
 						 + "crs_registration_date = "+ course.getRegistration_date() +" "
-						 		+ "where crs_code = "+ course.getCode() +";";
+						 		+ "where crs_code = "+ course.getCodeCourse() +";";
 		boolean update = false;
 		try {
 			connection.conect();
@@ -82,7 +81,7 @@ public class DaoCourse {
 			if (connection.executeQuery(query)) {
 				do {
 					Course course = new Course();
-					course.setCode(Long.parseLong(connection.returnField("CRS_CODE")));
+					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
 					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
@@ -99,7 +98,6 @@ public class DaoCourse {
 		}
 	}
 	
-	
 	@SuppressWarnings("finally")
 	public static Course searchCourseById(Long code){
 		ConnectionMySql connection = new ConnectionMySql();
@@ -109,7 +107,7 @@ public class DaoCourse {
 			connection.conect();
 			if(connection.executeQuery(query)){
 				do{					
-					course.setCode(Long.parseLong(connection.returnField("CRS_CODE")));
+					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
 					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));

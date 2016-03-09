@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Course {
 	
-	private Long code;
+	private Long codeCourse;
 	private String name;
 	private int situation;
 	private String registration_date;
@@ -13,17 +13,17 @@ public class Course {
 	
 	public Course(Long code, String name, int situation, String registration_date) {
 		super();
-		this.code = code;
+		this.codeCourse = code;
 		this.name = name;
 		this.situation = situation;
 		this.registration_date = registration_date;
 	}
 	
-	public Long getCode() {
-		return code;
+	public Long getCodeCourse() {
+		return codeCourse;
 	}
-	public void setCode(Long code) {
-		this.code = code;
+	public void setCodeCourse(Long code) {
+		this.codeCourse = code;
 	}
 	public String getName() {
 		return name;
