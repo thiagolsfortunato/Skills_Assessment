@@ -1,5 +1,4 @@
 package br.com.fatec.dao;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,41 +12,114 @@ import br.com.fatec.model.course.Course;
 
 public class DaoCourse {
 
-	public static boolean deleteCourse(Long code) throws SQLException {
-		Connection conn = ConnectionMySql.getConnection();
-		String sql = "DELETE FROM COURSE WHERE CRS_CODE = " + code + ";";
-		PreparedStatement cmd;
-		cmd = (PreparedStatement) conn.prepareStatement(sql);
-
-		if (cmd.execute()) {
-			cmd.close();
-			return true;
-		} else {
-			cmd.close();
-			return false;
+	@SuppressWarnings("finally")
+	public static boolean insertCourse(Course course){
+		ConnectionMySql connection = new ConnectionMySql();
+		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES ("+ course.getName() +","+ 
+																								   course.getSituation() +","+ 
+																								   course.getRegistration_date() +");";
+		boolean insert = false;
+		try{
+			connection.conect();
+			if(connection.executeSql(sql)){
+				insert = true;
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally{
+			connection.close();
+			return insert;
 		}
 	}
+	
+	
+	@SuppressWarnings("finally")
+	public static boolean deleteCourse(Long code) {
+		ConnectionMySql connection = new ConnectionMySql();
+		String sql = "DELETE FROM COURSE WHERE CRS_CODE = " + code + ";";
+		boolean delete = false;
+		try {
+			connection.conect();
+			if (connection.executeSql(sql)) {
+				delete = true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connection.close();
+			return delete;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static boolean updateCourse(Course course){
+		ConnectionMySql connection =  new ConnectionMySql();
+		String sql = "UPDATE COURSES SET crs_name = "+ course.getName() +", "
+								 + "crs_situation = "+ course.getSituation()+", "
+						 + "crs_registration_date = "+ course.getRegistration_date() +" "
+						 		+ "where crs_code = "+ course.getCode() +";";
+		boolean update = false;
+		try {
+			connection.conect();
+			if(connection.executeSql(sql)){
+				update = true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connection.close();
+			return update;
+		}
+	}	
 
-	public static List<Course> searchAllCourse() throws SQLException {
+	@SuppressWarnings("finally")
+	public static List<Course> searchAllCourse() {
 		List<Course> listCourse = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course;";
-		connection.conect();
-		if (connection.executeQuery(query)) {
-			do {
-				Course course = new Course();
-				course.setCode(Long.parseLong(connection.returnField("CRS_CODE")));
-				course.setName(connection.returnField("CRS_NAME"));
-				course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-				course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
-
-				listCourse.add(course);
-			} while (connection.nextRegister());
+		try {
+			connection.conect();
+			if (connection.executeQuery(query)) {
+				do {
+					Course course = new Course();
+					course.setCode(Long.parseLong(connection.returnField("CRS_CODE")));
+					course.setName(connection.returnField("CRS_NAME"));
+					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
+					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
+					listCourse.add(course);
+				} while (connection.nextRegister());
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
 			connection.close();
 			return listCourse;
-		}else{
+		}
+	}
+	
+	
+	@SuppressWarnings("finally")
+	public static Course searchCourseById(Long code){
+		ConnectionMySql connection = new ConnectionMySql();
+		String query = "select * from course where crs_code = "+ code +";";
+		Course course = new Course();
+		try {
+			connection.conect();
+			if(connection.executeQuery(query)){
+				do{					
+					course.setCode(Long.parseLong(connection.returnField("CRS_CODE")));
+					course.setName(connection.returnField("CRS_NAME"));
+					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
+					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
+				}while(connection.nextRegister());
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
 			connection.close();
-			return null;
+			return course;
 		}
 	}
 
