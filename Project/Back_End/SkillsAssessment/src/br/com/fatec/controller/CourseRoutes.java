@@ -24,39 +24,21 @@ public class CourseRoutes {
 		
 		post("/insertCourse", (req, res) -> {
 			String courseData = req.body();
-			
 			Course course = gson.fromJson(courseData, Course.class);
-						
-			JSONArray jsonResult = new JSONArray();
-			JSONObject jsonObj = new JSONObject();
-
-			boolean resultInsert= modelCourses.insertCourse(course);
-
-			try {
-				jsonObj.put("resultDelete", resultInsert);
-				jsonResult.put(jsonObj);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return jsonResult;
-		});
+			return modelCourses.insertCourse(course);
+		}, JsonUtil.json());
 		
 		delete("/deleteCourse", (req, res) -> {
-			Long code = Long.parseLong(req.body());
-
-			JSONArray jsonResult = new JSONArray();
-			JSONObject jsonObj = new JSONObject();
-
-			boolean resultDelete = modelCourses.deleteCourse(code);
-
-			try {
-				jsonObj.put("resultDelete", resultDelete);
-				jsonResult.put(jsonObj);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return jsonResult;
-		});
+			String courseData = req.body();
+			Course course = gson.fromJson(courseData, Course.class);
+			return modelCourses.deleteCourse(course.getCode());
+		}, JsonUtil.json());
+		
+		put("/updateCourse", (req, res) -> {
+			String courseData = req.body();
+			Course course = gson.fromJson(courseData, Course.class);
+			return modelCourses.updateCourse(course);
+		}, JsonUtil.json());
 		
 		get("/searchAllCourses", (req, res) -> {
 			List<Course> listCourses = modelCourses.searchAllCourse();					
@@ -64,8 +46,9 @@ public class CourseRoutes {
 		}, JsonUtil.json());
 		
 		get("/searchCourseById", (req, res) -> {
-			Long code = Long.parseLong(req.body());
-			return  modelCourses.searchCourseByCode(code);					 
+			String courseData = req.body();
+			Course course = gson.fromJson(courseData, Course.class);
+			return  modelCourses.searchCourseByCode(course.getCode());					 
 		}, JsonUtil.json());
 	}
 }
