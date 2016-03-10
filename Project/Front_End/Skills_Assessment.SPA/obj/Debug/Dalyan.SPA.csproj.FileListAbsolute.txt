@@ -1,0 +1,38 @@
+D:\Dalyan-master\Dalyan.SPA\bin\Dalyan.SPA.dll.config
+D:\Dalyan-master\Dalyan.SPA\bin\Dalyan.SPA.dll
+D:\Dalyan-master\Dalyan.SPA\bin\Dalyan.SPA.pdb
+D:\Dalyan-master\Dalyan.SPA\bin\Antlr3.Runtime.dll
+D:\Dalyan-master\Dalyan.SPA\bin\Microsoft.Web.Infrastructure.dll
+D:\Dalyan-master\Dalyan.SPA\bin\Newtonsoft.Json.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Net.Http.Formatting.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Helpers.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Http.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Http.WebHost.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Mvc.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Optimization.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Razor.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.WebPages.Deployment.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.WebPages.dll
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.WebPages.Razor.dll
+D:\Dalyan-master\Dalyan.SPA\bin\WebGrease.dll
+D:\Dalyan-master\Dalyan.SPA\bin\Antlr3.Runtime.pdb
+D:\Dalyan-master\Dalyan.SPA\bin\Newtonsoft.Json.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Net.Http.Formatting.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Helpers.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Http.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Http.WebHost.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Mvc.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Optimization.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.Razor.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.WebPages.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.WebPages.Deployment.xml
+D:\Dalyan-master\Dalyan.SPA\bin\System.Web.WebPages.Razor.xml
+D:\Dalyan-master\Dalyan.SPA\obj\Debug\Dalyan.SPA.csprojResolveAssemblyReference.cache
+D:\Dalyan-master\Dalyan.SPA\obj\Debug\Dalyan.SPA.dll
+D:\Dalyan-master\Dalyan.SPA\obj\Debug\Dalyan.SPA.pdb
+D:\Dalyan-master - Copy\Dalyan.SPA\bin\Dalyan.SPA.dll
+D:\Dalyan-master - Copy\Dalyan.SPA\bin\Dalyan.SPA.pdb
+D:\Dalyan-master - Copy\Dalyan.SPA\obj\Debug\Dalyan.SPA.csprojResolveAssemblyReference.cache
+D:\Dalyan-master - Copy\Dalyan.SPA\obj\Debug\Dalyan.SPA.dll
+D:\Dalyan-master - Copy\Dalyan.SPA\obj\Debug\Dalyan.SPA.pdb
+D:\Dalyan-master - Copy\Dalyan.SPA\bin\Dalyan.SPA.dll.config
