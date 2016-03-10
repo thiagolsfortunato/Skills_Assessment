@@ -36,15 +36,14 @@ public class CourseRoutes {
 			return modelCourses.updateCourse(course);
 		}, JsonUtil.json());
 		
-		get("/searchAllCourses", (req, res) -> {
-			List<Course> listCourses = modelCourses.searchAllCourse();					
-			return listCourses; 
-		}, JsonUtil.json());
-		
 		get("/searchCourseById", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			return  modelCourses.searchCourseByCode(course.getCodeCourse());					 
+		}, JsonUtil.json());
+		
+		get("/searchAllCourses", (req, res) -> {
+			return modelCourses.searchAllCourse();					
 		}, JsonUtil.json());
 	}
 }

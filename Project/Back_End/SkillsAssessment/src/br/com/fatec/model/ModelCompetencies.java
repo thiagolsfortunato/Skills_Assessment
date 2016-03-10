@@ -22,73 +22,35 @@ public class ModelCompetencies {
 
 package br.com.fatec.model;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-
 import br.com.fatec.dao.DaoCompetencies;
 import br.com.fatec.entity.Competence;
 
 public class ModelCompetencies {
 	
 	//Add competence
-	public boolean addCompetence(long code, String description, Date date, int weight){
-		try {
-			if(DaoCompetencies.addCompetence(code, description, date, weight)) return true;
-		} catch (SQLException e){
-			e.printStackTrace();
-			System.out.println("Competence not added!");
-		}
-		return false;
-	}
-	
-	//Search By Name
-	public Competence searchCompetenceByCode(Long code) {
-		try {
-			Competence compe = new Competence();
-			compe = DaoCompetencies.searchCompetenceByCode(code);
-			return compe;
-		} catch (SQLException e){
-			e.printStackTrace();
-			System.out.println("Competence not found!");
-		}
-		return null;
-	}
-	
-	//Update Competence
-	public boolean updateCompetence(Competence comp, Long code) {
-		try{
-			if(DaoCompetencies.updateCompetence(comp, code)) return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Update Error!");
-		}
-		return false;
-		
+	public boolean insertCompetence(Competence competence ){
+		return DaoCompetencies.insertCompetence(competence);
 	}
 	
 	//Delete Competence
-	public boolean deleteCompetence(String description){
-		try {
-			if(DaoCompetencies.deleteCompetence(description)) return true;
-		} catch (SQLException e){
-			e.printStackTrace();
-			System.out.println("Competence not deleted!");
-		}
-		return false;
+	public boolean deleteCompetence(Long code){
+		return DaoCompetencies.deleteCompetence(code);
 	}
 	
-	//Search All
-	public List<Competence> searchAllCompetence() {
-		try {
-			List<Competence> listCompetence;
-			listCompetence = DaoCompetencies.searchAll(); 
-			return listCompetence;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Could not find data");
+	//Update Competence
+		public boolean updateCompetence(Competence competence) {
+			return DaoCompetencies.updateCompetence(competence);		
 		}
-		return null;
+	
+	//Search By Code
+	public Competence searchCompetenceByCode(Long code) throws SQLException {
+		return DaoCompetencies.searchCompetenceByCode(code);
+	}	
+	
+	//Search All
+	public List<Competence> searchAllCompetence() throws SQLException {
+		return DaoCompetencies.searchAll();
 	}
 }
