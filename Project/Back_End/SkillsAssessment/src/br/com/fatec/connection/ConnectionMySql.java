@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 public class ConnectionMySql {
@@ -94,12 +95,16 @@ public class ConnectionMySql {
         return resultset.next();
     }
     
+    public PreparedStatement getPreparedStatement(){
+    	return (PreparedStatement) statement;
+    }
+    
     //INSERT, UPDATE E DELETE
     public boolean executeSql(String SQL) throws SQLException {
         int i = statement.executeUpdate(SQL);
         return i == 0 ?  false :  true;
     }
-
+    
 	public static java.sql.Connection restartConnection() {
 		close();
 		return ConnectionMySql.getConnection();
