@@ -95,8 +95,8 @@ public class ConnectionMySql {
         return resultset.next();
     }
     
-    public /*Prepared*/Statement getPreparedStatement(){
-    	return /*(PreparedStatement)*/ statement;
+    public Statement getPreparedStatement(){
+    	return statement;
     }
     
     //INSERT, UPDATE E DELETE
