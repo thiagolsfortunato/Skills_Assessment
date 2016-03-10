@@ -41,21 +41,26 @@ public class ConnectionMySql {
 
     }
 
-    public boolean conect() throws SQLException{
+    @SuppressWarnings("finally")
+	public boolean conect() throws SQLException{
     	boolean error = true;
-    	try{
+    	 System.out.println(">>Connecting to database");
+    	try{   		
     		Class.forName(driver);
+    		// realizando conexão
+            connection = (Connection) DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
+            // criando canal para execução de sql
+            statement = (Statement) connection.createStatement();
+            // retorna resultado da conexão      
     	}catch(ClassNotFoundException ex){
     		Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE,null, ex);
             error = false;
-    	}
-    	
-    	// realizando conexão
-        connection = (Connection) DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
-        // criando canal para execução de sql
-        statement = (Statement) connection.createStatement();
-        // retorna resultado da conexão
-        return error;    	
+    	}catch (SQLException e) {
+            close();
+            throw new RuntimeException(e);
+    	}finally{
+    		return error;	
+    	}            	
     }
     
     public static void close(){
