@@ -15,8 +15,7 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static boolean insertCourse(Course course){
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES ("+ course.getName() +","+ 
-																								   course.getSituation() +","+ 
+		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES ("+ course.getName() +","+ 																			   course.getSituation() +","+ 
 																								   course.getRegistration_date() +");";
 		boolean insert = false;
 		try{
@@ -72,8 +71,8 @@ public class DaoCourse {
 	}	
 
 	@SuppressWarnings("finally")
-	public static List<Course> searchAllCourse() {
-		List<Course> listCourse = new ArrayList<>();
+	public static List<Course> searchAllCourse() throws SQLException {
+		List<Course> listCourse = null;
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course;";
 		try {
@@ -93,13 +92,14 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
+			connection.returnRegister().close();
 			connection.close();
 			return listCourse;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static Course searchCourseById(Long code){
+	public static Course searchCourseById(Long code) throws SQLException{
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course where crs_code = "+ code +";";
 		Course course = new Course();
@@ -116,6 +116,7 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
+			connection.returnRegister().close();
 			connection.close();
 			return course;
 		}

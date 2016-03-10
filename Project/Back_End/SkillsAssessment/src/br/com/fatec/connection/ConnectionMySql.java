@@ -37,7 +37,6 @@ public class ConnectionMySql {
             close();
             throw new RuntimeException(e);
         }
-
     }
 
     @SuppressWarnings("finally")
@@ -86,9 +85,7 @@ public class ConnectionMySql {
     }
     
     public String returnField(String campo) throws SQLException {
-        String data;
-        data = resultset.getString(campo);
-        return data;
+        return resultset.getString(campo);
     }
     
     public boolean nextRegister() throws SQLException {

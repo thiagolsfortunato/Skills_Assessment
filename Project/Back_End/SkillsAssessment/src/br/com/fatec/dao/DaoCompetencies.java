@@ -1,120 +1,132 @@
 package br.com.fatec.dao;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Competence;
 
 public class DaoCompetencies {
 	
-	static Connection conn = null;
 	static Date dataHora = new Date();
 	
 	//Search competence by name
 	@SuppressWarnings("finally")
 	public static Competence searchCompetenceByCode (Long code) throws SQLException {
-		Competence compe = new Competence();
-		conn = (Connection) ConnectionMySql.getConnection();
-		ResultSet rs = null;
+		Competence competence = new Competence();
+		ConnectionMySql connection = new ConnectionMySql(); 
+		String query = "select com_code, com_kind, com_registration_date, com_weight from competence where com_code = '"+ code +"';";	
 		try{
-			String query = "select com_code, com_kind, com_registration_date, com_weight from competence where com_code = '"
-				+code;
-			PreparedStatement cmd = (PreparedStatement) conn.prepareStatement(query);
-			rs = cmd.executeQuery();
-			while(rs.next()){
-				rs.next();
-				compe.setNumber(Long.parseLong(rs.getString("COM_CODE")));
-				compe.setDescription(rs.getString("COM_KIND"));
-				compe.setRegister(rs.getDate("COM_REGISTRATION_DATE"));
-				compe.setWeight(Integer.parseInt("COM_WEIGHT"));
+			connection.conect();
+			if(connection.executeQuery(query)){
+				do{
+					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
+					competence.setKind(connection.returnField("COM_KIND"));
+					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
+					competence.setWeight(Integer.parseInt(connection.returnField("COM_WEIGHT")));
+				}while(connection.nextRegister());
 			}
-		} catch (SQLException e){
-			// TODO: handle exception
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		} finally {
-			rs.close();
-			conn.close();
-			return compe;
+			connection.returnRegister().close();
+			connection.close();
+			return competence;
 		}
 	}
 	
 	//Search all competences
-	@SuppressWarnings("null")
+	@SuppressWarnings("finally")
 	public static List<Competence> searchAll() throws SQLException {
 		List<Competence> listCompetence = null;
-		
-		Connection conn = (Connection) ConnectionMySql.getConnection();
 		String query = "select * from COMPETENCE ;";
-		PreparedStatement cmd;
-		cmd = (PreparedStatement) conn.prepareStatement(query);
-		ResultSet rs = cmd.executeQuery();
-		
-		while (rs.next()) {
-			Competence compet = new Competence();	
-			compet.setNumber(Long.parseLong("COM_CODE"));
-			compet.setDescription("COM_KIND");
-			compet.setRegister(rs.getTime("COM_REGISTRATION_DATE"));
-			compet.setWeight(Integer.parseInt("COM_WEIGHT"));
-			
-			
-			listCompetence.add(compet);
+		ConnectionMySql connection = new ConnectionMySql();
+		try{
+			connection.conect();
+			if(connection.executeQuery(query)){
+				do{
+					Competence competence = new Competence();
+					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
+					competence.setKind(connection.returnField("COM_KIND"));
+					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
+					competence.setWeight(Integer.parseInt(connection.returnField("COM_WEIGHT")));
+					listCompetence.add(competence);
+				}while(connection.nextRegister());
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connection.returnRegister().close();
+			connection.close();
+			return listCompetence;
 		}
-		rs.close();
-		return listCompetence;
 	}
 	
 	//Add Competence
+	@SuppressWarnings("finally")
 	public static boolean addCompetence(long code, String description, Date date, int weight) throws SQLException {
-		conn = (Connection) ConnectionMySql.getConnection();
-		String query = "insert into competence (com_code, com_kind, com_registration_date, com_weight) values (" 
-	+code + "," +description+", " +date+", "+weight+");";
-		PreparedStatement cmd = (PreparedStatement) conn.prepareStatement(query);
-		if(cmd.execute()) {
-			cmd.close();
-			conn.close();
-			return true;
-		} else {
-			cmd.close();
-			conn.close();
-			return false;
+		ConnectionMySql connection = new ConnectionMySql();
+		String sql = "insert into competence (com_code, com_kind, com_registration_date, com_weight) values (" +code + "," 
+																												 +description+"," 
+																												 +date+","
+																												 +weight+");";
+		boolean insert = false;
+		try{
+			connection.conect();
+			if(connection.executeSql(sql)){
+				insert = true;
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally{
+			connection.returnRegister().close();
+			connection.close();
+			return insert;
 		}
 	}
 	
 	//Update Competence
-	public static boolean updateCompetence(Competence comp, Long code) throws SQLException{
-		Connection conn = (Connection) ConnectionMySql.getConnection();
-		String sql = "update competence set com_code='"+comp.getNumber()+"', com_kind='"+comp.getDescription()+
-				"', com_registration_date='"+comp.getRegister()+", com_weight="+comp.getWeight()+"where com_code = "+code;
-		PreparedStatement cmd;
-		cmd = (PreparedStatement) conn.prepareStatement(sql);
-		if(cmd.execute()){
-			cmd.close();
-			conn.close();
-			return true;
-		}else{
-			conn.close();
-			return false;
+	@SuppressWarnings("finally")
+	public static boolean updateCompetence(Competence competence) throws SQLException{
+		ConnectionMySql connection = new ConnectionMySql();
+		String sql = "update competence set com_kind='"+competence.getKind()+ "', "+
+						      "com_registration_date='"+competence.getRegister()+", "+ 
+						      		     "com_weight="+competence.getWeight()+
+						      		"where com_code ="+competence.getCode()+";";
+		boolean update = false;
+		try{
+			connection.conect();
+			if(connection.executeSql(sql)){
+				update = true;
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally{
+			connection.returnRegister().close();
+			connection.close();
+			return update;
 		}
 	}
 	
 	//Delete Competence
-	public static boolean deleteCompetence (String description) throws SQLException {
-		conn = (Connection) ConnectionMySql.getConnection();
-		String query = "delete from competence where com_kind = "+description;
-		PreparedStatement cmd = (PreparedStatement) conn.prepareStatement(query);
-		if(cmd.execute()){
-			cmd.close();
-			conn.close();
-			return true;
-		}
-		else {
-			conn.close();
-			return false;
+	@SuppressWarnings("finally")
+	public static boolean deleteCompetence (Long code) throws SQLException {
+		ConnectionMySql connection = new ConnectionMySql();
+		String sql = "delete from competence where com_code = "+code+";";
+		
+		boolean delete = false;
+		try{
+			connection.conect();
+			if(connection.executeSql(sql)){
+				delete = true;
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}finally{
+			connection.returnRegister().close();
+			connection.close();
+			return delete;
 		}
 		
 	}

@@ -13,8 +13,7 @@ public class DaoUser {
 
 	@SuppressWarnings("finally")
 	public static User getLogin(String email, String password) throws SQLException {
-
-		Connection conn = ConnectionMySql.getConnection();
+		ConnectionMySql connection = new ConnectionMySql();
 		User user = new User();
 		
 		ResultSet rs = null;
@@ -41,7 +40,7 @@ public class DaoUser {
 	}
 
 	private static String updateTokenUser(String id) throws SQLException {
-		Connection conn = ConnectionMySql.getConnection();
+		ConnectionMySql connection = new ConnectionMySql();
 		String tk = Token.createJsonWebToken(id, (long) 1);
 		String query = "UPDATE USER SET usr_token=?  WHERE usr_code=?";
 

@@ -4,32 +4,32 @@ import java.util.Date;
 
 public class Competence {
 	
-	private Long number;
-	private String description;
-	private Date register;
+	private Long code;
+	private String kind;
+	private String register;
 	private int weight;
 	
-	public Long getNumber() {
-		return number;
+	public Long getCode() {
+		return code;
 	}
 
-	public void setNumber(Long number) {
-		this.number = number;
+	public void setCode(Long code) {
+		this.code = code;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getKind() {
+		return kind;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setKind(String kind) {
+		this.kind = kind;
 	}
 
-	public Date getRegister() {
+	public String getRegister() {
 		return register;
 	}
 
-	public void setRegister(Date register) {
+	public void setRegister(String register) {
 		this.register = register;
 	}
 

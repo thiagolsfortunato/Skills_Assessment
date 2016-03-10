@@ -17,8 +17,7 @@ import br.com.fatec.entity.Question;
 
 public class DaoQuestion {
 	private static String getUnansweredQuestions(Long id) throws SQLException {
-
-		Connection conn = ConnectionMySql.getConnection();
+		ConnectionMySql connection = new ConnectionMySql();
 		String question = null ;
 		ResultSet rs = null;
 		try {
@@ -40,8 +39,7 @@ public class DaoQuestion {
 	}
 	
 	public static Question getQuestion(Long id) throws SQLException {
-
-		Connection conn = ConnectionMySql.getConnection();
+		ConnectionMySql connection = new ConnectionMySql();
 		Question qst = new Question();
 		List<Answer> answers = new LinkedList<Answer>();
 		ResultSet rs = null;
@@ -77,7 +75,7 @@ public class DaoQuestion {
 	
 	public static List<Answer> getAnswers(Long id) throws SQLException {
 
-		Connection conn = ConnectionMySql.getConnection();
+		ConnectionMySql connection = new ConnectionMySql();
 		
 		List<Answer> answers = new LinkedList<Answer>();
 		List<Competence> competencies = new LinkedList<Competence>();
@@ -106,8 +104,7 @@ public class DaoQuestion {
 	}
 	
 	public static List<Competence> getCompetencies(Long id) throws SQLException {
-
-		Connection conn = ConnectionMySql.getConnection();
+		ConnectionMySql connection = new ConnectionMySql();
 		List<Competence> competencies = new LinkedList<Competence>();
 		Competence competence = null;
 		ResultSet rs = null;
@@ -121,8 +118,8 @@ public class DaoQuestion {
 			rs = cmd.executeQuery();
 			while (rs.next()){
 				competence = new Competence();
-				competence.setNumber(Long.parseLong(rs.getString("competence.com_code")));
-				competence.setDescription(rs.getString("com_kind"));
+				competence.setCode(Long.parseLong(rs.getString("competence.com_code")));
+				competence.setKind(rs.getString("com_kind"));
 				competence.setWeight(Integer.parseInt(rs.getString("rsc_weight")));
 				competencies.add(competence);
 			}

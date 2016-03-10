@@ -23,8 +23,8 @@ public class CompetenciesRoutes {
 			if(comp!=null){
 				JSONArray jsonResult = new JSONArray();
 				JSONObject jsonCompetence = new JSONObject();
-				jsonCompetence.put("Code", comp.getNumber());
-				jsonCompetence.put("Description", comp.getDescription());
+				jsonCompetence.put("Code", comp.getCode());
+				jsonCompetence.put("Description", comp.getKind());
 				jsonCompetence.put("Date", comp.getRegister());
 				jsonCompetence.put("Weight", comp.getWeight());
 				
@@ -91,8 +91,8 @@ public class CompetenciesRoutes {
 			for (Competence comp : listCompetence) {
 				JSONObject jsonObj = new JSONObject();
 				try {
-					jsonObj.put("code", comp.getNumber());
-					jsonObj.put("description", comp.getDescription());
+					jsonObj.put("code", comp.getCode());
+					jsonObj.put("description", comp.getKind());
 					jsonObj.put("registration_date", comp.getRegister());
 					jsonObj.put("weight", comp.getWeight());
 

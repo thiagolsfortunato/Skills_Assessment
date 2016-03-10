@@ -1,5 +1,6 @@
 package br.com.fatec.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.com.fatec.connection.ConnectionMySql;
@@ -22,11 +23,11 @@ public class ModelCourse {
 		return DaoCourse.deleteCourse(code);
 	}
 
-	public Course searchCourseByCode(Long code) {
+	public Course searchCourseByCode(Long code) throws SQLException {
 		return DaoCourse.searchCourseById(code);
 	}
 
-	public List<Course> searchAllCourse() {
+	public List<Course> searchAllCourse() throws SQLException {
 		return	DaoCourse.searchAllCourse(); 
 	}	
 
