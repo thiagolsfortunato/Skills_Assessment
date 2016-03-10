@@ -96,11 +96,7 @@ public class ConnectionMySql {
     //INSERT, UPDATE E DELETE
     public boolean executeSql(String SQL) throws SQLException {
         int i = statement.executeUpdate(SQL);
-        if (i == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return i == 0 ?  false :  true;
     }
 
 	public static java.sql.Connection restartConnection() {
