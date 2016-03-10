@@ -1,14 +1,12 @@
 package br.com.fatec.entity;
 
-import java.util.Date;
-
 public class Student extends User{
 	
-	private Long number;
+	private Long idStudent;
 	private String name;
 	private String ra;
 	private String cpf;
-	private Date birthDay;
+	private String birthDay;
 	private String cep;
 	private String address;
 	private String neighborhood;
@@ -18,42 +16,17 @@ public class Student extends User{
 	private String complement;
 	private String telephone;
 	private String cellphone;
-	private Date register;
-	private Long user_register;
+	private String register;
+	private Long idCourse; 
 	
-	
-	public Student(){};
-		
-	public Student(Long number, String name, String ra, String cpf, Date birthDay, String cep, String address,
-			String neighborhood, String city, String uf, int numberHouse, String complement, String telephone,
-			String cellphone, Date register, Long user_register, User user) {
+	public Student(){}
 
-		this.number = number;
-		this.name = name;
-		this.ra = ra;
-		this.cpf = cpf;
-		this.birthDay = birthDay;
-		this.cep = cep;
-		this.address = address;
-		this.neighborhood = neighborhood;
-		this.city = city;
-		this.uf = uf;
-		this.numberHouse = numberHouse;
-		this.complement = complement;
-		this.telephone = telephone;
-		this.cellphone = cellphone;
-		this.register = register;
-		this.user_register = user_register;
-		
+	public Long getIdStudent() {
+		return idStudent;
 	}
 
-
-	public Long getNumber() {
-		return number;
-	}
-
-	public void setNumber(Long number) {
-		this.number = number;
+	public void setIdStudent(Long number) {
+		this.idStudent = number;
 	}
 
 	public String getName() {
@@ -80,11 +53,11 @@ public class Student extends User{
 		this.cpf = cpf;
 	}
 
-	public Date getBirthDay() {
+	public String getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(String birthDay) {
 		this.birthDay = birthDay;
 	}
 
@@ -128,11 +101,11 @@ public class Student extends User{
 		this.uf = uf;
 	}
 
-	public int getNumberHouse() {
+	public Integer getNumberHouse() {
 		return numberHouse;
 	}
 
-	public void setNumberHouse(int numberHouse) {
+	public void setNumberHouse(Integer numberHouse) {
 		this.numberHouse = numberHouse;
 	}
 
@@ -160,20 +133,22 @@ public class Student extends User{
 		this.cellphone = cellphone;
 	}
 
-	public Date getRegister() {
+	public String getRegister() {
 		return register;
 	}
 
-	public void setRegister(Date register) {
+	public void setRegister(String register) {
 		this.register = register;
 	}
 
-	public Long getUser_register() {
-		return user_register;
+	public Long getIdCourse() {
+		return idCourse;
 	}
 
-	public void setUser_register(Long user_register) {
-		this.user_register = user_register;
-	}
+	public void setIdCourse(Long idCourse) {
+		this.idCourse = idCourse;
+	};
+	
+	
 
 }

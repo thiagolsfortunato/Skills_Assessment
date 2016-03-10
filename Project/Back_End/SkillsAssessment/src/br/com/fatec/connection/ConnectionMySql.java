@@ -1,19 +1,17 @@
 package br.com.fatec.connection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 public class ConnectionMySql {
 
 	private static String user="root";
     private static String password="inacio";
-    private static String database="SkillsAssessment";
     private static String ip="localhost:3306/SkillsAssessment?useSSL=false";
     private static String driver="com.mysql.jdbc.Driver";
     private static Connection connection = null;
@@ -23,7 +21,7 @@ public class ConnectionMySql {
     public ConnectionMySql(){};
     
     //padrao singleton
-    public static Connection getConnection() {
+    public Connection getConnection() {
         System.out.println(">>Connecting to database");
         try {
             Class.forName(driver);
@@ -49,9 +47,9 @@ public class ConnectionMySql {
     	try{   		
     		Class.forName(driver);
     		// realizando conexão
-            connection = (Connection) DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
+            connection = /*(Connection)*/ DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
             // criando canal para execução de sql
-            statement = (Statement) connection.createStatement();
+            statement = /*(Statement)*/ connection.createStatement();
             // retorna resultado da conexão      
     	}catch(ClassNotFoundException ex){
     		Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE,null, ex);
@@ -64,10 +62,12 @@ public class ConnectionMySql {
     	}            	
     }
     
-    public static void close(){
+    public void close(){
         try{
             if(connection!=null && !connection.isClosed()){
                 connection.close();
+//                statement.close(); << THIAGO ESSES "closes" N�O DEVEM SER EXECUTADOS ?
+//                resultset.close(); <<
                 System.out.println(">>Connection successfully closed");
             }
         }catch (Exception e) {
@@ -95,8 +95,8 @@ public class ConnectionMySql {
         return resultset.next();
     }
     
-    public PreparedStatement getPreparedStatement(){
-    	return (PreparedStatement) statement;
+    public /*Prepared*/Statement getPreparedStatement(){
+    	return /*(PreparedStatement)*/ statement;
     }
     
     //INSERT, UPDATE E DELETE
@@ -105,9 +105,9 @@ public class ConnectionMySql {
         return i == 0 ?  false :  true;
     }
     
-	public static java.sql.Connection restartConnection() {
+	public Connection restartConnection() {
 		close();
-		return ConnectionMySql.getConnection();
+		return getConnection();
 	}
 
 }
