@@ -49,27 +49,6 @@ public class DaoCompetencies {
 		}
 	}
 
-	// Update Competence
-	@SuppressWarnings("finally")
-	public static boolean updateCompetence(Competence competence) {
-		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "update competence set com_kind='" + competence.getKind() + "', " + "com_registration_date='"
-				+ competence.getRegister() + ", " + "com_weight=" + competence.getWeight() + "where com_code ="
-				+ competence.getCode() + ";";
-		boolean update = false;
-		try {
-			connection.conect();
-			if (connection.executeSql(sql)) {
-				update = true;
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			connection.close();
-			return update;
-		}
-	}
-	
 	// Search competence by name
 	@SuppressWarnings("finally")
 	public static Competence searchCompetenceByCode(Long code) throws SQLException {
@@ -93,6 +72,27 @@ public class DaoCompetencies {
 			connection.returnRegister().close();
 			connection.close();
 			return competence;
+		}
+	}
+
+	// Update Competence
+	@SuppressWarnings("finally")
+	public static boolean updateCompetence(Competence competence) {
+		ConnectionMySql connection = new ConnectionMySql();
+		String sql = "update competence set com_kind='" + competence.getKind() + "', " + "com_registration_date='"
+				+ competence.getRegister() + ", " + "com_weight=" + competence.getWeight() + "where com_code ="
+				+ competence.getCode() + ";";
+		boolean update = false;
+		try {
+			connection.conect();
+			if (connection.executeSql(sql)) {
+				update = true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connection.close();
+			return update;
 		}
 	}
 		

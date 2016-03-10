@@ -65,8 +65,7 @@ public class ConnectionMySql {
         try{
             if(connection!=null && !connection.isClosed()){
                 connection.close();
-//                statement.close(); << THIAGO ESSES "closes" NÃO DEVEM SER EXECUTADOS ?
-//                resultset.close(); <<
+                statement.close(); 
                 System.out.println(">>Connection successfully closed");
             }
         }catch (Exception e) {
@@ -92,14 +91,14 @@ public class ConnectionMySql {
         return resultset.next();
     }
     
-    public Statement getPreparedStatement(){
+    public Statement getStatement(){
     	return statement;
     }
     
     //INSERT, UPDATE E DELETE
     public boolean executeSql(String SQL) throws SQLException {
         int i = statement.executeUpdate(SQL);
-        return i == 0 ?  false :  true;
+        return i == 0 ?  false : true;
     }
     
 	public Connection restartConnection() {
