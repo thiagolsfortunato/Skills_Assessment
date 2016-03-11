@@ -20,36 +20,14 @@ public class ConnectionMySql {
     
     public ConnectionMySql(){};
     
-    //padrao singleton
-/*    public Connection getConnection() {
-        System.out.println(">>Connecting to database");
-        try {
-            Class.forName(driver);
-            if(connection==null || connection.isClosed()){
-            	connection=DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
-                //connection=DriverManager.getConnection("jdbc:mysql://"+ip+"/"+database+"",user, password);
-            }
-            return connection; 
-        }catch (ClassNotFoundException e) {    
-            throw new RuntimeException(e);    
-        }catch (SQLException e) {
-
-            close();
-            throw new RuntimeException(e);
-        }
-    }
-*/
+   
     @SuppressWarnings("finally")
 	public boolean conect() throws SQLException{
     	boolean error = true;
     	 System.out.println(">>Connecting to database");
     	try{   		
     		Class.forName(driver);
-    		// realizando conexao
-            connection = /*(Connection)*/ DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
-             //criando canal para execução de sql
-            //statement = /*(Statement)*/ connection.prepareStatement();
-            // retorna resultado da conexão      
+            connection = DriverManager.getConnection("jdbc:mysql://"+ip+"",user, password);
     	}catch(ClassNotFoundException ex){
     		Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE,null, ex);
             error = false;
@@ -65,7 +43,6 @@ public class ConnectionMySql {
         try{
             if(connection!=null && !connection.isClosed()){
                 connection.close();
-                //statement.close(); 
                 System.out.println(">>Connection successfully closed");
             }
         }catch (Exception e) {
@@ -74,8 +51,8 @@ public class ConnectionMySql {
     }
     
     //select
-    public boolean executeQuery(/*String query*/) throws SQLException{
-    	resultset = statement.executeQuery(/*query*/); //executa sql
+    public boolean executeQuery() throws SQLException {
+    	resultset = statement.executeQuery(); //executa sql
         return resultset.next(); //aponta para primeiro registro da consulta
     }
     
@@ -90,6 +67,7 @@ public class ConnectionMySql {
     public boolean nextRegister() throws SQLException {
         return resultset.next();
     }
+    
     //GETS and SETS
     public Connection getConnection() {
 		return connection;
@@ -114,18 +92,15 @@ public class ConnectionMySql {
 	public void setStatement(PreparedStatement statement) {
 		this.statement = statement;
 	}
-
-    
+	
     //INSERT, UPDATE E DELETE
-    public boolean executeSql(String SQL) throws SQLException {
-        int i = statement.executeUpdate(SQL);
+    public boolean executeSql() throws SQLException {
+        int i = statement.executeUpdate();
         return i == 0 ?  false : true;
     }
-    
-    
+        
 	public Connection restartConnection() {
 		close();
 		return getConnection();
 	}
-
 }

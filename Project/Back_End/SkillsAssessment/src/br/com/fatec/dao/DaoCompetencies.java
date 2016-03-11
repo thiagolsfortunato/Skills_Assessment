@@ -60,12 +60,10 @@ public class DaoCompetencies {
 			connection.setStatement(connection.getConnection().prepareStatement(query));
 			connection.getStatement().setString(1,String.valueOf(code));
 			if (connection.executeQuery()) {
-				do {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setKind(connection.returnField("COM_KIND"));
 					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
 					competence.setWeight(Integer.parseInt(connection.returnField("COM_WEIGHT")));
-				} while (connection.nextRegister());
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

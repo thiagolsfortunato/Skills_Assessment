@@ -12,15 +12,19 @@ import br.com.fatec.entity.Course;
 
 public class DaoCourse {
 
+	//PAREI AQUI
 	@SuppressWarnings("finally")
 	public static boolean insertCourse(Course course){
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES ("+ course.getName() +","+ 																			   course.getSituation() +","+ 
-																								   course.getRegistration_date() +");";
+		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,?);";
 		boolean insert = false;
 		try{
 			connection.conect();
-			if(connection.executeSql(sql)){
+			connection.setStatement(connection.getConnection().prepareStatement(sql));
+			connection.getStatement().setString(1,course.getName());
+			connection.getStatement().setString(2,String.valueOf(course.getSituation()));
+			connection.getStatement().setString(3,course.getRegistration_date());
+			if(connection.executeSql()){
 				insert = true;
 			}
 		}catch (SQLException e) {
