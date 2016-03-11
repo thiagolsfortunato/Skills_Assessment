@@ -11,7 +11,7 @@ import br.com.fatec.entity.Student;
 
 public class DaoStudent {
 
-	public static Student getStudentById(String idStudent) throws SQLException {
+	public static Student getStudentById(Long idStudent) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		// join table with User to bring the rest of the information
 		String query = "SELECT * FROM student s INNER JOIN "
@@ -22,7 +22,7 @@ public class DaoStudent {
 			conn.setStatement(conn.getConnection().prepareStatement(query));// PREPARO
 																			// A
 																			// QUERY
-			conn.getStatement().setString(1, idStudent);// SETO A QUERY
+			conn.getStatement().setString(1, idStudent.toString());// SETO A QUERY
 			// conn.setResultset(conn.getStatement().executeQuery());//EXECUTO A
 			// QUERY
 			// conn.getResultset().next();//PEGO O REGISTRO

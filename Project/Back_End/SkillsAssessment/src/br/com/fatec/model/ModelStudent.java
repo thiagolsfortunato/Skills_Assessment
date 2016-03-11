@@ -12,7 +12,7 @@ public class ModelStudent {
 		return false;
 	}
 	
-	public Student getStudentById(String code) {
+	public Student getStudentById(Long code) {
 		try {
 			return DaoStudent.getStudentById(code);
 		} catch (SQLException e) {
