@@ -13,72 +13,79 @@ public class DaoStudent {
 
 	public static Student getStudentById(String idStudent) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
-		 //join table with User to bring the rest of the information
+		// join table with User to bring the rest of the information
 		String query = "SELECT * FROM student s INNER JOIN "
-						+ "user u ON s.usr_code = u.usr_code WHERE s.std_code = ?;";
+				+ "user u ON s.usr_code = u.usr_code WHERE s.std_code = ?;";
 		Student student = new Student();
-		try{
+		try {
 			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));//PREPARO A QUERY
-			conn.getStatement().setString(1, idStudent);//SETO A QUERY
-			//conn.setResultset(conn.getStatement().executeQuery());//EXECUTO A QUERY
-			//conn.getResultset().next();//PEGO O REGISTRO
-			
-			if(conn.executeQuery()){
+			conn.setStatement(conn.getConnection().prepareStatement(query));// PREPARO
+																			// A
+																			// QUERY
+			conn.getStatement().setString(1, idStudent);// SETO A QUERY
+			// conn.setResultset(conn.getStatement().executeQuery());//EXECUTO A
+			// QUERY
+			// conn.getResultset().next();//PEGO O REGISTRO
+
+			if (conn.executeQuery()) {
 				System.out.println("aqui");
 				student = buildStudent(conn.returnRegister());
 			}
 			return student;
-		} catch (Exception e){
+		} catch (Exception e) {
 			throw new RuntimeException(e);
-		
+
 		} finally {
 			conn.getResultset().close();
 			conn.getStatement().close();
 			conn.close();
 		}
-		
+
 	}
 
 	public static List<Student> findAll() throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
-		String query = "SELECT * FROM student s INNER JOIN "
-		 				+ "USER u WHERE s.usr_code = u.usr_code;";// ORDER BY std_code DESC
-		try{
-			 conn.conect();
-			 conn.setStatement(conn.getConnection().prepareStatement(query));//PREPARO A QUERY
-			 if(conn.executeQuery()){
-				 return buildStudents(conn);
-			 }
-		 } catch (Exception e){
-			 throw new RuntimeException(e);
-		 
-		 } finally {
-			 //conn.returnRegister().close();
-			 //conn.getStatement().close();
-			 conn.close();;
-		 }
+		String query = "SELECT * FROM student s INNER JOIN " + "USER u WHERE s.usr_code = u.usr_code;";// ORDER
+																										// BY
+																										// std_code
+																										// DESC
+		try {
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));// PREPARO
+																			// A
+																			// QUERY
+			if (conn.executeQuery()) {
+				return buildStudents(conn);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			// conn.returnRegister().close();
+			// conn.getStatement().close();
+			conn.close();
+			;
+		}
 		return null;
 	}
 
-	private static List<Student> buildStudents(ConnectionMySql conn) throws SQLException{
+	private static List<Student> buildStudents(ConnectionMySql conn) throws SQLException {
 		List<Student> students = Lists.newArrayList();
-		do{					
-				students.add( buildStudent(conn.returnRegister()) );
-		}while(conn.nextRegister());
+		do {
+			students.add(buildStudent(conn.returnRegister()));
+		} while (conn.nextRegister());
 		return students;
 	}
-	
+
 	private static Student buildStudent(ResultSet rs) throws SQLException {
 		Student student = new Student();
-			student.setIdStudent( Long.parseLong(rs.getString("STD_CODE")) );
-			student.setName( rs.getString("STD_NAME") );
-			
+		student.setIdStudent(Long.parseLong(rs.getString("STD_CODE")));
+		student.setName(rs.getString("STD_NAME"));
+
 		return student;
-	} 
-	
+	}
+
 	public static boolean addStudent(Student student) {
-		
 		return false;
 	}
 

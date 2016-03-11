@@ -54,11 +54,12 @@ public class DaoCompetencies {
 	public static Competence searchCompetenceByCode(Long code) throws SQLException {
 		Competence competence = new Competence();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select com_code, com_kind, com_registration_date, com_weight from competence where com_code = '"
-				+ code + "';";
+		String query = "select com_code, com_kind, com_registration_date, com_weight from competence where com_code = ?'";
 		try {
 			connection.conect();
-			if (connection.executeQuery(query)) {
+			connection.setStatement(connection.getConnection().prepareStatement(query));
+			connection.getStatement().setString(1,String.valueOf(code));
+			if (connection.executeQuery()) {
 				do {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setKind(connection.returnField("COM_KIND"));
@@ -69,7 +70,8 @@ public class DaoCompetencies {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			connection.returnRegister().close();
+			connection.getResultset().close();
+			connection.getStatement().close();
 			connection.close();
 			return competence;
 		}
@@ -96,7 +98,7 @@ public class DaoCompetencies {
 		}
 	}
 		
-	// Search all competences
+	// Search all competences - MEXER AQUI !!!!
 	@SuppressWarnings("finally")
 	public static List<Competence> searchAll() throws SQLException {
 		List<Competence> listCompetence = null;
@@ -104,7 +106,7 @@ public class DaoCompetencies {
 		ConnectionMySql connection = new ConnectionMySql();
 		try {
 			connection.conect();
-			if (connection.executeQuery(query)) {
+			if (connection.executeQuery()) {
 				do {
 					Competence competence = new Competence();
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
