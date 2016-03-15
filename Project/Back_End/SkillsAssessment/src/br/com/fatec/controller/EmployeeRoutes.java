@@ -2,27 +2,12 @@ package br.com.fatec.controller;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
-import java.sql.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import br.com.fatec.dao.Token;
 import br.com.fatec.entity.Employee;
 import br.com.fatec.entity.TokenInfo;
-import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEmployee;
-import br.com.fatec.model.ModelStudent;
-import br.com.fatec.model.ModelUser;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 public class EmployeeRoutes {
 	Employee empObj = null;
@@ -34,7 +19,7 @@ public class EmployeeRoutes {
 	@SuppressWarnings("finally")
 	public void getEmployee() {
 		
-		post("/searchEmployee", (req, res) -> {
+		post("/searchEmployeeById", (req, res) -> {
 			employee = req.body();
 			token = req.headers("token");
 			Gson gson = new Gson();
@@ -80,14 +65,14 @@ public class EmployeeRoutes {
 			tk = Token.verifyToken(token);
 			try {
 				empObj = gson.fromJson(employee, Employee.class);
-				response = modelEmployee.deleteEmployee(empObj.getCode());
+				response = modelEmployee.deleteEmployee(Long.parseLong(tk.getUserId()));
 					
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				res.status(400);
 				return "ops, an error with DELETE, check the fields!";
 			} finally {
-				res.header("token", token);
+				//res.header("token", token);
 				return response;
 			}
 		} , JsonUtil.json());
@@ -100,18 +85,16 @@ public class EmployeeRoutes {
 			tk = Token.verifyToken(token);
 			try {
 				empObj = gson.fromJson(employee, Employee.class);
-				//response = modelEmployee.updateEmployee(employee, code);
+				response = modelEmployee.updateEmployee(empObj);
 						
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				res.status(400);
-				return "ops, an error with INSERT, check the fields!";
+				return "ops, an error with update, check the fields!";
 			} finally {
 				res.header("token", token);
 				return response;
 			}
 		} , JsonUtil.json());
-		
-
 	}
 }

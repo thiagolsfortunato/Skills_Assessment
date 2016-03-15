@@ -1,11 +1,9 @@
 package br.com.fatec.model;
 import java.sql.SQLException;
 import java.util.List;
-
 import br.com.fatec.dao.DaoEmployee;
-import br.com.fatec.dao.DaoStudent;
 import br.com.fatec.entity.Employee;
-import br.com.fatec.entity.Student;
+
 
 public class ModelEmployee {
 	
@@ -18,7 +16,7 @@ public class ModelEmployee {
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
-			System.out.println("Error when registering");
+			System.out.println("Error when registering "+e);
 		}
 		return false;
 	}
@@ -32,21 +30,21 @@ public class ModelEmployee {
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
-			System.out.println("Error delete");
+			System.out.println("Error delete "+e);
 		}
 		return false;
 	}	
 	
-	public boolean updateEmployee(Employee employee, Long code){
+	public boolean updateEmployee(Employee employee){
 		try{
-			if(DaoEmployee.update(employee, code)){
+			if(DaoEmployee.update(employee)){
 				return true;
 			}else{
 				return false;
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
-			System.out.println("Error update");
+			System.out.println("Error update "+e);
 		}
 		return false;
 	}
@@ -59,21 +57,19 @@ public class ModelEmployee {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Could not find data");
+			System.out.println("Could not find data "+e);
 		}
 		return null;
 	}	
 	
-	//FAZER O FIND ALL
 	public List<Employee> searchAllEmployee() {
 		try {
 			List<Employee> listEmployee;
 			listEmployee = DaoEmployee.searchAll(); 
 			return listEmployee;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Could not find data");
+			System.out.println("Could not find data "+e);
 		}
 		return null;
 	}	

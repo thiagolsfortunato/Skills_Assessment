@@ -5,9 +5,10 @@ public class User {
 	private Long userCode;
 	private String email;
 	private String password;
+	private String kindperson;
 	private Integer situation;
 	private Integer verification;
-	private String kindPerson;
+	
 	private String token;
 	
 	
@@ -39,6 +40,13 @@ public class User {
 		this.password = password;
 	}
 
+	public String getKindPerson() {
+		return kindperson;
+	}
+
+	public void setKindPerson(String kindPerson) {
+		this.kindperson = kindPerson.toLowerCase();
+	}
 
 	public int getSituation() {
 		return situation;
@@ -57,13 +65,7 @@ public class User {
 	}
 
 
-	public String getKindPerson() {
-		return kindPerson;
-	}
-
-	public void setKindPerson(String kindPerson) {
-		this.kindPerson = kindPerson.toLowerCase();
-	}
+	
 
 	public String getToken() {
 		return token;

@@ -11,12 +11,24 @@ public class ModelUser {
 		try {
 			User user = DaoUser.getLogin(login, password);
 			return user;
-			//return DaoUser.getLogin(login, password); ->FUNCIONA<-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("error, model user");
 		}
 		return null;
+	}
+	
+	public boolean addUser(User user){
+		boolean returnInsert = false;
+		try {
+			Long newUser = DaoUser.insertUser(user);
+			if(newUser != null)returnInsert =  true;
+			else returnInsert =  false;
+			
+		} catch (SQLException e) {
+			System.out.println("Will not it was possible to enter the User");
+		}
+		return returnInsert;
 	}
 	
 	public void updatePassword(Integer code, String newPassword){

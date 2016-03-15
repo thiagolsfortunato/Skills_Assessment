@@ -12,7 +12,7 @@ import br.com.fatec.model.ModelStudent;
 import br.com.fatec.model.ModelUser;
 
 public class UserRoutes {
-	private String loginData = null;
+	private String data = null;
 	private String token = null;
 
 
@@ -22,9 +22,9 @@ public class UserRoutes {
 		post("/login", (req, res) -> {
 			Employee emp = null;
 			Student stu = null;
-			loginData = req.body();
+			data = req.body();
 			Gson gson = new Gson();
-			User user = gson.fromJson(loginData, User.class);
+			User user = gson.fromJson(data, User.class);
 			try {
 				user = login.getLogin(user.getEmail(), user.getPassword());
 				token = user.getToken();
@@ -47,6 +47,26 @@ public class UserRoutes {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with LOGIN, check the fields!";
+			}
+			
+		} , JsonUtil.json());
+	}
+	
+	
+	public void insertUser() {
+		ModelUser insert = new ModelUser();
+		
+		post("/insertUser", (req, res) -> {
+			data = req.body();
+			Gson gson = new Gson();
+			User user = gson.fromJson(data, User.class);
+			try {
+				boolean respUser = insert.addUser(user);
+				return respUser;
+				
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				return "ops, an error with INSERT, check the fields!";
 			}
 			
 		} , JsonUtil.json());
