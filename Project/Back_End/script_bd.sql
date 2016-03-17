@@ -276,10 +276,9 @@ select * from user;
 select * from course;
 select * from competence where competence.com_situation <> 1;
 
-
-
 select count(*) from question where question.qst_situation <> 1;
 
+select date_format(now(), '%d-%m-%y') from dual;
 
 -- delete from course where crs_code = 1;
 

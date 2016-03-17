@@ -17,31 +17,31 @@ public class CourseRoutes {
 	Gson gson = new Gson();
 	
 	public void getCourse() {
-		
+		//FUNCIONANDO !
 		post("/insertCourse", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			return modelCourses.insertCourse(course);
 		}, JsonUtil.json());
-		
+		//FUNCIONANDO !
 		delete("/deleteCourse", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			return modelCourses.deleteCourse(course.getCodeCourse());
 		}, JsonUtil.json());
-		
+		//FUNCIONANDO !
 		put("/updateCourse", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			return modelCourses.updateCourse(course);
 		}, JsonUtil.json());
-		
-		get("/searchCourseById", (req, res) -> {
+		//FUNCIONANDO !
+		post("/searchCourseById", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			return  modelCourses.searchCourseByCode(course.getCodeCourse());					 
 		}, JsonUtil.json());
-		
+		//FUNCIONANDO !
 		get("/searchAllCourses", (req, res) -> {
 			return modelCourses.searchAllCourse();					
 		}, JsonUtil.json());

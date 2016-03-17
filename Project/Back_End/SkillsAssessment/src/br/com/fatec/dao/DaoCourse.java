@@ -11,19 +11,18 @@ import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Course;
 
 public class DaoCourse {
-
-	//PAREI AQUI
+	//FUNCIONANDO !
 	@SuppressWarnings("finally")
 	public static boolean insertCourse(Course course) {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,?);";
+		String sql = "INSERT INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,now());";
 		boolean insert = false;
 		try{
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1,course.getName());
 			connection.getStatement().setInt(2,course.getSituation());
-			connection.getStatement().setString(3,course.getRegistration_date());
+			//connection.getStatement().setDate(3,course.getRegistration_date());
 			if(connection.executeSql()){
 				insert = true;
 			}
@@ -34,7 +33,7 @@ public class DaoCourse {
 			return insert;
 		}
 	}
-		
+	//FUNCIONANDO !
 	@SuppressWarnings("finally")
 	public static boolean deleteCourse(Long code) {
 		ConnectionMySql connection = new ConnectionMySql();
@@ -54,19 +53,19 @@ public class DaoCourse {
 			return delete;
 		}
 	}
-	
+	// FUNCIONANDO !
 	@SuppressWarnings("finally")
 	public static boolean updateCourse(Course course) {
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE COURSES SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = ? WHERE CRS_CODE = ?;";
+		String sql = "UPDATE COURSE SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = now() WHERE CRS_CODE = ?;";
 		boolean update = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1, course.getName());
 			connection.getStatement().setInt(2, course.getSituation());
-			connection.getStatement().setString(3, course.getRegistration_date());
-			connection.getStatement().setLong(4, course.getCodeCourse());
+			//connection.getStatement().setString(3, course.getRegistration_date());
+			connection.getStatement().setLong(3, course.getCodeCourse());
 			if(connection.executeSql()){
 				update = true;
 			}
@@ -77,7 +76,7 @@ public class DaoCourse {
 			return update;
 		}
 	}	
-
+	//FUNCIONANDO !
 	@SuppressWarnings("finally")
 	public static List<Course> searchAllCourse() {
 		List<Course> listCourse = new ArrayList<>();
@@ -114,6 +113,7 @@ public class DaoCourse {
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
+			connection.getStatement().setLong(1, code);
 			if(connection.executeQuery()){
 				do{					
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
