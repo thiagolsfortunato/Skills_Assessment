@@ -30,18 +30,18 @@ import br.com.fatec.entity.Competence;
 public class ModelCompetencies {
 	
 	//Add competence
-	public boolean insertCompetence(Competence competence ){
+	public boolean insertCompetence(Competence competence ) throws SQLException{
 		return DaoCompetencies.insertCompetence(competence);
 	}
 	
 	//Delete Competence
-	public boolean deleteCompetence(Long code){
+	public boolean deleteCompetence(Long code) throws SQLException{
 		return DaoCompetencies.deleteCompetence(code);
 	}
 	
 	//Update Competence
-		public boolean updateCompetence(Competence competence) {
-			return DaoCompetencies.updateCompetence(competence);		
+		public boolean updateCompetence(Competence competence, Long code) throws SQLException {
+			return DaoCompetencies.updateCompetence(competence, code);		
 		}
 	
 	//Search By Code
