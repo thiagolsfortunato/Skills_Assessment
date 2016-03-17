@@ -14,7 +14,7 @@ public class DaoCourse {
 
 	//PAREI AQUI
 	@SuppressWarnings("finally")
-	public static boolean insertCourse(Course course){
+	public static boolean insertCourse(Course course) throws SQLException{
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,?);";
 		boolean insert = false;
@@ -30,45 +30,54 @@ public class DaoCourse {
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally{
+			connection.getStatement().close();
 			connection.close();
 			return insert;
 		}
 	}
 		
 	@SuppressWarnings("finally")
-	public static boolean deleteCourse(Long code) {
+	public static boolean deleteCourse(Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "DELETE FROM COURSE WHERE CRS_CODE = " + code + ";";
+		String sql = "DELETE FROM COURSE WHERE CRS_CODE = ?;";
 		boolean delete = false;
 		try {
 			connection.conect();
-			if (connection.executeSql(sql)) {
+			connection.setStatement(connection.getConnection().prepareStatement(sql));
+			connection.getStatement().setLong(1, code);
+			if (connection.executeSql()) {
 				delete = true;
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
+			connection.getStatement().close();
 			connection.close();
 			return delete;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateCourse(Course course){
+	public static boolean updateCourse(Course course) throws SQLException {
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE COURSES SET crs_name = "+ course.getName() +", "
-								 + "crs_situation = "+ course.getSituation()+", "
-						 + "crs_registration_date = "+ course.getRegistration_date() +" "
-						 		+ "where crs_code = "+ course.getCodeCourse() +";";
+		String sql = "UPDATE COURSES SET crs_name = ?, "
+								 + "crs_situation = ?, "
+						 + "crs_registration_date = ? "
+						 		+ "where crs_code = ?;";
 		boolean update = false;
 		try {
 			connection.conect();
-			if(connection.executeSql(sql)){
+			connection.setStatement(connection.getConnection().prepareStatement(sql));
+			connection.getStatement().setString(1, course.getName());
+			connection.getStatement().setInt(2, course.getSituation());
+			connection.getStatement().setString(3, course.getRegistration_date());	
+			if(connection.executeSql()){
 				update = true;
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
+			connection.getStatement().close();
 			connection.close();
 			return update;
 		}
@@ -81,7 +90,8 @@ public class DaoCourse {
 		String query = "select * from course;";
 		try {
 			connection.conect();
-			if (connection.executeQuery(query)) {
+			connection.setStatement(connection.getConnection().prepareStatement(query));
+			if (connection.executeQuery()) {
 				do {
 					Course course = new Course();
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
@@ -97,6 +107,7 @@ public class DaoCourse {
 			throw new RuntimeException(e);
 		} finally {
 			connection.returnRegister().close();
+			connection.getStatement().close();
 			connection.close();
 			return listCourse;
 		}
@@ -105,11 +116,12 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static Course searchCourseById(Long code) throws SQLException{
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select * from course where crs_code = "+ code +";";
+		String query = "select * from course where crs_code = ?;";
 		Course course = new Course();
 		try {
 			connection.conect();
-			if(connection.executeQuery(query)){
+			connection.setStatement(connection.getConnection().prepareStatement(query));
+			if(connection.executeQuery()){
 				do{					
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
@@ -120,6 +132,7 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
+			connection.getStatement().close();
 			connection.returnRegister().close();
 			connection.close();
 			return course;
