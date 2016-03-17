@@ -7,23 +7,23 @@ import br.com.fatec.entity.Enrolls;
 
 public class ModelEnrolls {
 	
-	public boolean insertPeriod(Enrolls period) {
-		return DaoEnrolls.insertPeriod(period);
+	public boolean insertEnrolls(Enrolls enrolls) {
+		return DaoEnrolls.insertEnrolls(enrolls);
 	}
 
-	public boolean updatePeriod(Enrolls period) {
-		return DaoEnrolls.updatePeriod(period);
+	public boolean updateEnrolls(Enrolls enrolls) {
+		return DaoEnrolls.updateEnrolls(enrolls);
 	}
 
-	public boolean deleteCourse(Long code) {
-		return DaoEnrolls.deletePeriod(code);
+	public boolean deleteEnrolls(Long code) {
+		return DaoEnrolls.deleteEnrolls(code);
 	}
 
-	public Enrolls searchCourseByCode(Long code) {
-		return DaoEnrolls.searchPeriodById(code);
+	public Enrolls searchEnrollsByCode(Long code) {
+		return DaoEnrolls.searchEnrollsById(code);
 	}
 
-	public List<Enrolls> searchAllCourse() {
-		return	DaoEnrolls.searchAllPeriod(); 
+	public List<Enrolls> searchAllEnrolls() {
+		return	DaoEnrolls.searchAllEnrolls(); 
 	}
 }
