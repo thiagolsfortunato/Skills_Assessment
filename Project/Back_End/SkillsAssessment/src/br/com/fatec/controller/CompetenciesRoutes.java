@@ -5,17 +5,19 @@ import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
-import java.sql.Date;
+/*import java.sql.Date;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.fatec.entity.Course;
+*/
 import com.google.gson.Gson;
 
 import br.com.fatec.entity.Competence;
-import br.com.fatec.entity.Course;
+
 import br.com.fatec.model.ModelCompetencies;
 
 public class CompetenciesRoutes {
@@ -42,7 +44,7 @@ public class CompetenciesRoutes {
 		put("/updateCompetence", (req, res) -> {
 			String competenceData = req.body();
 			Competence competence = gson.fromJson(competenceData, Competence.class);
-			return modelCompetencies.updateCompetence(competence);
+			return modelCompetencies.updateCompetence(competence, competence.getCode());
 		}, JsonUtil.json());
 		
 		// Search by code
