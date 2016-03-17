@@ -6,22 +6,23 @@ public class Enrolls {
 	private int year;
 	private int period;
 	private Long codeCourse;
+	//private Long codeStudent; - VERIFICAR EDUARDO.
 	
 	public Enrolls(){};
 	
-	public Enrolls(Long code, int year, int period, Long codeCourse) {
-		this.codeEnrolls = code;
+	public Enrolls(Long codeEnrolls, int year, int period, Long codeCourse) {
+		this.codeEnrolls = codeEnrolls;
 		this.year = year;
 		this.period = period;
 		this.setCodeCourse(codeCourse);
 	}
 
-	public Long getCodePeriod() {
+	public Long getCodeEnrolls() {
 		return codeEnrolls;
 	}
 
-	public void setCodePeriod(Long code) {
-		this.codeEnrolls = code;
+	public void setCodeEnrolls(Long codeEnrolls) {
+		this.codeEnrolls = codeEnrolls;
 	}
 
 	public int getYear() {

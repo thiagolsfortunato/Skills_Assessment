@@ -12,15 +12,19 @@ public class DaoEnrolls {
 	
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static boolean insertPeriod(Enrolls period){
+	public static boolean insertPeriod(Enrolls enrolls){
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSER INTO PERIOD (prd_year, prd_period, crs_code) VALUES ("+ period.getYear() +","+
-																				    period.getPeriod() +","+
-																				    period.getCodeCourse() +");";
+		String sql = "INSER INTO ENROLLS (prd_year, prd_period, crs_code) VALUES (?,?,?"+ enrolls.getYear() +","+
+																				    enrolls.getPeriod() +","+
+																				    enrolls.getCodeCourse() +");";
 		boolean insert = false;
 		try{
 			connection.conect();
-			if(connection.executeSql(sql)){
+			connection.setStatement(connection.getConnection().prepareStatement(sql));
+			connection.getStatement().setInt(1,enrolls.getYear());
+			connection.getStatement().setInt(2,enrolls.getPeriod());
+			connection.getStatement().setLong(3,enrolls.getCodeCourse());
+			if(connection.executeSql()){
 				insert = true;
 			}
 		}catch (SQLException e) {
@@ -34,11 +38,13 @@ public class DaoEnrolls {
 	@SuppressWarnings("finally")
 	public static boolean deletePeriod(Long code) {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "DELETE FROM PERIOD WHERE PRD_CODE = " + code + ";";
+		String sql = "DELETE FROM ENROLLS WHERE PRD_CODE = ?;";
 		boolean delete = false;
 		try {
 			connection.conect();
-			if (connection.executeSql(sql)) {
+			connection.setStatement(connection.getConnection().prepareStatement(sql));
+			connection.getStatement().setLong(1,code);
+			if (connection.executeSql()) {
 				delete = true;
 			}
 		} catch (SQLException e) {
@@ -51,17 +57,19 @@ public class DaoEnrolls {
 	
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) --- VERIFICAR AQUI
 	@SuppressWarnings("finally")
-	public static boolean updatePeriod(Enrolls period){
+	public static boolean updatePeriod(Enrolls enrolls){
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE COURSES SET crs_code = "+ period.getCodePeriod() +", "
-								      + "prd_year = "+ period.getYear()+", "
-						            + "prd_period = "+ period.getPeriod()+", "
-								      + "crs_code = "+ period.getCodeCourse()+", "
-						 		+ "where prd_code = "+ period.getCodePeriod() +";";
+		String sql = "UPDATE COURSES SET crs_code = ?"+ enrolls.getCodeEnrolls() +", "
+								      + "prd_year = ?"+ enrolls.getYear()+", "
+						            + "prd_period = ?"+ enrolls.getPeriod()+", "
+								      + "crs_code = ?"+ enrolls.getCodeCourse()+", "
+						 		+ "where prd_code = ?"+ enrolls.getCodeEnrolls() +";";
 		boolean update = false;
 		try {
 			connection.conect();
-			if(connection.executeSql(sql)){
+			connection.setStatement(connection.getConnection().prepareStatement(sql));
+			connection.getStatement().setLong(1, enrolls.getCodeEnrolls());
+			if(connection.executeSql()){
 				update = true;
 			}
 		} catch (SQLException e) {
@@ -83,7 +91,7 @@ public class DaoEnrolls {
 			if (connection.executeQuery(query)) {
 				do {
 					Enrolls period = new Enrolls();
-					period.setCodePeriod(Long.parseLong(connection.returnField("PRD_CODE")));
+					period.setCodeEnrolls(Long.parseLong(connection.returnField("PRD_CODE")));
 					period.setYear(Integer.parseInt(connection.returnField("PRD_YEAR")));
 					period.setPeriod(Integer.parseInt(connection.returnField("PRD_PERIOD")));
 					listPeriod.add(period);
@@ -109,7 +117,7 @@ public class DaoEnrolls {
 			connection.conect();
 			if(connection.executeQuery(query)){
 				do{					
-					period.setCodePeriod(Long.parseLong(connection.returnField("PRD_CODE")));
+					period.setCodeEnrolls(Long.parseLong(connection.returnField("PRD_CODE")));
 					period.setYear(Integer.parseInt(connection.returnField("PRD_YEAR")));
 					period.setPeriod(Integer.parseInt(connection.returnField("PRD_PERIOD")));
 				}while(connection.nextRegister());
@@ -122,3 +130,4 @@ public class DaoEnrolls {
 		}
 	}
 }
+

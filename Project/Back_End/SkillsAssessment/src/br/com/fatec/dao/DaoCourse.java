@@ -14,7 +14,7 @@ public class DaoCourse {
 
 	//PAREI AQUI
 	@SuppressWarnings("finally")
-	public static boolean insertCourse(Course course) throws SQLException{
+	public static boolean insertCourse(Course course) {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "INSER INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,?);";
 		boolean insert = false;
@@ -30,14 +30,13 @@ public class DaoCourse {
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally{
-			connection.getStatement().close();
 			connection.close();
 			return insert;
 		}
 	}
 		
 	@SuppressWarnings("finally")
-	public static boolean deleteCourse(Long code) throws SQLException {
+	public static boolean deleteCourse(Long code) {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "DELETE FROM COURSE WHERE CRS_CODE = ?;";
 		boolean delete = false;
@@ -51,14 +50,13 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			connection.getStatement().close();
 			connection.close();
 			return delete;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateCourse(Course course) throws SQLException {
+	public static boolean updateCourse(Course course) {
 		ConnectionMySql connection =  new ConnectionMySql();
 		String sql = "UPDATE COURSES SET crs_name = ?, "
 								 + "crs_situation = ?, "
@@ -77,14 +75,13 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			connection.getStatement().close();
 			connection.close();
 			return update;
 		}
 	}	
 
 	@SuppressWarnings("finally")
-	public static List<Course> searchAllCourse() throws SQLException {
+	public static List<Course> searchAllCourse() {
 		List<Course> listCourse = null;
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course;";
@@ -106,15 +103,13 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			connection.returnRegister().close();
-			connection.getStatement().close();
 			connection.close();
 			return listCourse;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static Course searchCourseById(Long code) throws SQLException{
+	public static Course searchCourseById(Long code) {
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course where crs_code = ?;";
 		Course course = new Course();
@@ -132,11 +127,8 @@ public class DaoCourse {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			connection.getStatement().close();
-			connection.returnRegister().close();
 			connection.close();
 			return course;
 		}
 	}
-
 }

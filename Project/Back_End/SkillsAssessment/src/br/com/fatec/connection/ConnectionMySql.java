@@ -41,6 +41,12 @@ public class ConnectionMySql {
     
     public void close(){
         try{
+        	if(resultset != null && !resultset.isClosed()){
+        		resultset.close();
+        	}
+        	if(statement != null && !statement.isClosed()){
+        		statement.close();
+        	}
             if(connection!=null && !connection.isClosed()){
                 connection.close();
                 System.out.println(">>Connection successfully closed");
