@@ -22,7 +22,7 @@ public class DaoCourse {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1,course.getName());
-			connection.getStatement().setString(2,String.valueOf(course.getSituation()));
+			connection.getStatement().setInt(2,course.getSituation());
 			connection.getStatement().setString(3,course.getRegistration_date());
 			if(connection.executeSql()){
 				insert = true;
@@ -58,17 +58,15 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static boolean updateCourse(Course course) {
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE COURSES SET crs_name = ?, "
-								 + "crs_situation = ?, "
-						 + "crs_registration_date = ? "
-						 		+ "where crs_code = ?;";
+		String sql = "UPDATE COURSES SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = ? WHERE CRS_CODE = ?;";
 		boolean update = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1, course.getName());
 			connection.getStatement().setInt(2, course.getSituation());
-			connection.getStatement().setString(3, course.getRegistration_date());	
+			connection.getStatement().setString(3, course.getRegistration_date());
+			connection.getStatement().setLong(4, course.getCodeCourse());
 			if(connection.executeSql()){
 				update = true;
 			}
@@ -82,7 +80,7 @@ public class DaoCourse {
 
 	@SuppressWarnings("finally")
 	public static List<Course> searchAllCourse() {
-		List<Course> listCourse = null;
+		List<Course> listCourse = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course;";
 		try {
