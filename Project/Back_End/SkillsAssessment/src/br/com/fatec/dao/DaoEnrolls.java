@@ -10,9 +10,9 @@ import br.com.fatec.entity.Enrolls;
 
 public class DaoEnrolls {
 	
-	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
+	//ESPERANDO METODO DO MARCELO
 	@SuppressWarnings("finally")
-	public static boolean insertPeriod(Enrolls enrolls){
+	public static boolean insertEnrolls(Enrolls enrolls){
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "INSER INTO ENROLLS (prd_year, prd_period, crs_code, std_code) VALUES (?,?,?,?);";
 		boolean insert = false;
@@ -35,7 +35,7 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deletePeriod(Long code) {
+	public static boolean deleteEnrolls(Long code) {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "DELETE FROM ENROLLS WHERE ERN_CODE = ?;";
 		boolean delete = false;
@@ -54,7 +54,6 @@ public class DaoEnrolls {
 		}
 	}
 	
-	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) --- VERIFICAR AQUI
 	@SuppressWarnings("finally")
 	public static boolean updateEnrolls(Enrolls enrolls){
 		ConnectionMySql connection =  new ConnectionMySql();
@@ -78,9 +77,8 @@ public class DaoEnrolls {
 		}
 	}	
 
-	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static List<Enrolls> searchAllPeriod() {
+	public static List<Enrolls> searchAllEnrolls() {
 		List<Enrolls> listEnrolls = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT * FROM ENROLLS;";
@@ -108,9 +106,8 @@ public class DaoEnrolls {
 		}
 	}
 	
-	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static Enrolls searcheEnrollsById(Long code){
+	public static Enrolls searchEnrollsById(Long code){
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT * FROM ENROLLS WHERE ERN_CODE = ?;";
 		Enrolls enrolls = new Enrolls();
