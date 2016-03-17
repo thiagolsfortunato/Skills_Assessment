@@ -22,13 +22,15 @@ public class DaoUser {
 			conn.getStatement().setString(1, email);
 			conn.getStatement().setString(2, password);
 			
-			if (conn.executeQuery()) user = buildLogin(conn.returnRegister());
+			
+			if (conn.executeQuery()){
+				user = buildLogin(conn.returnRegister());
+			}
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {		
-			conn.getResultset().close();
-			conn.getStatement().close();
+			
 			conn.close();
 			return user;
 		}
@@ -54,9 +56,9 @@ public class DaoUser {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
-			conn.close();
+//			conn.getResultset().close();
+//			conn.getStatement().close();
+//			conn.close();
 			return token;
 		}
 	}

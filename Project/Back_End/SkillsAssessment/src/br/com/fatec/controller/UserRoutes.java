@@ -19,16 +19,18 @@ public class UserRoutes {
 	public void getLogin() {
 		ModelUser login = new ModelUser();
 		
-		post("/login", (req, res) -> {
+		post("/token", (req, res) -> {
 			Employee emp = null;
 			Student stu = null;
 			data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);
 			try {
+				
 				user = login.getLogin(user.getEmail(), user.getPassword());
 				token = user.getToken();
 				res.header("token",token);
+				res.type("application/json");
 				switch (user.getKindPerson()) {
 				case "student":
 					ModelStudent modelSt = new ModelStudent();

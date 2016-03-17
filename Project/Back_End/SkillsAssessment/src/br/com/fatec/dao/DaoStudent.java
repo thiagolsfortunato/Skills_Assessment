@@ -15,7 +15,7 @@ public class DaoStudent {
 		ConnectionMySql conn = new ConnectionMySql();
 		// join table with User to bring the rest of the information
 		String query = "SELECT * FROM student s INNER JOIN "
-				+ "user u ON s.usr_code = u.usr_code WHERE s.std_code = ?;";
+				+ "user u ON s.usr_code = u.usr_code WHERE u.usr_code = ?;";
 		Student student = new Student();
 		try {
 			conn.conect();
@@ -28,7 +28,6 @@ public class DaoStudent {
 			// conn.getResultset().next();//PEGO O REGISTRO
 
 			if (conn.executeQuery()) {
-				System.out.println("aqui");
 				student = buildStudent(conn.returnRegister());
 			}
 			return student;
