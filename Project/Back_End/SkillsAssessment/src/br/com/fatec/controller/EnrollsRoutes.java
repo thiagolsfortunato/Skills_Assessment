@@ -7,31 +7,40 @@ import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
+import br.com.fatec.entity.Enrolls;
 import br.com.fatec.model.ModelEnrolls;
 
 public class EnrollsRoutes {
-	ModelEnrolls modelPeriod = new ModelEnrolls();
+	ModelEnrolls modelEnrolls = new ModelEnrolls();
 	Gson gson = new Gson();
 	
 	public void getCourse() {
-		post("/insertCourse", (req, res) -> {
-			return null;
+		post("/insertEnrolls", (req, res) -> {
+			String enrollsData = req.body();
+			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
+			return modelEnrolls.insertEnrolls(enrolls);
 		}, JsonUtil.json());
 
-		delete("/deleteCourse", (req, res) -> {
-			return null;
+		delete("/deleteEnrolls", (req, res) -> {
+			String enrollsData = req.body();
+			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
+			return modelEnrolls.deleteEnrolls(enrolls.getCodeEnrolls());
 		}, JsonUtil.json());
 
-		put("/updateCourse", (req, res) -> {
-			return null;
+		put("/updateEnrolls", (req, res) -> {
+			String enrollsData = req.body();
+			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
+			return modelEnrolls.updateEnrolls(enrolls);
 		}, JsonUtil.json());
 
-		get("/searchAllCourses", (req, res) -> {
-			return null;
+		get("/searchAllEnrolls", (req, res) -> {
+			return modelEnrolls.searchAllEnrolls();
 		}, JsonUtil.json());
 
-		get("/searchCourseById", (req, res) -> {
-			return null;
+		get("/searchEnrollsById", (req, res) -> {
+			String enrollsData = req.body();
+			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
+			return modelEnrolls.searchEnrollsByCode(enrolls.getCodeEnrolls());
 		}, JsonUtil.json());
 	}
 }
