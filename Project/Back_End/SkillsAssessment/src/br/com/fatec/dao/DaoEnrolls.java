@@ -81,19 +81,21 @@ public class DaoEnrolls {
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
 	public static List<Enrolls> searchAllPeriod() {
-		List<Enrolls> listPeriod = new ArrayList<>();
+		List<Enrolls> listEnrolls = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select * from enrolls;";
+		String query = "SELECT * FROM ENROLLS;";
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
 			if (connection.executeQuery()) {
 				do {
-					Enrolls period = new Enrolls();
-					period.setCodeEnrolls(Long.parseLong(connection.returnField("PRD_CODE")));
-					period.setYear(Integer.parseInt(connection.returnField("PRD_YEAR")));
-					period.setPeriod(Integer.parseInt(connection.returnField("PRD_PERIOD")));
-					listPeriod.add(period);
+					Enrolls enrolls = new Enrolls();
+					enrolls.setCodeEnrolls(Long.parseLong(connection.returnField("ERN_CODE")));
+					enrolls.setYear(Integer.parseInt(connection.returnField("ERN_YEAR")));
+					enrolls.setPeriod(Integer.parseInt(connection.returnField("ERN_PERIOD")));
+					enrolls.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
+					enrolls.setCodeStudent(Long.parseLong(connection.returnField("STD_CODE")));
+					listEnrolls.add(enrolls);
 				} while (connection.nextRegister());
 			} else {
 				return null;
@@ -102,30 +104,34 @@ public class DaoEnrolls {
 			throw new RuntimeException(e);
 		} finally {
 			connection.close();
-			return listPeriod;
+			return listEnrolls;
 		}
 	}
 	
 	//DECIDIR SOBRE CRS_CODE (FK DE COURSE) 
 	@SuppressWarnings("finally")
-	public static Enrolls searchPeriodById(Long code){
+	public static Enrolls searcheEnrollsById(Long code){
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select * from course where crs_code = "+ code +";";
-		Enrolls period = new Enrolls();
+		String query = "SELECT * FROM ENROLLS WHERE ERN_CODE = ?;";
+		Enrolls enrolls = new Enrolls();
 		try {
 			connection.conect();
-			if(connection.executeQuery(query)){
+			connection.setStatement(connection.getConnection().prepareStatement(query));
+			connection.getStatement().setLong(1, code);
+			if(connection.executeQuery()){
 				do{					
-					period.setCodeEnrolls(Long.parseLong(connection.returnField("PRD_CODE")));
-					period.setYear(Integer.parseInt(connection.returnField("PRD_YEAR")));
-					period.setPeriod(Integer.parseInt(connection.returnField("PRD_PERIOD")));
+					enrolls.setCodeEnrolls(Long.parseLong(connection.returnField("ERN_CODE")));
+					enrolls.setYear(Integer.parseInt(connection.returnField("ERN_YEAR")));
+					enrolls.setPeriod(Integer.parseInt(connection.returnField("ERN_PERIOD")));
+					enrolls.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
+					enrolls.setCodeStudent(Long.parseLong(connection.returnField("STD_CODE")));
 				}while(connection.nextRegister());
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
 			connection.close();
-			return period;
+			return enrolls;
 		}
 	}
 }
