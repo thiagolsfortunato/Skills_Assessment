@@ -14,12 +14,11 @@ public class ConnectionMySql {
     private static String password="inacio";
     private static String ip="localhost:3306/SkillsAssessment?useSSL=false";
     private static String driver="com.mysql.jdbc.Driver";
-    private /*static*/ Connection connection = null;
-    private /*static*/ PreparedStatement statement = null;
-	private /*static*/ ResultSet resultset = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+	private ResultSet resultset = null;
     
     public ConnectionMySql(){};
-    
    
     @SuppressWarnings("finally")
 	public boolean conect() throws SQLException{
@@ -49,8 +48,8 @@ public class ConnectionMySql {
         	}
             if(connection!=null && !connection.isClosed()){
                 connection.close();
-                System.out.println(">>Connection successfully closed");
             }
+            System.out.println(">>Connection successfully closed");
         }catch (Exception e) {
             e.printStackTrace();
         }
