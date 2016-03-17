@@ -129,7 +129,7 @@ public class DaoEmployee {
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean update = false;
 		try {
-			String sql = "update employee set emp_name = ?, emp_cpf = ?, emp_birth = ?, emp_cep = ?, emp_address = ?, emp_neighborhood  ?,"
+			String sql = "update employee set emp_name = ?, emp_cpf = ?, emp_birth = ?, emp_cep = ?, emp_address = ?, emp_neighborhood = ?,"
 					+ "emp_city = ?, emp_number = ?, emp_telephone = ? , emp_cellphone = ?, emp_registration_date = ? "
 					+ " where usr_code = ?";
 			conn.conect();

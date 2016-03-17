@@ -6,14 +6,15 @@ public class Enrolls {
 	private int year;
 	private int period;
 	private Long codeCourse;
-	//private Long codeStudent; - VERIFICAR EDUARDO.
+	private Long codeStudent;
 	
 	public Enrolls(){};
 	
-	public Enrolls(Long codeEnrolls, int year, int period, Long codeCourse) {
+	public Enrolls(Long codeEnrolls, int year, int period, Long codeCourse, Long codeStudent) {
 		this.codeEnrolls = codeEnrolls;
 		this.year = year;
 		this.period = period;
+		this.setCodeStudent(codeStudent);
 		this.setCodeCourse(codeCourse);
 	}
 
@@ -47,5 +48,13 @@ public class Enrolls {
 
 	public void setCodeCourse(Long codeCourse) {
 		this.codeCourse = codeCourse;
+	}
+
+	public Long getCodeStudent() {
+		return codeStudent;
+	}
+
+	public void setCodeStudent(Long codeStudent) {
+		this.codeStudent = codeStudent;
 	}	
 }
