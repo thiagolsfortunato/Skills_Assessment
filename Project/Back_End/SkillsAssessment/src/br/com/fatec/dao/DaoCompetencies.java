@@ -21,7 +21,7 @@ public class DaoCompetencies {
 			connection.getStatement().setString(1,String.valueOf(competence.getCode()));
 			connection.getStatement().setString(2,competence.getKind());
 			connection.getStatement().setString(3,competence.getRegister());
-			connection.getStatement().setString(4,String.valueOf(competence.getSituation()));
+			connection.getStatement().setString(4,competence.getRegister());//wrong
 			
 			if (connection.executeSql()) {
 				insert = true;
@@ -74,7 +74,7 @@ public class DaoCompetencies {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setKind(connection.returnField("COM_KIND"));
 					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
-					competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
+					//competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -99,7 +99,7 @@ public class DaoCompetencies {
 			connection.getStatement().setString(1,String.valueOf(competence.getCode()));
 			connection.getStatement().setString(2,competence.getKind());
 			connection.getStatement().setString(3,competence.getRegister());
-			connection.getStatement().setString(4,String.valueOf(competence.getSituation()));
+			//connection.getStatement().setString(4,String.valueOf(competence.getSituation()));
 			connection.getStatement().setString(5, String.valueOf(code));
 			if (connection.executeSql()) {
 				update = true;
@@ -128,7 +128,7 @@ public class DaoCompetencies {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setKind(connection.returnField("COM_KIND"));
 					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
-					competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
+					//competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
 					listCompetence.add(competence);
 				} while (connection.nextRegister());
 			}
