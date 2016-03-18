@@ -10,16 +10,16 @@ import br.com.fatec.entity.User;
 public class DaoUser {
 
 	@SuppressWarnings("finally")
-	public static User getLogin(String email, String password) throws SQLException{
+	public static User getLogin(String userName, String password) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
 		User user = null;
 
 		try {
-			String query = "select usr_kind, usr_code, usr_token from user where usr_username = ? and usr_password = ?;";
+			String query = "select usr_type, usr_code, usr_token,usr_name from user where usr_username = ? and usr_password = ?;";
 			
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, email);
+			conn.getStatement().setString(1, userName);
 			conn.getStatement().setString(2, password);
 			
 			
@@ -56,9 +56,7 @@ public class DaoUser {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
-//			conn.getResultset().close();
-//			conn.getStatement().close();
-//			conn.close();
+			conn.close();
 			return token;
 		}
 	}
@@ -69,18 +67,19 @@ public class DaoUser {
 		ResultSet idUser = null;
 		Long returnInsert = null;
 		try {
-			String insert = "insert into user (usr_userName ,usr_password ,usr_kind) values (?,?,?);";
+			String insert = "insert into user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name) values (?,?,?,?,?);";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement((insert),Statement.RETURN_GENERATED_KEYS));
 			conn.getStatement().setString(1, user.getUserName());
 			conn.getStatement().setString(2, user.getPassword());
-			conn.getStatement().setString(3, user.getType());
+			conn.getStatement().setString(3, user.getRa());
+			conn.getStatement().setString(4, user.getType());
+			conn.getStatement().setString(5, user.getName());
 			
 			if(conn.executeSql()){
 				System.out.println("the User has been successfully inserted!");
 				idUser = conn.getStatement().getGeneratedKeys();
 				if (idUser.next()) {
-					System.out.println(idUser.getLong(1));
 					returnInsert =  idUser.getLong(1);
 				}
 			}
@@ -88,10 +87,59 @@ public class DaoUser {
 			System.out.println("erro "+e);
 			throw new RuntimeException(e);
 		}finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
 			conn.close();
 			return returnInsert;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static User searchUserById(Long userCode) throws SQLException{
+		ConnectionMySql conn = new ConnectionMySql();
+		User user = null;
+
+		try {
+			String query = "select usr_type, usr_code, usr_token,usr_name from user where usr_code = ?;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setLong(1, userCode);
+			if (conn.executeQuery()){
+				user = buildLogin(conn.returnRegister());
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {		
+			
+			conn.close();
+			return user;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static boolean updateUser(User user) throws SQLException{
+		ConnectionMySql conn = new ConnectionMySql();
+		boolean returnUpdate = false;
+		try {
+			String update = "update user set usr_userName = ? ,usr_password = ? ,usr_ra = ?, usr_type = ?, usr_name = ?) where usr_code = ?;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(update));
+			conn.getStatement().setString(1, user.getUserName());
+			conn.getStatement().setString(2, user.getPassword());
+			conn.getStatement().setString(3, user.getRa());
+			conn.getStatement().setString(4, user.getType());
+			conn.getStatement().setString(5, user.getName());
+			conn.getStatement().setLong(6, user.getUserCode());
+			
+			if(conn.executeSql()){
+				System.out.println("the User has been successfully updated!");
+					returnUpdate =  true;	
+			}
+		} catch (Exception e) {
+			System.out.println("erro "+e);
+			throw new RuntimeException(e);
+		}finally {
+			conn.close();
+			return returnUpdate;
 		}
 	}
 	
@@ -110,8 +158,6 @@ public class DaoUser {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
 			conn.close();
 			return delete;
 		}
@@ -122,6 +168,7 @@ public class DaoUser {
 		String token = updateTokenUser(rs.getString("USR_CODE"));
 		user.setType(rs.getString("USR_KIND"));
 		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
+		user.setType(rs.getString("usr_name"));
 		user.setToken(token); 
 		return user;
 	}
