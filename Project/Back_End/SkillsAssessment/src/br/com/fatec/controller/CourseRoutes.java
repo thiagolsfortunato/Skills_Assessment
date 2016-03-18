@@ -5,8 +5,6 @@ import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
-import java.util.List;
-
 import com.google.gson.Gson;
 
 import br.com.fatec.entity.Course;
@@ -24,8 +22,8 @@ public class CourseRoutes {
 			return modelCourses.insertCourse(course);
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		delete("/deleteCourse/:code", (req, res) -> {
-			Long codeCourse = Long.parseLong(req.params("code"));
+		delete("/deleteCourse", "application/json" ,(req, res) -> {
+			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
 			return modelCourses.deleteCourse(codeCourse);
 		}, JsonUtil.json());
 		//FUNCIONANDO !

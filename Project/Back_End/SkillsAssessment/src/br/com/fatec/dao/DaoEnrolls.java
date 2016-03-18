@@ -3,9 +3,7 @@ package br.com.fatec.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.fatec.connection.ConnectionMySql;
-import br.com.fatec.entity.Course;
 import br.com.fatec.entity.Enrolls;
 
 public class DaoEnrolls {

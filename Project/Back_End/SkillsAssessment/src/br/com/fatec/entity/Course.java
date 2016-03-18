@@ -1,7 +1,5 @@
 package br.com.fatec.entity;
 
-import java.sql.Date;
-
 public class Course {
 	
 	private Long codeCourse;
