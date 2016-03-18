@@ -23,11 +23,11 @@ public class ModelCourse {
 		return DaoCourse.deleteCourse(code);
 	}
 
-	public Course searchCourseByCode(Long code) throws SQLException {
+	public Course searchCourseByCode(Long code) throws SQLException{
 		return DaoCourse.searchCourseById(code);
 	}
 
-	public List<Course> searchAllCourse() throws SQLException {
+	public List<Course> searchAllCourse() throws SQLException{
 		return	DaoCourse.searchAllCourse(); 
 	}	
 

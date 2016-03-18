@@ -14,7 +14,7 @@ public class ModelStudent {
 	
 	public Student getStudentById(Long code) {
 		try {
-			return DaoStudent.getStudentById(code);
+			return DaoStudent.searchStudentById(code);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Could not find data");

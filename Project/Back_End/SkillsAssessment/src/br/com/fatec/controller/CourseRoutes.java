@@ -24,10 +24,9 @@ public class CourseRoutes {
 			return modelCourses.insertCourse(course);
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		delete("/deleteCourse", (req, res) -> {
-			String courseData = req.body();
-			Course course = gson.fromJson(courseData, Course.class);
-			return modelCourses.deleteCourse(course.getCodeCourse());
+		delete("/deleteCourse/:code", (req, res) -> {
+			Long codeCourse = Long.parseLong(req.params("code"));
+			return modelCourses.deleteCourse(codeCourse);
 		}, JsonUtil.json());
 		//FUNCIONANDO !
 		put("/updateCourse", (req, res) -> {
@@ -36,10 +35,9 @@ public class CourseRoutes {
 			return modelCourses.updateCourse(course);
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		post("/searchCourseById", (req, res) -> {
-			String courseData = req.body();
-			Course course = gson.fromJson(courseData, Course.class);
-			return  modelCourses.searchCourseByCode(course.getCodeCourse());					 
+		get("/searchCourseById/:code", (req, res) -> {
+			Long codeCourse = Long.parseLong(req.params("code"));
+			return  modelCourses.searchCourseByCode(codeCourse);					 
 		}, JsonUtil.json());
 		//FUNCIONANDO !
 		get("/searchAllCourses", (req, res) -> {
