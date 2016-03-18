@@ -33,14 +33,14 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteEnrolls(Long code) {
+	public static boolean deleteEnrolls(Long codeEnrolls) {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "DELETE FROM ENROLLS WHERE ERN_CODE = ?;";
 		boolean delete = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setLong(1,code);
+			connection.getStatement().setLong(1,codeEnrolls);
 			if (connection.executeSql()) {
 				delete = true;
 			}
@@ -105,14 +105,14 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Enrolls searchEnrollsById(Long code){
+	public static Enrolls searchEnrollsById(Long codeEnrolls){
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT * FROM ENROLLS WHERE ERN_CODE = ?;";
 		Enrolls enrolls = new Enrolls();
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
-			connection.getStatement().setLong(1, code);
+			connection.getStatement().setLong(1, codeEnrolls);
 			if(connection.executeQuery()){
 				do{					
 					enrolls.setCodeEnrolls(Long.parseLong(connection.returnField("ERN_CODE")));

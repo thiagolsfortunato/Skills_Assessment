@@ -21,10 +21,9 @@ public class EnrollsRoutes {
 			return modelEnrolls.insertEnrolls(enrolls);
 		}, JsonUtil.json());
 
-		delete("/deleteEnrolls", (req, res) -> {
-			String enrollsData = req.body();
-			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
-			return modelEnrolls.deleteEnrolls(enrolls.getCodeEnrolls());
+		delete("/deleteEnrolls", "application/json" , (req, res) -> {
+			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
+			return modelEnrolls.deleteEnrolls(codeEnrolls);
 		}, JsonUtil.json());
 
 		put("/updateEnrolls", (req, res) -> {
@@ -37,10 +36,9 @@ public class EnrollsRoutes {
 			return modelEnrolls.searchAllEnrolls();
 		}, JsonUtil.json());
 
-		get("/searchEnrollsById", (req, res) -> {
-			String enrollsData = req.body();
-			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
-			return modelEnrolls.searchEnrollsByCode(enrolls.getCodeEnrolls());
+		get("/searchEnrollsById", "application/json" ,(req, res) -> {
+			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
+			return modelEnrolls.searchEnrollsByCode(codeEnrolls);
 		}, JsonUtil.json());
 	}
 }
