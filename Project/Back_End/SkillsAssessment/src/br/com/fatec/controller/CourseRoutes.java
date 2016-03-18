@@ -22,7 +22,7 @@ public class CourseRoutes {
 			return modelCourses.insertCourse(course);
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		delete("/deleteCourse", "application/json" ,(req, res) -> {
+		delete("/deleteCourse", "application/json" , (req, res) -> {
 			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
 			return modelCourses.deleteCourse(codeCourse);
 		}, JsonUtil.json());
@@ -33,8 +33,8 @@ public class CourseRoutes {
 			return modelCourses.updateCourse(course);
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		get("/searchCourseById/:code", (req, res) -> {
-			Long codeCourse = Long.parseLong(req.params("code"));
+		get("/searchCourseById", "application/json" , (req, res) -> {
+			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
 			return  modelCourses.searchCourseByCode(codeCourse);					 
 		}, JsonUtil.json());
 		//FUNCIONANDO !
