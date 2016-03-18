@@ -3,6 +3,8 @@ package br.com.fatec.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.User;
@@ -13,16 +15,12 @@ public class DaoUser {
 	public static User getLogin(String userName, String password) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
 		User user = null;
-
 		try {
-			String query = "select usr_type, usr_code, usr_token,usr_name from user where usr_username = ? and usr_password = ?;";
-			
+			String query = "select usr_type, usr_code, usr_token,usr_name from user where usr_username = ? and usr_password = ?;";		
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			conn.getStatement().setString(1, userName);
-			conn.getStatement().setString(2, password);
-			
-			
+			conn.getStatement().setString(2, password);			
 			if (conn.executeQuery()){
 				user = buildLogin(conn.returnRegister());
 			}
@@ -30,7 +28,6 @@ public class DaoUser {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {		
-			
 			conn.close();
 			return user;
 		}
@@ -93,17 +90,39 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public static User searchUserById(Long userCode) throws SQLException{
+	public static User searchUserById(Long userCode) throws SQLException{ //in process
 		ConnectionMySql conn = new ConnectionMySql();
 		User user = null;
 
 		try {
-			String query = "select usr_type, usr_code, usr_token,usr_name from user where usr_code = ?;";
+			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user where usr_code = ?;";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			conn.getStatement().setLong(1, userCode);
 			if (conn.executeQuery()){
-				user = buildLogin(conn.returnRegister());
+				user = buildUser(conn.returnRegister());
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {		
+			
+			conn.close();
+			return user;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static List<User> searchAllUsers() throws SQLException{ //in process
+		ConnectionMySql conn = new ConnectionMySql();
+		List<User> user = new LinkedList<User>();
+
+		try {
+			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user where usr_code = ?;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			if (conn.executeQuery()){
+				user = buildUsers(conn);
 			}
 			
 		} catch (SQLException e) {
@@ -172,5 +191,23 @@ public class DaoUser {
 		user.setToken(token); 
 		return user;
 	}
+	
+	private static User buildUser (ResultSet rs) throws SQLException {
+		User user = new User();
+		String token = updateTokenUser(rs.getString("USR_CODE"));
+		user.setType(rs.getString("USR_KIND"));
+		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
+		user.setType(rs.getString("USR_NAME"));
+		user.setType(rs.getString("USR_NAME"));
+		
+		user.setToken(token); 
+		return user;
+	}
+	
+	private static List<User> buildUsers (ConnectionMySql conn) throws SQLException {
+		List<User> user = new LinkedList<User>();
+		return user;
+	}
+	
 
 }
