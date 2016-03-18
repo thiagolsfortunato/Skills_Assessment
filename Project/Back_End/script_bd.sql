@@ -190,11 +190,33 @@ insert into alt_com (alt_code,com_code,rsc_weight) values (3,5,5);
 -- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,3,3,current_date(),'00:41:38');
 -- truncate quiz;
 
-insert into course values (1,'Banco de Dados',1,'2008-01-01 00:00:01');
-insert into course values (2,'Estrutura Leves',1,'2008-01-01 00:00:01');
-insert into course values (3,'Logistica',1,'2008-01-01 00:00:01');
-insert into course values (4,'Manutenção de Aeronaves',1,'2008-01-01 00:00:01');
-insert into course values (5,'Gestão de Produção Industrial',1,'2008-01-01 00:00:01');
-insert into course values (6,'Gestão de Produção Industrial',1,sysdate());
+insert into course values (1,'Banco de Dados',1, now());
+insert into course values (2,'Estrutura Leves',1, now());
+insert into course values (3,'Logistica',1, now());
+insert into course values (4,'Manutenção de Aeronaves',1, now());
+insert into course values (5,'Gestão de Produção Industrial',1, now());
 
+insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 1,1,3);
+insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 1,2,2);
 
+select * from user;
+select * from course;
+select * from enrolls;
+
+select usr_name,crs_name,ern_year,ern_period from enrolls
+join user on (enrolls.usr_code = user.usr_code) 
+join course on (enrolls.crs_code = course.crs_code);
+
+select question.qst_code as qst_code,question.qst_question,qst_introduction,alternatives.alt_code,alt_description,
+competence.com_code,competence.com_kind
+from question inner join alternatives on alternatives.qst_code = question.qst_code 
+inner join alt_com on alt_com.alt_code = alternatives.alt_code
+inner join competence on alt_com.com_code = competence.com_code
+where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where std_code = 1) order by question.qst_code ;
+
+select date_format(now(), '%d-%m-%Y') from dual;
+select date_format(now(), '%Y') from dual;
+select now(), sysdate() from dual;
+
+delete from enrolls where ern_code = 3;
+ALTER TABLE enrolls AUTO_INCREMENT = 3; -- CODIGO PARA ALTEARAR O AUTO-INCREMENTO
