@@ -1,77 +1,85 @@
 package br.com.fatec.entity;
 
+import java.sql.Date;
+
 public class User {
 	
 	private Long userCode;
-	private String email;
+	private String name;
+	private String userName;
 	private String password;
-	private String kindperson;
+	private String ra;
+	private String type;
+	private Date register;
 	private Integer situation;
 	private Integer verification;
-	
+	private Integer instCode;
 	private String token;
-	
 	
 	public Long getUserCode() {
 		return userCode;
 	}
-
 	public void setUserCode(Long userCode) {
 		this.userCode = userCode;
 	}
-
-
-	public String getEmail() {
-		return email;
+	public String getName() {
+		return name;
 	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String getPassword() {
 		return password;
 	}
-
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getKindPerson() {
-		return kindperson;
+	public String getRa() {
+		return ra;
 	}
-
-	public void setKindPerson(String kindPerson) {
-		this.kindperson = kindPerson.toLowerCase();
+	public void setRa(String ra) {
+		this.ra = ra;
 	}
-
-	public int getSituation() {
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Date getRegister() {
+		return register;
+	}
+	public void setRegister(Date register) {
+		this.register = register;
+	}
+	public Integer getSituation() {
 		return situation;
 	}
-
-	public void setSituation(int situation) {
+	public void setSituation(Integer situation) {
 		this.situation = situation;
 	}
-
-	public int getVerification() {
+	public Integer getVerification() {
 		return verification;
 	}
-
-	public void setVerification(int verification) {
+	public void setVerification(Integer verification) {
 		this.verification = verification;
 	}
-
-
-	
-
+	public Integer getInstCode() {
+		return instCode;
+	}
+	public void setInstCode(Integer instCode) {
+		this.instCode = instCode;
+	}
 	public String getToken() {
 		return token;
 	}
-
 	public void setToken(String token) {
 		this.token = token;
-	}
+	}	
 }

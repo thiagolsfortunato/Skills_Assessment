@@ -72,9 +72,9 @@ public class DaoUser {
 			String insert = "insert into user (usr_userName ,usr_password ,usr_kind) values (?,?,?);";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement((insert),Statement.RETURN_GENERATED_KEYS));
-			conn.getStatement().setString(1, user.getEmail());
+			conn.getStatement().setString(1, user.getUserName());
 			conn.getStatement().setString(2, user.getPassword());
-			conn.getStatement().setString(3, user.getKindPerson());
+			conn.getStatement().setString(3, user.getType());
 			
 			if(conn.executeSql()){
 				System.out.println("the User has been successfully inserted!");
@@ -120,7 +120,7 @@ public class DaoUser {
 	private static User buildLogin(ResultSet rs) throws SQLException {
 		User user = new User();
 		String token = updateTokenUser(rs.getString("USR_CODE"));
-		user.setKindPerson(rs.getString("USR_KIND"));
+		user.setType(rs.getString("USR_KIND"));
 		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
 		user.setToken(token); 
 		return user;
