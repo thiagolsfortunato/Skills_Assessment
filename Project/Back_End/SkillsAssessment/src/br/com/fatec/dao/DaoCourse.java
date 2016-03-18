@@ -22,7 +22,6 @@ public class DaoCourse {
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1,course.getName());
 			connection.getStatement().setInt(2,course.getSituation());
-			//connection.getStatement().setDate(3,course.getRegistration_date());
 			if(connection.executeSql()){
 				insert = true;
 			}
@@ -64,7 +63,6 @@ public class DaoCourse {
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1, course.getName());
 			connection.getStatement().setInt(2, course.getSituation());
-			//connection.getStatement().setString(3, course.getRegistration_date());
 			connection.getStatement().setLong(3, course.getCodeCourse());
 			if(connection.executeSql()){
 				update = true;
