@@ -1,0 +1,30 @@
+D:\Fatec-project-front-end\Dalyan.SPA\bin\Skills_Assessment.SPA.dll.config
+D:\Fatec-project-front-end\Dalyan.SPA\bin\Skills_Assessment.SPA.dll
+D:\Fatec-project-front-end\Dalyan.SPA\bin\Skills_Assessment.SPA.pdb
+D:\Fatec-project-front-end\Dalyan.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+D:\Fatec-project-front-end\Dalyan.SPA\obj\Debug\Skills_Assessment.SPA.dll
+D:\Fatec-project-front-end\Dalyan.SPA\obj\Debug\Skills_Assessment.SPA.pdb
+D:\Fatec-project-front-end\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll.config
+D:\Fatec-project-front-end\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll
+D:\Fatec-project-front-end\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.pdb
+D:\Fatec-project-front-end\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+D:\Fatec-project-front-end\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
+D:\Fatec-project-front-end\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb
+D:\Fatec-project-front-end - Copy\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll.config
+D:\Fatec-project-front-end - Copy\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll
+D:\Fatec-project-front-end - Copy\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.pdb
+D:\Fatec-project-front-end - Copy\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+D:\Fatec-project-front-end - Copy\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
+D:\Fatec-project-front-end - Copy\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb
+D:\Skills_Assessment - Copy\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll.config
+D:\Skills_Assessment - Copy\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll
+D:\Skills_Assessment - Copy\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.pdb
+D:\Skills_Assessment - Copy\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+D:\Skills_Assessment - Copy\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
+D:\Skills_Assessment - Copy\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb
+D:\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll.config
+D:\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll
+D:\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.pdb
+D:\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+D:\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
+D:\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb

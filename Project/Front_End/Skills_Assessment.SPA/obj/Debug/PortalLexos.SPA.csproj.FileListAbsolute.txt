@@ -1,0 +1,12 @@
+D:\Dalyan-master - Copy\Dalyan.SPA\bin\PortalLexos.SPA.dll.config
+D:\Dalyan-master - Copy\Dalyan.SPA\bin\PortalLexos.SPA.dll
+D:\Dalyan-master - Copy\Dalyan.SPA\bin\PortalLexos.SPA.pdb
+D:\Dalyan-master - Copy\Dalyan.SPA\obj\Debug\PortalLexos.SPA.csprojResolveAssemblyReference.cache
+D:\Dalyan-master - Copy\Dalyan.SPA\obj\Debug\PortalLexos.SPA.dll
+D:\Dalyan-master - Copy\Dalyan.SPA\obj\Debug\PortalLexos.SPA.pdb
+D:\PortalLexos\Dalyan.SPA\bin\PortalLexos.SPA.dll.config
+D:\PortalLexos\Dalyan.SPA\bin\PortalLexos.SPA.dll
+D:\PortalLexos\Dalyan.SPA\bin\PortalLexos.SPA.pdb
+D:\PortalLexos\Dalyan.SPA\obj\Debug\PortalLexos.SPA.csprojResolveAssemblyReference.cache
+D:\PortalLexos\Dalyan.SPA\obj\Debug\PortalLexos.SPA.dll
+D:\PortalLexos\Dalyan.SPA\obj\Debug\PortalLexos.SPA.pdb
