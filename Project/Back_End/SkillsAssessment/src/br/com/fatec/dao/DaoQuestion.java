@@ -38,7 +38,7 @@ public class DaoQuestion {
 		String question = null;
 		try {
 			conn.conect();
-			String query = "select min(qst_code) as code from question where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where std_code = ?);";
+			String query = "select min(qst_code) as code from question where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?);";
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			conn.getStatement().setLong(1, id);
 			if (conn.executeQuery()){
@@ -55,18 +55,18 @@ public class DaoQuestion {
 	}
 
 	@SuppressWarnings("finally")
-	public static Question getQuestion(Long idStudent) throws SQLException {
+	public static Question getQuestion(Long idUser) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		Question qst = new Question();
 		try {
 			conn.conect();
-			String question = getUnansweredQuestions(idStudent);
+			String question = getUnansweredQuestions(idUser);
 			String query = "select * from  (select question.qst_code as qst_code,question.qst_question  ,qst_introduction from question "
-					+ "where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where std_code = ?) order by question.qst_code ) "
+					+ "where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?) order by question.qst_code ) "
 					+ "as question where question.qst_code = ?;";
 
 			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, idStudent.toString());
+			conn.getStatement().setString(1, idUser.toString());
 			conn.getStatement().setString(2, question);
 			if (conn.executeQuery()) {
 				qst = buildQuestion(conn.returnRegister());
@@ -81,6 +81,11 @@ public class DaoQuestion {
 			return qst;
 		}
 	}
+	
+	public static boolean insertQuiz(Question question) throws SQLException{
+		
+		return false;
+	}
 
 	@SuppressWarnings("finally")
 	public static List<Answer> getAnswers(Long id) throws SQLException {
@@ -92,7 +97,7 @@ public class DaoQuestion {
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			conn.getStatement().setString(1, id.toString());
 			if (conn.executeQuery()) {
-				answers = buildAnswers(conn);
+				answers = buildAnswersToQuestion(conn);
 			}
 		} catch (SQLException e) {
 			System.out.println("It was not possible to get the answers " + e);
@@ -124,6 +129,8 @@ public class DaoQuestion {
 			return competencies;
 		}
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@SuppressWarnings("finally")
 	public static boolean insertQuestion(Question question) throws SQLException{
@@ -248,6 +255,7 @@ public class DaoQuestion {
 		}
 	}
 	
+	
 	private static Question buildQuestion(ResultSet rs) throws SQLException {
 		Question question = new Question();
 		List<Answer> answers = new LinkedList<Answer>();
@@ -265,15 +273,15 @@ public class DaoQuestion {
 		return numberQuestion;
 	}
 
-	private static List<Answer> buildAnswers(ConnectionMySql conn) throws SQLException {
+	private static List<Answer> buildAnswersToQuestion(ConnectionMySql conn) throws SQLException {
 		List<Answer> answers = new LinkedList<Answer>();
 		do {
-			answers.add(buildAnswer(conn.returnRegister()));
+			answers.add(buildAnswerToQuestion(conn.returnRegister()));
 		} while (conn.nextRegister());
 		return answers;
 	}
 
-	private static Answer buildAnswer(ResultSet rs) throws SQLException {
+	private static Answer buildAnswerToQuestion(ResultSet rs) throws SQLException {
 		List<Competence> competencies = new LinkedList<Competence>();
 		Answer answer = null;
 		answer = new Answer();

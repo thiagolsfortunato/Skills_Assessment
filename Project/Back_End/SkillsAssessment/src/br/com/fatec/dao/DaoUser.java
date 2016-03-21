@@ -118,7 +118,7 @@ public class DaoUser {
 		List<User> user = new LinkedList<User>();
 
 		try {
-			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user where usr_code = ?;";
+			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user;";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			if (conn.executeQuery()){
@@ -134,6 +134,18 @@ public class DaoUser {
 		}
 	}
 	
+	public static void main(String[] args) {
+
+		try {
+			List<User> u = DaoUser.searchAllUsers();
+			for(User us:u){
+				System.out.println(us.getName());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@SuppressWarnings("finally")
 	public static boolean updateUser(User user) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
@@ -194,18 +206,18 @@ public class DaoUser {
 	
 	private static User buildUser (ResultSet rs) throws SQLException {
 		User user = new User();
-		String token = updateTokenUser(rs.getString("USR_CODE"));
-		user.setType(rs.getString("USR_KIND"));
-		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-		user.setType(rs.getString("USR_NAME"));
-		user.setType(rs.getString("USR_NAME"));
-		
-		user.setToken(token); 
+		user.setType(rs.getString("USR_TYPE"));
+		user.setName(rs.getString("USR_NAME"));
+		user.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
+		user.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
 		return user;
 	}
 	
 	private static List<User> buildUsers (ConnectionMySql conn) throws SQLException {
 		List<User> user = new LinkedList<User>();
+		do {
+			user.add(buildUser(conn.returnRegister()));
+		} while (conn.nextRegister());
 		return user;
 	}
 	
