@@ -133,19 +133,7 @@ public class DaoUser {
 			return user;
 		}
 	}
-	
-	public static void main(String[] args) {
 
-		try {
-			List<User> u = DaoUser.searchAllUsers();
-			for(User us:u){
-				System.out.println(us.getName());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	@SuppressWarnings("finally")
 	public static boolean updateUser(User user) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
