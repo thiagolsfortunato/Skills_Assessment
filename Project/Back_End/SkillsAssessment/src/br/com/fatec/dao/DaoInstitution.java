@@ -1,34 +1,168 @@
 package br.com.fatec.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Institution;
+import br.com.fatec.entity.User;
 
 public class DaoInstitution {
 	
-	public static boolean insertInstitution(Institution instituition){
-		return false;
+	@SuppressWarnings("finally")
+	public static boolean insertInstitution(Institution institution){
+		ConnectionMySql conn = new ConnectionMySql();
+		boolean sucess = false;
+		try {
+			String insert = "INSERT INTO institution (ist_company ,ist_cnpj, ist_city) VALUES (?,?,?);";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement( insert ) );
+			conn.getStatement().setString(1, institution.getCompany());
+			conn.getStatement().setString(2, institution.getCnpj());
+			conn.getStatement().setString(3, institution.getCity());
+			
+			if(conn.executeSql()){
+				System.out.println("the Institution has been successfully inserted!");
+				sucess = true;
+			}
+		} catch (Exception e) {
+			System.out.println("erro "+e);
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return sucess;
+		}
 	}
 	
-	public static boolean deleteInstitution(Institution instituition){
-		return false;
+	@SuppressWarnings("finally")
+	public static boolean deleteInstitution(Long code){
+		ConnectionMySql conn = new ConnectionMySql();
+		boolean delete = false;
+		try {
+			conn.conect();
+			String sql = "DELETE FROM institution WHERE ist_code = ?;";
+			conn.setStatement(conn.getConnection().prepareStatement(sql));
+			conn.getStatement().setLong(1, code);
+			if (conn.executeSql()) {
+				delete = true;
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return delete;
+		}
 	}
 	
-	public static boolean updateInstitution(Institution instituition){
-		return false;
+	@SuppressWarnings("finally")
+	public static boolean updateInstitution(Institution institution){
+		ConnectionMySql conn = new ConnectionMySql();
+		boolean sucess = false;
+		try {
+			String update = "UPDATE institution SET ist_company = ?, ist_cnpj = ?, ist_city = ? WHERE ist_code = ?;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(update));
+			conn.getStatement().setString(1, institution.getCompany());
+			conn.getStatement().setString(2, institution.getCnpj());
+			conn.getStatement().setString(3, institution.getCity());
+			conn.getStatement().setLong(4, institution.getCode());
+			
+			if(conn.executeSql()){
+				System.out.println("Institution has been successfully updated!");
+					sucess = true;	
+			}
+		} catch (Exception e) {
+			System.out.println("erro "+e);
+			throw new RuntimeException(e);
+		}finally {
+			conn.close();
+			return sucess;
+		}
 	}
 	
-	public static List<Institution> searchAllInstitution(Institution instituition){
-		return new LinkedList<Institution>();
+	@SuppressWarnings("finally")
+	public static Institution searchInstitutionByCode(Long code){
+		ConnectionMySql conn = new ConnectionMySql();
+		Institution institution = null;
+
+		try {
+			String query = "SELECT * FROM institution WHERE ist_code = ?;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setLong(1, code);
+			if (conn.executeQuery()){
+				institution = buildInstitution(conn.getResultset());
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return institution;
+		}
+	}
+	//usar clausula %like% do banco, para trazer por parte do nome
+	@SuppressWarnings("finally")
+	public static List<Institution> searchInstitutionByName(String strName){
+		ConnectionMySql conn = new ConnectionMySql();
+		List<Institution> institutions = new LinkedList<Institution>();
+
+		try {
+			String query = "SELECT * FROM institution WHERE ist_company LIKE '%?%';";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setString(1, strName);
+			if (conn.executeQuery()){
+				institutions = buildInstitutions(conn);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return institutions;
+		}
 	}
 	
-	public static Institution searchInstitutionById(Institution instituition){
-		return new Institution();
+	@SuppressWarnings("finally")
+	public static List<Institution> searchAllInstitution(){
+		ConnectionMySql conn = new ConnectionMySql();
+		List<Institution> institutions = new LinkedList<Institution>();
+
+		try {
+			String query = "SELECT * FROM institution;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			if (conn.executeQuery()){
+				institutions = buildInstitutions(conn);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return institutions;
+		}
 	}
-	//user %like% do banco, para trazer por parte do nome
-	public static List<Institution> searchInstitutionByName(Institution instituition){
-		return new LinkedList<Institution>();
+	
+	private static List<Institution> buildInstitutions(ConnectionMySql conn) throws SQLException{
+		List<Institution> institutions = new LinkedList<Institution>();
+		do {
+			institutions.add(buildInstitution(conn.getResultset()));
+		} while (conn.nextRegister());
+		return institutions;
+	}
+	
+	private static Institution buildInstitution (ResultSet rs) throws SQLException{
+		Institution institution = new Institution();
+		institution.setCode(rs.getLong("IST_CODE"));
+		institution.setCompany(rs.getString("IST_COMPANY"));
+		institution.setCnpj(rs.getString("IST_CNPJ"));
+		institution.setCity(rs.getString("IST_CITY"));
+		return institution;
 	}
 
 }
