@@ -3,7 +3,7 @@ package br.com.fatec.entity;
 public class Competence {
 	
 	private Long code;
-	private String kind;
+	private String type;
 	private String register;
 	private int weight;
 	
@@ -13,14 +13,6 @@ public class Competence {
 
 	public void setCode(Long code) {
 		this.code = code;
-	}
-
-	public String getKind() {
-		return kind;
-	}
-
-	public void setKind(String kind) {
-		this.kind = kind;
 	}
 
 	public String getRegister() {
@@ -37,5 +29,13 @@ public class Competence {
 
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

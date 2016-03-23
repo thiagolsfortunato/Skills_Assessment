@@ -2,135 +2,17 @@ package br.com.fatec.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Answer;
 import br.com.fatec.entity.Competence;
+import br.com.fatec.entity.Course;
 import br.com.fatec.entity.Question;
+import br.com.fatec.entity.User;
 
 public class DaoQuestion {
-	
-	@SuppressWarnings("finally")
-	private static Integer getValidQuestions() throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
-		Integer count = null;
-		try {
-			conn.conect();
-			String query = "select count(*) as questions from question where question.qst_situation <> 1;";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			if (conn.executeQuery()){
-				count = Integer.parseInt(conn.returnRegister().getString("questions"));
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
-			conn.close();
-			return count;
-		}
-	}
-	
-	@SuppressWarnings("finally")
-	private static String getUnansweredQuestions(Long id) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		String question = null;
-		try {
-			conn.conect();
-			String query = "select min(qst_code) as code from question where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?);";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, id);
-			if (conn.executeQuery()){
-				question = getNumberOfQuestion(conn.returnRegister());
-			}
-		} catch (SQLException e) {
-			System.out.println("an error occurred while taking the issue" + e);
-			throw new RuntimeException(e);
-		} finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
-			return question;
-		}
-	}
-
-	@SuppressWarnings("finally")
-	public static Question getQuestion(Long idUser) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		Question qst = new Question();
-		try {
-			conn.conect();
-			String question = getUnansweredQuestions(idUser);
-			String query = "select * from  (select question.qst_code as qst_code,question.qst_question  ,qst_introduction from question "
-					+ "where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?) order by question.qst_code ) "
-					+ "as question where question.qst_code = ?;";
-
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, idUser.toString());
-			conn.getStatement().setString(2, question);
-			if (conn.executeQuery()) {
-				qst = buildQuestion(conn.returnRegister());
-			}
-		} catch (SQLException e) {
-			System.out.println("It was not possible to get the issue " + e);
-			throw new RuntimeException(e);
-		} finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
-			conn.close();
-			return qst;
-		}
-	}
-	
-	public static boolean insertQuiz(Question question) throws SQLException{
-		
-		return false;
-	}
-
-	@SuppressWarnings("finally")
-	public static List<Answer> getAnswers(Long id) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		List<Answer> answers = new LinkedList<Answer>();
-		try {
-			conn.conect();
-			String query = "select * from alternatives where qst_code = ?;";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, id.toString());
-			if (conn.executeQuery()) {
-				answers = buildAnswersToQuestion(conn);
-			}
-		} catch (SQLException e) {
-			System.out.println("It was not possible to get the answers " + e);
-			throw new RuntimeException(e);
-		} finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
-			return answers;
-		}
-	}
-
-	@SuppressWarnings("finally")
-	public static List<Competence> getCompetencies(Long id) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		List<Competence> competencies = new LinkedList<Competence>();
-		try {
-			conn.conect();
-			String query = "select competence.com_code,alt_com.alt_code, com_kind, rsc_weight from competence"
-					+ " inner join alt_com on alt_com.com_code = competence.com_code  where alt_com.alt_code = ?;";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, id.toString());
-			if (conn.executeQuery()) {
-				competencies = buildCompetenciesToQuestion(conn);
-			}
-		} catch (SQLException e) {
-			System.out.println("It was not possible to get the competencies " + e);
-			throw new RuntimeException(e);
-		} finally {
-			return competencies;
-		}
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@SuppressWarnings("finally")
 	public static boolean insertQuestion(Question question) throws SQLException{
@@ -160,6 +42,73 @@ public class DaoQuestion {
 	}
 	
 	@SuppressWarnings("finally")
+	public static boolean updateQuestion(Question question) throws SQLException{
+		ConnectionMySql conn = new ConnectionMySql();
+		boolean returnUpdate = false;
+		try {
+			String update = "update question set qst_question = ? ,qst_introduction = ? ,qst_situation = ? where qst_code = ?;";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(update));
+			conn.getStatement().setString(1, question.getQuestion());
+			conn.getStatement().setString(2, question.getIntroduction());
+			conn.getStatement().setLong(3, question.getSituation());
+			conn.getStatement().setLong(6, question.getCode());
+			
+			if(conn.executeSql()){
+				System.out.println("the question has been successfully updated!");
+					returnUpdate =  true;	
+			}
+		} catch (Exception e) {
+			System.out.println("erro "+e);
+			throw new RuntimeException(e);
+		}finally {
+			conn.close();
+			return returnUpdate;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static boolean deleteQuestion(Long code) throws SQLException {
+		ConnectionMySql conn = new ConnectionMySql();
+		boolean delete = false;
+		try {
+			conn.conect();
+			String sql = "delete from question where qst_code = ?;";
+			conn.setStatement(conn.getConnection().prepareStatement(sql));
+			conn.getStatement().setLong(1, code);
+			if (conn.executeSql()) {
+				delete = true;
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return delete;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static List<Question> searchAllQuestion() {
+		List<Question> listQuestion = new ArrayList<>();
+		ConnectionMySql conn = new ConnectionMySql();
+		String query = "select q.qst_code, q.qst_question, q.qst_situation from question q ;";
+		try {
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			if (conn.executeQuery()) {
+				listQuestion = DaoQuestion.buildQuestions(conn);
+			} 
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			conn.close();
+			return listQuestion;
+		}
+	}
+	
+	
+	
+	@SuppressWarnings("finally")
 	public static boolean insertAnswer(Answer answer) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean returnAnswer = false;
@@ -183,6 +132,86 @@ public class DaoQuestion {
 			conn.close();
 			return returnAnswer;
 		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static List<Answer> getAnswers(Long id) throws SQLException {
+		ConnectionMySql conn = new ConnectionMySql();
+		List<Answer> answers = new LinkedList<Answer>();
+		try {
+			conn.conect();
+			String query = "select * from alternatives where qst_code = ?;";
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setString(1, id.toString());
+			if (conn.executeQuery()) {
+				answers = buildAnswersToQuestion(conn);
+			}
+		} catch (SQLException e) {
+			System.out.println("It was not possible to get the answers " + e);
+			throw new RuntimeException(e);
+		} finally {
+			conn.getResultset().close();
+			conn.getStatement().close();
+			return answers;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static List<Competence> getCompetencies(Long id) throws SQLException {
+		ConnectionMySql conn = new ConnectionMySql();
+		List<Competence> competencies = new LinkedList<Competence>();
+		try {
+			conn.conect();
+			String query = "select competence.com_code,alt_com.alt_code, com_type, rsc_weight from competence"
+					+ " inner join alt_com on alt_com.com_code = competence.com_code  where alt_com.alt_code = ?;";
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setString(1, id.toString());
+			if (conn.executeQuery()) {
+				competencies = buildCompetenciesToQuestion(conn);
+			}
+		} catch (SQLException e) {
+			System.out.println("It was not possible to get the competencies " + e);
+			throw new RuntimeException(e);
+		} finally {
+			return competencies;
+		}
+	}
+	
+	private static Competence buildCompetenceToQuestion(ResultSet rs) throws SQLException {
+		Competence competence = new Competence();
+		competence.setCode(Long.parseLong(rs.getString("competence.com_code")));
+		competence.setType(rs.getString("com_type"));
+		competence.setWeight(Integer.parseInt(rs.getString("rsc_weight")));
+		return competence;
+	}
+
+	private static List<Competence> buildCompetenciesToQuestion(ConnectionMySql conn) throws SQLException {
+		List<Competence> competencies = new LinkedList<Competence>();
+		do {
+			competencies.add(buildCompetenceToQuestion(conn.returnRegister()));
+		} while (conn.nextRegister());
+		return competencies;
+	}
+	
+	
+	private static List<Answer> buildAnswersToQuestion(ConnectionMySql conn) throws SQLException {
+		List<Answer> answers = new LinkedList<Answer>();
+		do {
+			answers.add(buildAnswerToQuestion(conn.returnRegister()));
+		} while (conn.nextRegister());
+		return answers;
+	}
+
+	
+	private static Answer buildAnswerToQuestion(ResultSet rs) throws SQLException {
+		List<Competence> competencies = new LinkedList<Competence>();
+		Answer answer = null;
+		answer = new Answer();
+		answer.setCode(Long.parseLong(rs.getString("alt_code")));
+		answer.setDescription(rs.getString("alt_description"));
+		competencies = getCompetencies(Long.parseLong(rs.getString("alt_code")));
+		answer.setCompetencies(competencies);
+		return answer;
 	}
 	
 	@SuppressWarnings("finally")
@@ -215,9 +244,9 @@ public class DaoQuestion {
 		boolean returnCompetence = false;
 		try {
 			conn.conect();
-			String query = "insert into competence (com_kind,com_registration_date) values (?,?);";
+			String query = "insert into competence (com_type,com_registration_date) values (?,?);";
 			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, competence.getKind());
+			conn.getStatement().setString(1, competence.getType());
 			conn.getStatement().setString(2, competence.getRegister());
 			if (conn.executeSql()) {
 				returnCompetence = true;
@@ -255,59 +284,6 @@ public class DaoQuestion {
 		}
 	}
 	
-	
-	private static Question buildQuestion(ResultSet rs) throws SQLException {
-		Question question = new Question();
-		List<Answer> answers = new LinkedList<Answer>();
-		question.setCode(Long.parseLong(rs.getString("question.qst_code")));
-		question.setQuestion(rs.getString("question.qst_question"));
-		question.setIntroduction(rs.getString("question.qst_introduction"));
-		answers = getAnswers(Long.parseLong(rs.getString("question.qst_code")));
-		question.setAnswers(answers);
-		return question;
-	}
-
-	private static String getNumberOfQuestion(ResultSet rs) throws SQLException {
-		String numberQuestion;
-		numberQuestion = rs.getString("code");
-		return numberQuestion;
-	}
-
-	private static List<Answer> buildAnswersToQuestion(ConnectionMySql conn) throws SQLException {
-		List<Answer> answers = new LinkedList<Answer>();
-		do {
-			answers.add(buildAnswerToQuestion(conn.returnRegister()));
-		} while (conn.nextRegister());
-		return answers;
-	}
-
-	private static Answer buildAnswerToQuestion(ResultSet rs) throws SQLException {
-		List<Competence> competencies = new LinkedList<Competence>();
-		Answer answer = null;
-		answer = new Answer();
-		answer.setCode(Long.parseLong(rs.getString("alt_code")));
-		answer.setDescription(rs.getString("alt_description"));
-		competencies = getCompetencies(Long.parseLong(rs.getString("alt_code")));
-		answer.setCompetencies(competencies);
-		return answer;
-	}
-
-	private static List<Competence> buildCompetenciesToQuestion(ConnectionMySql conn) throws SQLException {
-		List<Competence> competencies = new LinkedList<Competence>();
-		do {
-			competencies.add(buildCompetenceToQuestion(conn.returnRegister()));
-		} while (conn.nextRegister());
-		return competencies;
-	}
-
-	private static Competence buildCompetenceToQuestion(ResultSet rs) throws SQLException {
-		Competence competence = new Competence();
-		competence.setCode(Long.parseLong(rs.getString("competence.com_code")));
-		competence.setKind(rs.getString("com_kind"));
-		competence.setWeight(Integer.parseInt(rs.getString("rsc_weight")));
-		return competence;
-	}
-	
 	private static List<Competence> buildCompetencies(ConnectionMySql conn) throws SQLException {
 		List<Competence> competencies = new LinkedList<Competence>();
 		do {
@@ -318,9 +294,33 @@ public class DaoQuestion {
 
 	private static Competence buildCompetence(ResultSet rs) throws SQLException {
 		Competence competence = new Competence();
-		competence.setCode(Long.parseLong(rs.getString("com_code")));
-		competence.setKind(rs.getString("com_kind"));
+		competence.setCode(rs.getLong("com_code"));
+		competence.setType(rs.getString("com_type"));
 		competence.setRegister(rs.getString("com_registration_date"));
 		return competence;
+	}
+	
+	private static List<Question> buildQuestions(ConnectionMySql conn) throws SQLException {
+		List<Question> questions = new LinkedList<Question>();
+		do {
+			questions.add(buildQuestion(conn.returnRegister()));
+		} while (conn.nextRegister());
+		return questions;
+	}
+
+	private static Question buildQuestion(ResultSet rs) throws SQLException {
+		Question question = new Question();
+		List<Answer> answers = new LinkedList<Answer>();
+		answers = getAnswers(Long.parseLong(rs.getString("q.qst_code")));
+		question.setQuestion(rs.getString("qst_question"));
+		question.setSituation(rs.getInt("qst_situation"));
+		question.setIntroduction(rs.getString("qst_introduction"));
+		question.setAnswers(answers);
+		return question;
+	}
+	
+	public static void main(String[] args) {
+		List<Question> questions = DaoQuestion.searchAllQuestion();
+		
 	}
 }

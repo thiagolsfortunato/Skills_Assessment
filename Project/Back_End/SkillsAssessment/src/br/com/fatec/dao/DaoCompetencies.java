@@ -12,14 +12,14 @@ public class DaoCompetencies {
 	@SuppressWarnings("finally")
 	public static boolean insertCompetence(Competence competence) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "insert into competence (com_code, com_kind, com_registration_date, com_situation) values (?, ?, ?, ?);";
+		String sql = "insert into competence (com_code, com_type, com_registration_date, com_situation) values (?, ?, ?, ?);";
 
 		boolean insert = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1,String.valueOf(competence.getCode()));
-			connection.getStatement().setString(2,competence.getKind());
+			connection.getStatement().setString(2,competence.getType());
 			connection.getStatement().setString(3,competence.getRegister());
 			connection.getStatement().setString(4,competence.getRegister());//wrong
 			
@@ -64,7 +64,7 @@ public class DaoCompetencies {
 	public static Competence searchCompetenceByCode(Long code) throws SQLException {
 		Competence competence = new Competence();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select com_code, com_kind, com_registration_date, com_situation"
+		String query = "select com_code, com_type, com_registration_date, com_situation"
 				+ "from competence where com_code = ?'";
 		try {
 			connection.conect();
@@ -72,7 +72,7 @@ public class DaoCompetencies {
 			connection.getStatement().setString(1,String.valueOf(code));
 			if (connection.executeQuery()) {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
-					competence.setKind(connection.returnField("COM_KIND"));
+					competence.setType(connection.returnField("COM_TYPE"));
 					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
 					//competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
 			}
@@ -90,14 +90,14 @@ public class DaoCompetencies {
 	@SuppressWarnings("finally")
 	public static boolean updateCompetence(Competence competence, Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "update competence set COM_CODE=?, COM_KIND= ?, COM_REGISTRATION_DATE= ?,"
+		String sql = "update competence set COM_CODE=?, COM_TYPE= ?, COM_REGISTRATION_DATE= ?,"
 				+ "COM_SITUATION=? where com_code=?;";
 		boolean update = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setString(1,String.valueOf(competence.getCode()));
-			connection.getStatement().setString(2,competence.getKind());
+			connection.getStatement().setString(2,competence.getType());
 			connection.getStatement().setString(3,competence.getRegister());
 			//connection.getStatement().setString(4,String.valueOf(competence.getSituation()));
 			connection.getStatement().setString(5, String.valueOf(code));
@@ -126,7 +126,7 @@ public class DaoCompetencies {
 				do {
 					Competence competence = new Competence();
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
-					competence.setKind(connection.returnField("COM_KIND"));
+					competence.setType(connection.returnField("COM_TYPE"));
 					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
 					//competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
 					listCompetence.add(competence);

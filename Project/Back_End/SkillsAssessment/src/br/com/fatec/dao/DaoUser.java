@@ -139,7 +139,7 @@ public class DaoUser {
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean returnUpdate = false;
 		try {
-			String update = "update user set usr_userName = ? ,usr_password = ? ,usr_ra = ?, usr_type = ?, usr_name = ?) where usr_code = ?;";
+			String update = "update user set usr_userName = ? ,usr_password = ? ,usr_ra = ?, usr_type = ?, usr_name = ? where usr_code = ?;";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(update));
 			conn.getStatement().setString(1, user.getUserName());
