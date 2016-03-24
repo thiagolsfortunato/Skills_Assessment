@@ -5,6 +5,7 @@ import org.json.JSONException;
 import br.com.fatec.controller.CompetenciesRoutes;
 import br.com.fatec.controller.CourseRoutes;
 import br.com.fatec.controller.EnrollsRoutes;
+import br.com.fatec.controller.UserRoutes;
 
 public class Main {
 	
@@ -16,6 +17,7 @@ public class Main {
 		 CourseRoutes.getCourse();
 		 EnrollsRoutes.getEnrolls();
 		 CompetenciesRoutes.getCompetencies();
+		 UserRoutes.getUser();
 		 
 		//rest.getLogin(); CODIGO COMENTADO POR CONTA DOS OUTROS COMENTARIOS
 
