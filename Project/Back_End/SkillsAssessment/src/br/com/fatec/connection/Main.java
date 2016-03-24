@@ -2,7 +2,9 @@ package br.com.fatec.connection;
 
 import org.json.JSONException;
 
+import br.com.fatec.controller.CompetenciesRoutes;
 import br.com.fatec.controller.CourseRoutes;
+import br.com.fatec.controller.EnrollsRoutes;
 
 public class Main {
 	
@@ -10,9 +12,11 @@ public class Main {
 	
 	public static void main(String[] args) throws JSONException{
 		 
-		 CorsFilter.apply();
-		 CourseRoutes rest = new CourseRoutes();
-		 rest.getCourse();
+		 CorsFilter.apply();		 
+		 CourseRoutes.getCourse();
+		 EnrollsRoutes.getEnrolls();
+		 CompetenciesRoutes.getCompetencies();
+		 
 		//rest.getLogin(); CODIGO COMENTADO POR CONTA DOS OUTROS COMENTARIOS
 
 /*		try {
@@ -45,6 +49,7 @@ public class Main {
 		try {
 			Student st = dao.searchStudentByRa("123456789");
 			System.out.println(st.getName());
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
