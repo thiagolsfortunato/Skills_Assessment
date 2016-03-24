@@ -11,10 +11,10 @@ import br.com.fatec.entity.Course;
 import br.com.fatec.model.ModelCourse;
 
 public class CourseRoutes {
-	ModelCourse modelCourses = new ModelCourse();
-	Gson gson = new Gson();
-	
-	public void getCourse() {
+	public static void getCourse() {
+		ModelCourse modelCourses = new ModelCourse();
+		Gson gson = new Gson();
+		
 		//FUNCIONANDO !
 		post("/insertCourse", (req, res) -> {
 			String courseData = req.body();
