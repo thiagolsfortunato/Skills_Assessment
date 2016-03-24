@@ -6,7 +6,9 @@ import static spark.Spark.delete;
 import static spark.Spark.post;
 import com.google.gson.Gson;
 
+import br.com.fatec.dao.Token;
 import br.com.fatec.entity.Enrolls;
+import br.com.fatec.entity.TokenInfo;
 import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEnrolls;
 import br.com.fatec.model.ModelUser;
@@ -18,7 +20,6 @@ public class UserRoutes {
 		ModelEnrolls modelEnrolls = new ModelEnrolls();
 		
 		post("/token", (req, res) -> {
-
 			String data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);
@@ -50,9 +51,7 @@ public class UserRoutes {
 				Long codeUser = modelUser.insertUser(user);
 				enrolls.setCodeUser(codeUser);
 				if (codeUser != null && user.getType().equals("Student")) {
-					if (modelEnrolls.insertEnrolls(enrolls)) {
-						return true;
-					}
+					return modelEnrolls.insertEnrolls(enrolls);
 				}
 				return false;
 			} catch (NullPointerException e) {
@@ -65,10 +64,19 @@ public class UserRoutes {
 			String data = req.body();
 			String token = req.headers("token");
 			Gson gson = new Gson();
-			User user = gson.fromJson(data, User.class); // not being used at
-															// the time
+			//User user = gson.fromJson(data, User.class); // not being used at											// the time
 			try {
-				return modelUser.deleteUser(token);
+				TokenInfo tokenInfo = Token.verifyToken(token);
+				Long id = tokenInfo.getUserId();				
+				User user = modelUser.searchUserById(id);
+				if(user.getType().equals("Student")){
+					if(modelEnrolls.deleteEnrolls(id)){
+						return modelUser.deleteUser(id);
+					}else{
+						return false;
+					}
+				}
+				return modelUser.deleteUser(id);
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with deleting, check the fields!";
@@ -78,9 +86,17 @@ public class UserRoutes {
 		put("/updateUser", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			User user = gson.fromJson(data, User.class); // not being used at
-															// the time
+			User user = gson.fromJson(data, User.class);
+			Enrolls enrolls = gson.fromJson(data, Enrolls.class);
 			try {
+				enrolls.setCodeUser(user.getUserCode());
+				if(user.getType().equals("Student")){
+					if(modelEnrolls.updateEnrolls(enrolls)){
+						return modelUser.updateUser(user);
+					}else{
+						return false;
+					}
+				}
 				return modelUser.updateUser(user);
 			} catch (NullPointerException e) {
 				e.printStackTrace();

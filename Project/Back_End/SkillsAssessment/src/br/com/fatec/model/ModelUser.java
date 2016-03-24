@@ -39,11 +39,10 @@ public class ModelUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public boolean deleteUser(String token){
+	public boolean deleteUser(Long userId){
 		boolean returnDelete = false;
 		try {
-			TokenInfo tk = Token.verifyToken(token);
-			returnDelete = DaoUser.deleteUser(Long.parseLong(tk.getUserId()));
+			returnDelete = DaoUser.deleteUser(userId);
 			return returnDelete;
 			
 		} catch (SQLException e) {
