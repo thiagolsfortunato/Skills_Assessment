@@ -9,6 +9,7 @@ import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Answer;
 import br.com.fatec.entity.Competence;
 import br.com.fatec.entity.Question;
+import br.com.fatec.entity.Quiz;
 
 public class DaoQuiz {
 
@@ -126,7 +127,7 @@ public class DaoQuiz {
 		}
 	}
 
-	public static boolean insertQuiz(Question question) throws SQLException {
+	public static boolean insertQuiz(Quiz quiz) throws SQLException {
 
 		return false;
 	}

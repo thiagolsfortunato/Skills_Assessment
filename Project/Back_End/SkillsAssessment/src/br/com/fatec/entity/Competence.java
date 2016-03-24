@@ -6,6 +6,8 @@ public class Competence {
 	private String type;
 	private String register;
 	private int weight;
+	private int situation;
+	private Long altCode;
 	
 	public Long getCode() {
 		return code;
@@ -37,5 +39,21 @@ public class Competence {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Long getAltCode() {
+		return altCode;
+	}
+
+	public void setAltCode(Long altCode) {
+		this.altCode = altCode;
+	}
+
+	public int getSituation() {
+		return situation;
+	}
+
+	public void setSituation(int situation) {
+		this.situation = situation;
 	}
 }

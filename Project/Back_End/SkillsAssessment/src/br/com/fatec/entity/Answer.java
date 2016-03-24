@@ -7,6 +7,7 @@ public class Answer {
 	private Long code;
 	private String description;
 	private List<Competence> competencies;
+	private Long codeQuestion;
 	
 	public Long getCode() {
 		return code;
@@ -25,6 +26,12 @@ public class Answer {
 	}
 	public void setCompetencies(List<Competence> competencies) {
 		this.competencies = competencies;
+	}
+	public Long getCodeQuestion() {
+		return codeQuestion;
+	}
+	public void setCodeQuestion(Long codeQuestion) {
+		this.codeQuestion = codeQuestion;
 	}
 	
 	
