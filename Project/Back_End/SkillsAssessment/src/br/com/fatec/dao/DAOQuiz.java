@@ -10,7 +10,7 @@ import br.com.fatec.entity.Answer;
 import br.com.fatec.entity.Competence;
 import br.com.fatec.entity.Question;
 
-public class DAOQuiz {
+public class DaoQuiz {
 
 	@SuppressWarnings("finally")
 	private static Integer getValidQuestions() throws SQLException {
