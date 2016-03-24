@@ -84,7 +84,7 @@ public class Token {
 			String userIdString = payload.getAsJsonObject("info").getAsJsonPrimitive("userId").getAsString();
 
 			if (issuer.equals(ISSUER) && !StringUtils.isBlank(userIdString)) {
-				t.setUserId(userIdString);
+				t.setUserId(Long.parseLong(userIdString));
 				String issuerN = payload.getAsJsonObject("info").getAsJsonPrimitive("issuer").getAsString();
 				String expirationN = payload.getAsJsonObject("info").getAsJsonPrimitive("expiration").getAsString();
 				t.setIssued(new DateTime(issuerN));
@@ -105,6 +105,7 @@ public class Token {
 		System.out.println(token);
 		System.out.println(tf.getUserId());
 		System.out.println(tf.getIssued().getDayOfMonth());
+		System.out.println(tf.getExpires().getDayOfMonth());
 
 	}
 }

@@ -3,7 +3,7 @@ package br.com.fatec.entity;
 import org.joda.time.DateTime;
 
 public class TokenInfo {
-	private String userId;
+	private Long userId;
     private DateTime issued;
     private DateTime expires;
     
@@ -19,10 +19,10 @@ public class TokenInfo {
     public void setExpires(DateTime expires) {
         this.expires = expires;
     }
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 }
