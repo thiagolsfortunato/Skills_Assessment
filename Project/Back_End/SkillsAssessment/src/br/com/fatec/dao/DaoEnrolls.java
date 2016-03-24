@@ -3,6 +3,9 @@ package br.com.fatec.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mysql.jdbc.Statement;
+
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Enrolls;
 
@@ -12,7 +15,7 @@ public class DaoEnrolls {
 	@SuppressWarnings("finally")
 	public static boolean insertEnrolls(Enrolls enrolls){
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSER INTO ENROLLS (prd_year, prd_period, crs_code, std_code) VALUES (?,?,?,?);";
+		String sql = "INSERT INTO ENROLLS (ern_year, ern_period, crs_code, usr_code) VALUES (?,?,?,?);";
 		boolean insert = false;
 		try{
 			connection.conect();
@@ -20,11 +23,12 @@ public class DaoEnrolls {
 			connection.getStatement().setInt(1,enrolls.getYear());
 			connection.getStatement().setInt(2,enrolls.getPeriod());
 			connection.getStatement().setLong(3,enrolls.getCodeCourse());
-			connection.getStatement().setLong(4,enrolls.getCodeStudent());
+			connection.getStatement().setLong(4,enrolls.getCodeUser());
 			if(connection.executeSql()){
 				insert = true;
 			}
 		}catch (SQLException e) {
+			System.out.println(e);
 			throw new RuntimeException(e);
 		}finally{
 			connection.close();
@@ -55,15 +59,16 @@ public class DaoEnrolls {
 	@SuppressWarnings("finally")
 	public static boolean updateEnrolls(Enrolls enrolls){
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE ENROLLS SET ERN_YEAR = ?, ERN_PERIOD = ?, CRS_CODE = ?, STD_CODE = ? where ERN_CODE = ?;";
+		String sql = "UPDATE ENROLLS SET ERN_YEAR = ?, ERN_PERIOD = ?, CRS_CODE = ?, USR_CODE = ? where ERN_CODE = ?;";
 		boolean update = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
 			connection.getStatement().setInt(1, enrolls.getYear());
-			connection.getStatement().setInt(1, enrolls.getPeriod());
-			connection.getStatement().setLong(1, enrolls.getCodeCourse());
-			connection.getStatement().setLong(1, enrolls.getCodeStudent());
+			connection.getStatement().setInt(2, enrolls.getPeriod());
+			connection.getStatement().setLong(3, enrolls.getCodeCourse());
+			connection.getStatement().setLong(4, enrolls.getCodeUser());
+			connection.getStatement().setLong(5, enrolls.getCodeEnrolls());
 			if(connection.executeSql()){
 				update = true;
 			}
@@ -90,7 +95,7 @@ public class DaoEnrolls {
 					enrolls.setYear(Integer.parseInt(connection.returnField("ERN_YEAR")));
 					enrolls.setPeriod(Integer.parseInt(connection.returnField("ERN_PERIOD")));
 					enrolls.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
-					enrolls.setCodeStudent(Long.parseLong(connection.returnField("STD_CODE")));
+					enrolls.setCodeUser(Long.parseLong(connection.returnField("USR_CODE")));
 					listEnrolls.add(enrolls);
 				} while (connection.nextRegister());
 			} else {
@@ -119,7 +124,7 @@ public class DaoEnrolls {
 					enrolls.setYear(Integer.parseInt(connection.returnField("ERN_YEAR")));
 					enrolls.setPeriod(Integer.parseInt(connection.returnField("ERN_PERIOD")));
 					enrolls.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
-					enrolls.setCodeStudent(Long.parseLong(connection.returnField("STD_CODE")));
+					enrolls.setCodeUser(Long.parseLong(connection.returnField("USR_CODE")));
 				}while(connection.nextRegister());
 			}
 		} catch (SQLException e) {

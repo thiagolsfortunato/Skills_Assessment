@@ -11,16 +11,16 @@ import br.com.fatec.entity.Enrolls;
 import br.com.fatec.model.ModelEnrolls;
 
 public class EnrollsRoutes {
-	ModelEnrolls modelEnrolls = new ModelEnrolls();
-	Gson gson = new Gson();
-	
-	public void getCourse() {
+	public static void getEnrolls() {
+		ModelEnrolls modelEnrolls = new ModelEnrolls();
+		Gson gson = new Gson();
+		//FUNCIONANDO !!
 		post("/insertEnrolls", (req, res) -> {
 			String enrollsData = req.body();
 			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
 			return modelEnrolls.insertEnrolls(enrolls);
 		}, JsonUtil.json());
-
+		//FUNCIONANDO !!
 		delete("/deleteEnrolls", "application/json" , (req, res) -> {
 			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
 			return modelEnrolls.deleteEnrolls(codeEnrolls);

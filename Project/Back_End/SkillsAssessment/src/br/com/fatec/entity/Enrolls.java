@@ -6,16 +6,16 @@ public class Enrolls {
 	private int year;
 	private int period;
 	private Long codeCourse;
-	private Long codeStudent;
+	private Long codeUser;
 	
 	public Enrolls(){};
 	
-	public Enrolls(Long codeEnrolls, int year, int period, Long codeCourse, Long codeStudent) {
+	public Enrolls(Long codeEnrolls, int year, int period, Long codeCourse, Long codeUser) {
 		this.codeEnrolls = codeEnrolls;
 		this.year = year;
 		this.period = period;
-		this.setCodeStudent(codeStudent);
-		this.setCodeCourse(codeCourse);
+		this.codeUser = codeUser;
+		this.codeCourse = codeCourse;
 	}
 
 	public Long getCodeEnrolls() {
@@ -50,11 +50,11 @@ public class Enrolls {
 		this.codeCourse = codeCourse;
 	}
 
-	public Long getCodeStudent() {
-		return codeStudent;
+	public Long getCodeUser() {
+		return codeUser;
 	}
 
-	public void setCodeStudent(Long codeStudent) {
-		this.codeStudent = codeStudent;
+	public void setCodeUser(Long codeUser) {
+		this.codeUser = codeUser;
 	}	
 }
