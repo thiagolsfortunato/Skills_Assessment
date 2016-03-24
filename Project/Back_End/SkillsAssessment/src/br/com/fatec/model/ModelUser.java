@@ -26,13 +26,10 @@ public class ModelUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public boolean addUser(User user){
-		boolean returnInsert = false;
+	public Long insertUser(User user){
+		Long returnInsert = null;
 		try {
-			Long newUser = DaoUser.insertUser(user);
-			if(newUser != null)returnInsert =  true;
-			else returnInsert =  false;
-			
+			returnInsert = DaoUser.insertUser(user);			
 		} catch (SQLException e) {
 			System.out.println("Will not it was possible to enter the User");
 		}
