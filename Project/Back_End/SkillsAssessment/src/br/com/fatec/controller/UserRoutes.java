@@ -1,28 +1,31 @@
 package br.com.fatec.controller;
 
-import static spark.Spark.get; 
-import static spark.Spark.put; 
-import static spark.Spark.delete; 
-import static spark.Spark.post; 
+import static spark.Spark.get;
+import static spark.Spark.put;
+import static spark.Spark.delete;
+import static spark.Spark.post;
 import com.google.gson.Gson;
+
+import br.com.fatec.entity.Enrolls;
 import br.com.fatec.entity.User;
+import br.com.fatec.model.ModelEnrolls;
 import br.com.fatec.model.ModelUser;
 
-public class UserRoutes {
-	private String data = null;
-	private String token = null;
-
-	public void getLogin() {
-		ModelUser login = new ModelUser();
+public class UserRoutes {	
+	
+	public static void getUser() {
+		ModelUser modelUser = new ModelUser();
+		ModelEnrolls modelEnrolls = new ModelEnrolls();
+		
 		post("/token", (req, res) -> {
 
-			data = req.body();
+			String data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);
 			try {
-				user = login.getLogin(user.getUserName(), user.getPassword());
+				user = modelUser.getLogin(user.getUserName(), user.getPassword());
 				if (user != null) {
-					token = user.getToken();
+					String token = user.getToken();
 					res.header("token", token);
 					res.type("application/json");
 					return user;
@@ -37,62 +40,59 @@ public class UserRoutes {
 			}
 
 		}, JsonUtil.json());
-	}
-
-	public void insertUser() {
-		ModelUser insert = new ModelUser();
 
 		post("/insertUser", (req, res) -> {
-			data = req.body();
+			String data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);
+			Enrolls enrolls = gson.fromJson(data, Enrolls.class);
 			try {
-				return insert.addUser(user);
+				Long codeUser = modelUser.insertUser(user);
+				enrolls.setCodeUser(codeUser);
+				if (codeUser != null && user.getType().equals("Student")) {
+					if (modelEnrolls.insertEnrolls(enrolls)) {
+						return true;
+					}
+				}
+				return false;
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with inserting, check the fields!";
 			}
 		}, JsonUtil.json());
-	}
-	
-	public void deleteUser() {
-		ModelUser deleteUser = new ModelUser();
+
 		delete("/deleteUser", (req, res) -> {
-			data = req.body();
-			token = req.headers("token");
+			String data = req.body();
+			String token = req.headers("token");
 			Gson gson = new Gson();
-			User user = gson.fromJson(data, User.class); //not being used at the time
+			User user = gson.fromJson(data, User.class); // not being used at
+															// the time
 			try {
-				return deleteUser.deleteUser(token);
+				return modelUser.deleteUser(token);
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with deleting, check the fields!";
 			}
 		}, JsonUtil.json());
-	}
-	
-	public void updateUser() {
-		ModelUser updateUser = new ModelUser();
+
 		put("/updateUser", (req, res) -> {
-			data = req.body();
+			String data = req.body();
 			Gson gson = new Gson();
-			User user = gson.fromJson(data, User.class); //not being used at the time
+			User user = gson.fromJson(data, User.class); // not being used at
+															// the time
 			try {
-				return updateUser.updateUser(user);
+				return modelUser.updateUser(user);
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with deleting, check the fields!";
 			}
 		}, JsonUtil.json());
-	}
-	
-	public void searchUserById() {
-		ModelUser login = new ModelUser();
+
 		post("/searchUserById", (req, res) -> {
 			Long idUser = Long.parseLong(req.queryParams("idUser"));
 			User user = null;
 			try {
-				user = login.searchUserById(idUser);
+				user = modelUser.searchUserById(idUser);
 				if (user != null) {
 					res.type("application/json");
 					return user;
@@ -105,7 +105,6 @@ public class UserRoutes {
 				e.printStackTrace();
 				return "ops, an error with LOGIN, check the fields!";
 			}
-
 		}, JsonUtil.json());
 	}
 }
