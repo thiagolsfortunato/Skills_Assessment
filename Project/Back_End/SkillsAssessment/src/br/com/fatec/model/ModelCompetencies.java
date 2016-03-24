@@ -40,8 +40,8 @@ public class ModelCompetencies {
 	}
 	
 	//Update Competence
-		public boolean updateCompetence(Competence competence, Long code) throws SQLException {
-			return DaoCompetencies.updateCompetence(competence, code);		
+		public boolean updateCompetence(Competence competence) throws SQLException {
+			return DaoCompetencies.updateCompetence(competence);		
 		}
 	
 	//Search By Code

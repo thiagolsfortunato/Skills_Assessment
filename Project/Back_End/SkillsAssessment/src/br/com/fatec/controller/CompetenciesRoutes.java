@@ -21,11 +21,11 @@ import br.com.fatec.entity.Competence;
 import br.com.fatec.model.ModelCompetencies;
 
 public class CompetenciesRoutes {
-	ModelCompetencies modelCompetencies = new ModelCompetencies();
-	Gson gson = new Gson();
-
-	public void getCompetencies() {
-
+	
+	public static void getCompetencies() {
+		ModelCompetencies modelCompetencies = new ModelCompetencies();
+		Gson gson = new Gson();
+		
 		// insert
 		post("/insertCompetence", (req, res) -> {
 			String competenceData = req.body();
@@ -34,24 +34,22 @@ public class CompetenciesRoutes {
 		}, JsonUtil.json());
 		
 		// delete
-		delete("/deleteCompetence", (req, res) -> {
-			String competenceData = req.body();
-			Competence competence = gson.fromJson(competenceData, Competence.class);
-			return modelCompetencies.deleteCompetence(competence.getCode());
+		delete("/deleteCompetence", "application/json", (req, res) -> {
+			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
+			return modelCompetencies.deleteCompetence(competenceCode);
 		}, JsonUtil.json());
 		
 		// update
 		put("/updateCompetence", (req, res) -> {
 			String competenceData = req.body();
 			Competence competence = gson.fromJson(competenceData, Competence.class);
-			return modelCompetencies.updateCompetence(competence, competence.getCode());
+			return modelCompetencies.updateCompetence(competence);
 		}, JsonUtil.json());
 		
-		// Search by code
-		get("/searchCompetenciesById", (req, res) -> {
-			String competencieData = req.body();
-			Competence competence = gson.fromJson(competencieData, Competence.class);
-			return modelCompetencies.searchCompetenceByCode(competence.getCode());
+		// search by code
+		get("/searchCompetenciesById", "application/json", (req, res) -> {
+			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
+			return modelCompetencies.searchCompetenceByCode(competenceCode);
 		} , JsonUtil.json());
 		
 		// search all
