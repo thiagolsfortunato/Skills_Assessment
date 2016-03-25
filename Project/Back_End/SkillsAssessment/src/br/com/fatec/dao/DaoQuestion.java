@@ -1,41 +1,50 @@
 package br.com.fatec.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Answer;
 import br.com.fatec.entity.Competence;
-import br.com.fatec.entity.Course;
+//import br.com.fatec.entity.Course;
 import br.com.fatec.entity.Question;
-import br.com.fatec.entity.User;
+//import br.com.fatec.entity.User;
 
 public class DaoQuestion {
 	
 	@SuppressWarnings("finally")
 	public static boolean insertQuestion(Question question) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
+		PreparedStatement insert = null;
 		boolean returnQuestion = false;
 		try {
 			conn.conect();
 			String query = "insert into question (qst_introduction,qst_question,qst_situation) values (?,?,?);";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS));
+			insert = conn.getStatement();
 			conn.getStatement().setString(1, question.getIntroduction());
 			conn.getStatement().setString(2, question.getQuestion());
 			conn.getStatement().setInt(3, question.getSituation());
 			if (conn.executeSql()) {
-				for (int i = 0; i < question.getAnswers().size(); i++) {
-					returnQuestion = insertAnswer(question.getAnswers().get(i));
+				ResultSet generatedKeys = insert.getGeneratedKeys();
+				if(generatedKeys.next()){
+					Long codeQuestion = generatedKeys.getLong(1);
+					for (int i = 0; i < question.getAnswers().size(); i++) {
+						returnQuestion = insertAnswer(codeQuestion, question.getAnswers().get(i));
+					}
 				}
+				
 			}
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
+			//conn.getResultset().close();
+			//conn.getStatement().close();
 			conn.close();
 			return returnQuestion;
 		}
@@ -178,26 +187,32 @@ public class DaoQuestion {
 	
 	
 	@SuppressWarnings("finally")
-	public static boolean insertAnswer(Answer answer) throws SQLException{
+	public static boolean insertAnswer(Long codeQuestion, Answer answer) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
+		PreparedStatement insert = null;
 		boolean returnAnswer = false;
 		try {
 			conn.conect();
 			String query = "insert into alternatives (alt_description,qst_code) values (?,?);";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS) );
+			insert = conn.getStatement();
 			conn.getStatement().setString(1, answer.getDescription());
-			conn.getStatement().setLong(2, answer.getCode());
+			conn.getStatement().setLong(2, codeQuestion );
 			if (conn.executeSql()) {
-				for (int i = 0; i < answer.getCompetencies().size(); i++) {
-					returnAnswer = insertCompetenceInAnswer(answer.getCode(), answer.getCompetencies().get(i));
+				ResultSet generatedKeys = insert.getGeneratedKeys();
+				if(generatedKeys.next()){
+					Long codeAnswer = generatedKeys.getLong(1);
+					for (int i = 0; i < answer.getCompetencies().size(); i++) {
+						returnAnswer = insertCompetenceInAnswer(codeAnswer, answer.getCompetencies().get(i));
+					}
 				}
 			}
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
+			//conn.getResultset().close();
+			//conn.getStatement().close();
 			conn.close();
 			return returnAnswer;
 		}
@@ -277,9 +292,10 @@ public class DaoQuestion {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+			
 		}finally {
-			conn.getResultset().close();
-			conn.getStatement().close();
+			//conn.getResultset().close();
+			//conn.getStatement().close();
 			conn.close();
 			return returnCompetence;
 		}
@@ -331,9 +347,9 @@ public class DaoQuestion {
 		return answers;
 	}
 
-	
+/*	inicio comentario
 	public static void main(String[] args) {
-		/*List<Question> questions = DaoQuestion.searchAllQuestion();
+		List<Question> questions = DaoQuestion.searchAllQuestion();
 		if(questions !=null){
 			for(Question q:questions){
 				System.out.println("Questão: "+q.getQuestion());
@@ -361,8 +377,8 @@ public class DaoQuestion {
 			System.out.println("erro: "+e);
 			e.printStackTrace();
 		}
-		*/
-		/* Question q2 = new Question();
+		
+		Question q2 = new Question();
 		q2 = DaoQuestion.searchQuestionByCode((long)2);
 		System.out.println("Introdução: "+q2.getIntroduction());
 		
@@ -377,14 +393,15 @@ public class DaoQuestion {
 				System.out.println("Peso da competencia na questão: "+c.getWeight());
 				System.out.println("Tipo: "+c.getType());
 			}
-		}*/
+		}
 		
 		try {
 			boolean result = DaoQuestion.deleteQuestion((long)2);
 		} catch (SQLException e) {
 			System.out.println("erro: "+e);
 			e.printStackTrace();
-		}
-		
+		}	
 	}
+fim comentario */
+
 }
