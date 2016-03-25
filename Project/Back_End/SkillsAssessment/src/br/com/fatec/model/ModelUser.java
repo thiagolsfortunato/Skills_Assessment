@@ -5,18 +5,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.commons.Token;
+import br.com.fatec.dao.DaoQuiz;
 import br.com.fatec.dao.DaoUser;
 import br.com.fatec.entity.TokenInfo;
 import br.com.fatec.entity.User;
 
 public class ModelUser {
+	ModelQuiz modelQuiz = new ModelQuiz();
 	
 	@SuppressWarnings("finally")
 	public User getLogin(String login, String password){
+		
 		User user = null;
 		try {
 			user = DaoUser.getLogin(login, password);
-			
+			user.setUnansweredQuestions(modelQuiz.getNumberOfQuestions(user.getUserCode()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("error, model user");

@@ -32,4 +32,17 @@ public class ModelQuiz {
 			return question;
 		}
 	}
+	
+	@SuppressWarnings("finally")
+	public Integer getNumberOfQuestions(Long userId){
+		Integer question = null;
+		try {
+			question = DaoQuiz.getValidQuestions(userId);
+		} catch (SQLException e) {
+			System.out.println("an error occurred to bring the amount of issues: "+e);
+			e.printStackTrace();
+		}finally {
+			return question;
+		}
+	}
 }

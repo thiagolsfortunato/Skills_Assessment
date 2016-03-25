@@ -16,13 +16,14 @@ import br.com.fatec.entity.Quiz;
 public class DaoQuiz{
 
 	@SuppressWarnings("finally")
-	private static Integer getValidQuestions() throws SQLException {
+	public static Integer getValidQuestions(Long userId) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		Integer count = null;
 		try {
 			conn.conect();
-			String query = "select count(*) as questions from question where question.qst_situation <> 1;";
+			String query = "select count(*) as questions from question where question.qst_situation <> 1 and qst_code not in (select qst_code from quiz where usr_code = ?);";
 			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setLong(1, userId);
 			if (conn.executeQuery()) {
 				count = Integer.parseInt(conn.returnRegister().getString("questions"));
 			}

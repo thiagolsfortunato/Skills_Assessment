@@ -6,14 +6,16 @@ import br.com.fatec.controller.CompetenciesRoutes;
 import br.com.fatec.controller.CourseRoutes;
 import br.com.fatec.controller.EnrollsRoutes;
 import br.com.fatec.controller.UserRoutes;
+import spark.Spark;
 
 public class Main {
 	
 	//static ModelQuestion model = new ModelQuestion();
 	
 	public static void main(String[] args) throws JSONException{
+		 Spark.externalStaticFileLocation("D:\\SkillServer\\Skills_Assessment\\Project\\Front_End\\Skills_Assessment.SPA");
+		 CorsFilter.apply();
 		 
-		 CorsFilter.apply();		 
 		 CourseRoutes.getCourse();
 		 EnrollsRoutes.getEnrolls();
 		 CompetenciesRoutes.getCompetencies();
