@@ -104,7 +104,7 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 
-		post("/searchUserById", (req, res) -> {
+		get("/searchUserById", (req, res) -> {
 			Long idUser = Long.parseLong(req.queryParams("idUser"));
 			User user = null;
 			try {
@@ -120,6 +120,14 @@ public class UserRoutes {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with LOGIN, check the fields!";
+			}
+		}, JsonUtil.json());
+		
+		get("/searchAllUsers", (req, res) -> {
+			try{
+				return modelUser.searchAllUsers();
+			}catch(NullPointerException e){
+				return "ops, It wasin't possible find all Users!";
 			}
 		}, JsonUtil.json());
 	}
