@@ -18,27 +18,54 @@ public class EnrollsRoutes {
 		post("/insertEnrolls", (req, res) -> {
 			String enrollsData = req.body();
 			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
-			return modelEnrolls.insertEnrolls(enrolls);
+			try{
+				return modelEnrolls.insertEnrolls(enrolls);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "ops, an error with inserting, check the fields!";
+			}
 		}, JsonUtil.json());
 		//FUNCIONANDO !!
 		delete("/deleteEnrolls", "application/json" , (req, res) -> {
 			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
-			return modelEnrolls.deleteEnrolls(codeEnrolls);
+			try{
+				return modelEnrolls.deleteEnrolls(codeEnrolls);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				res.status(400);
+				return "ops, an error with deleting, check the fields!";
+			}
 		}, JsonUtil.json());
 
 		put("/updateEnrolls", (req, res) -> {
 			String enrollsData = req.body();
 			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
-			return modelEnrolls.updateEnrolls(enrolls);
+			try{
+				return modelEnrolls.updateEnrolls(enrolls);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "ops, an error with updating, check the fields!";
+			}
 		}, JsonUtil.json());
 
 		get("/searchAllEnrolls", (req, res) -> {
-			return modelEnrolls.searchAllEnrolls();
+			try{
+				return modelEnrolls.searchAllEnrolls();
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				res.status(400);
+				return "It was not possible to find a Enrolls";
+			}
 		}, JsonUtil.json());
 
 		get("/searchEnrollsById", "application/json" ,(req, res) -> {
 			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
-			return modelEnrolls.searchEnrollsByCode(codeEnrolls);
+			try{
+				return modelEnrolls.searchEnrollsByCode(codeEnrolls);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "It wasin't possible find all Enrolls!";
+			}
 		}, JsonUtil.json());
 	}
 }
