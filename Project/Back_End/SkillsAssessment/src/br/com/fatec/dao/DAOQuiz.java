@@ -1,7 +1,9 @@
 package br.com.fatec.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import br.com.fatec.entity.Competence;
 import br.com.fatec.entity.Question;
 import br.com.fatec.entity.Quiz;
 
-public class DaoQuiz {
+public class DaoQuiz{
 
 	@SuppressWarnings("finally")
 	private static Integer getValidQuestions() throws SQLException {
@@ -127,9 +129,32 @@ public class DaoQuiz {
 		}
 	}
 
+	@SuppressWarnings("finally")
 	public static boolean insertQuiz(Quiz quiz) throws SQLException {
-
-		return false;
+		ConnectionMySql conn = new ConnectionMySql();
+		ResultSet idUser = null;
+		boolean returnInsert = false;
+		try {
+			String insert = " insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (?,?,?,?,?);";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(insert));
+			conn.getStatement().setLong(1, quiz.getUser());
+			conn.getStatement().setLong(2, quiz.getQuestion());
+			conn.getStatement().setLong(3, quiz.getAnswer());
+			conn.getStatement().setDate(4, (Date) quiz.getDate());
+			conn.getStatement().setString(5, quiz.getDuration());
+			
+			if(conn.executeSql()){
+				System.out.println("the question has been successfully inserted!");
+				returnInsert =  true;
+			}
+		} catch (Exception e) {
+			System.out.println("erro "+e);
+			throw new RuntimeException(e);
+		}finally {
+			conn.close();
+			return returnInsert;
+		}
 	}
 
 	private static String getNumberOfQuestion(ResultSet rs) throws SQLException {
