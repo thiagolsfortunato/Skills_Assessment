@@ -3,7 +3,7 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 import com.google.gson.Gson;
 
-import br.com.fatec.dao.Token;
+import br.com.fatec.commons.Token;
 import br.com.fatec.entity.Question;
 import br.com.fatec.entity.Quiz;
 import br.com.fatec.entity.TokenInfo;

@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.fatec.commons.Token;
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.User;
 

@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.fatec.commons.Token;
 import br.com.fatec.dao.DaoUser;
-import br.com.fatec.dao.Token;
 import br.com.fatec.entity.TokenInfo;
 import br.com.fatec.entity.User;
 

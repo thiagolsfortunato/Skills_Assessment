@@ -1,4 +1,4 @@
-package commons;
+package br.com.fatec.commons;
 
 import java.sql.Time;
 import java.text.DateFormat;
