@@ -5,34 +5,33 @@ import java.util.Date;
 
 public class Quiz {
 	private Long code;
-	private User user;
-	private Question question;
-	private Answer answer;
+	private Long user;
+	private Long question;
+	private Long answer;
 	private Date date;
-	private Time duration;
-	
+	private String duration;
 	public Long getCode() {
 		return code;
 	}
 	public void setCode(Long code) {
 		this.code = code;
 	}
-	public User getUser() {
+	public Long getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(Long user) {
 		this.user = user;
 	}
-	public Question getQuestion() {
+	public Long getQuestion() {
 		return question;
 	}
-	public void setQuestion(Question question) {
+	public void setQuestion(Long question) {
 		this.question = question;
 	}
-	public Answer getAnswer() {
+	public Long getAnswer() {
 		return answer;
 	}
-	public void setAnswer(Answer answer) {
+	public void setAnswer(Long answer) {
 		this.answer = answer;
 	}
 	public Date getDate() {
@@ -41,10 +40,10 @@ public class Quiz {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Time getDuration() {
+	public String getDuration() {
 		return duration;
 	}
-	public void setDuration(Time duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 }

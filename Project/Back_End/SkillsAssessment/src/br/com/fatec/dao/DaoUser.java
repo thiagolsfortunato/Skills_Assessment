@@ -26,6 +26,7 @@ public class DaoUser {
 			}
 			
 		} catch (SQLException e) {
+			System.err.println("error"+e);
 			throw new RuntimeException(e);
 		} finally {		
 			conn.close();
@@ -185,7 +186,7 @@ public class DaoUser {
 	private static User buildLogin(ResultSet rs) throws SQLException {
 		User user = new User();
 		String token = updateTokenUser(rs.getString("USR_CODE"));
-		user.setType(rs.getString("USR_KIND"));
+		user.setType(rs.getString("USR_TYPE"));
 		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
 		user.setType(rs.getString("usr_name"));
 		user.setToken(token); 
