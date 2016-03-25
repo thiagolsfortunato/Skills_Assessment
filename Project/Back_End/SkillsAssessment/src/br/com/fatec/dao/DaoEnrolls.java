@@ -8,6 +8,7 @@ import com.mysql.jdbc.Statement;
 
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Enrolls;
+import br.com.fatec.entity.User;
 
 public class DaoEnrolls {
 	
@@ -134,5 +135,28 @@ public class DaoEnrolls {
 			return enrolls;
 		}
 	}
+	
+	public static Long searchEnrollsByUserId(Long idUser){
+		ConnectionMySql connection = new ConnectionMySql();
+		String query = "SELECT ERN_CODE FROM ENROLLS WHERE USR_CODE = ?";
+		Long idEnrolls = null;
+		try{
+			connection.conect();
+			connection.setStatement(connection.getConnection().prepareStatement(query));
+			connection.getStatement().setLong(1, idUser);
+			if(connection.executeQuery()){
+				do{
+					idEnrolls = Long.parseLong(connection.returnField("ERN_CODE"));
+				}while(connection.nextRegister());
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connection.close();
+			return idEnrolls;
+		}
+		
+	}
+	
 }
 
