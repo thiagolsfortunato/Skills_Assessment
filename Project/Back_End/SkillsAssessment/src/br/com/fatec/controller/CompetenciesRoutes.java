@@ -58,7 +58,7 @@ public class CompetenciesRoutes {
 				return modelCompetencies.updateCompetence(competence);
 			}catch(NullPointerException e){
 				e.printStackTrace();
-				return "ops, an error with inserting, check the fields!";
+				return "ops, an error with updating, check the fields!";
 			}
 		}, JsonUtil.json());
 		
@@ -80,7 +80,6 @@ public class CompetenciesRoutes {
 				return modelCompetencies.searchAllCompetence();
 			}catch(NullPointerException e){
 				e.printStackTrace();
-				res.status(400);
 				return "It wasin't possible find all Competences!";
 			}
 		} , JsonUtil.json());
