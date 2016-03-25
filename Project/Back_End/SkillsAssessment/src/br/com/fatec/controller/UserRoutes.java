@@ -100,7 +100,7 @@ public class UserRoutes {
 				return modelUser.updateUser(user);
 			} catch (NullPointerException e) {
 				e.printStackTrace();
-				return "ops, an error with deleting, check the fields!";
+				return "ops, an error with updating, check the fields!";
 			}
 		}, JsonUtil.json());
 

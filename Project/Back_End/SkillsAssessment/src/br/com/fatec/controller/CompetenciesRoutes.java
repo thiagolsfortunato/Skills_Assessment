@@ -30,31 +30,59 @@ public class CompetenciesRoutes {
 		post("/insertCompetence", (req, res) -> {
 			String competenceData = req.body();
 			Competence competence = gson.fromJson(competenceData, Competence.class);
-			return modelCompetencies.insertCompetence(competence);
+			try{
+				return modelCompetencies.insertCompetence(competence);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "ops, an error with inserting, check the fields!";
+			}
 		}, JsonUtil.json());
 		
 		// delete
 		delete("/deleteCompetence", "application/json", (req, res) -> {
 			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
-			return modelCompetencies.deleteCompetence(competenceCode);
+			try{
+				return modelCompetencies.deleteCompetence(competenceCode);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				res.status(400);
+				return "ops, an error with deleting, check the fields!";
+			}
 		}, JsonUtil.json());
 		
 		// update
 		put("/updateCompetence", (req, res) -> {
 			String competenceData = req.body();
 			Competence competence = gson.fromJson(competenceData, Competence.class);
-			return modelCompetencies.updateCompetence(competence);
+			try{
+				return modelCompetencies.updateCompetence(competence);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "ops, an error with inserting, check the fields!";
+			}
 		}, JsonUtil.json());
 		
 		// search by code
 		get("/searchCompetenciesById", "application/json", (req, res) -> {
 			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
-			return modelCompetencies.searchCompetenceByCode(competenceCode);
+			try{
+				return modelCompetencies.searchCompetenceByCode(competenceCode);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				res.status(400);
+				return "It was not possible to find a Competence";
+			}
 		} , JsonUtil.json());
 		
 		// search all
 		get("/searchAllCompetencies", (req, res) -> {
-			return modelCompetencies.searchAllCompetence();
+			try{
+				return modelCompetencies.searchAllCompetence();
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				res.status(400);
+				return "It wasin't possible find all Competences!";
+			}
 		} , JsonUtil.json());
 	}
 }
