@@ -23,7 +23,7 @@ public class DaoQuestion {
 		boolean returnQuestion = false;
 		try {
 			conn.conect();
-			String query = "insert into question (qst_introduction,qst_question,qst_situation) values (?,?,?);";
+			String query = "INSERT INTO question (qst_introduction,qst_question,qst_situation) VALUES (?, ?, ?);";
 			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS));
 			insert = conn.getStatement();
 			conn.getStatement().setString(1, question.getIntroduction());
@@ -160,7 +160,7 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				listQuestion = DaoQuestion.buildQuestions(conn);
 			} 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("erro "+e);
 			throw new RuntimeException(e);
 		} finally {
@@ -236,7 +236,7 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				answers = buildAnswersToQuestion(conn);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("It was not possible to get the answers " + e);
 			throw new RuntimeException(e);
 		} finally {
@@ -258,7 +258,7 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				competencies = buildCompetenciesToQuestion(conn);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("It was not possible to get the competencies " + e);
 			throw new RuntimeException(e);
 		} finally {
@@ -302,7 +302,7 @@ public class DaoQuestion {
 	private static Question buildQuestion(ResultSet rs) throws SQLException {
 		Question question = new Question();
 		List<Answer> answers = new LinkedList<Answer>();
-		answers = getAnswers(Long.parseLong(rs.getString("qst_code")));
+		answers = getAnswers( rs.getLong("qst_code") );
 		
 		question.setCode(rs.getLong("qst_code"));
 		question.setQuestion(rs.getString("qst_question"));

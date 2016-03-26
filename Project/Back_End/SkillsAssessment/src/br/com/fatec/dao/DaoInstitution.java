@@ -7,7 +7,6 @@ import java.util.List;
 
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Institution;
-import br.com.fatec.entity.User;
 
 public class DaoInstitution {
 	
@@ -27,7 +26,7 @@ public class DaoInstitution {
 				System.out.println("the Institution has been successfully inserted!");
 				sucess = true;
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println("erro "+e);
 			throw new RuntimeException(e);
 		} finally {
@@ -48,7 +47,7 @@ public class DaoInstitution {
 			if (conn.executeSql()) {
 				delete = true;
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
 			conn.close();
@@ -73,7 +72,7 @@ public class DaoInstitution {
 				System.out.println("Institution has been successfully updated!");
 					sucess = true;	
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println("erro "+e);
 			throw new RuntimeException(e);
 		}finally {
@@ -85,7 +84,7 @@ public class DaoInstitution {
 	@SuppressWarnings("finally")
 	public static Institution searchInstitutionByCode(Long code){
 		ConnectionMySql conn = new ConnectionMySql();
-		Institution institution = null;
+		Institution institution = new Institution();
 
 		try {
 			String query = "SELECT * FROM institution WHERE ist_code = ?;";
