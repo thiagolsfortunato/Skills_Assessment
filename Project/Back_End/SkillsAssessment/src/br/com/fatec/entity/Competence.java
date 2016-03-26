@@ -8,7 +8,17 @@ public class Competence {
 	private int weight;
 	private int situation;
 	private Long altCode;
+	private Long rscCode;
 	
+	
+	public Long getRscCode() {
+		return rscCode;
+	}
+
+	public void setRscCode(Long rscCode) {
+		this.rscCode = rscCode;
+	}
+
 	public Long getCode() {
 		return code;
 	}
