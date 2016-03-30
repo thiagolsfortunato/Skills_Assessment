@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.entity.Institution;
 import br.com.fatec.model.ModelInstitution;
 
