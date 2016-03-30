@@ -27,7 +27,7 @@ public class DaoInstitution {
 				sucess = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("erro "+e);
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			conn.close();
@@ -48,6 +48,7 @@ public class DaoInstitution {
 				delete = true;
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			conn.close();
@@ -73,7 +74,7 @@ public class DaoInstitution {
 					sucess = true;	
 			}
 		} catch (SQLException e) {
-			System.out.println("erro "+e);
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}finally {
 			conn.close();
@@ -96,6 +97,7 @@ public class DaoInstitution {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			conn.close();
@@ -109,10 +111,10 @@ public class DaoInstitution {
 		List<Institution> institutions = new LinkedList<Institution>();
 
 		try {
-			String query = "SELECT * FROM institution WHERE ist_company LIKE '%?%';";
+			String query = "SELECT * FROM institution WHERE ist_company LIKE '%"+ strName +"%';";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, strName);
+			//conn.getStatement().setString(1, strName);
 			if (conn.executeQuery()){
 				institutions = buildInstitutions(conn);
 			}
@@ -140,6 +142,7 @@ public class DaoInstitution {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			conn.close();
