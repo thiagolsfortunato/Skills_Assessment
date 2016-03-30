@@ -1,4 +1,4 @@
-package br.com.fatec.controller;
+package br.com.fatec.commons;
 import com.google.gson.Gson;
 
 import spark.ResponseTransformer;

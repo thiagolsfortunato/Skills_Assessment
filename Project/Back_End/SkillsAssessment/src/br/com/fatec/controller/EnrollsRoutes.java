@@ -7,6 +7,7 @@ import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
+import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.model.ModelEnrolls;
 

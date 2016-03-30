@@ -6,6 +6,7 @@ import static spark.Spark.delete;
 import static spark.Spark.post;
 import com.google.gson.Gson;
 
+import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.commons.Token;
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.entity.TokenInfo;

@@ -16,6 +16,7 @@ import br.com.fatec.entity.Course;
 */
 import com.google.gson.Gson;
 
+import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.entity.Competence;
 
 import br.com.fatec.model.ModelCompetencies;
