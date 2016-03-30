@@ -13,7 +13,7 @@ public class Main {
 	//static ModelQuestion model = new ModelQuestion();
 	
 	public static void main(String[] args) throws JSONException{
-		 Spark.externalStaticFileLocation("D:\\SkillServer\\Skills_Assessment\\Project\\Front_End\\Skills_Assessment.SPA");
+		 Spark.externalStaticFileLocation("..\\..\\Front_End\\Skills_Assessment.SPA");
 		 CorsFilter.apply();
 		 
 		 CourseRoutes.getCourse();

@@ -22,8 +22,6 @@ create table user (
     usr_token varchar(500),
     usr_name varchar(100),
     usr_register Date,
-    ist_code int ,
-    constraint fk_ist foreign key (ist_code) references institution (ist_code),
     constraint pk_usr primary key (usr_code)
 )engine=innodb;
 
@@ -183,9 +181,9 @@ insert into alt_com (alt_code,com_code,rsc_weight) values (2,3,5);
 insert into alt_com (alt_code,com_code,rsc_weight) values (3,1,8);
 insert into alt_com (alt_code,com_code,rsc_weight) values (3,5,5);
 
--- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,1,1,current_date(),'00:39:38');
--- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (2,1,1,current_date(),'00:40:38');
--- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,2,2,current_date(),'00:41:38');
+insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,1,1,current_date(),'00:39:38');
+insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (2,1,1,current_date(),'00:40:38');
+insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,2,2,current_date(),'00:41:38');
 -- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (2,2,2,current_date(),'00:45:38');
 -- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,3,3,current_date(),'00:41:38');
 -- truncate quiz;
@@ -199,10 +197,13 @@ insert into course values (5,'Gestão de Produção Industrial',1, now());
 insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 1,1,3);
 insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 1,2,2);
 
+select count(*) as questions from question where question.qst_situation <> 1 and qst_code not in (select qst_code from quiz where usr_code = 2);
+
 select * from user;
 select * from course;
 select * from enrolls;
-
+select * from alt_com;
+select * from quiz;
 select usr_name,crs_name,ern_year,ern_period from enrolls
 join user on (enrolls.usr_code = user.usr_code) 
 join course on (enrolls.crs_code = course.crs_code);
@@ -220,3 +221,10 @@ select now(), sysdate() from dual;
 
 delete from enrolls where ern_code = 3;
 ALTER TABLE enrolls AUTO_INCREMENT = 3; -- CODIGO PARA ALTEARAR O AUTO-INCREMENTO
+
+
+select * from alt_co;
+delete from alt_com where alt_code = 2;
+truncate alt_com;
+
+select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user;
