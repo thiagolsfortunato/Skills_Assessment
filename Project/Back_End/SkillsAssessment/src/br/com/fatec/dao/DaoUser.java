@@ -189,7 +189,7 @@ public class DaoUser {
 		String token = updateTokenUser(rs.getString("USR_CODE"));
 		user.setType(rs.getString("USR_TYPE"));
 		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-		user.setType(rs.getString("usr_name"));
+		user.setUserName(rs.getString("usr_name"));
 		user.setToken(token); 
 		return user;
 	}
