@@ -1,5 +1,4 @@
 ﻿    <!-- Custom styling plus plugins -->
-
 <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>
     <![endif]-->
@@ -28,67 +27,23 @@
 
                             <div class="x_content">
 
+
                                 <div id="wizard" class="form_wizard wizard_horizontal">
 
                                     <ul class="wizard_steps">
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">1</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">2</span>
-                                            </a>
-                                        </li>
 
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
+                                        <li ng-repeat="a in range() track by $index">
 
-                                        <li>
                                             <a href="#step-1">
-                                                <span class="step_no">3</span>
+                                                <span class="step_no">{{$index + 1}}</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-1">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-
-
 
                                     </ul>
 
                                     <div id="step-1">
+
+
                                         <form class="form-horizontal form-label-left" style="height:500px">
 
                                             <center>

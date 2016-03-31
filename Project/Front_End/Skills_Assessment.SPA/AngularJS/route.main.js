@@ -10,7 +10,7 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
         .when('/user/changepassword', { templateUrl: 'AngularJS/App/User/ChangePassword/ChangePassword.view.html', controller: 'ChangePasswordController' })
         .when('/user/logout', { templateUrl: 'AngularJS/App/User/Logout/Logout.view.html', controller: 'LogoutController' })
 
-        .when('/question', { templateUrl: 'AngularJS/App/Question/Question.view.html', controller: 'QuestionController' })
+        .when('/question/:param1', { templateUrl: 'AngularJS/App/Question/Question.view.html', controller: 'QuestionController' })
 
         .when('/employee/add', { templateUrl: 'AngularJS/App/Employee/Add/EmployeeAdd.view.html', controller: 'EmployeeAddController' })
 

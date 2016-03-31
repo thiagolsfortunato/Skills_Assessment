@@ -1,24 +1,34 @@
 ﻿FatecControllers.controller('QuestionController',
-    ['$scope', '$routeParams', 'QuestionService', '$log',
-        function ($scope, $routeParams, questionService, $log) {
+    ['$scope', '$routeParams', 'QuestionService', '$log', 'localStorageService',
+        function ($scope, $routeParams, questionService, $log, localStorageService) {
 
             $scope.question;
+
+            var authData = localStorageService.get('authorizationData');
+
+            $scope.questionAmount = $routeParams.param1;
+
 
             init();
 
             function init() {
 
                 questionList();
-
             }
+
+            $scope.range = function () {
+                return new Array(3);
+            };
 
             function questionList() {
 
-                questionService.questionList().then(function (data) {
+                questionService.questionList(authData.token).then(function (data) {
+
+                    console.log(data);
 
                     alert("Question controller result");
 
-                    toastr.error(data.Message, "Error");
+                    //toastr.error(data.Message, "Error");
 
                 });
             }

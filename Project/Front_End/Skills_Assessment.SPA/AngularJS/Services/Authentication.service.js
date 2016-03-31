@@ -14,12 +14,14 @@
                 method: 'POST',
                 url: config.generateApiUrl('token'),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-                data: '{email: "edu", password:"1234"}' /*JSON.stringify(loginUser)*/
+                data: JSON.stringify(loginUser)
 
             }).
                success(function (data, status, headers, config, response) {
 
-                   localStorageService.set('authorizationData', { token: headers()['token'] });
+                   //TODO: Deve pegar token do header, não do objeto.
+
+                   localStorageService.set('authorizationData', { token: data.token });
 
                    deferred.resolve(data);
 

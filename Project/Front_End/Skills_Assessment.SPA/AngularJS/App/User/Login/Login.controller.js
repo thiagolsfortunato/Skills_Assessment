@@ -9,14 +9,17 @@
 
             function _login() {
                 var loginUser = {
-                    email: $scope.loginEmail,
+                    userName : $scope.loginEmail,
                     password: $scope.loginPassword
                 };
 
+                console.log(loginUser);
+
+
                 authenticationService.Login(loginUser).then(function (data) {
 
-                    if (data["kindperson"] != "student")
-                        document.location = "../#/question";
+                    if (data["type"] == "student")
+                        document.location = "../#/question/" + data["unansweredQuestions"];
 
                     //document.location = "Administrator.html";
 

@@ -1,11 +1,15 @@
-﻿publication.factory('authorizationInterceptor', ['$rootScope', '$q', '$location', 'localStorageService', '$window', function ($rootScope, $q, $location, localStorageService, $window) {
+﻿publication.factory('authorizationInterceptor', ['$rootScope', '$q', '$location', 'localStorageService', '$window',
+    function ($rootScope, $q, $location, localStorageService, $window) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
 
             var authData = localStorageService.get('authorizationData');
+
             if (authData) {
-                config.headers.token = authData.token;
+
+                //config.headers.token = 'Token ' + authData.token;
+
             }
 
             return config;

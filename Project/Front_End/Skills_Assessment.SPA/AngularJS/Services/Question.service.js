@@ -6,11 +6,15 @@
 
     };
 
-    function _questionList() {
+    function _questionList(token) {
 
         var deferred = $q.defer();
 
-        $http({ method: 'GET', url: config.generateApiUrl('hello') }).
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('getQuizQuestion'),
+            params: { "token": token }
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
