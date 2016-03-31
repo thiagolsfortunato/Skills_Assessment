@@ -9,7 +9,7 @@ import br.com.fatec.entity.Course;
 public class DaoCourse {
 	//FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static boolean insertCourse(Course course) {
+	public static boolean insertCourse(Course course) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "INSERT INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,now());";
 		boolean insert = false;
@@ -30,7 +30,7 @@ public class DaoCourse {
 	}
 	//FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static boolean deleteCourse(Long code) {
+	public static boolean deleteCourse(Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "DELETE FROM COURSE WHERE CRS_CODE = ?;";
 		boolean delete = false;
@@ -50,7 +50,7 @@ public class DaoCourse {
 	}
 	// FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static boolean updateCourse(Course course) {
+	public static boolean updateCourse(Course course)  throws SQLException {
 		ConnectionMySql connection =  new ConnectionMySql();
 		String sql = "UPDATE COURSE SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = now() WHERE CRS_CODE = ?;";
 		boolean update = false;
@@ -72,7 +72,7 @@ public class DaoCourse {
 	}	
 	//FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static List<Course> searchAllCourse() {
+	public static List<Course> searchAllCourse()  throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course;";
@@ -100,7 +100,7 @@ public class DaoCourse {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Course searchCourseById(Long code) {
+	public static Course searchCourseById(Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select * from course where crs_code = ?;";
 		Course course = new Course();
