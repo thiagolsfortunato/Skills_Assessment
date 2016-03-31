@@ -70,10 +70,10 @@ public class InstitutionRoutes {
 				res.status(400);
 				return "invalid parameter";
 			}else{
-				Long code = Long.parseLong( req.queryParams("codeInstitution") );
+				Long code = Long.parseLong( req.queryParams("code") );
 				Institution fatec = model.searchInstitutionByCode(code);
 				
-				if( fatec.getCode() == null ){
+				if( fatec.getCodeInstitution() == null ){
 					res.status(404);
 					return "FATEC not found";
 				}else{

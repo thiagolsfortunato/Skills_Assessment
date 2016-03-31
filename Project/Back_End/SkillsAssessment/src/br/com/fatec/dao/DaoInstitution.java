@@ -67,7 +67,7 @@ public class DaoInstitution {
 			conn.getStatement().setString(1, institution.getCompany());
 			conn.getStatement().setString(2, institution.getCnpj());
 			conn.getStatement().setString(3, institution.getCity());
-			conn.getStatement().setLong(4, institution.getCode());
+			conn.getStatement().setLong(4, institution.getCodeInstitution());
 			
 			if(conn.executeSql()){
 				System.out.println("Institution has been successfully updated!");
