@@ -160,7 +160,7 @@ public class DaoInstitution {
 	
 	private static Institution buildInstitution (ResultSet rs) throws SQLException{
 		Institution institution = new Institution();
-		institution.setCode(rs.getLong("IST_CODE"));
+		institution.setCodeInstitution(rs.getLong("IST_CODE"));
 		institution.setCompany(rs.getString("IST_COMPANY"));
 		institution.setCnpj(rs.getString("IST_CNPJ"));
 		institution.setCity(rs.getString("IST_CITY"));
