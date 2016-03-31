@@ -5,6 +5,7 @@ import org.json.JSONException;
 import br.com.fatec.controller.CompetenciesRoutes;
 import br.com.fatec.controller.CourseRoutes;
 import br.com.fatec.controller.EnrollsRoutes;
+import br.com.fatec.controller.QuizRoutes;
 import br.com.fatec.controller.UserRoutes;
 import spark.Spark;
 
@@ -16,6 +17,7 @@ public class Main {
 		 Spark.externalStaticFileLocation("..\\..\\Front_End\\Skills_Assessment.SPA");
 		 CorsFilter.apply();
 		 
+		 QuizRoutes.getQuiz();
 		 CourseRoutes.getCourse();
 		 EnrollsRoutes.getEnrolls();
 		 CompetenciesRoutes.getCompetencies();
