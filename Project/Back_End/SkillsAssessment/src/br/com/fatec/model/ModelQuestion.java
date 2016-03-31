@@ -15,7 +15,7 @@ public class ModelQuestion {
 		return DaoQuestion.searchAllQuestion();
 	}
 	
-	public boolean inertQuestion(Question question) {
+	public boolean insertQuestion(Question question) {
 		try {
 			return DaoQuestion.insertQuestion(question);
 		} catch (SQLException e) {

@@ -3,6 +3,7 @@ package br.com.fatec.controller;
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.put;
+import static spark.Spark.delete;
 
 import java.util.List;
 
@@ -82,12 +83,12 @@ public class InstitutionRoutes {
 			}
 		}, JsonUtil.json());
 		
-		get("/institution/delete", (req, res) -> {
-			if( req.queryParams("codeInstitution") == null ){
+		delete("/institution/delete", (req, res) -> {
+			if( req.queryParams("code") == null ){
 				res.status(400);
 				return "invalid parameter";
 			}else{
-				Long code = Long.parseLong( req.queryParams("codeInstitution") );
+				Long code = Long.parseLong( req.queryParams("code") );
 				boolean sucess = model.deleteInstitution(code);
 				if(sucess){
 					res.status(200);
@@ -104,7 +105,7 @@ public class InstitutionRoutes {
 			if(fatecs.size() > 0){
 				return fatecs;
 			}else{
-				res.status(400);
+				res.status(404);
 				return "no FATEC registered";
 			}
 		}, JsonUtil.json());
