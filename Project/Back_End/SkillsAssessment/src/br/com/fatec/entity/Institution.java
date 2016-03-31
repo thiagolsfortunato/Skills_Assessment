@@ -2,17 +2,16 @@ package br.com.fatec.entity;
 
 public class Institution {
 	
-	private Long code;
+	private Long codeInstitution;
 	private String company;
 	private String cnpj;
 	private String city;
 	
-	
 	public Long getCode() {
-		return code;
+		return codeInstitution;
 	}
 	public void setCode(Long code) {
-		this.code = code;
+		this.codeInstitution = code;
 	}
 	public String getCompany() {
 		return company;
