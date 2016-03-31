@@ -29,11 +29,12 @@ public class QuizRoutes {
 			}
 		}, JsonUtil.json());
 		
-		post("/getQuizQuestion", (req, res) -> {
+		get("/getQuizQuestion", (req, res) -> {
 			Question question = new Question();
-			String token = req.headers("token");
+			String token = req.queryParams("token");
 			try {
 				TokenInfo tk = Token.verifyToken(token);
+				System.out.println(tk.getUserId());
 				question = model.getQuestion(tk.getUserId());
 				return question;
 				

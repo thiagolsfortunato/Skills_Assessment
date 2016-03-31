@@ -36,6 +36,26 @@ public class DaoQuiz{
 			return count;
 		}
 	}
+	@SuppressWarnings("finally")
+	public static Integer getQuestionAmount() throws SQLException {
+		ConnectionMySql conn = new ConnectionMySql();
+		Integer count = null;
+		try {
+			conn.conect();
+			String query = "select count(*) as questions from question where question.qst_situation <> 1);";
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			if (conn.executeQuery()) {
+				count = Integer.parseInt(conn.returnRegister().getString("questions"));
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			conn.getResultset().close();
+			conn.getStatement().close();
+			conn.close();
+			return count;
+		}
+	}
 
 	@SuppressWarnings("finally")
 	private static String getUnansweredQuestions(Long id) throws SQLException {
