@@ -7,10 +7,10 @@ public class Institution {
 	private String cnpj;
 	private String city;
 	
-	public Long getCode() {
+	public Long getCodeInstitution() {
 		return codeInstitution;
 	}
-	public void setCode(Long code) {
+	public void setCodeInstitution(Long code) {
 		this.codeInstitution = code;
 	}
 	public String getCompany() {
