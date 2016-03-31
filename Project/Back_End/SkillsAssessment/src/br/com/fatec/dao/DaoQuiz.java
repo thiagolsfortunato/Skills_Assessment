@@ -42,7 +42,7 @@ public class DaoQuiz{
 		Integer count = null;
 		try {
 			conn.conect();
-			String query = "select count(*) as questions from question where question.qst_situation <> 1);";
+			String query = "select count(*) as questions from question where question.qst_situation <> 1;";
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			if (conn.executeQuery()) {
 				count = Integer.parseInt(conn.returnRegister().getString("questions"));
@@ -228,6 +228,16 @@ public class DaoQuiz{
 			competencies.add(buildCompetenceToQuestion(conn.returnRegister()));
 		} while (conn.nextRegister());
 		return competencies;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			Integer d = DaoQuiz.getQuestionAmount();
+			System.out.println(d);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
