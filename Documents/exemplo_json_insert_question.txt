@@ -1,0 +1,67 @@
+{
+    "question": "Com qual frequencia você estuda?",
+    "introduction": "site.com/livros.png",
+    "situation": 0,
+    "answers": [
+        {
+            "description": "1 vez por semana",
+            "competencies": [
+                {
+                    "code": 1,  	//codigo da competencia
+                    "weight": 2, 	//peso
+                    "altCode": 1 	//codigo da alternativa
+                },
+                {
+                    "code": 2,
+                    "weight": 2,
+                    "altCode": 1
+                }
+            ]
+        },
+        {
+            "description": "2 vezes por semana",
+            "competencies": [
+                {
+                    "code": 1,
+                    "weight": 3,
+                    "altCode": 2
+                },
+                {
+                    "code": 2,
+                    "weight": 3,
+                    "altCode": 2
+                }
+            ]
+        },
+        {
+            "description": "3 vezes por semana",
+            "competencies": [
+                {
+                    "code": 1,
+                    "weight": 5,
+                    "altCode": 3
+                },
+                {
+                    "code": 2,
+                    "weight": 5,
+                    "altCode": 3
+                }
+            ]
+        },
+        {
+            "description": "4 vezes por semana",
+            "competencies": [
+                {
+                    "code": 1,
+                    "weight": 7,
+                    "altCode": 4
+                },
+                {
+                    "code": 2,
+                    "weight": 7,
+                    "altCode": 4
+                }
+            ]
+        }
+    ]
+}
