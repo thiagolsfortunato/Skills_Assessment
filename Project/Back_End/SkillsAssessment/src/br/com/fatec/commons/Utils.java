@@ -3,6 +3,7 @@ package br.com.fatec.commons;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 public class Utils {
 	private Time hour;
@@ -15,5 +16,12 @@ public class Utils {
 			System.out.println("an error occurred when converting the date: "+e);
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+	
+	public static java.sql.Date convertSqlDateToUtilDate(java.util.Date date){
+		if(date != null){
+			return new java.sql.Date(date.getTime());
+		}
+		return null;
 	}
 }
