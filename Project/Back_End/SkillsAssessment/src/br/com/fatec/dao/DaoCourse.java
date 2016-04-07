@@ -1,4 +1,5 @@
 package br.com.fatec.dao;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,7 @@ public class DaoCourse {
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
+					course.setRegistration_date(Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE")));
 					listCourse.add(course);
 				} while (connection.nextRegister());
 			} else {
@@ -113,7 +114,7 @@ public class DaoCourse {
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
+					course.setRegistration_date(Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE")));
 				}while(connection.nextRegister());
 			}
 		} catch (SQLException e) {
