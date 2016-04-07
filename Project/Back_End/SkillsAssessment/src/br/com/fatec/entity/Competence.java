@@ -1,10 +1,12 @@
 package br.com.fatec.entity;
 
+import java.util.Date;
+
 public class Competence {
 	
 	private Long code;
 	private String type;
-	private String register;
+	private Date register;
 	private int weight;
 	private int situation;
 	private Long altCode;
@@ -27,11 +29,11 @@ public class Competence {
 		this.code = code;
 	}
 
-	public String getRegister() {
+	public Date getRegister() {
 		return register;
 	}
 
-	public void setRegister(String register) {
+	public void setRegister(Date register) {
 		this.register = register;
 	}
 

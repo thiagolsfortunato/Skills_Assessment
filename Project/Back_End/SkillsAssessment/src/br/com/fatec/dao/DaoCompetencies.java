@@ -2,6 +2,7 @@ package br.com.fatec.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import br.com.fatec.connection.ConnectionMySql;
@@ -13,17 +14,13 @@ public class DaoCompetencies {
 	@SuppressWarnings("finally")
 	public static boolean insertCompetence(Competence competence) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "insert into competence (com_code, com_type, com_registration_date, com_situation) values (?, ?, ?, ?);";
+		String sql = "insert into competence (com_type, com_registration_date) values (?, now())";
 
 		boolean insert = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setString(1,String.valueOf(competence.getCode()));
-			connection.getStatement().setString(2,competence.getType());
-			connection.getStatement().setString(3,competence.getRegister());
-			connection.getStatement().setString(4,String.valueOf(competence.getWeight()));
-			
+			connection.getStatement().setString(1,competence.getType());			
 			if (connection.executeSql()) {
 				insert = true;
 			}
@@ -69,8 +66,7 @@ public class DaoCompetencies {
 			if (connection.executeQuery()) {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setType(connection.returnField("COM_TYPE"));
-					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
-					//competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
+					competence.setRegister(Date.valueOf(connection.returnField("COM_REGISTRATION_DATE")));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -84,16 +80,13 @@ public class DaoCompetencies {
 	@SuppressWarnings("finally")
 	public static boolean updateCompetence(Competence competence) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "update competence set COM_CODE=?, COM_TYPE= ?, COM_REGISTRATION_DATE= ? where COM_CODE=?;";
+		String sql = "update competence set COM_TYPE= ?, COM_REGISTRATION_DATE = now() where COM_CODE=?;";
 		boolean update = false;
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setString(1,String.valueOf(competence.getCode()));
-			connection.getStatement().setString(2,competence.getType());
-			connection.getStatement().setString(3,competence.getRegister());
-			//connection.getStatement().setString(4,String.valueOf(competence.getSituation()));
-			connection.getStatement().setString(4, String.valueOf(competence.getCode()));
+			connection.getStatement().setString(1,competence.getType());
+			connection.getStatement().setString(2, String.valueOf(competence.getCode()));
 			if (connection.executeSql()) {
 				update = true;
 			}
@@ -119,8 +112,7 @@ public class DaoCompetencies {
 					Competence competence = new Competence();
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setType(connection.returnField("COM_TYPE"));
-					competence.setRegister(connection.returnField("COM_REGISTRATION_DATE"));
-					//competence.setSituation(Integer.parseInt(connection.returnField("COM_SITUATION")));
+					competence.setRegister(Date.valueOf(connection.returnField("COM_REGISTRATION_DATE")));
 					listCompetence.add(competence);
 				} while (connection.nextRegister());
 			}
