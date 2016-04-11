@@ -14,7 +14,7 @@ public class DaoEnrolls {
 	
 	//ESPERANDO METODO DO MARCELO
 	@SuppressWarnings("finally")
-	public static boolean insertEnrolls(Enrolls enrolls){
+	public static boolean insertEnrolls(Enrolls enrolls) throws SQLException{
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "INSERT INTO ENROLLS (ern_year, ern_period, crs_code, usr_code) VALUES (?,?,?,?);";
 		boolean insert = false;
@@ -38,7 +38,7 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteEnrolls(Long codeEnrolls) {
+	public static boolean deleteEnrolls(Long codeEnrolls) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		String sql = "DELETE FROM ENROLLS WHERE ERN_CODE = ?;";
 		boolean delete = false;
@@ -58,7 +58,7 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateEnrolls(Enrolls enrolls){
+	public static boolean updateEnrolls(Enrolls enrolls) throws SQLException{
 		ConnectionMySql connection =  new ConnectionMySql();
 		String sql = "UPDATE ENROLLS SET ERN_YEAR = ?, ERN_PERIOD = ?, CRS_CODE = ?, USR_CODE = ? where ERN_CODE = ?;";
 		boolean update = false;

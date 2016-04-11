@@ -7,12 +7,24 @@ import br.com.fatec.entity.Question;
 
 public class ModelQuestion {
 	
-	public Question searchQuestionByCode(Long code) {
-		return DaoQuestion.searchQuestionByCode(code);
+	@SuppressWarnings("finally")
+	public Question searchQuestionByCode(Long code) throws SQLException{
+		Question question = null;
+		try{
+			question = DaoQuestion.searchQuestionByCode(code);
+		} finally{
+			return question;
+		}
 	}
 	
-	public List<Question> searchAllQuestion (){
-		return DaoQuestion.searchAllQuestion();
+	@SuppressWarnings("finally")
+	public List<Question> searchAllQuestion() throws SQLException {
+		List<Question> questions = null;
+		try{
+			questions = DaoQuestion.searchAllQuestion(); 
+		}finally{
+			return questions;
+		}
 	}
 	
 	public boolean insertQuestion(Question question) {
