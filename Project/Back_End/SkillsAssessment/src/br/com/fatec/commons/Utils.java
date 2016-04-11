@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 public class Utils {
+	public SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 	private Time hour;
 
 	public void setHour(String hour) {

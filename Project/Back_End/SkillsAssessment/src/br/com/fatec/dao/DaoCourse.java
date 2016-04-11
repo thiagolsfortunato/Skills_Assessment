@@ -7,7 +7,7 @@ import java.util.List;
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Course;
 
-public class DaoCourse {
+public class DaoCourse {	
 	//FUNCIONANDO !
 	@SuppressWarnings("finally")
 	public static boolean insertCourse(Course course) throws SQLException {
@@ -86,7 +86,9 @@ public class DaoCourse {
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-					course.setRegistration_date(Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE")));
+//					java.sql.Date dateSql = Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE"));  -- PRIMEIRA OPCAO : RETORNA DIA, MES, ANO E HORA
+//					course.setRegistration_date(new java.util.Date(dateSql.getTime()));
+					course.setRegistration_date(Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE"))); // SEGUNDA OPCAO: SOMENTE A DIA, MES ANO
 					listCourse.add(course);
 				} while (connection.nextRegister());
 			} else {
