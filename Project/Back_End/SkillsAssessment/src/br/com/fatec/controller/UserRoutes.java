@@ -131,5 +131,13 @@ public class UserRoutes {
 				return "ops, It wasin't possible find all Users!";
 			}
 		}, JsonUtil.json());
+		
+		get("/searchAllStudents", (req, res) -> {
+			try{
+				return modelUser.searchAllStudents();
+			}catch(NullPointerException e){
+				return "ops, It wasin't possible find all Studentss!";
+			}
+		}, JsonUtil.json());
 	}
 }

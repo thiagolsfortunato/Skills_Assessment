@@ -6,6 +6,9 @@ public class User {
 	
 	private Long userCode;
 	private String name;
+	private String courseStudent;
+	private Integer yearStudent;
+	private Integer periodStudent;
 	private String userName;
 	private String password;
 	private String ra;
@@ -95,5 +98,23 @@ public class User {
 	}
 	public void setQuestionAmount(Integer questionAmount) {
 		this.questionAmount = questionAmount;
+	}
+	public String getCourseStudent() {
+		return courseStudent;
+	}
+	public void setCourseStudent(String courseStudent) {
+		this.courseStudent = courseStudent;
+	}
+	public Integer getYearStudent() {
+		return yearStudent;
+	}
+	public void setYearStudent(Integer yearStudent) {
+		this.yearStudent = yearStudent;
+	}
+	public Integer getPeriodStudent() {
+		return periodStudent;
+	}
+	public void setPeriodStudent(Integer periodStudent) {
+		this.periodStudent = periodStudent;
 	}	
 }

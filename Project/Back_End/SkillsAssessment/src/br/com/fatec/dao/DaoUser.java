@@ -95,7 +95,6 @@ public class DaoUser {
 	public static User searchUserById(Long userCode) throws SQLException{ //in process
 		ConnectionMySql conn = new ConnectionMySql();
 		User user = null;
-
 		try {
 			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user where usr_code = ?;";
 			conn.conect();
@@ -115,18 +114,36 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
+	public static List<User> searchAllStudents() throws SQLException{
+		ConnectionMySql conn = new ConnectionMySql();
+		List<User> students = new LinkedList<User>();
+		try{
+			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code)";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			if(conn.executeQuery()){
+				students = buildUsers(conn);
+			}
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {		
+			conn.close();
+			return students;
+		}
+	}
+	
+	@SuppressWarnings("finally")
 	public static List<User> searchAllUsers() throws SQLException{ //in process
 		ConnectionMySql conn = new ConnectionMySql();
 		List<User> user = new LinkedList<User>();
 
 		try {
-			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user;";
+			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			if (conn.executeQuery()){
 				user = buildUsers(conn);
 			}
-			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {		
@@ -189,17 +206,25 @@ public class DaoUser {
 		String token = updateTokenUser(rs.getString("USR_CODE"));
 		user.setType(rs.getString("USR_TYPE"));
 		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-		user.setUserName(rs.getString("usr_name"));
+		user.setUserName(rs.getString("USR_NAME"));
 		user.setToken(token); 
 		return user;
 	}
 	
 	private static User buildUser (ResultSet rs) throws SQLException {
 		User user = new User();
-		user.setType(rs.getString("USR_TYPE"));
-		user.setName(rs.getString("USR_NAME"));
-		user.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
-		user.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
+		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
+		user.setUserName(rs.getString("USR_NAME"));
+		String userType = rs.getString("USR_TYPE").toLowerCase();
+		user.setType(userType);
+		if(userType.equals("student")){
+			user.setCourseStudent(rs.getString("CRS_NAME"));
+			user.setYearStudent(rs.getInt("ERN_YEAR"));
+			user.setPeriodStudent(rs.getInt("ERN_PERIOD"));
+		}else{
+			user.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
+			user.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
+		}		 
 		return user;
 	}
 	

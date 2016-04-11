@@ -12,7 +12,6 @@ public class ModelUser {
 	
 	@SuppressWarnings("finally")
 	public User getLogin(String login, String password){
-		
 		User user = null;
 		try {
 			user = DaoUser.getLogin(login, password);
@@ -78,6 +77,18 @@ public class ModelUser {
 			System.out.println("Will not it was possible to enter the User");
 		}finally {
 			return returnUser;
+		}
+	}	
+	
+	@SuppressWarnings("finally")
+	public List<User> searchAllStudents(){
+		List<User> students = new LinkedList<User>();
+		try{
+			students = DaoUser.searchAllStudents();
+		}catch(SQLException e){
+			System.out.println("Will not it was possible to find the Students");
+		}finally {
+			return students;
 		}
 	}
 	
