@@ -28,12 +28,11 @@ create table user (
 )engine=innodb;
 
 
-
 create table course (
 	crs_code int auto_increment,
     crs_name varchar (250),
     crs_situation smallint,
-    crs_registration_date timestamp,
+    crs_registration_date Date,
     constraint crs_pk primary key (crs_code)
 )engine=innodb;
 
@@ -59,7 +58,7 @@ create table question(
 create table competence (
 	com_code int auto_increment,
     com_type  varchar(250) ,
-    com_registration_date timestamp,
+    com_registration_date Date,
     com_situation smallint default 0,
     constraint pk_com primary key (com_code)
 )engine=innodb;
@@ -87,7 +86,7 @@ create table quiz(
     usr_code int ,
     qst_code int ,
     alt_code int ,
-    quz_date timestamp,
+    quz_date Date,
     quz_duration time,
     constraint pk_pro primary key (quz_code),
     constraint fk_usr_quiz foreign key (usr_code) references user (usr_code),
@@ -98,7 +97,7 @@ create table quiz(
 create table result(
 	rst_code int auto_increment,
     usr_code int ,
-    rst_date_final timestamp,
+    rst_date_final Date,
     rst_completed smallint default 0,
     rst_measured smallint default 0,
     constraint pk_rlt primary key (rst_code),
@@ -214,15 +213,12 @@ select * from enrolls;
 select * from institution;
 select * from ist_crs;
 select * from user;
-
-select ern_code 
-from enrolls
-where usr_code = 2;
+select * from competence;
 
 desc course;
 desc enrolls;
 
-select usr_name,crs_name,ern_year,ern_period from enrolls
+select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls
 join user on (enrolls.usr_code = user.usr_code) 
 join course on (enrolls.crs_code = course.crs_code);
 
@@ -239,11 +235,6 @@ join course c on (e.crs_code = c.crs_code)
 join ist_crs itc on (c.crs_code = itc.crs_code)
 join institution i on (itc.ist_code = i.ist_code)
 where u.usr_code = 4;
-
-select * 
-from user join enrolls on (user.usr_code = enrolls.usr_code) 
-join course on (enrolls.crs_code = course.crs_code) 
-where user.usr_code = 4;
 
 select * from enrolls;
 select * from user;
