@@ -11,21 +11,22 @@ create table institution(
 )engine=innodb;
 
 
-create table user (
-	usr_code int auto_increment,
-    usr_userName varchar(250) ,
-    usr_password varchar(100) ,
-    usr_ra varchar(30),
-    usr_situation smallint default 0,
-    usr_verified smallint default 0,
-    usr_type varchar (50) ,
-    usr_token varchar(500),
-    usr_name varchar(100),
-    usr_register Date,
-    ist_code int ,
-    constraint fk_ist foreign key (ist_code) references institution (ist_code),
-    constraint pk_usr primary key (usr_code)
-)engine=innodb;
+CREATE TABLE user (
+    usr_code INT AUTO_INCREMENT,
+    usr_userName VARCHAR(250),
+    usr_password VARCHAR(100),
+    usr_ra VARCHAR(30),
+    usr_situation SMALLINT DEFAULT 0,
+    usr_verified SMALLINT DEFAULT 0,
+    usr_type VARCHAR(50),
+    usr_token VARCHAR(500),
+    usr_name VARCHAR(100),
+    usr_register DATE,
+    ist_code INT,
+    CONSTRAINT fk_ist FOREIGN KEY (ist_code)
+        REFERENCES institution (ist_code),
+    CONSTRAINT pk_usr PRIMARY KEY (usr_code)
+)  ENGINE=INNODB;
 
 
 create table course (
@@ -41,7 +42,7 @@ create table enrolls (
 	ern_year int ,
 	ern_period int,
     crs_code int,
-    usr_code int,
+    usr_code int unique,
 	constraint pk_prd primary key (ern_code),
     constraint fk_crs foreign key (crs_code) references course (crs_code),
     constraint fk_usr_enrolls foreign key (usr_code) references user (usr_code)
@@ -169,11 +170,11 @@ insert into alternatives (alt_description,qst_code) values ("J",5);
 insert into alternatives (alt_description,qst_code) values ("K",6);
 insert into alternatives (alt_description,qst_code) values ("L",6);
 
-insert into competence (com_type,com_registration_date) values ('Determinação','2008-01-01 00:00:01');
-insert into competence (com_type,com_registration_date) values ('Individualismo','2008-01-01 00:00:02');
-insert into competence (com_type,com_registration_date) values ('Persuasão','2008-01-01 00:00:03');
-insert into competence (com_type,com_registration_date) values ('Persistência','2008-01-01 00:00:04');
-insert into competence (com_type,com_registration_date) values ('Obediência','2008-01-01 00:00:05');
+insert into competence (com_type,com_registration_date) values ('Determinação',date_format(now(), '%Y-%m-%d'));
+insert into competence (com_type,com_registration_date) values ('Individualismo',date_format(now(), '%Y-%m-%d'));
+insert into competence (com_type,com_registration_date) values ('Persuasão',date_format(now(), '%Y-%m-%d'));
+insert into competence (com_type,com_registration_date) values ('Persistência',date_format(now(), '%Y-%m-%d'));
+insert into competence (com_type,com_registration_date) values ('Obediência',date_format(now(), '%Y-%m-%d'));
 
 insert into alt_com (alt_code,com_code,rsc_weight) values (1,1,1);
 insert into alt_com (alt_code,com_code,rsc_weight) values (1,2,7);
@@ -189,23 +190,27 @@ insert into alt_com (alt_code,com_code,rsc_weight) values (3,5,5);
 -- insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (1,3,3,current_date(),'00:41:38');
 -- truncate quiz;
 
-insert into course values (1,'Banco de Dados',1, now());
-insert into course values (2,'Estrutura Leves',1, now());
-insert into course values (3,'Logistica',1, now());
-insert into course values (4,'Manutenção de Aeronaves',1, now());
-insert into course values (5,'Gestão de Produção Industrial',1, now());
+insert into course values (1,'Banco de Dados',1, date_format(now(), '%Y-%m-%d'));
+insert into course values (2,'Estrutura Leves',1, date_format(now(), '%Y-%m-%d'));
+insert into course values (3,'Logistica',1, date_format(now(), '%Y-%m-%d'));
+insert into course values (4,'Manutenção de Aeronaves',1, date_format(now(), '%Y-%m-%d'));
+insert into course values (5,'Gestão de Produção Industrial',1, date_format(now(), '%Y-%m-%d'));
 
 insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 1,1,3);
 insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 1,2,2);
 insert into enrolls (ern_year,ern_period,crs_code,usr_code)  values (date_format(now(), '%Y'), 2,3,2);
 
+drop table enrolls;
+
 insert into institution (ist_company, ist_cnpj, ist_city) values ('Fatec-SJC', '12.345.678/0001-00', 'São José dos Campos');
 insert into institution (ist_company, ist_cnpj, ist_city) values ('Fatec-Jacareí', '12.345.690/0001-10', 'Jacareí');
 insert into institution (ist_company, ist_cnpj, ist_city) values ('Fatec-São Paulo', '12.345.800/0001-20', 'São Paulo');
 
-insert into ist_crs (ist_code, crs_code) values (1,1);
+insert into ist_crs (itc_code, ist_code, crs_code) values (1,1,1);
 insert into ist_crs (ist_code, crs_code) values (2,2);
 insert into ist_crs (ist_code, crs_code) values (3,3);
+
+delete from ist_crs where crs_code = 1;
 
 select * from user;
 select * from course;
@@ -220,7 +225,7 @@ desc enrolls;
 
 select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls
 join user on (enrolls.usr_code = user.usr_code) 
-join course on (enrolls.crs_code = course.crs_code);
+join course on (enrolls.crs_code = course.crs_code) where user.usr_type = 'student';
 
 select question.qst_code as qst_code,question.qst_question,qst_introduction,alternatives.alt_code,alt_description,
 competence.com_code,competence.com_kind
@@ -247,5 +252,5 @@ select date_format(now(), '%d-%m-%Y') from dual;
 select date_format(now(), '%Y') from dual;
 select now(), sysdate() from dual;
 
-delete from enrolls where ern_code = 4;
-ALTER TABLE enrolls AUTO_INCREMENT = 3; -- CODIGO PARA ALTEARAR O AUTO-INCREMENTO
+delete from course where crs_code = 1;
+ALTER TABLE competence AUTO_INCREMENT = 1; -- CODIGO PARA ALTEARAR O AUTO-INCREMENTO
