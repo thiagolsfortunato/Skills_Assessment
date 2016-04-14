@@ -32,16 +32,35 @@ public class ModelCourse {
 		}
 	}
 
-	public boolean deleteCourse(Long code) throws SQLException {
-		return DaoCourse.deleteCourse(code);
+	@SuppressWarnings("finally")
+	public boolean deleteCourse(Long code){
+		boolean delete = false;
+		try{
+			 delete = DaoCourse.deleteCourse(code);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			return delete;
+		}
 	}
 
+	@SuppressWarnings("finally")
 	public Course searchCourseByCode(Long code) throws SQLException{
-		return DaoCourse.searchCourseById(code);
+		Course course = null;
+		try{
+			course = DaoCourse.searchCourseById(code);
+		}finally{
+			return course;
+		}
 	}
 
+	@SuppressWarnings("finally")
 	public List<Course> searchAllCourse() throws SQLException{
-		return	DaoCourse.searchAllCourse(); 
+		List<Course> courses = null;
+		try{
+			courses = DaoCourse.searchAllCourse(); 
+		}finally{
+			return courses;
+		}
 	}	
-
 }

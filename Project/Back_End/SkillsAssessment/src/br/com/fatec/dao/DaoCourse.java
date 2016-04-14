@@ -33,7 +33,7 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static boolean deleteCourse(Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "DELETE FROM COURSE WHERE CRS_CODE = ?;";
+		String sql = "DELETE FROM COURSE WHERE CRS_CODE = ?";
 		boolean delete = false;
 		try {
 			connection.conect();
