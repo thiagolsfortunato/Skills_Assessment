@@ -37,7 +37,7 @@ public class ModelCourse {
 		boolean delete = false;
 		try{
 			 delete = DaoCourse.deleteCourse(code);
-		}catch(SQLException e){
+		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			return delete;

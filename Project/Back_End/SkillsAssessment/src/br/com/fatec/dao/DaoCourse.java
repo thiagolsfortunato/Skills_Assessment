@@ -32,20 +32,30 @@ public class DaoCourse {
 	//FUNCIONANDO !
 	@SuppressWarnings("finally")
 	public static boolean deleteCourse(Long code) throws SQLException {
-		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "DELETE FROM COURSE WHERE CRS_CODE = ?";
+		ConnectionMySql connection1 = new ConnectionMySql();
+		ConnectionMySql connection2 = new ConnectionMySql();
 		boolean delete = false;
 		try {
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setLong(1, code);
-			if (connection.executeSql()) {
+			String sql1 = "DELETE FROM IST_CRS WHERE CRS_COD = ?";
+			connection1.conect();
+			connection1.setStatement(connection1.getConnection().prepareStatement(sql1));
+			connection1.getStatement().setLong(1, code);
+			if(connection1.executeSql()){
+				delete = true;
+			}
+			
+			String sql2 = "DELETE FROM COURSE WHERE CRS_CODE = ?";
+			connection2.conect();
+			connection2.setStatement(connection1.getConnection().prepareStatement(sql2));
+			connection2.getStatement().setLong(1, code);
+			if (connection2.executeSql()) {
 				delete = true;
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
-			connection.close();
+			connection1.close();
+			connection2.close();
 			return delete;
 		}
 	}
