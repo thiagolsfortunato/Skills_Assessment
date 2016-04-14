@@ -1,0 +1,49 @@
+﻿<form class="form-horizontal form-label-left" novalidate>
+
+    <br />
+    <h1>
+        <span class="section">Perguntas</span>
+    </h1>
+    <br />
+    <br />
+
+
+    <center>
+        <div class="blog-page blog-content-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-single-content bordered blog-container">
+
+
+
+                        <a href="#/question/add" id="send" type="submit" style="width:100px;height:50px" class="btn btn-success">Adicionar</a>
+
+                        <!-- BEGIN FORM-->
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="item in courses">
+                                        <td>{{item.name}}</td>
+                                        <td>
+                                            <a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-warning" ng-click="courseLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END FORM-->
+
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+</form>

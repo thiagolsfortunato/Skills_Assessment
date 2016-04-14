@@ -1,0 +1,202 @@
+﻿ui-select-bootstrap .ui-select-toggle {
+    position: relative;
+    border-color: rgb(194, 202, 216);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+.error-select .text-muted {
+    color: #e73d4a;
+}
+
+.custom-label-select {
+    padding-top: 5px;
+    font-size: 14px;
+    color: #888;
+}
+
+
+
+.tile-stats {
+    position: relative;
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #E4E4E4;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+    padding-bottom: 5px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 5px;
+    -moz-background-clip: padding;
+    border-radius: 5px;
+    background-clip: padding-box;
+    background: #FFF;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+.tile-stats:hover .icon i {
+    animation-name: tansformAnimation;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+    color: rgba(58, 58, 58, 0.41);
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: tansformAnimation;
+    -webkit-animation-duration: .5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-name: tansformAnimation;
+    -moz-animation-duration: .5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease;
+    -moz-animation-fill-mode: forwards;
+}
+
+.tile-stats .icon {
+    color: #BAB8B8;
+    position: absolute;
+    right: 53px;
+    top: 22px;
+    z-index: 1;
+}
+
+.tile-stats .icon i {
+    margin: 0;
+    font-size: 60px;
+    line-height: 0;
+    vertical-align: bottom;
+    padding: 0;
+}
+
+.tile-stats .count {
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 1.65857143
+}
+
+.tile-stats .count,
+.tile-stats h3,
+.tile-stats p {
+    position: relative;
+    margin: 0;
+    margin-left: 10px;
+    z-index: 5;
+    padding: 0;
+}
+
+.tile-stats h3 {
+    color: #BAB8B8;
+}
+
+.tile-stats p {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.tile-stats > .dash-box-footer {
+    position: relative;
+    text-align: center;
+    margin-top: 5px;
+    padding: 3px 0;
+    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.tile-stats > .dash-box-footer:hover {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.tile-stats > .dash-box-footer:hover {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+  margin:15px;
+}
+
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 110%;
+  display: inline;
+}
+
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  /*background-image: url("../images/icons.png");*/
+  vertical-align: middle;
+}
+
+.icon-move {
+  background-position: 0 0;
+}
+
+.icon-crop {
+  background-position: -30px 0;
+}
+
+.icon-zoom-in {
+  background-position: -60px 0;
+}
+
+.icon-zoom-out {
+  background-position: -90px 0;
+}
+
+.icon-rotate-left {
+  background-position: -120px 0;
+}
+
+.icon-rotate-right {
+  background-position: -150px 0;
+}
+
+.icon-lock {
+  background-position: -180px 0;
+}
+
+.icon-unlock {
+  background-position: -210px 0;
+}
+
+.icon-remove {
+  background-position: -240px 0;
+}
+
+.icon-refresh {
+  background-position: -270px 0;
+}
+
+.icon-upload {
+  background-position: -300px 0;
+}
+
+.icon-off {
+  background-position: -330px 0;
+}
+
+.icon-info {
+  background-position: -360px 0;
+}
+
+

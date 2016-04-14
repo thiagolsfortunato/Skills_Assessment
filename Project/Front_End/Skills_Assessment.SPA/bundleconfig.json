@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Content/assets/pages/css/login-2.css",
+    "inputFiles": [
+      "Content/assets/pages/css/login-2.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/assets/global/css/components-md.css",
+    "inputFiles": [
+      "Content/assets/global/css/components-md.css"
+    ]
+  }
+]

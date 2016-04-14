@@ -1,0 +1,90 @@
+﻿<form class="form-horizontal form-label-left" novalidate>
+
+    <br />
+    <h2>
+        <span class="section">Usuário</span>
+    </h2>
+    <br />
+    <br />
+
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+            Nome: 
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+        </div>
+    </div>
+
+
+    <div class="item form-group">
+
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+            Tipo de acesso:
+        </label>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="radio-inline">
+                <input ng-model="aquisicao.Plano" type="radio" name="optradio" value="Pro">Psicólogo
+            </label>
+            <label class="radio-inline">
+                <input ng-model="aquisicao.Plano" type="radio" name="optradio" value="Business">Administrador
+            </label>
+        </div>
+
+    </div>
+
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+            Instituição: 
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="dropdown">
+                <button style="width:150px" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Selecione ...
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="">Fatec de JSC</a></li>
+                    <li><a href="">Fatec de Pinda</a></li>
+                    <li><a href="">Fatec from hell</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">
+            Email: 
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
+        </div>
+    </div>
+
+    <div class="item form-group">
+        <label for="password" class="control-label col-md-3">Senha: </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+        </div>
+    </div>
+
+    <div class="item form-group">
+        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar senha: </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+        </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-3">
+            <button type="submit" class="btn btn-primary">Cancelar</button>
+            <button id="send" type="submit" class="btn btn-success">Salvar</button>
+        </div>
+    </div>
+
+
+</form>

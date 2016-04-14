@@ -1,0 +1,180 @@
+﻿
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Projeto Fatec</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/custom.css" rel="stylesheet" />
+
+
+    <link href="/Content/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="/Content/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- END THEME LAYOUT STYLES -->
+    <link href="/Content/angular-loading-bar.css" rel="stylesheet" type="text/css" />
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+    <!-- BEGIN HEADER -->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner ">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="#">
+                    <!--<img src="/Content/assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" />-->
+                </a>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            <!-- BEGIN SIDEBAR -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                    <li class="sidebar-toggler-wrapper hide">
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <div class="sidebar-toggler"> </div>
+                        <!-- END SIDEBAR TOGGLER BUTTON -->
+                    </li>
+
+                    <li class="heading">
+                        <h3 class="uppercase">Opções</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#/employee/add">
+                            <i class="icon-home"></i>
+                            <span class="title">Usuários</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#/question">
+                            <i class="icon-home"></i>
+                            <span class="title">Questionário</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#/competencies">
+                            <i class="icon-home"></i>
+                            <span class="title">Competências</span>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="#/course">
+                            <i class="icon-home"></i>
+                            <span class="title">Curso</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- END SIDEBAR MENU -->
+                <!-- END SIDEBAR MENU -->
+            </div>
+            <!-- END SIDEBAR -->
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+
+
+
+                <div data-ng-app="administrator">
+                    <div data-ng-view></div>
+                </div>
+
+            </div>
+            <!-- END CONTENT BODY -->
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2016 &copy; Fatec
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/Scripts/angular-local-storage.min.js"></script>
+    <script src="/Scripts/angular-loading-bar.js"></script>
+    <script src="/Content/assets/global/plugins/angularjs/angular-sanitize.min.js"></script>
+    <script src="/Content/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js"></script>
+    <script src="/Content/assets/global/plugins/angularjs/plugins/ui-select/select.min.js"></script>
+    <script src="/Scripts/angular-checklist-module.js"></script>
+
+
+
+    <script src="/AngularJS/administrator.main.js"></script>
+    <script src="/AngularJS/Helpers/authorizationInterceptor.js"></script>
+    <script src="/AngularJS/Helpers/config.js"></script>
+    <script src="/AngularJS/Services/Authentication.service.js"></script>
+    <script src="/AngularJS/Services/Question.service.js"></script>
+    <script src="/AngularJS/Services/User.service.js"></script>
+    <script src="/AngularJS/Services/User.service.js"></script>
+    <script src="/AngularJS/Services/Employee.service.js"></script>
+    <script src="/AngularJS/Services/Competencies.service.js"></script>
+    <script src="/AngularJS/Services/User.service.js"></script>
+    <script src="/AngularJS/Services/Course.service.js"></script>
+    <script src="/AngularJS/App/User/List/UserList.controller.js"></script>
+    <script src="/AngularJS/App/User/Add/UserAdd.controller.js"></script>
+    <script src="/AngularJS/App/User/Edit/UserEdit.controller.js"></script>
+    <script src="/AngularJS/App/User/ChangePassword/ChangePassword.controller.js"></script>
+    <script src="/AngularJS/App/User/Logout/Logout.controller.js"></script>
+    <script src="/AngularJS/App/User/Login/Login.controller.js"></script>
+    <script src="/AngularJS/App/Administrator/Employee/Add/EmployeeAdd.controller.js"></script>
+    <script src="/AngularJS/App/Administrator/Question/Menu/QuestionMenu.controller.js"></script>
+    <script src="/AngularJS/App/Administrator/Question/Add/QuestionAdd.controller.js"></script>
+    <script src="/AngularJS/App/Administrator/Competencies/List/Competencies.controller.js"></script>
+    <script src="/AngularJS/App/Administrator/Course/List/Course.controller.js"></script>
+
+
+    <!--[if lt IE 9]>
+    <script src="~/Content/assets/global/plugins/respond.min.js"></script>
+    <script src="~/Content/assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="/Scripts/angular-confirm.js"></script>
+    <script src="/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="/Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

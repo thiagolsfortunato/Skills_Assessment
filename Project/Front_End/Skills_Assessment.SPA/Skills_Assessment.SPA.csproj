@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9AAF6CD5-BAA7-4A63-BBC6-5CD5E2E797C0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Skills_Assessment.SPA</RootNamespace>
+    <AssemblyName>Skills_Assessment.SPA</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AngularJS\App\Administrator\Competencies\List\Competencies.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Competencies\List\Competencies.view.html" />
+    <Content Include="AngularJS\App\Administrator\Course\List\Course.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Course\List\Course.view.html" />
+    <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.view.html" />
+    <Content Include="AngularJS\App\Administrator\Question\Menu\QuestionMenu.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Question\Menu\QuestionMenu.view.html" />
+    <Content Include="AngularJS\Services\Course.service.js" />
+    <Content Include="AngularJS\Services\Competencies.service.js" />
+    <Content Include="Content\angular-loading-bar.css" />
+    <Content Include="Content\animate.min.css" />
+    <Content Include="Content\app.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\custom.dashboard.css" />
+    <Content Include="Content\google-font.css" />
+    <Content Include="Content\loading.css" />
+    <Content Include="Student.html" />
+    <Content Include="Psicologo.html" />
+    <Content Include="AngularJS\psicologo.main.js" />
+    <Content Include="AngularJS\App\Administrator\Employee\Add\EmployeeAdd.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Employee\Add\EmployeeAdd.view.html" />
+    <Content Include="AngularJS\App\Student\Question\Question.controller.js" />
+    <Content Include="AngularJS\App\Student\Question\Question.view.html" />
+    <Content Include="AngularJS\App\User\Add\UserAdd.controller.js" />
+    <Content Include="AngularJS\App\User\Add\UserAdd.view.html" />
+    <Content Include="AngularJS\App\User\ChangePassword\ChangePassword.controller.js" />
+    <Content Include="AngularJS\App\User\ChangePassword\ChangePassword.view.html" />
+    <Content Include="AngularJS\App\User\Edit\UserEdit.controller.js" />
+    <Content Include="AngularJS\App\User\Edit\UserEdit.view.html" />
+    <Content Include="AngularJS\App\User\List\UserList.controller.js" />
+    <Content Include="AngularJS\App\User\List\UserList.view.html" />
+    <Content Include="AngularJS\App\User\Login\Login.controller.js" />
+    <Content Include="AngularJS\App\User\Login\Login.view.html" />
+    <Content Include="AngularJS\App\User\Logout\Logout.controller.js" />
+    <Content Include="AngularJS\App\User\Logout\Logout.view.html" />
+    <Content Include="AngularJS\login.main.js" />
+    <Content Include="AngularJS\Helpers\authorizationInterceptor.js" />
+    <Content Include="AngularJS\Helpers\config.js" />
+    <Content Include="AngularJS\administrator.main.js" />
+    <Content Include="AngularJS\estudante.main.js" />
+    <Content Include="AngularJS\Services\Authentication.service.js" />
+    <Content Include="AngularJS\Services\Question.service.js" />
+    <Content Include="AngularJS\Services\Employee.service.js" />
+    <Content Include="AngularJS\Services\User.service.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Administrator.html" />
+    <Content Include="Scripts\angular-confirm.js" />
+    <Content Include="Scripts\angular-loading-bar.js" />
+    <Content Include="Scripts\angular-local-storage.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Index.html" />
+    <None Include="bundleconfig.json" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\angular-checklist-module.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.14.3.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Login.html" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AngularJS\App\Psicologa\" />
+    <Folder Include="Content\assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>16178</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60016/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
