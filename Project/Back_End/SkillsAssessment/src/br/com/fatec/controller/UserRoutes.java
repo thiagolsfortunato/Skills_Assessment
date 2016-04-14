@@ -124,6 +124,18 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 		
+		get("/searchStudentsByCode", (req, res) -> {
+			Long idStudent = Long.parseLong(req.queryParams("idStudent"));
+			User user = null;
+			try{
+				user = modelUser.searchStudentById(idStudent);
+				return "It was not possible to find a User";
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+				return "ops, an error with LOGIN, check the fields!";
+			}
+		}, JsonUtil.json());
+		
 		get("/searchAllUsers", (req, res) -> {
 			try{
 				return modelUser.searchAllUsers();
@@ -141,3 +153,4 @@ public class UserRoutes {
 		}, JsonUtil.json());
 	}
 }
+

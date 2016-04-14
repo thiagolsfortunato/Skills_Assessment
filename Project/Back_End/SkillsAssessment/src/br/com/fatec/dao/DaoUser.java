@@ -113,12 +113,18 @@ public class DaoUser {
 		}
 	}
 	
+	public static User searchStudentById(Long id) throws SQLException{
+		ConnectionMySql conn = new ConnectionMySql();
+		User user = null;
+		return user;
+	}
+	
 	@SuppressWarnings("finally")
 	public static List<User> searchAllStudents() throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
 		List<User> students = new LinkedList<User>();
 		try{
-			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code)";
+			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code) where usr_type = student";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			if(conn.executeQuery()){

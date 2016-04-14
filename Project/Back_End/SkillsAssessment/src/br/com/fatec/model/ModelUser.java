@@ -104,6 +104,10 @@ public class ModelUser {
 		}
 	}
 	
+	public User searchStudentById(Long id) throws SQLException{
+		return DaoUser.searchStudentById(id);
+	}
+	
 	public void updatePassword(Integer code, String newPassword){
 		//atualiza a senha de algum usuario
 	}
