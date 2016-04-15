@@ -113,10 +113,24 @@ public class DaoUser {
 		}
 	}
 	
+	@SuppressWarnings("finally")
 	public static User searchStudentById(Long id) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
-		User user = null;
-		return user;
+		User student = null;
+		try{
+			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code) where usr_type = 'student' and user.usr_code = ?";
+			conn.conect();
+			conn.setStatement(conn.getConnection().prepareStatement(query));
+			conn.getStatement().setLong(1, id);
+			if(conn.executeQuery()){
+				student = buildUser(conn.returnRegister());
+			}
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {		
+			conn.close();
+			return student;
+		}
 	}
 	
 	@SuppressWarnings("finally")
@@ -124,7 +138,7 @@ public class DaoUser {
 		ConnectionMySql conn = new ConnectionMySql();
 		List<User> students = new LinkedList<User>();
 		try{
-			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code) where usr_type = student";
+			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code) where usr_type = 'student'";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			if(conn.executeQuery()){

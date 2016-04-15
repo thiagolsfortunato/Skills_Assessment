@@ -129,7 +129,7 @@ public class UserRoutes {
 			User user = null;
 			try{
 				user = modelUser.searchStudentById(idStudent);
-				return "It was not possible to find a User";
+				return user;
 			}catch(NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with LOGIN, check the fields!";

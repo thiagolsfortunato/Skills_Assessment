@@ -98,14 +98,22 @@ public class ModelUser {
 		try {
 			returnUser = DaoUser.searchAllUsers();
 		} catch (SQLException e) {
-			System.out.println("Will not it was possible to enter the User");
+			System.out.println("Will not it was possible to find the User");
 		}finally {
 			return returnUser;
 		}
 	}
 	
+	@SuppressWarnings("finally")
 	public User searchStudentById(Long id) throws SQLException{
-		return DaoUser.searchStudentById(id);
+		User user = new User();
+		try{
+			user = DaoUser.searchStudentById(id); 
+		}catch (SQLException e ){
+			System.out.println("Will not it was possible to find the Student");
+		}finally{
+			return user;
+		}
 	}
 	
 	public void updatePassword(Integer code, String newPassword){
