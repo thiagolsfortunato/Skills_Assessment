@@ -1,0 +1,7 @@
+ARTIGO DE COMO UTILIZAR MAVEN E OPENSHIFT
+
+link: 
+https://blog.openshift.com/developing-single-page-web-applications-using-java-8-spark-mongodb-and-angularjs/
+
+
+http://blog.caelum.com.br/screencast-sua-app-no-cloud-com-openshift/
