@@ -1,5 +1,10 @@
-﻿publication.factory('CourseService', ['$http', '$q', function ($http, $q) {
+﻿publication.factory('PsicologaService', ['$http', '$q', function ($http, $q) {
 
+    return {
+
+    };
+    
+/*
     return {
 
         courseList: _courseList,
@@ -73,5 +78,5 @@
 
         return deferred.promise;
     }
-
+*/
 }]);

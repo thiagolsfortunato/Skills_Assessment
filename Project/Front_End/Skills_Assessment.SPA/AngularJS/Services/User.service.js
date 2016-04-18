@@ -1,4 +1,5 @@
 ﻿publication.factory('UserService', ['$http', '$q', function ($http, $q) {
+
     return {
         userAdd: _userAdd,
         userEdit: _userEdit,

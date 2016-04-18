@@ -1,15 +1,33 @@
-﻿FatecControllers.controller('LoginController',
-    ['$scope', '$routeParams', 'AuthenticationService', 'localStorageService',
-        function ($scope, $routeParams, authenticationService, localStorageService) {
-            $scope.Login = _login;
+﻿FatecControllers.controller('RegisterController',
+    ['$scope', '$routeParams', 'localStorageService',
+        function ($scope, $routeParams, localStorageService) {
+
+            $scope.users = [ ];
             
+            $scope.fatecs = [{ nome: "Jessen" }, { nome: "Jacarei" }, { nome: "Pindamonhangaba" }];
             
-            $scope.loginEmail;
-            $scope.loginPassword;
+            $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
+
             $scope.loginState = true;
+            $scope.Cadastrar = _cadastrar; //criar
 
             
 
+            function _cadastrar(user) {
+                if ($scope.user.senha1 != $scope.user.senha2) {
+                    $scope.loginState = false;
+                    console.log($scope.loginState);
+                    console.log($scope.user.senha1 +" "+ $scope.user.senha2);
+
+                } else {
+                    $scope.loginState = true;
+                    $scope.users.push(angular.copy(user));
+                    console.log($scope.users);
+                    delete $scope.user;
+                    
+                }
+            }
+/*
             function _login() {
                 var loginUser = {
                     userName : $scope.loginEmail,
@@ -36,7 +54,7 @@
                     //$scope.loginState = false;
                 });
             }
-
+*/
             $scope.errorClass = function () {
                 if ($scope.loginState == true)
                     return 'display-hide';

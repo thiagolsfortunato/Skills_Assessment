@@ -1,6 +1,19 @@
 ﻿window.publication = angular.module('administrator', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'FatecControllers']);
 
 publication.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+
+    /*
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    $httpProvider.defaults.headers = { 'Content-Type': 'application/json;charset=utf-8' };
+    //$httpProvider.defaults.withCredentials = true;
+    //$httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.delete = {};
+    //$httpProvider.defaults.headers.patch = {}; */
+    
+
     $routeProvider
         
         .when('/user/list', { templateUrl: 'AngularJS/App/User/List/UserList.view.html', controller: 'UserListController' })
@@ -21,6 +34,7 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
 
 
     $httpProvider.interceptors.push('authorizationInterceptor');
+    
 }]);
 
 

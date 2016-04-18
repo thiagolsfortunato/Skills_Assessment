@@ -6,6 +6,7 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
       
         .when('/question', { templateUrl: 'AngularJS/App/Student/Question/Question.view.html', controller: 'QuestionController' })
 
+        .when('/perfil', { templateUrl: 'AngularJS/App/Student/Profile/Profile.view.html', controller: 'ProfileController' })
 
     $httpProvider.interceptors.push('authorizationInterceptor');
 }]);

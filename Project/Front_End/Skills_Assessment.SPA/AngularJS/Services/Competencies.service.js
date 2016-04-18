@@ -23,20 +23,20 @@
         return deferred.promise;
     }
 
-    function _competencieAdd(data) {
+    function _competencieAdd(dataObj) {        
 
-        var deferred = $q.defer();
-
+       var deferred = $q.defer();
+       
         $http({
             method: 'POST',
             url: config.generateApiUrl('insertCompetence'),
-            data: JSON.stringify(data)
+            data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
-               deferred.resolve(data);
+               deferred.resolve(dataObj);
            });
 
-        return deferred.promise;
+        return deferred.promise;  
     }
 
     function _competencieDelete(id) {
@@ -44,9 +44,10 @@
         var deferred = $q.defer();
 
         $http({
-            method: 'DELETE',
+            method: 'delete',
             url: config.generateApiUrl('deleteCompetence'),
             params: { "competenceCode": id }
+            
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
@@ -55,18 +56,17 @@
         return deferred.promise;
     }
 
-    function _competencieUpdate(obj) {
+    function _competencieUpdate(dataObj) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'PUT',
             url: config.generateApiUrl('updateCompetence'),
-            header : {'Content-Type' : 'application/json; charset=UTF-8'},
-            data: JSON.stringify(obj)
+            data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
-               deferred.resolve(data);
+               deferred.resolve(dataObj);
            });
 
         return deferred.promise;

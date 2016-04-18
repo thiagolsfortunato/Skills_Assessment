@@ -1,5 +1,6 @@
-﻿publication.factory('CourseService', ['$http', '$q', function ($http, $q) {
+﻿publication.factory('ProfileService', ['$http', '$q', function ($http, $q) {
 
+    //EDITAR CONTEUDO
     return {
 
         courseList: _courseList,

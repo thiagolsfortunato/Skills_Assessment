@@ -1,35 +1,19 @@
-﻿publication.factory('CourseService', ['$http', '$q', function ($http, $q) {
+﻿publication.factory('RegisterService', ['$http', '$q', function ($http, $q) {
 
     return {
 
-        courseList: _courseList,
-        courseAdd: _courseAdd,
-        courseDelete: _courseDelete,
-        courseUpdate: _courseUpdate
+        userAdd: _userAdd,
+        userDelete: _userDelete,
+        userUpdate: _userUpdate
     };
 
-    function _courseList() {
-
-        var deferred = $q.defer();
-
-        $http({
-            method: 'GET',
-            url: config.generateApiUrl('searchAllCourses')
-        }).
-           success(function (data, status, headers, config) {
-               deferred.resolve(data);
-           });
-
-        return deferred.promise;
-    }
-
-    function _courseAdd(dataObj) {
+    function _userAdd(dataObj) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('course'),
+            url: config.generateApiUrl('user'),
             data: JSON.stringify(dataObj),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             
@@ -41,14 +25,14 @@
         return deferred.promise;
     }
 
-    function _courseDelete(id) {
+    function _userDelete(id) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'DELETE',
-            url: config.generateApiUrl('course'),
-            params: { "codeCourse": id }
+            url: config.generateApiUrl('user'),
+            params: { "codeUser": id }
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
@@ -57,13 +41,13 @@
         return deferred.promise;
     }
 
-    function _courseUpdate(obj) {
+    function _userUpdate(obj) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('course'),
+            url: config.generateApiUrl('user'),
             header : {'Content-Type' : 'application/json; charset=UTF-8'},
             data: JSON.stringify(obj)
         }).

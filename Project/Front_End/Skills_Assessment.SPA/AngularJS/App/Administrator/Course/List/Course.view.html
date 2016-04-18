@@ -20,11 +20,11 @@
     <div class="item form-group">
         <label for="password2" class="control-label col-md-2 col-sm-2 col-xs-12">Descrição: </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" ng-model="competence.type" class="form-control col-md-7 col-xs-12" required="required">
+            <input type="text" ng-model="course.name" class="form-control col-md-7 col-xs-12" required="required">
         </div>
-        <a ng-show="btnLabel == 'Adicionar'" class="btn btn-success" ng-click="courseAdd(competence)"> <i class="fa fa-trash-o"></i> {{btnLabel}}</a>
+        <a ng-show="btnLabel == 'Adicionar'" class="btn btn-success" ng-click="courseAdd(course)"> <i class="fa fa-trash-o"></i> {{btnLabel}}</a>
 
-        <a ng-show="btnLabel == 'Alterar'" class="btn btn-success" ng-click="courseUpdate(competence)"> <i class="fa fa-trash-o"></i> {{btnLabel}}</a>
+        <a ng-show="btnLabel == 'Alterar'" class="btn btn-success" ng-click="courseUpdate(course)"> <i class="fa fa-trash-o"></i> {{btnLabel}}</a>
         <a ng-show="btnLabel == 'Alterar'" class="btn btn-warning" ng-click="courseCancel();"> <i class="fa fa-trash-o"></i> Cancelar</a>
     </div>
 

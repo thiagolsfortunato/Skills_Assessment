@@ -26,7 +26,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +57,18 @@
     <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.view.html" />
     <Content Include="AngularJS\App\Administrator\Question\Menu\QuestionMenu.controller.js" />
     <Content Include="AngularJS\App\Administrator\Question\Menu\QuestionMenu.view.html" />
+    <Content Include="AngularJS\App\Psicologa\Comment\Comment.controller.js" />
+    <Content Include="AngularJS\App\Psicologa\Comment\Comment.view.html" />
+    <Content Include="AngularJS\App\Psicologa\List\Psicologa.controller.js" />
+    <Content Include="AngularJS\App\Psicologa\List\Psicologa.view.html" />
+    <Content Include="AngularJS\App\Student\Profile\Profile.controller.js" />
+    <Content Include="AngularJS\App\Student\Profile\Profile.view.html" />
+    <Content Include="AngularJS\App\User\Register\Register.controller.js" />
+    <Content Include="AngularJS\App\User\Register\Register.view.html" />
+    <Content Include="AngularJS\login.main.js" />
+    <Content Include="AngularJS\Services\Psicologa.service.js" />
+    <Content Include="AngularJS\Services\Register.service.js" />
+    <Content Include="AngularJS\Services\Profile.service.js" />
     <Content Include="AngularJS\Services\Course.service.js" />
     <Content Include="AngularJS\Services\Competencies.service.js" />
     <Content Include="Content\angular-loading-bar.css" />
@@ -68,9 +80,10 @@
     <Content Include="Content\custom.dashboard.css" />
     <Content Include="Content\google-font.css" />
     <Content Include="Content\loading.css" />
+    <Content Include="Register.html" />
     <Content Include="Student.html" />
-    <Content Include="Psicologo.html" />
-    <Content Include="AngularJS\psicologo.main.js" />
+    <Content Include="Psicologa.html" />
+    <Content Include="AngularJS\psicologa.main.js" />
     <Content Include="AngularJS\App\Administrator\Employee\Add\EmployeeAdd.controller.js" />
     <Content Include="AngularJS\App\Administrator\Employee\Add\EmployeeAdd.view.html" />
     <Content Include="AngularJS\App\Student\Question\Question.controller.js" />
@@ -87,7 +100,7 @@
     <Content Include="AngularJS\App\User\Login\Login.view.html" />
     <Content Include="AngularJS\App\User\Logout\Logout.controller.js" />
     <Content Include="AngularJS\App\User\Logout\Logout.view.html" />
-    <Content Include="AngularJS\login.main.js" />
+    <Content Include="AngularJS\register.main.js" />
     <Content Include="AngularJS\Helpers\authorizationInterceptor.js" />
     <Content Include="AngularJS\Helpers\config.js" />
     <Content Include="AngularJS\administrator.main.js" />
@@ -133,7 +146,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AngularJS\App\Psicologa\" />
     <Folder Include="Content\assets\" />
   </ItemGroup>
   <ItemGroup>

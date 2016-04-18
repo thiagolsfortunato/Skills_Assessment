@@ -12,17 +12,17 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/Content/custom.css" rel="stylesheet" />
-    <link href="/question/css/custom.css" rel="stylesheet">
+    <!--<link href="/question/css/custom.css" rel="stylesheet">-->
 
 
     <link href="/Content/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="/Content/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="/Content/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
-    <link href="/Content/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+    <!--<link href="/Content/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />-->
     <!-- END THEME LAYOUT STYLES -->
     <link href="/Content/angular-loading-bar.css" rel="stylesheet" type="text/css" />
 
-    <script src="/question/js/jquery.min.js"></script>
+    <!--<script src="/question/js/jquery.min.js"></script>-->
 
 </head>
 <!-- END HEAD -->
@@ -75,9 +75,9 @@
                         <h3 class="uppercase">Opções</h3>
                     </li>
                     <li class="nav-item">
-                        <a href="#/employee/add">
+                        <a href="#/">
                             <i class="icon-home"></i>
-                            <span class="title">Novo usuário</span>
+                            <span class="title">Avaliação</span>
                         </a>
                     </li>
                 </ul>
@@ -94,7 +94,7 @@
 
 
 
-                <div data-ng-app="psicologo">
+                <div data-ng-app="psicologa">
                     <div data-ng-view></div>
                 </div>
 
@@ -125,20 +125,17 @@
 
 
 
-    <script src="/AngularJS/psicologo.main.js"></script>
+    <script src="/AngularJS/psicologa.main.js"></script>
     <script src="/AngularJS/Helpers/authorizationInterceptor.js"></script>
     <script src="/AngularJS/Helpers/config.js"></script>
     <script src="/AngularJS/Services/Authentication.service.js"></script>
-    <script src="/AngularJS/Services/User.service.js"></script>
-    <script src="/AngularJS/Services/Employee.service.js"></script>
-    <script src="/AngularJS/App/User/List/UserList.controller.js"></script>
-    <script src="/AngularJS/App/User/Add/UserAdd.controller.js"></script>
-    <script src="/AngularJS/App/Question/Question.controller.js"></script>
-    <script src="/AngularJS/App/User/Edit/UserEdit.controller.js"></script>
-    <script src="/AngularJS/App/User/ChangePassword/ChangePassword.controller.js"></script>
+    <script src="/AngularJS/Services/Psicologa.service.js"></script>
+    
+    <script src="/AngularJS/App/Psicologa/List/Psicologa.controller.js"></script>
+    <script src="/AngularJS/App/Psicologa/Comment/Comment.controller.js"></script>
     <script src="/AngularJS/App/User/Logout/Logout.controller.js"></script>
     <script src="/AngularJS/App/User/Login/Login.controller.js"></script>
-    <script src="/AngularJS/App/Employee/Add/EmployeeAdd.controller.js"></script>
+    
 
 
     <!--[if lt IE 9]>
@@ -150,10 +147,10 @@
     <script src="/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="/Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <script src="/question/js/jquery.nicescroll.min.js"></script>
-    <script src="/question/js/custom.js"></script>
-    <script src="/question/js/jquery.smartWizard.js"></script>
-    <script src="/question/js/pace.min.js"></script>
+    
+    
+    
+    
 
 </body>
 </html>

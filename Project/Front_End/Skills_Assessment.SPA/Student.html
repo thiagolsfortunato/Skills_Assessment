@@ -14,7 +14,6 @@
     <link href="/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/Content/custom.css" rel="stylesheet" />
 
-
     <link href="/Content/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
     <link href="/Content/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="/Content/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
@@ -23,6 +22,7 @@
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+    
     <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
@@ -76,6 +76,12 @@
                             <span class="title">Questionário</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#/perfil/">
+                            <i class="icon-home"></i>
+                            <span class="title">Meu Perfil</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- END SIDEBAR MENU -->
                 <!-- END SIDEBAR MENU -->
@@ -124,12 +130,18 @@
     <script src="/AngularJS/estudante.main.js"></script>
     <script src="/AngularJS/Helpers/authorizationInterceptor.js"></script>
     <script src="/AngularJS/Helpers/config.js"></script>
+    
     <script src="/AngularJS/Services/Authentication.service.js"></script>
     <script src="/AngularJS/Services/Question.service.js"></script>
+    <script src="/AngularJS/Services/Profile.service.js"></script>
     <script src="/AngularJS/Services/User.service.js"></script>
+    
     <script src="/AngularJS/App/User/List/UserList.controller.js"></script>
     <script src="/AngularJS/App/User/Add/UserAdd.controller.js"></script>
+    
     <script src="/AngularJS/App/Student/Question/Question.controller.js"></script>
+    <script src="/AngularJS/App/Student//Profile/Profile.controller.js"></script>
+    
     <script src="/AngularJS/App/User/Edit/UserEdit.controller.js"></script>
     <script src="/AngularJS/App/User/ChangePassword/ChangePassword.controller.js"></script>
     <script src="/AngularJS/App/User/Logout/Logout.controller.js"></script>
