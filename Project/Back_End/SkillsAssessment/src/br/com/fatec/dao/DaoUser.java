@@ -25,7 +25,6 @@ public class DaoUser {
 			if (conn.executeQuery()){
 				user = buildLogin(conn.returnRegister());
 			}
-			
 		} catch (SQLException e) {
 			System.err.println("error"+e);
 			throw new RuntimeException(e);
@@ -66,7 +65,7 @@ public class DaoUser {
 		ResultSet idUser = null;
 		Long returnInsert = null;
 		try {
-			String insert = "insert into user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name) values (?,?,?,?,?);";
+			String insert = "insert into user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) values (?,?,?,?,?,date_format(now(), '%Y-%m-%d'),?);";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement((insert),Statement.RETURN_GENERATED_KEYS));
 			conn.getStatement().setString(1, user.getUserName());
@@ -74,7 +73,7 @@ public class DaoUser {
 			conn.getStatement().setString(3, user.getRa());
 			conn.getStatement().setString(4, user.getType());
 			conn.getStatement().setString(5, user.getName());
-			
+			conn.getStatement().setInt(6, user.getInstCode());
 			if(conn.executeSql()){
 				System.out.println("the User has been successfully inserted!");
 				idUser = conn.getStatement().getGeneratedKeys();
@@ -96,7 +95,7 @@ public class DaoUser {
 		ConnectionMySql conn = new ConnectionMySql();
 		User user = null;
 		try {
-			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user where usr_code = ?;";
+			String query = "select usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified from user where usr_code = ?;";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			conn.getStatement().setLong(1, userCode);

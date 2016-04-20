@@ -13,7 +13,7 @@ public class User {
 	private String password;
 	private String ra;
 	private String type;
-	private Date register;
+	private String registration_date;
 	private Integer situation;
 	private Integer verification;
 	private Integer instCode;
@@ -56,12 +56,6 @@ public class User {
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	public Date getRegister() {
-		return register;
-	}
-	public void setRegister(Date register) {
-		this.register = register;
 	}
 	public Integer getSituation() {
 		return situation;
@@ -116,5 +110,11 @@ public class User {
 	}
 	public void setPeriodStudent(Integer periodStudent) {
 		this.periodStudent = periodStudent;
+	}
+	public String getRegistration_date() {
+		return registration_date;
+	}
+	public void setRegistration_date(String registration_date) {
+		this.registration_date = registration_date;
 	}	
 }
