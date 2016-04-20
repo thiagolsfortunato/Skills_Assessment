@@ -136,6 +136,7 @@ public class DaoEnrolls {
 		}
 	}
 	
+	@SuppressWarnings("finally")
 	public static Long searchEnrollsByUserId(Long idUser){
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT ERN_CODE FROM ENROLLS WHERE USR_CODE = ?";
