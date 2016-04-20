@@ -1,6 +1,7 @@
 package br.com.fatec.controller;
 
 import static spark.Spark.get; // select
+import static spark.Spark.options;
 import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
@@ -8,6 +9,7 @@ import static spark.Spark.post; // insert
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Course;
 import br.com.fatec.model.ModelCourse;
 
@@ -16,8 +18,13 @@ public class CourseRoutes {
 		ModelCourse modelCourses = new ModelCourse();
 		Gson gson = new Gson();
 		
+		options("/course", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
 		//FUNCIONANDO !
-		post("/insertCourse", (req, res) -> {
+		post("/course", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			try{
@@ -29,7 +36,7 @@ public class CourseRoutes {
 			
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		delete("/deleteCourse", "application/json" , (req, res) -> {
+		delete("/course", "application/json" , (req, res) -> {
 			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
 			try{
 				return modelCourses.deleteCourse(codeCourse);
@@ -41,7 +48,7 @@ public class CourseRoutes {
 			
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		put("/updateCourse", (req, res) -> {
+		put("/course", (req, res) -> {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			try{

@@ -3,6 +3,7 @@ package br.com.fatec.controller;
 import com.google.gson.Gson;
 
 import static spark.Spark.get; // select
+import static spark.Spark.options;
 import static spark.Spark.put; // update
 
 import java.util.Calendar;
@@ -11,6 +12,7 @@ import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
 import br.com.fatec.commons.JsonUtil;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.model.ModelEnrolls;
 
@@ -18,8 +20,14 @@ public class EnrollsRoutes {
 	public static void getEnrolls() {
 		ModelEnrolls modelEnrolls = new ModelEnrolls();
 		Gson gson = new Gson();
+		
+		options("/enrolls", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
 		//FUNCIONANDO !!
-		post("/insertEnrolls", (req, res) -> {
+		post("/enrolls", (req, res) -> {
 			String enrollsData = req.body();
 			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);	
 			try{
@@ -30,7 +38,7 @@ public class EnrollsRoutes {
 			}
 		}, JsonUtil.json());
 		//FUNCIONANDO !!
-		delete("/deleteEnrolls", "application/json" , (req, res) -> {
+		delete("/enrolls", "application/json" , (req, res) -> {
 			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
 			try{
 				return modelEnrolls.deleteEnrolls(codeEnrolls);
@@ -41,7 +49,7 @@ public class EnrollsRoutes {
 			}
 		}, JsonUtil.json());
 
-		put("/updateEnrolls", (req, res) -> {
+		put("/enrolls", (req, res) -> {
 			String enrollsData = req.body();
 			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
 			try{

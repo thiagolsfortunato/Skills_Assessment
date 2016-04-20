@@ -4,10 +4,12 @@ import static spark.Spark.get;
 import static spark.Spark.put;
 import static spark.Spark.delete;
 import static spark.Spark.post;
+import static spark.Spark.options;
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.commons.Token;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.entity.TokenInfo;
 import br.com.fatec.entity.User;
@@ -19,6 +21,15 @@ public class UserRoutes {
 	public static void getUser() {
 		ModelUser modelUser = new ModelUser();
 		ModelEnrolls modelEnrolls = new ModelEnrolls();
+		
+		options("/token", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		options("/user", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
 		
 		post("/token", (req, res) -> {
 			String data = req.body();
@@ -43,7 +54,7 @@ public class UserRoutes {
 
 		}, JsonUtil.json());
 
-		post("/insertUser", (req, res) -> {
+		post("/user", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);
@@ -61,7 +72,7 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 
-		delete("/deleteUser", (req, res) -> {
+		delete("/user", (req, res) -> {
 			String data = req.body();
 			String token = req.headers("token");
 			Gson gson = new Gson();
@@ -84,7 +95,7 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 
-		put("/updateUser", (req, res) -> {
+		put("/user", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);

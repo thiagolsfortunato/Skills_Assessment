@@ -1,6 +1,7 @@
 package br.com.fatec.controller;
 
 import static spark.Spark.get; // select
+import static spark.Spark.options;
 import static spark.Spark.put; // update
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
@@ -17,6 +18,7 @@ import br.com.fatec.entity.Course;
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Competence;
 
 import br.com.fatec.model.ModelCompetencies;
@@ -27,8 +29,13 @@ public class CompetenciesRoutes {
 		ModelCompetencies modelCompetencies = new ModelCompetencies();
 		Gson gson = new Gson();
 		
+		options("/competence", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
 		// insert
-		post("/insertCompetence", (req, res) -> {
+		post("/competence", (req, res) -> {
 			String competenceData = req.body();
 			Competence competence = gson.fromJson(competenceData, Competence.class);
 			try{
@@ -40,7 +47,7 @@ public class CompetenciesRoutes {
 		}, JsonUtil.json());
 		
 		// delete
-		delete("/deleteCompetence", "application/json", (req, res) -> {
+		delete("/competence", "application/json", (req, res) -> {
 			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
 			try{
 				return modelCompetencies.deleteCompetence(competenceCode);
@@ -52,7 +59,7 @@ public class CompetenciesRoutes {
 		}, JsonUtil.json());
 		
 		// update
-		put("/updateCompetence", (req, res) -> {
+		put("/competence", (req, res) -> {
 			String competenceData = req.body();
 			Competence competence = gson.fromJson(competenceData, Competence.class);
 			try{

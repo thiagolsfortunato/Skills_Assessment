@@ -1,6 +1,7 @@
 package br.com.fatec.controller;
 
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.post;
 import static spark.Spark.put;
 import static spark.Spark.delete;
@@ -10,6 +11,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Institution;
 import br.com.fatec.model.ModelInstitution;
 
@@ -18,7 +20,12 @@ public class InstitutionRoutes {
 	public static void getInstitution(){
 		ModelInstitution model = new ModelInstitution();
 		
-		post("/institution/insert", (req, res) -> {
+		options("/institution", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
+		post("/institution", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			Institution fatec = gson.fromJson(data, Institution.class);
@@ -33,7 +40,7 @@ public class InstitutionRoutes {
 			}
 		}, JsonUtil.json());
 		
-		put("/institution/update", (req, res) -> {
+		put("/institution", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			Institution fatec = gson.fromJson(data, Institution.class);
@@ -83,7 +90,7 @@ public class InstitutionRoutes {
 			}
 		}, JsonUtil.json());
 		
-		delete("/institution/delete", (req, res) -> {
+		delete("/institution", (req, res) -> {
 			if( req.queryParams("code") == null ){
 				res.status(400);
 				return "invalid parameter";

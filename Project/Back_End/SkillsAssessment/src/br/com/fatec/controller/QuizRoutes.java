@@ -1,10 +1,12 @@
 package br.com.fatec.controller;
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.post;
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.commons.Token;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Question;
 import br.com.fatec.entity.Quiz;
 import br.com.fatec.entity.TokenInfo;
@@ -14,7 +16,13 @@ import br.com.fatec.model.ModelQuiz;
 public class QuizRoutes {
 	public static void getQuiz() {
 		ModelQuiz model = new ModelQuiz();
-		post("/insertQuiz", (req, res) -> {
+		
+		options("/quiz", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
+		post("/quiz", (req, res) -> {
 			String token = req.headers("token");
 			String data = req.body();
 			Gson gson = new Gson();

@@ -1,6 +1,7 @@
 package br.com.fatec.controller;
 
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.post;
 import static spark.Spark.put;
 import static spark.Spark.delete;
@@ -10,6 +11,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
+import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Question;
 import br.com.fatec.model.ModelQuestion;
 
@@ -18,7 +20,12 @@ public class QuestionRoutes{
 	public static void getQuestions(){
 		ModelQuestion model = new ModelQuestion();
 		
-		post("/question/insert", (req, res) -> {
+		options("/question", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
+		post("/question", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			Question question = gson.fromJson(data, Question.class);
@@ -60,7 +67,7 @@ public class QuestionRoutes{
 			}
 		}, JsonUtil.json());
 	
-		put("/question/update", (req, res) -> {
+		put("/question", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			Question question = gson.fromJson(data, Question.class);
@@ -75,7 +82,7 @@ public class QuestionRoutes{
 			}
 		}, JsonUtil.json());
 		
-		delete("/question/delete", (req, res) -> {
+		delete("/question", (req, res) -> {
 			if( req.queryParams("code") == null ){
 				res.status(400);
 				return "invalid parameter";
