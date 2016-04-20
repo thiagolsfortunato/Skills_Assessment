@@ -12,7 +12,7 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static boolean insertCourse(Course course) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSERT INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,now());";
+		String sql = "INSERT INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,date_format(now(), '%Y-%m-%d'));";
 		boolean insert = false;
 		try{
 			connection.conect();
@@ -63,7 +63,7 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static boolean updateCourse(Course course)  throws SQLException {
 		ConnectionMySql connection =  new ConnectionMySql();
-		String sql = "UPDATE COURSE SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = now() WHERE CRS_CODE = ?;";
+		String sql = "UPDATE COURSE SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = date_format(now(), '%Y-%m-%d') WHERE CRS_CODE = ?;";
 		boolean update = false;
 		try {
 			connection.conect();
@@ -86,7 +86,7 @@ public class DaoCourse {
 	public static List<Course> searchAllCourse()  throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select * from course;";
+		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') from course;";
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
@@ -96,9 +96,7 @@ public class DaoCourse {
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-//					java.sql.Date dateSql = Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE"));  -- PRIMEIRA OPCAO : RETORNA DIA, MES, ANO E HORA
-//					course.setRegistration_date(new java.util.Date(dateSql.getTime()));
-					course.setRegistration_date(Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE"))); // SEGUNDA OPCAO: SOMENTE A DIA, MES ANO
+					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
 					listCourse.add(course);
 				} while (connection.nextRegister());
 			} else {
@@ -115,7 +113,7 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static Course searchCourseById(Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select * from course where crs_code = ?;";
+		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') from course where crs_code = ?;";
 		Course course = new Course();
 		try {
 			connection.conect();
@@ -126,7 +124,7 @@ public class DaoCourse {
 					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
 					course.setName(connection.returnField("CRS_NAME"));
 					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-					course.setRegistration_date(Date.valueOf(connection.returnField("CRS_REGISTRATION_DATE")));
+					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
 				}while(connection.nextRegister());
 			}
 		} catch (SQLException e) {

@@ -7,11 +7,11 @@ public class Course {
 	private Long codeCourse;
 	private String name;
 	private int situation;
-	private Date registration_date;
+	private String registration_date;
 	
 	public Course(){};	
 	
-	public Course(Long code, String name, int situation, Date registration_date) {
+	public Course(Long code, String name, int situation, String registration_date) {
 		super();
 		this.codeCourse = code;
 		this.name = name;
@@ -37,10 +37,10 @@ public class Course {
 	public void setSituation(int situation) {
 		this.situation = situation;
 	}
-	public Date getRegistration_date() {
+	public String getRegistration_date() {
 		return registration_date;
 	}
-	public void setRegistration_date(Date registration_date) {
+	public void setRegistration_date(String registration_date) {
 		this.registration_date = registration_date;
 	}	
 }
