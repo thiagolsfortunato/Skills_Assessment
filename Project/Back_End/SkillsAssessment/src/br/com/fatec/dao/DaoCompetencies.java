@@ -14,7 +14,7 @@ public class DaoCompetencies {
 	@SuppressWarnings("finally")
 	public static boolean insertCompetence(Competence competence) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "insert into competence (com_type, com_registration_date) values (?, now())";
+		String sql = "insert into competence (com_type, com_registration_date) values (?, date_format(now(), '%Y-%m-%d'))";
 
 		boolean insert = false;
 		try {
@@ -58,7 +58,7 @@ public class DaoCompetencies {
 	public static Competence searchCompetenceByCode(Long code) throws SQLException {
 		Competence competence = new Competence();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select * from competence where com_code = ?";
+		String query = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') from competence where com_code = ?";
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
@@ -66,7 +66,7 @@ public class DaoCompetencies {
 			if (connection.executeQuery()) {
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setType(connection.returnField("COM_TYPE"));
-					competence.setRegister(Date.valueOf(connection.returnField("COM_REGISTRATION_DATE")));
+					competence.setRegistration_date(connection.returnField("COM_REGISTRATION_DATE"));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -80,7 +80,7 @@ public class DaoCompetencies {
 	@SuppressWarnings("finally")
 	public static boolean updateCompetence(Competence competence) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "update competence set COM_TYPE= ?, COM_REGISTRATION_DATE = now() where COM_CODE=?;";
+		String sql = "update competence set COM_TYPE= ?, COM_REGISTRATION_DATE = date_format(now(), '%Y-%m-%d') where COM_CODE=?;";
 		boolean update = false;
 		try {
 			connection.conect();
@@ -102,7 +102,7 @@ public class DaoCompetencies {
 	@SuppressWarnings({ "finally" })
 	public static List<Competence> searchAll() throws SQLException {
 		List<Competence> listCompetence = new ArrayList<>();
-		String sql = "select * from COMPETENCE ;";
+		String sql = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') from COMPETENCE ;";
 		ConnectionMySql connection = new ConnectionMySql();
 		try {
 			connection.conect();
@@ -112,7 +112,7 @@ public class DaoCompetencies {
 					Competence competence = new Competence();
 					competence.setCode(Long.parseLong(connection.returnField("COM_CODE")));
 					competence.setType(connection.returnField("COM_TYPE"));
-					competence.setRegister(Date.valueOf(connection.returnField("COM_REGISTRATION_DATE")));
+					competence.setRegistration_date(connection.returnField("COM_REGISTRATION_DATE"));
 					listCompetence.add(competence);
 				} while (connection.nextRegister());
 			}

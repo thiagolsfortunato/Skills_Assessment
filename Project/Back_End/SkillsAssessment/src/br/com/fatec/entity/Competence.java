@@ -6,7 +6,7 @@ public class Competence {
 	
 	private Long code;
 	private String type;
-	private Date register;
+	private String registration_date;
 	private int weight;
 	private int situation;
 	private Long altCode;
@@ -27,14 +27,6 @@ public class Competence {
 
 	public void setCode(Long code) {
 		this.code = code;
-	}
-
-	public Date getRegister() {
-		return register;
-	}
-
-	public void setRegister(Date register) {
-		this.register = register;
 	}
 
 	public int getWeight() {
@@ -67,5 +59,13 @@ public class Competence {
 
 	public void setSituation(int situation) {
 		this.situation = situation;
+	}
+
+	public String getRegistration_date() {
+		return registration_date;
+	}
+
+	public void setRegistration_date(String registration_date) {
+		this.registration_date = registration_date;
 	}
 }
