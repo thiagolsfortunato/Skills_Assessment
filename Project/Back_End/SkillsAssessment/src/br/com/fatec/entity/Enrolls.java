@@ -1,5 +1,7 @@
 package br.com.fatec.entity;
 
+import java.util.Calendar;
+
 public class Enrolls {
 	
 	private Long codeEnrolls;
@@ -8,7 +10,13 @@ public class Enrolls {
 	private Long codeCourse;
 	private Long codeUser;
 	
-	public Enrolls(){};
+	public Enrolls(){
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;			
+		this.year = year;
+		this.period = month <= 6 ? 1 : 2 ;		
+	}
 	
 	public Enrolls(Long codeEnrolls, int year, int period, Long codeCourse, Long codeUser) {
 		this.codeEnrolls = codeEnrolls;

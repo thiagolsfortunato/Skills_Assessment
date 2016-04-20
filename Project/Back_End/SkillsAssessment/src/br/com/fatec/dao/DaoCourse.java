@@ -1,5 +1,4 @@
 package br.com.fatec.dao;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +85,7 @@ public class DaoCourse {
 	public static List<Course> searchAllCourse()  throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') from course;";
+		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') as CRS_REGISTRATION_DATE from course;";
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
@@ -113,7 +112,7 @@ public class DaoCourse {
 	@SuppressWarnings("finally")
 	public static Course searchCourseById(Long code) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') from course where crs_code = ?;";
+		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') as CRS_REGISTRATION_DATE from course where crs_code = ?;";
 		Course course = new Course();
 		try {
 			connection.conect();

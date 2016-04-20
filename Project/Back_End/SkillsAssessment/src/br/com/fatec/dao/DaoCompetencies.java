@@ -58,7 +58,7 @@ public class DaoCompetencies {
 	public static Competence searchCompetenceByCode(Long code) throws SQLException {
 		Competence competence = new Competence();
 		ConnectionMySql connection = new ConnectionMySql();
-		String query = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') from competence where com_code = ?";
+		String query = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') as COM_REGISTRATION_DATE from competence where com_code = ?";
 		try {
 			connection.conect();
 			connection.setStatement(connection.getConnection().prepareStatement(query));
@@ -102,7 +102,7 @@ public class DaoCompetencies {
 	@SuppressWarnings({ "finally" })
 	public static List<Competence> searchAll() throws SQLException {
 		List<Competence> listCompetence = new ArrayList<>();
-		String sql = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') from COMPETENCE ;";
+		String sql = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') as COM_REGISTRATION_DATE from COMPETENCE ;";
 		ConnectionMySql connection = new ConnectionMySql();
 		try {
 			connection.conect();
