@@ -162,7 +162,7 @@ public class DaoQuiz{
 			conn.getStatement().setLong(1, quiz.getUser());
 			conn.getStatement().setLong(2, quiz.getQuestion());
 			conn.getStatement().setLong(3, quiz.getAnswer());
-			conn.getStatement().setDate(4, (Date) quiz.getDate());
+			conn.getStatement().setString(4, quiz.getDate_register());
 			conn.getStatement().setString(5, quiz.getDuration());
 			
 			if(conn.executeSql()){

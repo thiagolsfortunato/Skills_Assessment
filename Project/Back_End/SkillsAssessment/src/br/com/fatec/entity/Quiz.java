@@ -8,7 +8,7 @@ public class Quiz {
 	private Long user;
 	private Long question;
 	private Long answer;
-	private Date date;
+	private String date_register;
 	private String duration;
 	public Long getCode() {
 		return code;
@@ -34,16 +34,16 @@ public class Quiz {
 	public void setAnswer(Long answer) {
 		this.answer = answer;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	public String getDuration() {
 		return duration;
 	}
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+	public String getDate_register() {
+		return date_register;
+	}
+	public void setDate_register(String date_register) {
+		this.date_register = date_register;
 	}
 }
