@@ -157,7 +157,7 @@ public class DaoUser {
 		List<User> user = new LinkedList<User>();
 
 		try {
-			String query = "select usr_type, usr_code, usr_token, usr_name,usr_situation,usr_verified from user";
+			String query = "select usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified from user";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(query));
 			if (conn.executeQuery()){
@@ -177,7 +177,7 @@ public class DaoUser {
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean returnUpdate = false;
 		try {
-			String update = "update user set usr_userName = ? ,usr_password = ? ,usr_ra = ?, usr_type = ?, usr_name = ? where usr_code = ?;";
+			String update = "update user set usr_userName = ?, usr_password = ?, usr_ra = ?, usr_type = ?, usr_name = ? where usr_code = ?;";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(update));
 			conn.getStatement().setString(1, user.getUserName());
@@ -234,16 +234,16 @@ public class DaoUser {
 		User user = new User();
 		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
 		user.setUserName(rs.getString("USR_NAME"));
+		user.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
+		user.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
+		
 		String userType = rs.getString("USR_TYPE").toLowerCase();
 		user.setType(userType);
 		if(userType.equals("student")){
 			user.setCourseStudent(rs.getString("CRS_NAME"));
 			user.setYearStudent(rs.getInt("ERN_YEAR"));
 			user.setPeriodStudent(rs.getInt("ERN_PERIOD"));
-		}else{
-			user.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
-			user.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
-		}		 
+		} 
 		return user;
 	}
 	

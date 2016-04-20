@@ -156,14 +156,13 @@ public class DaoQuiz{
 		ResultSet idUser = null;
 		boolean returnInsert = false;
 		try {
-			String insert = " insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (?,?,?,?,?);";
+		String insert = " insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (?,?,?,date_format(now(), '%Y-%m-%d',?);";
 			conn.conect();
 			conn.setStatement(conn.getConnection().prepareStatement(insert));
 			conn.getStatement().setLong(1, quiz.getUser());
 			conn.getStatement().setLong(2, quiz.getQuestion());
 			conn.getStatement().setLong(3, quiz.getAnswer());
-			conn.getStatement().setString(4, quiz.getDate_register());
-			conn.getStatement().setString(5, quiz.getDuration());
+			conn.getStatement().setString(4, quiz.getDuration());
 			
 			if(conn.executeSql()){
 				System.out.println("the question has been successfully inserted!");
