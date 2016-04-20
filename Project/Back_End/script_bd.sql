@@ -212,7 +212,6 @@ insert into ist_crs (ist_code, crs_code) values (3,3);
 
 delete from ist_crs where crs_code = 1;
 
-select * from user;
 select * from course;
 select * from enrolls;
 select * from institution;
@@ -241,12 +240,7 @@ join ist_crs itc on (c.crs_code = itc.crs_code)
 join institution i on (itc.ist_code = i.ist_code)
 where u.usr_code = 4;
 
-select * from enrolls;
-select * from user;
-select * from course;
-select * from institution;
-select * from ist_crs;
-select * from competence;
+select competence.com_code, competence.com_type, date_format(competence.com_registration_date, '%d-%m-%Y') from competence;
 
 select date_format(now(), '%d-%m-%Y') from dual;
 select date_format(now(), '%Y') from dual;
