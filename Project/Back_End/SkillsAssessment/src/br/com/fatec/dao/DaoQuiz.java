@@ -27,8 +27,6 @@ public class DaoQuiz{
 			if (conn.executeQuery()) {
 				count = Integer.parseInt(conn.returnRegister().getString("questions"));
 			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		} finally {
 			conn.getResultset().close();
 			conn.getStatement().close();
@@ -47,8 +45,6 @@ public class DaoQuiz{
 			if (conn.executeQuery()) {
 				count = Integer.parseInt(conn.returnRegister().getString("questions"));
 			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		} finally {
 			conn.getResultset().close();
 			conn.getStatement().close();
@@ -69,9 +65,6 @@ public class DaoQuiz{
 			if (conn.executeQuery()) {
 				question = getNumberOfQuestion(conn.returnRegister());
 			}
-		} catch (SQLException e) {
-			System.out.println("an error occurred while taking the issue" + e);
-			throw new RuntimeException(e);
 		} finally {
 			conn.getResultset().close();
 			conn.getStatement().close();
@@ -96,9 +89,6 @@ public class DaoQuiz{
 			if (conn.executeQuery()) {
 				qst = buildQuestion(conn.returnRegister());
 			}
-		} catch (SQLException e) {
-			System.out.println("It was not possible to get the issue " + e);
-			throw new RuntimeException(e);
 		} finally {
 			conn.getResultset().close();
 			conn.getStatement().close();
@@ -119,9 +109,6 @@ public class DaoQuiz{
 			if (conn.executeQuery()) {
 				answers = buildAnswersToQuestion(conn);
 			}
-		} catch (SQLException e) {
-			System.out.println("It was not possible to get the answers " + e);
-			throw new RuntimeException(e);
 		} finally {
 			conn.getResultset().close();
 			conn.getStatement().close();
@@ -142,9 +129,6 @@ public class DaoQuiz{
 			if (conn.executeQuery()) {
 				competencies = buildCompetenciesToQuestion(conn);
 			}
-		} catch (SQLException e) {
-			System.out.println("It was not possible to get the competencies " + e);
-			throw new RuntimeException(e);
 		} finally {
 			return competencies;
 		}
@@ -168,9 +152,6 @@ public class DaoQuiz{
 				System.out.println("the question has been successfully inserted!");
 				returnInsert =  true;
 			}
-		} catch (Exception e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return returnInsert;

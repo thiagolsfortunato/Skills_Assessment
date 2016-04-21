@@ -8,20 +8,26 @@ import br.com.fatec.entity.Question;
 public class ModelQuestion {
 	
 	@SuppressWarnings("finally")
-	public Question searchQuestionByCode(Long code) throws SQLException{
+	public Question searchQuestionByCode(Long code) {
 		Question question = null;
 		try{
 			question = DaoQuestion.searchQuestionByCode(code);
-		} finally{
+		} catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a Question");
+		}finally{
 			return question;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public List<Question> searchAllQuestion() throws SQLException {
+	public List<Question> searchAllQuestion() {
 		List<Question> questions = null;
 		try{
 			questions = DaoQuestion.searchAllQuestion(); 
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a Questions");
 		}finally{
 			return questions;
 		}
@@ -32,6 +38,7 @@ public class ModelQuestion {
 			return DaoQuestion.insertQuestion(question);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("Will not it was possible to insert the Institution");
 			return false;
 		}
 	}
@@ -41,15 +48,17 @@ public class ModelQuestion {
 			return DaoQuestion.updateQuestion(question);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("Will not it was possible to update the Institution");
 			return false;
 		}
 	}
 	
-	public boolean deleteQuestion(Long code){
+	public boolean deleteQuestion(Long code) {
 		try {
 			return DaoQuestion.deleteQuestion(code);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("Will not it was possible to delete the Institution");
 			return false;
 		}
 	}

@@ -21,8 +21,6 @@ public class DaoCourse {
 			if(connection.executeSql()){
 				insert = true;
 			}
-		}catch (SQLException e) {
-			throw new RuntimeException(e);
 		}finally{
 			connection.close();
 			return insert;
@@ -50,8 +48,6 @@ public class DaoCourse {
 			if (connection2.executeSql()) {
 				delete = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection1.close();
 			connection2.close();
@@ -73,8 +69,6 @@ public class DaoCourse {
 			if(connection.executeSql()){
 				update = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return update;
@@ -101,8 +95,6 @@ public class DaoCourse {
 			} else {
 				return null;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return listCourse;
@@ -126,8 +118,6 @@ public class DaoCourse {
 					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
 				}while(connection.nextRegister());
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return course;

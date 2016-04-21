@@ -30,53 +30,47 @@ import br.com.fatec.entity.Competence;
 public class ModelCompetencies {
 
 	// Add competence
-	@SuppressWarnings("finally")
-	public boolean insertCompetence(Competence competence) throws SQLException {
-		boolean insert = false;
+	public boolean insertCompetence(Competence competence) {
 		try {
-			insert = DaoCompetencies.insertCompetence(competence);
+			return DaoCompetencies.insertCompetence(competence);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to update a competence");
-		} finally {
-			return insert;
+			return false;
 		}
 	}
 
 	// Delete Competence
-	@SuppressWarnings("finally")
-	public boolean deleteCompetence(Long code) throws SQLException {
-		boolean delete = false;
+	public boolean deleteCompetence(Long code) {
 		try {
-			delete = DaoCompetencies.deleteCompetence(code);
+			return DaoCompetencies.deleteCompetence(code);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to update a competence");
-		} finally {
-			return delete;
+			return false;
 		}
 	}
 
 	// Update Competence
-	@SuppressWarnings("finally")
 	public boolean updateCompetence(Competence competence) {
-		boolean update = false;
 		try{
-			update = DaoCompetencies.updateCompetence(competence);
+			return DaoCompetencies.updateCompetence(competence);
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to update a competence");
-		}finally{
-			return update;
+			return false;
 		}
 	}
 
 	// Search By Code
 	@SuppressWarnings("finally")
-	public Competence searchCompetenceByCode(Long code) throws SQLException {
+	public Competence searchCompetenceByCode(Long code) {
 		Competence competence = null;
 		try{
 			competence = DaoCompetencies.searchCompetenceByCode(code);
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a competence");
 		}finally{
 			return competence;
 		}
@@ -84,10 +78,13 @@ public class ModelCompetencies {
 
 	// Search All
 	@SuppressWarnings("finally")
-	public List<Competence> searchAllCompetence() throws SQLException {
+	public List<Competence> searchAllCompetence() {
 		List<Competence> competencies = null;
 		try{
 			competencies = DaoCompetencies.searchAll();
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a competence");
 		}finally{
 			return competencies;
 		}

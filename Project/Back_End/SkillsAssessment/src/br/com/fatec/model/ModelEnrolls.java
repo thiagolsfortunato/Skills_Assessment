@@ -8,60 +8,59 @@ import br.com.fatec.entity.Enrolls;
 
 public class ModelEnrolls {
 	
-	@SuppressWarnings("finally")
-	public boolean insertEnrolls(Enrolls enrolls) {
-		boolean insert = false;
+	public boolean insertEnrolls(Enrolls enrolls){
 		try{
-			insert = DaoEnrolls.insertEnrolls(enrolls);
+			return DaoEnrolls.insertEnrolls(enrolls);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to update an enrolls");
-		}finally{
-			return insert;
+			System.out.println("an error occurred while trying to insert an enrolls");
+			return false;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public boolean updateEnrolls(Enrolls enrolls) {
-		boolean update = false;
+	public boolean updateEnrolls(Enrolls enrolls){
 		try{
-			update = DaoEnrolls.updateEnrolls(enrolls);
+			return DaoEnrolls.updateEnrolls(enrolls);
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to update an enrolls");
-		}finally{
-			return update;
+			return false;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public boolean deleteEnrolls(Long code) {
-		boolean delete = false;
+	public boolean deleteEnrolls(Long code){
 		try{
-			delete = DaoEnrolls.deleteEnrolls(code);
+			return DaoEnrolls.deleteEnrolls(code);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to update an enrolls");
-		}finally{
-			return delete;
+			System.out.println("an error occurred while trying to delete an enrolls");
+			return false;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public Enrolls searchEnrollsByCode(Long code) throws SQLException {
+	public Enrolls searchEnrollsByCode(Long code) {
 		Enrolls enrolls = null;
 		try{
 			enrolls = DaoEnrolls.searchEnrollsById(code);
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a enrolls");
 		}finally{
 			return enrolls;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public List<Enrolls> searchAllEnrolls() throws SQLException {
+	public List<Enrolls> searchAllEnrolls(){
 		List<Enrolls> enrolls = null;
 		try{
 			enrolls = DaoEnrolls.searchAllEnrolls();
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a enrolls");
 		}finally{
 			return enrolls;
 		}

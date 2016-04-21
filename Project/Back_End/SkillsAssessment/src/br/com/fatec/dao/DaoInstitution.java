@@ -11,7 +11,7 @@ import br.com.fatec.entity.Institution;
 public class DaoInstitution {
 	
 	@SuppressWarnings("finally")
-	public static boolean insertInstitution(Institution institution){
+	public static boolean insertInstitution(Institution institution) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean sucess = false;
 		try {
@@ -26,9 +26,6 @@ public class DaoInstitution {
 				System.out.println("the Institution has been successfully inserted!");
 				sucess = true;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return sucess;
@@ -36,7 +33,7 @@ public class DaoInstitution {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteInstitution(Long code){
+	public static boolean deleteInstitution(Long code) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean delete = false;
 		try {
@@ -47,9 +44,6 @@ public class DaoInstitution {
 			if (conn.executeSql()) {
 				delete = true;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return delete;
@@ -57,7 +51,7 @@ public class DaoInstitution {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateInstitution(Institution institution){
+	public static boolean updateInstitution(Institution institution) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean sucess = false;
 		try {
@@ -73,9 +67,6 @@ public class DaoInstitution {
 				System.out.println("Institution has been successfully updated!");
 					sucess = true;	
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return sucess;
@@ -83,7 +74,7 @@ public class DaoInstitution {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Institution searchInstitutionByCode(Long code){
+	public static Institution searchInstitutionByCode(Long code) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		Institution institution = new Institution();
 
@@ -95,10 +86,6 @@ public class DaoInstitution {
 			if (conn.executeQuery()){
 				institution = buildInstitution(conn.getResultset());
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return institution;
@@ -106,7 +93,7 @@ public class DaoInstitution {
 	}
 	//usar clausula %like% do banco, para trazer por parte do nome
 	@SuppressWarnings("finally")
-	public static List<Institution> searchInstitutionByName(String strName){
+	public static List<Institution> searchInstitutionByName(String strName) throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		List<Institution> institutions = new LinkedList<Institution>();
 
@@ -118,10 +105,6 @@ public class DaoInstitution {
 			if (conn.executeQuery()){
 				institutions = buildInstitutions(conn);
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return institutions;
@@ -129,7 +112,7 @@ public class DaoInstitution {
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<Institution> searchAllInstitution(){
+	public static List<Institution> searchAllInstitution() throws SQLException {
 		ConnectionMySql conn = new ConnectionMySql();
 		List<Institution> institutions = new LinkedList<Institution>();
 
@@ -140,10 +123,6 @@ public class DaoInstitution {
 			if (conn.executeQuery()){
 				institutions = buildInstitutions(conn);
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return institutions;

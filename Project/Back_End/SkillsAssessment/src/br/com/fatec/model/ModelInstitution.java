@@ -9,52 +9,61 @@ import br.com.fatec.entity.Institution;
 public class ModelInstitution {
 	
 	@SuppressWarnings("finally")
-	public Institution searchInstitutionByCode(Long code) throws SQLException{
+	public Institution searchInstitutionByCode(Long code){
 		Institution institution = null;
 		try{
 			institution = DaoInstitution.searchInstitutionByCode(code);
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a institution");
 		}finally{
 			return institution;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public List<Institution> searchInstitutionByName(String name) throws SQLException {
+	public List<Institution> searchInstitutionByName(String name) {
 		List<Institution> institutions = null;
 		try{
 			institutions = DaoInstitution.searchInstitutionByName(name);
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a institutions");
 		}finally{
 			return institutions;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public List<Institution> searchAllInstitution() throws SQLException {
+	public List<Institution> searchAllInstitution() {
 		List<Institution> institutions = null;
 		try{
 			institutions = DaoInstitution.searchAllInstitution();
-		} finally{
+		} catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a institutions");
+		}finally{
 			return institutions;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public boolean insertInstitution (Institution fatec) throws SQLException {
-		boolean insert = false;
+	public boolean insertInstitution (Institution fatec) {
 		try{
-			insert =  DaoInstitution.insertInstitution(fatec);
-		} finally{
-			return insert;
+			return DaoInstitution.insertInstitution(fatec);
+		} catch (SQLException e) {
+			System.out.println("Will not it was possible to insert the Institution");
+			return false;
 		}
 	}
 	
 	@SuppressWarnings("finally")
 	public boolean updateInstitution (Institution fatec) throws SQLException{
-		boolean update = false;
 		try{
-			update = DaoInstitution.updateInstitution(fatec); 
-		}finally{
-			return update;
+			return DaoInstitution.updateInstitution(fatec); 
+		}catch (SQLException e) {
+			System.out.println("Will not it was possible to update the Institution");
+			return false;
 		}
 	}
 		
@@ -63,6 +72,8 @@ public class ModelInstitution {
 		boolean delete = false;
 		try{
 			delete = DaoInstitution.deleteInstitution(code);
+		}catch (SQLException e) {
+			System.out.println("Will not it was possible to delete the Institution");
 		}finally{
 			return delete;
 		}

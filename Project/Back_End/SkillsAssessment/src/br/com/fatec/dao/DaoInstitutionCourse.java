@@ -7,7 +7,7 @@ import br.com.fatec.connection.ConnectionMySql;
 public class DaoInstitutionCourse {
 	
 	@SuppressWarnings("finally")
-	public static boolean insertIntitutionCourse(Long idInstitution, Long idCourse){
+	public static boolean insertIntitutionCourse(Long idInstitution, Long idCourse) throws SQLException{
 		ConnectionMySql connection = new ConnectionMySql();
 		boolean insert = false;
 		try{
@@ -19,9 +19,6 @@ public class DaoInstitutionCourse {
 			if(connection.executeSql()){
 				insert = true;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return insert;
@@ -29,7 +26,7 @@ public class DaoInstitutionCourse {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteIntitutionCourse(Long idInstitution, Long idCourse){
+	public static boolean deleteIntitutionCourse(Long idInstitution, Long idCourse) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		boolean delete = false;
 		try{
@@ -41,9 +38,6 @@ public class DaoInstitutionCourse {
 			if(connection.executeSql()){
 				delete = true;
 			}
-		}catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return delete;

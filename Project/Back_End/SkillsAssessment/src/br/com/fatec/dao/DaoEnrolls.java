@@ -28,9 +28,6 @@ public class DaoEnrolls {
 			if(connection.executeSql()){
 				insert = true;
 			}
-		}catch (SQLException e) {
-			System.out.println(e);
-			throw new RuntimeException(e);
 		}finally{
 			connection.close();
 			return insert;
@@ -49,8 +46,6 @@ public class DaoEnrolls {
 			if (connection.executeSql()) {
 				delete = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return delete;
@@ -73,8 +68,6 @@ public class DaoEnrolls {
 			if(connection.executeSql()){
 				update = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return update;
@@ -82,7 +75,7 @@ public class DaoEnrolls {
 	}	
 
 	@SuppressWarnings("finally")
-	public static List<Enrolls> searchAllEnrolls() {
+	public static List<Enrolls> searchAllEnrolls() throws SQLException {
 		List<Enrolls> listEnrolls = new ArrayList<>();
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT * FROM ENROLLS;";
@@ -102,8 +95,6 @@ public class DaoEnrolls {
 			} else {
 				return null;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return listEnrolls;
@@ -111,7 +102,7 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Enrolls searchEnrollsById(Long codeEnrolls){
+	public static Enrolls searchEnrollsById(Long codeEnrolls) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT * FROM ENROLLS WHERE ERN_CODE = ?;";
 		Enrolls enrolls = new Enrolls();
@@ -128,8 +119,6 @@ public class DaoEnrolls {
 					enrolls.setCodeUser(Long.parseLong(connection.returnField("USR_CODE")));
 				}while(connection.nextRegister());
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return enrolls;
@@ -137,7 +126,7 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Long searchEnrollsByUserId(Long idUser){
+	public static Long searchEnrollsByUserId(Long idUser) throws SQLException {
 		ConnectionMySql connection = new ConnectionMySql();
 		String query = "SELECT ERN_CODE FROM ENROLLS WHERE USR_CODE = ?";
 		Long idEnrolls = null;
@@ -150,8 +139,6 @@ public class DaoEnrolls {
 					idEnrolls = Long.parseLong(connection.returnField("ERN_CODE"));
 				}while(connection.nextRegister());
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return idEnrolls;

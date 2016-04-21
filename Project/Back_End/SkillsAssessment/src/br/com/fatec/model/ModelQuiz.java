@@ -10,13 +10,12 @@ public class ModelQuiz {
 	
 	@SuppressWarnings("finally")
 	public boolean insertQuiz(Quiz quiz){
-		boolean quizReturn = false;
 		try {
-			quizReturn = DaoQuiz.insertQuiz(quiz);
+			return DaoQuiz.insertQuiz(quiz);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("an error occurred while trying to insert a quiz");
-		}finally {
-			return quizReturn;
+			return false;
 		}
 	}
 	

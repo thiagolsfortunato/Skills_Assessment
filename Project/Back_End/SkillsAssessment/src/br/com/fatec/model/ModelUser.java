@@ -31,42 +31,34 @@ public class ModelUser {
 		try {
 			returnInsert = DaoUser.insertUser(user);			
 		} catch (SQLException e) {
-			System.out.println("Will not it was possible to enter the User");
+			System.out.println("Will not it was possible to insert the User");
 		}
 		finally {
 			return returnInsert;
 		}
 	}
 	
-	@SuppressWarnings("finally")
 	public boolean deleteUser(Long userId){
-		boolean returnDelete = false;
 		try {
-			returnDelete = DaoUser.deleteUser(userId);
-			return returnDelete;
-			
+			return DaoUser.deleteUser(userId);			
 		} catch (SQLException e) {
-			System.out.println("Will not it was possible to enter the User");
-		}finally {
-			return returnDelete;
+			e.printStackTrace();
+			System.out.println("Will not it was possible to delete the User");
+			return false;
 		}
 		
 	}
 	
-	@SuppressWarnings("finally")
 	public boolean updateUser(User user){
-		boolean returnUpdade = false;
 		try {
-			returnUpdade = DaoUser.updateUser(user);
-			return returnUpdade;
-			
+			return DaoUser.updateUser(user);
 		} catch (SQLException e) {
-			System.out.println("Will not it was possible to enter the User");
-		}
-		finally {
-			return returnUpdade;
+			e.printStackTrace();
+			System.out.println("Will not it was possible to update the User");
+			return false;
 		}
 	}
+	
 	
 	@SuppressWarnings("finally")
 	public User searchUserById(Long userId){
@@ -74,7 +66,7 @@ public class ModelUser {
 		try {
 			returnUser = DaoUser.searchUserById(userId);
 		} catch (SQLException e) {
-			System.out.println("Will not it was possible to enter the User");
+			System.out.println("Will not it was possible to search the User");
 		}finally {
 			return returnUser;
 		}

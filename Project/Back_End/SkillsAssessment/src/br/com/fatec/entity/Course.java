@@ -1,13 +1,12 @@
 package br.com.fatec.entity;
 
-import java.util.Date;
-
 public class Course {
 	
 	private Long codeCourse;
 	private String name;
 	private int situation;
 	private String registration_date;
+	private Long codeInstitution;
 	
 	public Course(){};	
 	
@@ -42,5 +41,13 @@ public class Course {
 	}
 	public void setRegistration_date(String registration_date) {
 		this.registration_date = registration_date;
+	}
+
+	public Long getCodeInstitution() {
+		return codeInstitution;
+	}
+
+	public void setCodeInstitution(Long codeInstitution) {
+		this.codeInstitution = codeInstitution;
 	}	
 }

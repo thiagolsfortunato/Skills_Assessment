@@ -24,8 +24,6 @@ public class DaoCompetencies {
 			if (connection.executeSql()) {
 				insert = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return insert;
@@ -45,8 +43,6 @@ public class DaoCompetencies {
 			if (connection.executeSql()) {
 				delete = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return delete;
@@ -68,8 +64,6 @@ public class DaoCompetencies {
 					competence.setType(connection.returnField("COM_TYPE"));
 					competence.setRegistration_date(connection.returnField("COM_REGISTRATION_DATE"));
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return competence;
@@ -90,8 +84,6 @@ public class DaoCompetencies {
 			if (connection.executeSql()) {
 				update = true;
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return update;
@@ -116,9 +108,6 @@ public class DaoCompetencies {
 					listCompetence.add(competence);
 				} while (connection.nextRegister());
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		} finally {
 			connection.close();
 			return listCompetence;

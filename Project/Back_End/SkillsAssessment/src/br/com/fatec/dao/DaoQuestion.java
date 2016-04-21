@@ -38,9 +38,6 @@ public class DaoQuestion {
 					}
 				}
 			}
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return returnQuestion;
@@ -95,9 +92,6 @@ public class DaoQuestion {
 				}
 			}
 			returnUpdate =  true;
-		} catch (Exception e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return returnUpdate;
@@ -138,9 +132,6 @@ public class DaoQuestion {
 				System.out.println("Was deletd a question");
 			}
 			delete = true;
-		} catch (Exception e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		} finally {
 			conn0.close();
 			conn1.close();
@@ -150,7 +141,7 @@ public class DaoQuestion {
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<Question> searchAllQuestion() {
+	public static List<Question> searchAllQuestion() throws SQLException {
 		List<Question> listQuestion = new ArrayList<>();
 		ConnectionMySql conn = new ConnectionMySql();
 		String query = "select q.qst_code, q.qst_question, q.qst_situation, q.qst_introduction from question q ;";
@@ -160,9 +151,6 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				listQuestion = DaoQuestion.buildQuestions(conn);
 			} 
-		} catch (Exception e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return listQuestion;
@@ -170,7 +158,7 @@ public class DaoQuestion {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Question searchQuestionByCode(Long codeQuestion) {
+	public static Question searchQuestionByCode(Long codeQuestion) throws SQLException {
 		Question question = new Question();
 		ConnectionMySql conn = new ConnectionMySql();
 		String query = "SELECT qst_code, qst_question, qst_situation, qst_introduction FROM question WHERE qst_code = ?;";
@@ -181,9 +169,6 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				question = DaoQuestion.buildQuestion(conn.returnRegister());
 			} 
-		} catch (SQLException e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return question;
@@ -214,9 +199,6 @@ public class DaoQuestion {
 					}
 				}
 			}
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return returnAnswer;
@@ -236,9 +218,6 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				answers = buildAnswersToQuestion(conn);
 			}
-		} catch (Exception e) {
-			System.out.println("It was not possible to get the answers " + e);
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return answers;
@@ -258,9 +237,6 @@ public class DaoQuestion {
 			if (conn.executeQuery()) {
 				competencies = buildCompetenciesToQuestion(conn);
 			}
-		} catch (Exception e) {
-			System.out.println("It was not possible to get the competencies " + e);
-			throw new RuntimeException(e);
 		} finally {
 			return competencies;
 		}
@@ -282,9 +258,6 @@ public class DaoQuestion {
 			if (conn.executeSql()) {
 				returnCompetence = true;
 			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-			
 		}finally {
 			conn.close();
 			return returnCompetence;

@@ -25,9 +25,6 @@ public class DaoUser {
 			if (conn.executeQuery()){
 				user = buildLogin(conn.returnRegister());
 			}
-		} catch (SQLException e) {
-			System.err.println("error"+e);
-			throw new RuntimeException(e);
 		} finally {		
 			conn.close();
 			return user;
@@ -50,9 +47,6 @@ public class DaoUser {
 				System.out.println("An existing user was updated successfully!");
 				return token;
 			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return token;
@@ -81,9 +75,6 @@ public class DaoUser {
 					returnInsert =  idUser.getLong(1);
 				}
 			}
-		} catch (Exception e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return returnInsert;
@@ -102,11 +93,7 @@ public class DaoUser {
 			if (conn.executeQuery()){
 				user = buildUser(conn.returnRegister());
 			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {		
-			
 			conn.close();
 			return user;
 		}
@@ -124,8 +111,6 @@ public class DaoUser {
 			if(conn.executeQuery()){
 				student = buildUser(conn.returnRegister());
 			}
-		}catch (Exception e) {
-			throw new RuntimeException(e);
 		} finally {		
 			conn.close();
 			return student;
@@ -143,8 +128,6 @@ public class DaoUser {
 			if(conn.executeQuery()){
 				students = buildUsers(conn);
 			}
-		}catch (Exception e) {
-			throw new RuntimeException(e);
 		} finally {		
 			conn.close();
 			return students;
@@ -163,10 +146,7 @@ public class DaoUser {
 			if (conn.executeQuery()){
 				user = buildUsers(conn);
 			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		} finally {		
-			
 			conn.close();
 			return user;
 		}
@@ -191,9 +171,6 @@ public class DaoUser {
 				System.out.println("the User has been successfully updated!");
 					returnUpdate =  true;	
 			}
-		} catch (Exception e) {
-			System.out.println("erro "+e);
-			throw new RuntimeException(e);
 		}finally {
 			conn.close();
 			return returnUpdate;
@@ -212,8 +189,6 @@ public class DaoUser {
 			if (conn.executeSql()) {
 				delete = true;
 			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		} finally {
 			conn.close();
 			return delete;
