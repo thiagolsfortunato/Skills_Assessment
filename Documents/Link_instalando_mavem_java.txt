@@ -1,0 +1,5 @@
+Instalando, configurando e usando o Maven para gerenciar suas dependências e seus projetos Java
+
+*****************************************************************************
+
+http://luizricardo.org/2014/06/instalando-configurando-e-usando-o-maven-para-gerenciar-suas-dependencias-e-seus-projetos-java/
