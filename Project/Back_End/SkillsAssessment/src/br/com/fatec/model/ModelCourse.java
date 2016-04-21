@@ -64,5 +64,18 @@ public class ModelCourse {
 		}finally{
 			return courses;
 		}
+	}
+	
+	@SuppressWarnings("finally")
+	public List<Course> searchCoursesByInstitionId(Long codeInstitution){
+		List<Course> courses = null;
+		try{
+			courses = DaoCourse.searchCoursesByInstitionId(codeInstitution); 
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("an error occurred while trying to search a course");
+		}finally{
+			return courses;
+		}
 	}	
 }

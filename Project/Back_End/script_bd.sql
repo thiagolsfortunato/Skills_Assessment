@@ -218,6 +218,10 @@ select * from institution;
 select * from ist_crs;
 select * from user;
 select * from competence;
+select * from question;
+select * from quiz;
+
+select institution.ist_company, course.CRS_CODE, CRS_NAME from course join ist_crs on (course.crs_code = ist_crs.crs_code) join institution on (institution.ist_code = ist_crs.crs_code) where ist_crs.itc_code = 3;
 
 desc course;
 desc enrolls;
@@ -245,6 +249,9 @@ select competence.com_code, competence.com_type, date_format(competence.com_regi
 select date_format(now(), '%d-%m-%Y') from dual;
 select date_format(now(), '%Y') from dual;
 select now(), sysdate() from dual;
+
+select competence.com_code, competence.com_type, date_format(competence.com_registration_date, '%d-%m-%Y') 
+from competence;
 
 delete from course where crs_code = 1;
 ALTER TABLE competence AUTO_INCREMENT = 1; -- CODIGO PARA ALTEARAR O AUTO-INCREMENTO

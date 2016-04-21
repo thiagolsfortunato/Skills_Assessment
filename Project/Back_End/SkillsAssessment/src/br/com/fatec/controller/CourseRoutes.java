@@ -78,5 +78,16 @@ public class CourseRoutes {
 				return "It wasin't possible find all Courses!";
 			}
 		}, JsonUtil.json());
+		
+		get("/searchCoursesByInstitutionId", (req, res) -> {
+			Long codeInstitution = Long.parseLong(req.queryParams("codeInstitution"));
+			try{
+				return modelCourses.searchCoursesByInstitionId(codeInstitution);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "It wasin't possible find all Courses!";
+			}
+		}, JsonUtil.json());
+		
 	}
 }
