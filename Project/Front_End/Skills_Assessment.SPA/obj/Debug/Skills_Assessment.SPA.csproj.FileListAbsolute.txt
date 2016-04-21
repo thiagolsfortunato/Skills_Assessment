@@ -51,3 +51,9 @@ D:\Escola\FATEC_Banco_de_Dados\4SEM\Padrões de Projetos de Sistemas\Skills_Asse
 D:\Escola\FATEC_Banco_de_Dados\4SEM\Padrões de Projetos de Sistemas\Skills_Assessment - Front-end\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
 D:\Escola\FATEC_Banco_de_Dados\4SEM\Padrões de Projetos de Sistemas\Skills_Assessment - Front-end\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
 D:\Escola\FATEC_Banco_de_Dados\4SEM\Padrões de Projetos de Sistemas\Skills_Assessment - Front-end\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb
+D:\SkillServer\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll.config
+D:\SkillServer\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll
+D:\SkillServer\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.pdb
+D:\SkillServer\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+D:\SkillServer\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
+D:\SkillServer\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb

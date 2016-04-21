@@ -29,7 +29,7 @@
        
         $http({
             method: 'POST',
-            url: config.generateApiUrl('insertCompetence'),
+            url: config.generateApiUrl('competence'),
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
@@ -45,7 +45,7 @@
 
         $http({
             method: 'delete',
-            url: config.generateApiUrl('deleteCompetence'),
+            url: config.generateApiUrl('competence'),
             params: { "competenceCode": id }
             
         }).
@@ -62,7 +62,7 @@
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('updateCompetence'),
+            url: config.generateApiUrl('competence'),
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {

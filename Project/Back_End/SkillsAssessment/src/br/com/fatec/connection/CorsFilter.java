@@ -13,7 +13,7 @@ public class CorsFilter {
 	    
 	    static {
 	    	corsHeaders.put("Access-Control-Allow-Origin", "*");
-	        //corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+	        corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
 	        corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,Foo-Headers");
 	        //corsHeaders.put("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Content-Length, Accept-Encoding, Accept-Language, Access-Control-Request-Method, Connection, Host, Origin, Referer, User-Agent, Client-Security-Token");
 	        corsHeaders.put("Access-Control-Allow-Credentials", "true");

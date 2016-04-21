@@ -3,6 +3,7 @@
     return {
 
         questionList: _questionList,
+        questionAdd: _questionAdd
 
     };
 
@@ -21,6 +22,23 @@
 
         return deferred.promise;
     }
+
+    function _questionAdd(dataObj) {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('question'),
+            data: JSON.stringify(dataObj)
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(dataObj);
+           });
+
+        return deferred.promise;
+    }
+
    
 
 }]);
