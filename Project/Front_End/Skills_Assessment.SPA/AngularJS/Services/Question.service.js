@@ -3,9 +3,25 @@
     return {
 
         questionList: _questionList,
-        questionAdd: _questionAdd
-
+        questionAdd: _questionAdd,
+        questionGetAll: _questionGetAll
     };
+
+
+    function _questionGetAll() {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('question/find/all'),
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(data);
+           });
+
+        return deferred.promise;
+    }
 
     function _questionList(token) {
 

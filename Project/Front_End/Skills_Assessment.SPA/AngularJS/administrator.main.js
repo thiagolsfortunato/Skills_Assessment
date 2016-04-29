@@ -23,8 +23,9 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
         .when('/user/changepassword', { templateUrl: 'AngularJS/App/User/ChangePassword/ChangePassword.view.html', controller: 'ChangePasswordController' })
         .when('/user/logout', { templateUrl: 'AngularJS/App/User/Logout/Logout.view.html', controller: 'LogoutController' })
 
-        .when('/question', { templateUrl: 'AngularJS/App/Administrator/Question/Menu/QuestionMenu.view.html' })
+        .when('/question', { templateUrl: 'AngularJS/App/Administrator/Question/Menu/QuestionMenu.view.html', controller: 'QuestionMenuController' })
         .when('/question/add', { templateUrl: 'AngularJS/App/Administrator/Question/Add/QuestionAdd.view.html', controller: 'QuestionAddController' })
+        .when('/question/edit', { templateUrl: 'AngularJS/App/Administrator/Question/Add/QuestionAdd.view.html', controller: 'QuestionAddController' })
 
         .when('/employee/add', { templateUrl: 'AngularJS/App/Administrator/Employee/Add/EmployeeAdd.view.html', controller: 'EmployeeAddController' })
 

@@ -2,7 +2,7 @@
 
     <br />
     <h1>
-        <span class="section">Perguntas - Adicionar</span>
+        <span class="section">Perguntas - {{operacao}}</span>
     </h1>
     <br />
     <br />
@@ -13,10 +13,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="blog-single-content bordered blog-container">
-
-
-
-
 
                         <!--Começa formulario-->
 
@@ -65,7 +61,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <div class="input-group">
-                                    <input ng-model="question.answers[0].question" type="text" class="form-control" placeholder="a)">
+                                    <input ng-model="question.answers[0].description" type="text" class="form-control" placeholder="a)">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" ng-click="setCurrentAnswer(0)" data-toggle="modal" data-target="#myModal" type="button">Competências</button>
                                     </span>
@@ -78,7 +74,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <div class="input-group">
-                                    <input ng-model="question.answers[1].question "type="text" class="form-control" placeholder="b)">
+                                    <input ng-model="question.answers[1].description "type="text" class="form-control" placeholder="b)">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" ng-click="setCurrentAnswer(1)" data-toggle="modal" data-target="#myModal"  type="button">Competências</button>
                                     </span>
@@ -91,7 +87,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <div class="input-group">
-                                    <input ng-model="question.answers[2].question" type="text" class="form-control" placeholder="c)">
+                                    <input ng-model="question.answers[2].description" type="text" class="form-control" placeholder="c)">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" ng-click="setCurrentAnswer(2)" data-toggle="modal" data-target="#myModal"  type="button">Competências</button>
                                     </span>
@@ -104,7 +100,7 @@
                             </label>
                             <div class="col-lg-6">
                                 <div class="input-group">
-                                    <input ng-model="question.answers[3].question" type="text" class="form-control" placeholder="d)">
+                                    <input ng-model="question.answers[3].description" type="text" class="form-control" placeholder="d)">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" ng-click="setCurrentAnswer(3)" data-toggle="modal" data-target="#myModal"  type="button">Competências</button>
                                     </span>

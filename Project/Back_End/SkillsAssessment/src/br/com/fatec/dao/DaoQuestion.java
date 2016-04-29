@@ -28,7 +28,8 @@ public class DaoQuestion {
 			insert = conn.getStatement();
 			conn.getStatement().setString(1, question.getIntroduction());
 			conn.getStatement().setString(2, question.getQuestion());
-			conn.getStatement().setInt(3, question.getSituation());
+			conn.getStatement().setInt(3, 1);
+			//conn.getStatement().setInt(3, question.getSituation());
 			if (conn.executeSql()) {
 				ResultSet generatedKeys = insert.getGeneratedKeys();
 				if(generatedKeys.next()){
