@@ -1,32 +1,77 @@
 ﻿FatecControllers.controller('RegisterController',
-    ['$scope', '$routeParams', 'localStorageService',
-        function ($scope, $routeParams, localStorageService) {
+    ['$scope', '$routeParams', 'localStorageService', 'RegisterService', 'CourseService',
+        function ($scope, $routeParams, localStorageService, registerService, courseService) {
 
-            $scope.users = [ ];
-            
-            $scope.fatecs = [{ nome: "Jessen" }, { nome: "Jacarei" }, { nome: "Pindamonhangaba" }];
-            
-            $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
+            //Declaração de funções
+            $scope.userAdd = _userAdd;
+            $scope.fatecList = _fatecsList;
+            $scope.courseList = _courseList;
 
-            $scope.loginState = true;
-            $scope.Cadastrar = _cadastrar; //criar
+            $scope.registerState = false;
+            $scope.user = {};
+            $scope.fatecs; // = [{ nome: "Jessen" }, { nome: "Jacarei" }, { nome: "Pindamonhangaba" }];
+            $scope.cursos; // = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
 
-            
-
-            function _cadastrar(user) {
-                if ($scope.user.senha1 != $scope.user.senha2) {
-                    $scope.loginState = false;
-                    console.log($scope.loginState);
-                    console.log($scope.user.senha1 +" "+ $scope.user.senha2);
-
-                } else {
-                    $scope.loginState = true;
-                    $scope.users.push(angular.copy(user));
-                    console.log($scope.users);
-                    delete $scope.user;
-                    
+            $scope.errorClass = function () {
+                
+                if ($scope.user.password == $scope.user.password2){
+                    $scope.registerState = false;
+                    $scope.userAdd($scope.user);
                 }
+                    
+                else
+                    $scope.registerState = true;
+            };
+
+            init();
+
+            function init() {
+
+                $scope.fatecList();
+                $scope.courseList();
             }
+
+            function _userAdd(user) {
+                // userAdd é o obj que chama a função da service
+                
+                user.type = "Student";
+                user.codeCourse = user.curso.codeCourse;
+                user.instCode = user.fatec.codeInstitution;
+                delete user["password2"];
+                delete user["fatec"];
+                delete user["curso"];
+                console.log(user);
+                registerService.userAdd(user).then(function (data) {
+
+                    alert("Salvouuu");
+
+                });
+            }
+
+            function _fatecsList() {
+                
+                registerService.fatecList().then(function (data) {
+
+                    console.log(data);
+                    
+                    $scope.fatecs = data;
+
+                }); 
+
+            }
+
+            function _courseList() {
+                
+                courseService.courseList().then(function (data) {
+
+                    console.log(data);
+
+                    $scope.cursos = data;
+
+                });
+
+            }
+
 /*
             function _login() {
                 var loginUser = {
@@ -55,11 +100,6 @@
                 });
             }
 */
-            $scope.errorClass = function () {
-                if ($scope.loginState == true)
-                    return 'display-hide';
-                else
-                    return 'display-show';
-            };
+           
 
         }]);

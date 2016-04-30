@@ -1,5 +1,7 @@
 package br.com.fatec.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,22 +16,27 @@ public class DaoEnrolls {
 	
 	//ESPERANDO METODO DO MARCELO
 	@SuppressWarnings("finally")
-	public static boolean insertEnrolls(Enrolls enrolls) throws SQLException{
-		ConnectionMySql connection = new ConnectionMySql();
-		String sql = "INSERT INTO ENROLLS (ern_year, ern_period, crs_code, usr_code) VALUES (?,?,?,?);";
+	public static boolean insertEnrolls(Connection conn, Enrolls enrolls, Long codeUser) throws SQLException{
+		//ConnectionMySql connection = new ConnectionMySql();
+		String sql = "INSERT INTO ENROLLS (ern_year, ern_period, crs_code, usr_code) VALUES (?, ?, ?, ?);";
 		boolean insert = false;
+		
 		try{
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setInt(1,enrolls.getYear());
-			connection.getStatement().setInt(2,enrolls.getPeriod());
-			connection.getStatement().setLong(3,enrolls.getCodeCourse());
-			connection.getStatement().setLong(4,enrolls.getCodeUser());
-			if(connection.executeSql()){
+			//connection.conect();
+			// prepared statement para inserção
+			//connection.setStatement(connection.getConnection().prepareStatement(sql));
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, enrolls.getYear());
+			stmt.setInt(2, enrolls.getPeriod());
+			stmt.setLong(3, enrolls.getCodeCourse());
+			stmt.setLong(4, codeUser);
+			if( stmt.executeUpdate() != 0 ){
+				System.out.println("the Student has been successfully inserted!");
 				insert = true;
 			}
+			stmt.close();
 		}finally{
-			connection.close();
+			//connection.close();
 			return insert;
 		}
 	}

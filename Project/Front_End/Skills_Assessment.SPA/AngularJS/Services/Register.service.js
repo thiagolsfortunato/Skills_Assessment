@@ -3,8 +3,9 @@
     return {
 
         userAdd: _userAdd,
-        userDelete: _userDelete,
-        userUpdate: _userUpdate
+        fatecList: _fatecList,
+        //userDelete: _userDelete,
+        //userUpdate: _userUpdate
     };
 
     function _userAdd(dataObj) {
@@ -13,9 +14,10 @@
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('user'),
+            url: config.generateApiUrl('enrolls'),
             data: JSON.stringify(dataObj),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            headers: { 'Content-Type' : 'application/json' }
+            //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             
         }).
            success(function (dataObj, status, headers, config) {
@@ -25,6 +27,24 @@
         return deferred.promise;
     }
 
+    function _fatecList() {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('institution/find/all'),
+            headers: { 'Content-Type': 'application/json' }
+            //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+
+        }).
+           success(function (dataObj, status, headers, config) {
+               deferred.resolve(dataObj);
+           });
+
+        return deferred.promise;
+    }
+/*
     function _userDelete(id) {
 
         var deferred = $q.defer();
@@ -57,5 +77,6 @@
 
         return deferred.promise;
     }
+                                                            */
 
 }]);

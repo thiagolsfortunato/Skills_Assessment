@@ -58,14 +58,15 @@ public class UserRoutes {
 			String data = req.body();
 			Gson gson = new Gson();
 			User user = gson.fromJson(data, User.class);
-			Enrolls enrolls = gson.fromJson(data, Enrolls.class);
+//			Enrolls enrolls = gson.fromJson(data, Enrolls.class);
 			try {
-				Long codeUser = modelUser.insertUser(user);
-				enrolls.setCodeUser(codeUser);
-				if (codeUser != null && user.getType().equals("Student")) {
-					return modelEnrolls.insertEnrolls(enrolls);
-				}
-				return false;
+//				Long codeUser = modelUser.insertUser(user);
+				return modelUser.insertUser(user);
+//				enrolls.setCodeUser(codeUser);
+//				if (codeUser != null && user.getType().equals("Student")) {
+//					return modelEnrolls.insertEnrolls(enrolls, codeUser);
+//				}
+//				return false;
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 				return "ops, an error with inserting, check the fields!";

@@ -1,5 +1,7 @@
 package br.com.fatec.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -7,11 +9,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.commons.Token;
+import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.User;
 
 public class DaoUser {
-
+	
 	@SuppressWarnings("finally")
 	public static User getLogin(String userName, String password) throws SQLException{
 		ConnectionMySql conn = new ConnectionMySql();
@@ -54,30 +57,39 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Long insertUser(User user) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
-		ResultSet idUser = null;
-		Long returnInsert = null;
+	public static Long insertUser(Connection conn, User user) throws SQLException{
+		
+		
+		
+		Long idUser = null;
+		String sql = "INSERT INTO user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) "+
+				"values ( ?, ?, ?, ?, ?, date_format(now(), '%Y-%m-%d'), ?);";
 		try {
-			String insert = "insert into user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) values (?,?,?,?,?,date_format(now(), '%Y-%m-%d'),?);";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement((insert),Statement.RETURN_GENERATED_KEYS));
-			conn.getStatement().setString(1, user.getUserName());
-			conn.getStatement().setString(2, user.getPassword());
-			conn.getStatement().setString(3, user.getRa());
-			conn.getStatement().setString(4, user.getType());
-			conn.getStatement().setString(5, user.getName());
-			conn.getStatement().setInt(6, user.getInstCode());
-			if(conn.executeSql()){
+			// prepared statement para inserção
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			// seta os valores
+			stmt.setString(1, user.getUserName());
+			stmt.setString(2, user.getPassword());
+			stmt.setString(3, user.getRa());
+			stmt.setString(4, user.getType());
+			stmt.setString(5, user.getName());
+			stmt.setInt(6, user.getInstCode());
+			// executa
+			int i = stmt.executeUpdate(); 
+			if(  i != 0 ){
+				System.out.println("sorte. .");
 				System.out.println("the User has been successfully inserted!");
-				idUser = conn.getStatement().getGeneratedKeys();
-				if (idUser.next()) {
-					returnInsert =  idUser.getLong(1);
+				ResultSet rs = stmt.getGeneratedKeys();
+				if ( rs.next() ) {
+					idUser =  rs.getLong(1);
+					rs.close(); //se deu certo fecha aqui msm
 				}
 			}
-		}finally {
-			conn.close();
-			return returnInsert;
+			stmt.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			return idUser;
 		}
 	}
 	

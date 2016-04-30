@@ -1,13 +1,18 @@
 package br.com.fatec.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoUser;
 import br.com.fatec.entity.User;
 
 public class ModelUser {
+	
+	//conexão com o banco de dados
+	private static Connection conn = null;
 	ModelQuiz modelQuiz = new ModelQuiz();
 	
 	@SuppressWarnings("finally")
@@ -27,9 +32,10 @@ public class ModelUser {
 	
 	@SuppressWarnings("finally")
 	public Long insertUser(User user){
+		conn = new ConnectionFactory().getConnection();
 		Long returnInsert = null;
 		try {
-			returnInsert = DaoUser.insertUser(user);			
+			returnInsert = DaoUser.insertUser(conn, user);			
 		} catch (SQLException e) {
 			System.out.println("Will not it was possible to insert the User");
 		}

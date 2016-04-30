@@ -11,6 +11,7 @@ import static spark.Spark.post; // insert
 import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Enrolls;
+import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEnrolls;
 
 public class EnrollsRoutes {
@@ -26,9 +27,17 @@ public class EnrollsRoutes {
 		//FUNCIONANDO !!
 		post("/enrolls", (req, res) -> {
 			String enrollsData = req.body();
+			User user = gson.fromJson(enrollsData, User.class);
 			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);	
 			try{
-				return modelEnrolls.insertEnrolls(enrolls);
+				if( modelEnrolls.insertEnrolls(enrolls, user) ){
+					res.status(200);
+					return "sucess";
+				}else{
+					res.status(400);
+					return "ops, an error with inserting, check the fields!";
+				}
+				
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				return "ops, an error with inserting, check the fields!";
