@@ -32,6 +32,9 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
         .when('/competencies', { templateUrl: 'AngularJS/App/Administrator/Competencies/List/Competencies.view.html', controller: 'CompetenciesController' })
         .when('/course', { templateUrl: 'AngularJS/App/Administrator/Course/List/Course.view.html', controller: 'CourseController' })
 
+        .when('/institution', { templateUrl: 'AngularJS/App/Administrator/Institution/Menu/InstitutionMenu.view.html', controller: 'InstitutionController' })
+        .when('/institution/add', { templateUrl: 'AngularJS/App/Administrator/Institution/Add/InstitutionAdd.view.html', controller: 'InstitutionAddController' })
+
 
 
     $httpProvider.interceptors.push('authorizationInterceptor');
