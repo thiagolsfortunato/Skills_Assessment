@@ -35,11 +35,19 @@ public class ModelUser {
 		conn = new ConnectionFactory().getConnection();
 		Long returnInsert = null;
 		try {
-			returnInsert = DaoUser.insertUser(conn, user);			
+			conn.setAutoCommit(false);
+			returnInsert = DaoUser.insertUser(conn, user);	
+			if(returnInsert != null) conn.commit();
+			else conn.rollback();
 		} catch (SQLException e) {
 			System.out.println("Will not it was possible to insert the User");
 		}
 		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return returnInsert;
 		}
 	}

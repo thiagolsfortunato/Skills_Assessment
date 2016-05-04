@@ -28,7 +28,7 @@ public class ModelEnrolls {
 			transaction = DaoEnrolls.insertEnrolls(conn, enrolls, codeUser);
 			
 			if(transaction && (codeUser != null) ) conn.commit(); //se deu tudo certo comita!
-			
+			else conn.rollback();
 		}catch(SQLException e){
 			if (conn != null) {
 	            try {
