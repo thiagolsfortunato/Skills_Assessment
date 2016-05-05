@@ -27,11 +27,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-ng-repeat="item in courses">
-                                        <td>{{item.name}}</td>
+                                    <tr data-ng-repeat="item in institutions">
+                                        <td>{{item.company}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse);"> <i class="fa fa-trash-o"></i> Apagar</a>
-                                            <a class="btn btn-warning" ng-click="courseLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
+                                            <a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="institutionDelete(item.codeInstitution);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-warning" ng-click="institutionLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
                                     </tr>
                                 </tbody>
