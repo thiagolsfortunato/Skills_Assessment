@@ -47,8 +47,10 @@ public class DaoQuestion {
 	
 	@SuppressWarnings("finally")
 	public static boolean updateQuestion(Question question) throws SQLException{
+	
 		ConnectionMySql conn = new ConnectionMySql();
 		boolean returnUpdate = false;
+		
 		try {
 			conn.conect();
 			String updateQuestion = "UPDATE question SET qst_question = ?, qst_introduction = ?, qst_situation = ? WHERE qst_code = ?;";
@@ -63,37 +65,43 @@ public class DaoQuestion {
 			}
 			
 			for(int i = 0; i < question.getAnswers().size(); i++){
-				ConnectionMySql conn2 = new ConnectionMySql();
-				conn2.conect();
+			
 				String updateASnswer = "UPDATE alternatives SET alt_description = ? WHERE qst_code = ? AND alt_code = ?; ";
-				conn2.setStatement(conn2.getConnection().prepareStatement(updateASnswer));
-				conn2.getStatement().setString(1, question.getAnswers().get(i).getDescription());
-				conn2.getStatement().setLong(2, question.getCode());
-				conn2.getStatement().setLong(3, question.getAnswers().get(i).getCode());
+				conn.setStatement(conn.getConnection().prepareStatement(updateASnswer));
+				conn.getStatement().setString(1, question.getAnswers().get(i).getDescription());
+				conn.getStatement().setLong(2, question.getCode());
+				conn.getStatement().setLong(3, question.getAnswers().get(i).getCode());
 				
-				if(conn2.executeSql()){
+				if(conn.executeSql()){
 					System.out.println("the alternative has been successfully updated!");
 				}
-				conn2.close();
+			
 				
 				for(int j = 0; j < question.getAnswers().get(i).getCompetencies().size() ; j++){
-					ConnectionMySql conn3 = new ConnectionMySql();
-					conn3.conect();
-					String updateComepetence = "UPDATE alt_com SET alt_code = ?, com_code = ? ,rsc_weight = ? WHERE rsc_code = ?; ";
-					conn3.setStatement(conn3.getConnection().prepareStatement(updateComepetence));
-					conn3.getStatement().setLong(1, question.getAnswers().get(j).getCode());
-					conn3.getStatement().setLong(2, question.getAnswers().get(j).getCompetencies().get(j).getCode());
-					conn3.getStatement().setLong(3, question.getAnswers().get(j).getCompetencies().get(j).getWeight());
-					conn3.getStatement().setLong(4, question.getAnswers().get(j).getCompetencies().get(j).getRscCode());
 					
-					if(conn3.executeSql()){
+					String updateComepetence = "UPDATE alt_com SET alt_code = ?, com_code = ? ,rsc_weight = ? WHERE rsc_code = ?; ";
+					conn.setStatement(conn.getConnection().prepareStatement(updateComepetence));
+					conn.getStatement().setLong(1, question.getAnswers().get(i).getCode());
+					conn.getStatement().setLong(2, question.getAnswers().get(i).getCompetencies().get(j).getCode());
+					conn.getStatement().setLong(3, question.getAnswers().get(i).getCompetencies().get(j).getWeight());
+					conn.getStatement().setLong(4, question.getAnswers().get(i).getCompetencies().get(j).getRscCode());
+					
+					
+					//show current command
+					System.out.println(conn.getStatement());
+					
+					if(conn.executeSql()){
 						System.out.println("the competence has been successfully updated!");
 					}
-					conn3.close();
+					
 				}
 			}
 			returnUpdate =  true;
-		}finally {
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		finally {
 			conn.close();
 			return returnUpdate;
 		}

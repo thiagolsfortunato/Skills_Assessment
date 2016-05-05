@@ -14,6 +14,24 @@
 
                 }
 
+                $scope.goToEditPage = function (obj) {
+
+                    questionMenuService.currentQuestion = obj;
+                    document.location.href = "#/question/edit";
+
+                }
+
+                $scope.questionDelete = function (code) {
+
+                    questionMenuService.questionDelete(code).then(function (data) {
+
+                        alert("Let's go home, becuase its late! im tired");
+
+                    });
+
+                
+
+                }
 
                 function getAllQuestions() {
 

@@ -48,7 +48,8 @@ public class ModelQuestion {
 			return DaoQuestion.updateQuestion(question);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Will not it was possible to update the Institution");
+			System.out.println("it was not possible to update the Institution");
+			System.out.println(e);
 			return false;
 		}
 	}

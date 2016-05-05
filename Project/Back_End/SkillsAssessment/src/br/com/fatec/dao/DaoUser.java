@@ -59,8 +59,6 @@ public class DaoUser {
 	@SuppressWarnings("finally")
 	public static Long insertUser(Connection conn, User user) throws SQLException{
 		
-		
-		
 		Long idUser = null;
 		String sql = "INSERT INTO user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) "+
 				"values ( ?, ?, ?, ?, ?, date_format(now(), '%Y-%m-%d'), ?);";

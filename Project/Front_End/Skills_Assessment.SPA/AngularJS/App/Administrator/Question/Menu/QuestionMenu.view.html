@@ -28,8 +28,8 @@
                                     <tr data-ng-repeat="item in questions">
                                         <td>{{item.question}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse);"> <i class="fa fa-trash-o"></i> Apagar</a>
-                                            <a class="btn btn-warning" ng-click="courseLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
+                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirmação" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a  class="btn btn-warning" ng-click="goToEditPage(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
                                     </tr>
                                 </tbody>

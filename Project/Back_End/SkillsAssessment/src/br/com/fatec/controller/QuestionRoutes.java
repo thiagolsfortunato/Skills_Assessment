@@ -28,7 +28,11 @@ public class QuestionRoutes{
 		post("/question", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			Question question = gson.fromJson(data, Question.class);
+			
+			byte ptext[] = data.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			Question question = gson.fromJson(value, Question.class);
 	
 			boolean sucess = model.insertQuestion(question);
 			if(sucess){
@@ -70,7 +74,11 @@ public class QuestionRoutes{
 		put("/question", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			Question question = gson.fromJson(data, Question.class);
+			
+			byte ptext[] = data.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			Question question = gson.fromJson(value, Question.class);
 			
 			boolean sucess = model.updateQuestion(question);
 			if(sucess){
