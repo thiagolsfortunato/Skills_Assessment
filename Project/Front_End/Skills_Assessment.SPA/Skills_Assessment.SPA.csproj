@@ -53,6 +53,8 @@
     <Content Include="AngularJS\App\Administrator\Competencies\List\Competencies.view.html" />
     <Content Include="AngularJS\App\Administrator\Course\List\Course.controller.js" />
     <Content Include="AngularJS\App\Administrator\Course\List\Course.view.html" />
+    <Content Include="AngularJS\App\Administrator\Institution\List\Institution.view.html" />
+    <Content Include="AngularJS\App\Administrator\Institution\List\Institution.controller.js" />
     <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.controller.js" />
     <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.view.html" />
     <Content Include="AngularJS\App\Administrator\Question\Menu\QuestionMenu.controller.js" />
@@ -66,6 +68,7 @@
     <Content Include="AngularJS\App\User\Register\Register.controller.js" />
     <Content Include="AngularJS\App\User\Register\Register.view.html" />
     <Content Include="AngularJS\login.main.js" />
+    <Content Include="AngularJS\Services\Institution.service.js" />
     <Content Include="AngularJS\Services\Psicologa.service.js" />
     <Content Include="AngularJS\Services\Register.service.js" />
     <Content Include="AngularJS\Services\Profile.service.js" />
