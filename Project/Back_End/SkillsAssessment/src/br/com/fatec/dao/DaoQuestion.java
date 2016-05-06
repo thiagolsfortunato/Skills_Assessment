@@ -1,5 +1,6 @@
 package br.com.fatec.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,30 +18,33 @@ import br.com.fatec.entity.Question;
 public class DaoQuestion {
 	
 	@SuppressWarnings("finally")
-	public static boolean insertQuestion(Question question) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
-		PreparedStatement insert = null;
+	public static boolean insertQuestion(Connection conn, Question question) throws SQLException{
+		//ConnectionMySql conn = new ConnectionMySql();
+		String query = "INSERT INTO question (qst_introduction, qst_question, qst_situation) VALUES (?, ?, ?);";
 		boolean returnQuestion = false;
+		
 		try {
-			conn.conect();
-			String query = "INSERT INTO question (qst_introduction,qst_question,qst_situation) VALUES (?, ?, ?);";
-			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS));
-			insert = conn.getStatement();
-			conn.getStatement().setString(1, question.getIntroduction());
-			conn.getStatement().setString(2, question.getQuestion());
-			conn.getStatement().setInt(3, 1);
+			PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+//			conn.conect();
+//			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS));
+//			insert = conn.getStatement();
+			stmt.setString(1, question.getIntroduction());
+			stmt.setString(2, question.getQuestion());
+			stmt.setInt(3, 1);
 			//conn.getStatement().setInt(3, question.getSituation());
-			if (conn.executeSql()) {
-				ResultSet generatedKeys = insert.getGeneratedKeys();
-				if(generatedKeys.next()){
+			if ( stmt.executeUpdate() != 0 ) {
+				ResultSet generatedKeys = stmt.getGeneratedKeys();
+				if( generatedKeys.next() ){
 					Long codeQuestion = generatedKeys.getLong(1);
 					for (int i = 0; i < question.getAnswers().size(); i++) {
-						returnQuestion = insertAnswer(codeQuestion, question.getAnswers().get(i));
+						returnQuestion = insertAnswer(conn, codeQuestion, question.getAnswers().get(i));
 					}
 				}
+				generatedKeys.close();
 			}
+			stmt.close();
 		}finally {
-			conn.close();
+			//conn.close();
 			return returnQuestion;
 		}
 	}
@@ -188,28 +192,31 @@ public class DaoQuestion {
 	
 	//AUXILIA INSERT QUESTION
 	@SuppressWarnings("finally")
-	public static boolean insertAnswer(Long codeQuestion, Answer answer) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
-		PreparedStatement insert = null;
+	public static boolean insertAnswer(Connection conn, Long codeQuestion, Answer answer) throws SQLException{
+		//ConnectionMySql conn = new ConnectionMySql();
+		String query = "INSERT INTO alternatives (alt_description, qst_code) values (?, ?);";
+		
 		boolean returnAnswer = false;
 		try {
-			conn.conect();
-			String query = "insert into alternatives (alt_description,qst_code) values (?,?);";
-			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS) );
-			insert = conn.getStatement();
-			conn.getStatement().setString(1, answer.getDescription());
-			conn.getStatement().setLong(2, codeQuestion );
-			if (conn.executeSql()) {
-				ResultSet generatedKeys = insert.getGeneratedKeys();
-				if(generatedKeys.next()){
+			PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			//conn.conect();
+			//conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS) );
+			//insert = conn.getStatement();
+			stmt.setString(1, answer.getDescription());
+			stmt.setLong(2, codeQuestion );
+			if ( stmt.executeUpdate() != 0 ) {
+				ResultSet generatedKeys = stmt.getGeneratedKeys();
+				if( generatedKeys.next() ){
 					Long codeAnswer = generatedKeys.getLong(1);
 					for (int i = 0; i < answer.getCompetencies().size(); i++) {
-						returnAnswer = insertCompetenceInAnswer(codeAnswer, answer.getCompetencies().get(i));
+						returnAnswer = insertCompetenceInAnswer(conn, codeAnswer, answer.getCompetencies().get(i));
 					}
 				}
+				generatedKeys.close();
 			}
+			stmt.close();
 		}finally {
-			conn.close();
+			//conn.close();
 			return returnAnswer;
 		}
 	}
@@ -254,21 +261,22 @@ public class DaoQuestion {
 	
 	//AUXILIA INSERT ALTERNATIVE QUE AUXILIA INSERT QUESTION
 	@SuppressWarnings("finally")
-	public static boolean insertCompetenceInAnswer(Long altCode, Competence competence) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
+	public static boolean insertCompetenceInAnswer(Connection conn, Long altCode, Competence competence) throws SQLException{
+		//ConnectionMySql conn = new ConnectionMySql();
+		String query = "INSERT INTO alt_com (alt_code, com_code, rsc_weight) values (?, ?, ?);";
 		boolean returnCompetence = false;
 		try {
-			conn.conect();
-			String query = "insert into alt_com (alt_code,com_code,rsc_weight) values (?,?,?);";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, altCode);
-			conn.getStatement().setLong(2, competence.getCode());
-			conn.getStatement().setLong(3, competence.getWeight());
-			if (conn.executeSql()) {
+			//conn.conect();
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, altCode);
+			stmt.setLong(2, competence.getCode());
+			stmt.setLong(3, competence.getWeight());
+			if ( stmt.executeUpdate() != 0 ) {
 				returnCompetence = true;
 			}
+			stmt.close();
 		}finally {
-			conn.close();
+			//conn.close();
 			return returnCompetence;
 		}
 	}

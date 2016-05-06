@@ -1,11 +1,16 @@
 package br.com.fatec.model;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoQuestion;
 import br.com.fatec.entity.Question;
 
 public class ModelQuestion {
+	
+	//conexão com o banco de dados
+	private static Connection conn = null;
 	
 	@SuppressWarnings("finally")
 	public Question searchQuestionByCode(Long code) {
@@ -33,13 +38,39 @@ public class ModelQuestion {
 		}
 	}
 	
+	@SuppressWarnings("finally")
 	public boolean insertQuestion(Question question) {
+		
+		conn = new ConnectionFactory().getConnection();
+		boolean transaction = false;
 		try {
-			return DaoQuestion.insertQuestion(question);
+			conn.setAutoCommit(false);
+			transaction = DaoQuestion.insertQuestion(conn, question);
+			
+			if( transaction ) conn.commit(); //se deu tudo certo comita!
+			else conn.rollback();
+			
 		} catch (SQLException e) {
+			if (conn != null) {
+	            try {
+	                System.err.print("Transaction is being rolled back");
+	                conn.rollback();
+	            } catch(SQLException excep) {
+	            	excep.printStackTrace();//exception do rollback
+	            }
+	        }
 			e.printStackTrace();
 			System.out.println("Will not it was possible to insert the Institution");
-			return false;
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return transaction;
 		}
 	}
 	
