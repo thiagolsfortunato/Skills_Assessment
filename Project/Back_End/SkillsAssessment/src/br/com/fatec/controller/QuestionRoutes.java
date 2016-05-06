@@ -62,13 +62,11 @@ public class QuestionRoutes{
 		}, JsonUtil.json());
 		
 		get("/question/find/all", (req, res) -> {
+		
 			List<Question> questions = model.searchAllQuestion();
-			if(questions.size() > 0){
-				return questions;
-			}else{
-				res.status(404);
-				return "no Questions registered";
-			}
+			
+			return questions;
+			
 		}, JsonUtil.json());
 	
 		put("/question", (req, res) -> {

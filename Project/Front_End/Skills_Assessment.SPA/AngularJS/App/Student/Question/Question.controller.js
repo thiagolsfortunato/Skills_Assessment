@@ -9,6 +9,7 @@
             $scope.questionAmount = $routeParams.param1;
 
 
+
             init();
 
             function init() {
