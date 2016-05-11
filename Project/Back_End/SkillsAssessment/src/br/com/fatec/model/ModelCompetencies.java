@@ -22,43 +22,79 @@ public class ModelCompetencies {
 
 package br.com.fatec.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoCompetencies;
 import br.com.fatec.entity.Competence;
 
 public class ModelCompetencies {
 
+private Connection conn;
+	
 	// Add competence
+	@SuppressWarnings("finally")
 	public boolean insertCompetence(Competence competence) {
+		boolean status = false;
 		try {
-			return DaoCompetencies.insertCompetence(competence);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			status = DaoCompetencies.insertCompetence(conn, competence);
+			if (status ){
+				conn.commit();
+			}else{
+				conn.rollback();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to update a competence");
-			return false;
+			conn.rollback();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return status;
 		}
 	}
 
 	// Delete Competence
+	@SuppressWarnings("finally")
 	public boolean deleteCompetence(Long code) {
+		boolean status = false;
 		try {
-			return DaoCompetencies.deleteCompetence(code);
+			conn = new ConnectionFactory().getConnection();
+			status = DaoCompetencies.deleteCompetence(conn, code);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to update a competence");
-			return false;
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return status;
 		}
 	}
 
 	// Update Competence
+	@SuppressWarnings("finally")
 	public boolean updateCompetence(Competence competence) {
+		boolean status = false;
 		try{
-			return DaoCompetencies.updateCompetence(competence);
+			conn = new ConnectionFactory().getConnection();
+			status = DaoCompetencies.updateCompetence(conn, competence);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to update a competence");
-			return false;
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return status;
 		}
 	}
 
@@ -67,11 +103,16 @@ public class ModelCompetencies {
 	public Competence searchCompetenceByCode(Long code) {
 		Competence competence = null;
 		try{
-			competence = DaoCompetencies.searchCompetenceByCode(code);
+			conn = new ConnectionFactory().getConnection();
+			competence = DaoCompetencies.searchCompetenceByCode(conn, code);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a competence");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return competence;
 		}
 	}
@@ -81,11 +122,16 @@ public class ModelCompetencies {
 	public List<Competence> searchAllCompetence() {
 		List<Competence> competencies = null;
 		try{
-			competencies = DaoCompetencies.searchAll();
+			conn = new ConnectionFactory().getConnection();
+			competencies = DaoCompetencies.searchAll(conn);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a competence");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return competencies;
 		}
 	}
