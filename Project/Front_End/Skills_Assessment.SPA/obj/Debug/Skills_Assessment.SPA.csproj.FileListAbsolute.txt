@@ -63,3 +63,9 @@ C:\Users\Marcelo\Documents\GitHub\padroes\Skills_Assessment\Project\Front_End\Sk
 C:\Users\Marcelo\Documents\GitHub\padroes\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
 C:\Users\Marcelo\Documents\GitHub\padroes\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
 C:\Users\Marcelo\Documents\GitHub\padroes\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb
+E:\Desenvolvimento\Repository\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll.config
+E:\Desenvolvimento\Repository\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.dll
+E:\Desenvolvimento\Repository\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\bin\Skills_Assessment.SPA.pdb
+E:\Desenvolvimento\Repository\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.csprojResolveAssemblyReference.cache
+E:\Desenvolvimento\Repository\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.dll
+E:\Desenvolvimento\Repository\Skills_Assessment\Project\Front_End\Skills_Assessment.SPA\obj\Debug\Skills_Assessment.SPA.pdb

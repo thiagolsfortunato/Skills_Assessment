@@ -12,7 +12,7 @@
             Nome: 
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+            <input data-ng-model="user.name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
         </div>
     </div>
 
@@ -25,10 +25,10 @@
 
         <div class="col-md-6 col-sm-6 col-xs-12">
             <label class="radio-inline">
-                <input ng-model="aquisicao.Plano" type="radio" name="optradio" value="Pro">Psicólogo
+                <input data-ng-model="user.type" type="radio" name="optradio" value="Pro">Psicólogo
             </label>
             <label class="radio-inline">
-                <input ng-model="aquisicao.Plano" type="radio" name="optradio" value="Business">Administrador
+                <input data-ng-model="user.type" type="radio" name="optradio" value="Business">Administrador
             </label>
         </div>
 
@@ -38,18 +38,11 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
             Instituição: 
         </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="dropdown">
-                <button style="width:150px" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Selecione ...
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="">Fatec de JSC</a></li>
-                    <li><a href="">Fatec de Pinda</a></li>
-                    <li><a href="">Fatec from hell</a></li>
-                </ul>
-            </div>
+        <!--teste-->
+        <div class="col-xs-6">
+            <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="user.istitution" data-ng-options="fatec.company for fatec in fatecs">
+                <option value="">Fatec *</option>
+            </select>
         </div>
     </div>
 
@@ -60,21 +53,21 @@
             Email: 
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
+            <input type="text" data-ng-model="user.email" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
         </div>
     </div>
 
     <div class="item form-group">
         <label for="password" class="control-label col-md-3">Senha: </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+            <input type="password"  data-ng-model="user.password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
         </div>
     </div>
 
     <div class="item form-group">
         <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar senha: </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+            <input id="password2" type="password"  data-ng-model="user.passwordConfirm"name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
         </div>
     </div>
 
