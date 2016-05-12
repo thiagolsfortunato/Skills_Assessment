@@ -28,18 +28,18 @@
                             <div class="x_content">
 
 
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{porcentagem}}%">
+                                        {{porcentagem}}%
+                                    </div>
+                                </div>
+
+
                                 <div id="wizard" class="form_wizard wizard_horizontal">
 
-                                    <ul class="wizard_steps">
 
-                                        <li ng-repeat="a in range() track by $index">
-
-                                            <a href="#step-1">
-                                                <span class="step_no">{{$index + 1}}</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
 
                                     <div id="step-1">
 
@@ -47,10 +47,13 @@
                                         <form class="form-horizontal form-label-left" style="height:500px">
 
                                             <center>
+
+                                                <iframe style="" width="550" height="420" src="{{trustSrc(media)}}" frameborder="0" allowfullscreen></iframe>
+
                                                 <!--<object width="420" height="315"
                                                         data="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQFRRNOh_BQAy4TnOI_My8RLUwwQUTWx_oty5TstXUZLkt-Fq-b7ff_kmUO"></object>-->
-                                                <object width="420" height="315"
-                                                        data="{{question.introduction}}"></object>
+                                                <!--<img width="420" height="315"
+                                                        data-ng-src="{{trustSrc(media)}}"/>-->
                                             </center>
 
                                             <div class="form-group" style="margin-left:19%">
@@ -67,36 +70,35 @@
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
 
-                                                    <div  ng-repeat="a in question.answers">diego_germano</div>
+                                                    <div  ng-repeat="a in question.answers">
 
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="1">
-                                                            <p id="answer1">Flat</p>
-                                                        </label>
+                                                        <div class="radio">
+                                                            <label>
+
+                                                                <input ng-click="changeAnwser(a.code)" ng-model="a.selected" type="radio" name="optionsRadios" id="optionsRadios1" ng-value="a.code">
+                                                                
+                                                                <p>{{a.description}}</p>
+
+                                                            </label>
+                                                        </div>
+
                                                     </div>
 
-                                                    <!--<div class="radio">
-                                                        <label>
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
-                                                            <p id="answer2">Round</p>
-                                                        </label>
+
+                                                    <!--Desculpa, foi necessario!-->
+                                                    <br />
+                                                    <br />
+                                                    <br />
+
+
+                                                    <div class="ln_solid"></div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-md-offset-3">
+                                                            <button id="send" type="submit" class="btn btn-success" ng-click="saveAnswer()">Próximo</button>
+                                                        </div>
                                                     </div>
 
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="3">
-                                                            <p id="answer3">All the answers it's right</p>
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="4">
-                                                            <p id="answer4">I don't know</p>
-                                                        </label>
-                                                    </div>-->
-
+                                                 
                                                 </div>
                                             </div>
                                         </form>
@@ -119,14 +121,3 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Smart Wizard
-        $('#wizard').smartWizard();
-        function onFinishCallback() {
-            $('#wizard').smartWizard('showMessage', 'Finish Clicked');
-            //alert('Finish Clicked');
-        }
-    });
-</script>

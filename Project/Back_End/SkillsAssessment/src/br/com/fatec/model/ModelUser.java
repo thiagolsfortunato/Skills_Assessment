@@ -20,8 +20,7 @@ public class ModelUser {
 		User user = null;
 		try {
 			user = DaoUser.getLogin(login, password);
-			user.setUnansweredQuestions(modelQuiz.getValidQuestions(user.getUserCode()));
-			user.setQuestionAmount(modelQuiz.getNumberOfQuestions());
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("error, model user");

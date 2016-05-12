@@ -6,7 +6,8 @@
         questionAdd: _questionAdd,
         questionGetAll: _questionGetAll,
         questionUpdate: _questionUpdate,
-        questionDelete: _questionDelete
+        questionDelete: _questionDelete,
+        saveAnswer: _saveAnswer
     };
 
 
@@ -25,14 +26,14 @@
         return deferred.promise;
     }
 
-    function _questionList(token) {
+    function _questionList() {
 
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('getQuizQuestion'),
-            params: { "token": token }
+            url: config.generateApiUrl('getQuizQuestion')
+            //params: { "token": token }
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
@@ -56,6 +57,23 @@
 
         return deferred.promise;
     }
+
+    function _saveAnswer(quiz) {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('quiz'),
+            data: JSON.stringify(quiz)
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(data);
+           });
+
+        return deferred.promise;
+    }
+
 
     function _questionAdd(dataObj) {
 
