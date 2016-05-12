@@ -1,12 +1,23 @@
 ﻿FatecControllers.controller('EmployeeAddController',
-    ['$scope', '$routeParams', 'EmployeeService',
-        function ($scope, $routeParams, employeeService) {
+    ['$scope', '$routeParams', 'EmployeeService','RegisterService',
+     function ($scope, $routeParams, employeeService, registerService) {
 
-            init();
+         
+            $scope.user = {};
+            $scope.fatecs;
 
-            function init() {
-            
+            function init () {
+                $scope.fatecLists();
             }
 
+
+            $scope.fatecLists  = function () {
+                registerService.fatecList().then(function (data) {
+                    $scope.fatecs = data;
+                    console.log($scope.fatecs);
+
+                });
+            }
             
+            init();
         }]);
