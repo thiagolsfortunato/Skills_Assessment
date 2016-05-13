@@ -23,7 +23,7 @@
 
                 authenticationService.Login(loginUser).then(function (data) {
 
-                    if (data["type"] == "Student")
+                    if (data["type"] == "student")
                         document.location = "../#/question/" + data["unansweredQuestions"];
 
                     //document.location = "Administrator.html";
