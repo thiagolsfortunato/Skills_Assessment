@@ -13,41 +13,36 @@ import br.com.fatec.entity.User;
 public class ModelEnrolls {
 	
 	//conexão com o banco de dados
-	private static Connection conn = null;
+	private Connection conn = null;
 	
 	@SuppressWarnings("finally")
 	public boolean insertEnrolls(Enrolls enrolls, User user){
 		
-		conn = new ConnectionFactory().getConnection();
+		boolean statusUser = false;
+		boolean statusEnrolls = false;
 		boolean transaction = false;
+		
 		try{
+			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			
-			Long codeUser = DaoUser.insertUser(conn, user);
+			statusUser = DaoUser.insertUser(conn, user);
 			//resultado da inserção do usuario + estudante
-			transaction = DaoEnrolls.insertEnrolls(conn, enrolls, codeUser);
+			statusEnrolls = DaoEnrolls.insertEnrolls(conn, enrolls, user.getUserCode());
 			
-			if(transaction && (codeUser != null) ) conn.commit(); //se deu tudo certo comita!
+			if(statusEnrolls && statusUser ) {
+				conn.commit(); //se deu tudo certo comita!
+				transaction = true;
+			}
 			else conn.rollback();
 		}catch(SQLException e){
-			if (conn != null) {
-	            try {
-	                System.err.print("Transaction is being rolled back");
-	                conn.rollback();
-	            } catch(SQLException excep) {
-	            	excep.printStackTrace();//exception do rollback
-	            }
-	        }
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to insert an enrolls");
-			
+			conn.rollback();
 		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 			return transaction;
 		}
@@ -55,23 +50,56 @@ public class ModelEnrolls {
 
 	@SuppressWarnings("finally")
 	public boolean updateEnrolls(Enrolls enrolls){
+		boolean transaction = false;
+		
 		try{
-			return DaoEnrolls.updateEnrolls(enrolls);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			transaction =  DaoEnrolls.updateEnrolls(conn, enrolls);
+			
+			if (transaction) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to update an enrolls");
-			return false;
+			conn.rollback();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return transaction;
 		}
 	}
 
 	@SuppressWarnings("finally")
 	public boolean deleteEnrolls(Long code){
+		
+		boolean transaction = false;
+		
 		try{
-			return DaoEnrolls.deleteEnrolls(code);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			transaction = DaoEnrolls.deleteEnrolls(conn, code);
+			
+			if (transaction) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to delete an enrolls");
-			return false;
+			conn.rollback();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return transaction;
 		}
 	}
 
@@ -79,11 +107,16 @@ public class ModelEnrolls {
 	public Enrolls searchEnrollsByCode(Long code) {
 		Enrolls enrolls = null;
 		try{
-			enrolls = DaoEnrolls.searchEnrollsById(code);
+			conn = new ConnectionFactory().getConnection();
+			enrolls = DaoEnrolls.searchEnrollsById(conn, code);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a enrolls");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return enrolls;
 		}
 	}
@@ -92,11 +125,16 @@ public class ModelEnrolls {
 	public List<Enrolls> searchAllEnrolls(){
 		List<Enrolls> enrolls = null;
 		try{
-			enrolls = DaoEnrolls.searchAllEnrolls();
+			conn = new ConnectionFactory().getConnection();
+			enrolls = DaoEnrolls.searchAllEnrolls(conn);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a enrolls");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return enrolls;
 		}
 	}

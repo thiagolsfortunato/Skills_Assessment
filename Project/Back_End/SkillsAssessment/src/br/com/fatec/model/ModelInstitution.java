@@ -1,22 +1,31 @@
 package br.com.fatec.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoInstitution;
 import br.com.fatec.entity.Institution;
 
 public class ModelInstitution {
 	
+	private Connection conn;
+	
 	@SuppressWarnings("finally")
 	public Institution searchInstitutionByCode(Long code){
 		Institution institution = null;
 		try{
-			institution = DaoInstitution.searchInstitutionByCode(code);
+			conn = new ConnectionFactory().getConnection();
+			institution = DaoInstitution.searchInstitutionByCode(conn, code);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a institution");
 		}finally{
+			try{
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return institution;
 		}
 	}
@@ -25,10 +34,10 @@ public class ModelInstitution {
 	public List<Institution> searchInstitutionByName(String name) {
 		List<Institution> institutions = null;
 		try{
-			institutions = DaoInstitution.searchInstitutionByName(name);
+			conn = new ConnectionFactory().getConnection();
+			institutions = DaoInstitution.searchInstitutionByName(conn, name);
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a institutions");
 		}finally{
 			return institutions;
 		}
@@ -38,10 +47,10 @@ public class ModelInstitution {
 	public List<Institution> searchAllInstitution() {
 		List<Institution> institutions = null;
 		try{
-			institutions = DaoInstitution.searchAllInstitution();
+			conn = new ConnectionFactory().getConnection();
+			institutions = DaoInstitution.searchAllInstitution(conn);
 		} catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("an error occurred while trying to search a institutions");
 		}finally{
 			return institutions;
 		}
@@ -49,33 +58,73 @@ public class ModelInstitution {
 	
 	@SuppressWarnings("finally")
 	public boolean insertInstitution (Institution fatec) {
+		boolean status = false;
 		try{
-			return DaoInstitution.insertInstitution(fatec);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			status = DaoInstitution.insertInstitution(conn, fatec);
+			if (status) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
 		} catch (SQLException e) {
-			System.out.println("Will not it was possible to insert the Institution");
-			return false;
+			conn.rollback();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+			return status;
 		}
 	}
 	
 	@SuppressWarnings("finally")
 	public boolean updateInstitution (Institution fatec) throws SQLException{
+		boolean status = false;
 		try{
-			return DaoInstitution.updateInstitution(fatec); 
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			status = DaoInstitution.updateInstitution(conn, fatec);
+			if (status) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
 		}catch (SQLException e) {
-			System.out.println("Will not it was possible to update the Institution");
-			return false;
+			conn.rollback();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return status;
 		}
 	}
 		
 	@SuppressWarnings("finally")
 	public boolean deleteInstitution (Long code) throws SQLException {
-		boolean delete = false;
+		boolean status = false;
 		try{
-			delete = DaoInstitution.deleteInstitution(code);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			status = DaoInstitution.deleteInstitution(conn, code);
+			if (status) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
 		}catch (SQLException e) {
-			System.out.println("Will not it was possible to delete the Institution");
+			conn.rollback();
 		}finally{
-			return delete;
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return status;
 		}
 	}
 

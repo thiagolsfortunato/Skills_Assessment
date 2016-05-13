@@ -1,127 +1,126 @@
 package br.com.fatec.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.fatec.connection.ConnectionMySql;
+//import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Institution;
 
 public class DaoInstitution {
 	
 	@SuppressWarnings("finally")
-	public static boolean insertInstitution(Institution institution) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		boolean sucess = false;
+	public static boolean insertInstitution(Connection conn, Institution institution) throws SQLException {
+		
+		String insert = "INSERT INTO institution (ist_company ,ist_cnpj, ist_city) VALUES (?,?,?);";
+		
+		boolean transaction = false;
 		try {
-			String insert = "INSERT INTO institution (ist_company ,ist_cnpj, ist_city) VALUES (?,?,?);";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement( insert ) );
-			conn.getStatement().setString(1, institution.getCompany());
-			conn.getStatement().setString(2, institution.getCnpj());
-			conn.getStatement().setString(3, institution.getCity());
+			PreparedStatement stmt = conn.prepareStatement(insert);
+			stmt.setString(1, institution.getCompany());
+			stmt.setString(2, institution.getCnpj());
+			stmt.setString(3, institution.getCity());
 			
-			if(conn.executeSql()){
-				System.out.println("the Institution has been successfully inserted!");
-				sucess = true;
+			if(stmt.executeUpdate() != 0){
+				transaction = true;
 			}
+			stmt.close();
 		} finally {
-			conn.close();
-			return sucess;
+			return transaction;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteInstitution(Long code) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		boolean delete = false;
+	public static boolean deleteInstitution(Connection conn, Long code) throws SQLException {
+		
+		String sql = "DELETE FROM institution WHERE ist_code = ?;";
+		
+		boolean transaction = false;
 		try {
-			conn.conect();
-			String sql = "DELETE FROM institution WHERE ist_code = ?;";
-			conn.setStatement(conn.getConnection().prepareStatement(sql));
-			conn.getStatement().setLong(1, code);
-			if (conn.executeSql()) {
-				delete = true;
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, code);
+		
+			if (stmt.executeUpdate() != 0) {
+				transaction = true;
 			}
+			stmt.close();
 		} finally {
-			conn.close();
-			return delete;
+			return transaction;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateInstitution(Institution institution) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
-		boolean sucess = false;
+	public static boolean updateInstitution(Connection conn, Institution institution) throws SQLException {
+		String update = "UPDATE institution SET ist_company = ?, ist_cnpj = ?, ist_city = ? WHERE ist_code = ?;";
+
+		boolean transaction = false;
 		try {
-			String update = "UPDATE institution SET ist_company = ?, ist_cnpj = ?, ist_city = ? WHERE ist_code = ?;";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(update));
-			conn.getStatement().setString(1, institution.getCompany());
-			conn.getStatement().setString(2, institution.getCnpj());
-			conn.getStatement().setString(3, institution.getCity());
-			conn.getStatement().setLong(4, institution.getCodeInstitution());
-			
-			if(conn.executeSql()){
-				System.out.println("Institution has been successfully updated!");
-					sucess = true;	
+			PreparedStatement stmt = conn.prepareStatement(update);
+			stmt.setString(1, institution.getCompany());
+			stmt.setString(2, institution.getCnpj());
+			stmt.setString(3, institution.getCity());
+		
+			if(stmt.executeUpdate() != 0){
+				transaction = true;	
 			}
+			stmt.close();
 		}finally {
-			conn.close();
-			return sucess;
+			return transaction;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static Institution searchInstitutionByCode(Long code) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	public static Institution searchInstitutionByCode(Connection conn, Long code) throws SQLException {
 		Institution institution = new Institution();
+		String query = "SELECT * FROM institution WHERE ist_code = ?;";
 
 		try {
-			String query = "SELECT * FROM institution WHERE ist_code = ?;";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, code);
-			if (conn.executeQuery()){
-				institution = buildInstitution(conn.getResultset());
-			}
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, code);
+			ResultSet rs = stmt.executeQuery();
+			institution = buildInstitution(rs);
+			rs.close();
+			stmt.close();
 		} finally {
-			conn.close();
 			return institution;
 		}
 	}
 	//usar clausula %like% do banco, para trazer por parte do nome
 	@SuppressWarnings("finally")
-	public static List<Institution> searchInstitutionByName(String strName) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	public static List<Institution> searchInstitutionByName(Connection conn, String strName) throws SQLException {
 		List<Institution> institutions = new LinkedList<Institution>();
-
+		String query = "SELECT * FROM institution WHERE ist_company LIKE '%"+ strName +"%';";
+			
 		try {
-			String query = "SELECT * FROM institution WHERE ist_company LIKE '%"+ strName +"%';";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			//conn.getStatement().setString(1, strName);
-			if (conn.executeQuery()){
-				institutions = buildInstitutions(conn);
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, strName);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()){
+				institutions.add(buildInstitution(rs));
 			}
+			rs.close();
+			stmt.close();
 		} finally {
-			conn.close();
 			return institutions;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<Institution> searchAllInstitution() throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	public static List<Institution> searchAllInstitution(Connection conn) throws SQLException {
 		List<Institution> institutions = new LinkedList<Institution>();
+		String query = "SELECT * FROM institution;";
 
 		try {
-			String query = "SELECT * FROM institution;";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			if (conn.executeQuery()){
-				institutions = buildInstitutions(conn);
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()){
+				institutions.add(buildInstitution(rs));
 			}
 		} finally {
 			conn.close();
@@ -129,13 +128,13 @@ public class DaoInstitution {
 		}
 	}
 	
-	private static List<Institution> buildInstitutions(ConnectionMySql conn) throws SQLException{
+	/*private static List<Institution> buildInstitutions(ConnectionMySql conn) throws SQLException{
 		List<Institution> institutions = new LinkedList<Institution>();
 		do {
 			institutions.add(buildInstitution(conn.getResultset()));
 		} while (conn.nextRegister());
 		return institutions;
-	}
+	}*/
 	
 	private static Institution buildInstitution (ResultSet rs) throws SQLException{
 		Institution institution = new Institution();
