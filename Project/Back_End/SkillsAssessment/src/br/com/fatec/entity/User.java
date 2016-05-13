@@ -18,8 +18,7 @@ public class User {
 	private Integer verification;
 	private Integer instCode;
 	private String token;
-	private Integer unansweredQuestions;
-	private Integer questionAmount;
+	
 	
 	public Long getUserCode() {
 		return userCode;
@@ -81,18 +80,7 @@ public class User {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public Integer getUnansweredQuestions() {
-		return unansweredQuestions;
-	}
-	public void setUnansweredQuestions(Integer unansweredQuestions) {
-		this.unansweredQuestions = unansweredQuestions;
-	}
-	public Integer getQuestionAmount() {
-		return questionAmount;
-	}
-	public void setQuestionAmount(Integer questionAmount) {
-		this.questionAmount = questionAmount;
-	}
+	
 	public String getCourseStudent() {
 		return courseStudent;
 	}

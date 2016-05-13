@@ -66,9 +66,17 @@ private Connection conn;
 		boolean status = false;
 		try {
 			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
 			status = DaoCompetencies.deleteCompetence(conn, code);
+			if (status){
+				conn.commit();
+			}
+			else{
+				conn.rollback();				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			conn.rollback();
 		} finally {
 			try {
 				conn.close();
@@ -85,8 +93,16 @@ private Connection conn;
 		boolean status = false;
 		try{
 			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
 			status = DaoCompetencies.updateCompetence(conn, competence);
+			if (status){
+				conn.commit();
+			}
+			else{
+				conn.rollback();				
+			}
 		}catch(SQLException e){
+			conn.rollback();
 			e.printStackTrace();
 		} finally {
 			try {

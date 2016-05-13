@@ -1,152 +1,151 @@
 package br.com.fatec.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.Course;
 
 public class DaoCourse {
 	// FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static boolean insertCourse(Course course) throws SQLException {
-		ConnectionMySql connection = new ConnectionMySql();
+	public static boolean insertCourse(Connection conn, Course course) throws SQLException {
 		String sql = "INSERT INTO COURSE (crs_name, crs_situation, crs_registration_date) VALUES (?,?,date_format(now(), '%Y-%m-%d'));";
 		boolean insert = false;
 		try {
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setString(1, course.getName());
-			connection.getStatement().setInt(2, course.getSituation());
-			if (connection.executeSql()) {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, course.getName());
+			stmt.setInt(2, course.getSituation());
+			if (stmt.executeUpdate() != 0) {
 				insert = true;
 			}
+			stmt.close();
 		} finally {
-			connection.close();
 			return insert;
 		}
 	}
 
 	// FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static boolean deleteCourse(Long code) throws SQLException {
-		ConnectionMySql connection1 = new ConnectionMySql();
-		ConnectionMySql connection2 = new ConnectionMySql();
+	public static boolean deleteCourse(Connection conn, Long code) throws SQLException {
 		boolean delete = false;
+		boolean deleteIstCrs = false;
+		boolean deleteCrs = false;
 		try {
 			String sql1 = "DELETE FROM IST_CRS WHERE CRS_COD = ?";
-			connection1.conect();
-			connection1.setStatement(connection1.getConnection().prepareStatement(sql1));
-			connection1.getStatement().setLong(1, code);
-			if (connection1.executeSql()) {
-				delete = true;
+			PreparedStatement stmt1 = conn.prepareStatement(sql1);
+			stmt1.setLong(1, code);
+			if (stmt1.executeUpdate() != 0) {
+				deleteIstCrs = true;
 			}
-
+			stmt1.close();
+			
 			String sql2 = "DELETE FROM COURSE WHERE CRS_CODE = ?";
-			connection2.conect();
-			connection2.setStatement(connection1.getConnection().prepareStatement(sql2));
-			connection2.getStatement().setLong(1, code);
-			if (connection2.executeSql()) {
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			stmt2.setLong(1, code);
+			if (stmt2.executeUpdate() == 0) {
+				deleteCrs = true;
+			} else {
+				deleteCrs = false;
+			}
+			stmt2.close();
+			if (deleteIstCrs && deleteCrs){
 				delete = true;
 			}
 		} finally {
-			connection1.close();
-			connection2.close();
 			return delete;
 		}
 	}
 
 	// FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static boolean updateCourse(Course course) throws SQLException {
-		ConnectionMySql connection = new ConnectionMySql();
+	public static boolean updateCourse(Connection conn, Course course) throws SQLException {
 		String sql = "UPDATE COURSE SET CRS_NAME = ?, CRS_SITUATION = ?, CRS_REGISTRATION_DATE = date_format(now(), '%Y-%m-%d') WHERE CRS_CODE = ?;";
 		boolean update = false;
 		try {
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(sql));
-			connection.getStatement().setString(1, course.getName());
-			connection.getStatement().setInt(2, course.getSituation());
-			connection.getStatement().setLong(3, course.getCodeCourse());
-			if (connection.executeSql()) {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, course.getName());
+			stmt.setInt(2, course.getSituation());
+			stmt.setLong(3, course.getCodeCourse());
+			if (stmt.executeUpdate() != 0) {
 				update = true;
 			}
+			stmt.close();
 		} finally {
-			connection.close();
 			return update;
 		}
 	}
 
 	// FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static List<Course> searchAllCourse() throws SQLException {
+	public static List<Course> searchAllCourse(Connection conn) throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
-		ConnectionMySql connection = new ConnectionMySql();
 		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') as CRS_REGISTRATION_DATE from course;";
 		try {
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(query));
-			if (connection.executeQuery()) {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
 				do {
 					Course course = new Course();
-					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
-					course.setName(connection.returnField("CRS_NAME"));
-					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
+					course.setCodeCourse(rs.getLong("CRS_CODE"));
+					course.setName(rs.getString("CRS_NAME"));
+					course.setSituation(rs.getShort("CRS_SITUATION"));
+					course.setRegistration_date(rs.getString("CRS_REGISTRATION_DATE"));
 					listCourse.add(course);
-				} while (connection.nextRegister());
-			} else {
-				return null;
+				} while (rs.next());
 			}
+			rs.close();
+			stmt.close();
 		} finally {
-			connection.close();
 			return listCourse;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public static Course searchCourseById(Long code) throws SQLException {
-		ConnectionMySql connection = new ConnectionMySql();
+	public static Course searchCourseById(Connection conn, Long code) throws SQLException {
 		String query = "select CRS_CODE, CRS_NAME, CRS_SITUATION,  DATE_FORMAT(CRS_REGISTRATION_DATE, '%d-%m-%Y') as CRS_REGISTRATION_DATE from course where crs_code = ?;";
 		Course course = new Course();
 		try {
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(query));
-			connection.getStatement().setLong(1, code);
-			if (connection.executeQuery()) {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, code);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
 				do {
-					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
-					course.setName(connection.returnField("CRS_NAME"));
-					course.setSituation(Integer.parseInt(connection.returnField("CRS_SITUATION")));
-					course.setRegistration_date(connection.returnField("CRS_REGISTRATION_DATE"));
-				} while (connection.nextRegister());
+					course.setCodeCourse(rs.getLong("CRS_CODE"));
+					course.setName(rs.getString("CRS_NAME"));
+					course.setSituation(rs.getShort("CRS_SITUATION"));
+					course.setRegistration_date(rs.getString("CRS_REGISTRATION_DATE"));
+				} while (rs.next());
 			}
+			rs.close();
+			stmt.close();
 		} finally {
-			connection.close();
 			return course;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public static List<Course> searchCoursesByInstitionId(Long code) throws SQLException {
+	public static List<Course> searchCoursesByInstitionId(Connection conn, Long code) throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
-		ConnectionMySql connection = new ConnectionMySql();
 		try {
 			String query = "SELECT COURSE.CRS_CODE, CRS_NAME FROM COURSE JOIN IST_CRS ON (COURSE.CRS_CODE = IST_CRS.CRS_CODE) WHERE IST_CRS.ITC_CODE = ?";
-			connection.conect();
-			connection.setStatement(connection.getConnection().prepareStatement(query));
-			connection.getStatement().setLong(1, code);
-			if(connection.executeQuery()){
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, code);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
 				do {
 					Course course = new Course();
-					course.setCodeCourse(Long.parseLong(connection.returnField("CRS_CODE")));
-					course.setName(connection.returnField("CRS_NAME"));
+					course.setCodeCourse(rs.getLong("CRS_CODE"));
+					course.setName(rs.getString("CRS_NAME"));
 					listCourse.add(course);
-				} while (connection.nextRegister());
+				} while (rs.next());
 			}
+			rs.close();
+			stmt.close();
 		} finally {
-			connection.close();
 			return listCourse;
 		}
 	}

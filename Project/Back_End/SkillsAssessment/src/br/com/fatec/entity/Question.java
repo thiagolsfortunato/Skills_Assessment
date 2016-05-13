@@ -8,6 +8,8 @@ public class Question {
 	private String introduction;
 	private Integer situation;
 	private List<Answer> answers;
+	private Integer unansweredQuestions;
+	private Integer questionAmount;
 	
 	public Long getCode() {
 		return code;
@@ -47,5 +49,21 @@ public class Question {
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
+	}
+
+	public Integer getUnansweredQuestions() {
+		return unansweredQuestions;
+	}
+
+	public void setUnansweredQuestions(Integer unansweredQuestions) {
+		this.unansweredQuestions = unansweredQuestions;
+	}
+
+	public Integer getQuestionAmount() {
+		return questionAmount;
+	}
+
+	public void setQuestionAmount(Integer questionAmount) {
+		this.questionAmount = questionAmount;
 	}
 }
