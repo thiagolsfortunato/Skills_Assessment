@@ -55,7 +55,6 @@ public class DaoCompetencies {
 			String query = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') as COM_REGISTRATION_DATE from competence where com_code = ?";
 			try {
 				PreparedStatement stmt = conn.prepareStatement(query);
-				
 				stmt.setLong(1, code);
 				ResultSet rs = stmt.executeQuery();
 				if ( rs.next() ) {

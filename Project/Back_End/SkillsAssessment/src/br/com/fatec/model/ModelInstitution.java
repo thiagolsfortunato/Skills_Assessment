@@ -39,6 +39,11 @@ public class ModelInstitution {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return institutions;
 		}
 	}
@@ -52,6 +57,11 @@ public class ModelInstitution {
 		} catch(SQLException e){
 			e.printStackTrace();
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return institutions;
 		}
 	}
@@ -69,6 +79,7 @@ public class ModelInstitution {
 				conn.rollback();
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			conn.rollback();
 		} finally {
 			try {
@@ -117,6 +128,7 @@ public class ModelInstitution {
 				conn.rollback();
 			}
 		}catch (SQLException e) {
+			e.printStackTrace();
 			conn.rollback();
 		}finally{
 			try {

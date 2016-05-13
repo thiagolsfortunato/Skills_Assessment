@@ -10,17 +10,23 @@ import br.com.fatec.entity.Question;
 public class ModelQuestion {
 	
 	//conexão com o banco de dados
-	private static Connection conn = null;
+	private static Connection conn;
 	
 	@SuppressWarnings("finally")
 	public Question searchQuestionByCode(Long code) {
 		Question question = null;
 		try{
-			question = DaoQuestion.searchQuestionByCode(code);
+			conn = new ConnectionFactory().getConnection();
+			question = DaoQuestion.searchQuestionByCode(conn, code);
 		} catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to search a Question");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return question;
 		}
 	}
@@ -29,69 +35,98 @@ public class ModelQuestion {
 	public List<Question> searchAllQuestion() {
 		List<Question> questions = null;
 		try{
-			questions = DaoQuestion.searchAllQuestion(); 
+			conn = new ConnectionFactory().getConnection();
+			questions = DaoQuestion.searchAllQuestion(conn); 
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to search a Questions");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return questions;
 		}
 	}
 	
 	@SuppressWarnings("finally")
 	public boolean insertQuestion(Question question) {
-		
-		conn = new ConnectionFactory().getConnection();
 		boolean transaction = false;
 		try {
+			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			transaction = DaoQuestion.insertQuestion(conn, question);
 			
-			if( transaction ) conn.commit(); //se deu tudo certo comita!
-			else conn.rollback();
-			
+			if( transaction ) {
+				conn.commit(); //se deu tudo certo comita!
+			} else {
+				conn.rollback();
+			}
 		} catch (SQLException e) {
-			if (conn != null) {
-	            try {
-	                System.err.print("Transaction is being rolled back");
-	                conn.rollback();
-	            } catch(SQLException excep) {
-	            	excep.printStackTrace();//exception do rollback
-	            }
-	        }
+			conn.rollback();
 			e.printStackTrace();
 			System.out.println("Will not it was possible to insert the Institution");
 			
 		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 			return transaction;
 		}
 	}
 	
+	@SuppressWarnings("finally")
 	public boolean updateQuestion(Question question){
+		boolean transaction = false;
 		try {
-			return DaoQuestion.updateQuestion(question);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			transaction = DaoQuestion.updateQuestion(conn, question);
+			if( transaction ) {
+				conn.commit(); //se deu tudo certo comita!
+			} else {
+				conn.rollback();
+			}
 		} catch (SQLException e) {
+			conn.rollback();
 			e.printStackTrace();
 			System.out.println("it was not possible to update the Institution");
-			System.out.println(e);
-			return false;
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return transaction;
 		}
 	}
 	
+	@SuppressWarnings("finally")
 	public boolean deleteQuestion(Long code) {
+		boolean transaction = false;
 		try {
-			return DaoQuestion.deleteQuestion(code);
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			transaction = DaoQuestion.deleteQuestion(conn, code);
+			if( transaction ) {
+				conn.commit(); //se deu tudo certo comita!
+			} else {
+				conn.rollback();
+			}
 		} catch (SQLException e) {
+			conn.rollback();
 			e.printStackTrace();
 			System.out.println("Will not it was possible to delete the Institution");
-			return false;
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return transaction;
 		}
 	}
 	

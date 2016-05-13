@@ -35,7 +35,7 @@ public class DaoCourse {
 		boolean deleteIstCrs = false;
 		boolean deleteCrs = false;
 		try {
-			String sql1 = "DELETE FROM IST_CRS WHERE CRS_COD = ?";
+			String sql1 = "DELETE FROM ist_crs WHERE crs_cod = ?";
 			PreparedStatement stmt1 = conn.prepareStatement(sql1);
 			stmt1.setLong(1, code);
 			if (stmt1.executeUpdate() != 0) {
@@ -43,15 +43,14 @@ public class DaoCourse {
 			}
 			stmt1.close();
 			
-			String sql2 = "DELETE FROM COURSE WHERE CRS_CODE = ?";
+			String sql2 = "DELETE FROM course WHERE crs_code = ?";
 			PreparedStatement stmt2 = conn.prepareStatement(sql2);
 			stmt2.setLong(1, code);
 			if (stmt2.executeUpdate() == 0) {
 				deleteCrs = true;
-			} else {
-				deleteCrs = false;
 			}
 			stmt2.close();
+			
 			if (deleteIstCrs && deleteCrs){
 				delete = true;
 			}

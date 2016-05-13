@@ -18,7 +18,6 @@ public class ModelEnrolls {
 	@SuppressWarnings("finally")
 	public boolean insertEnrolls(Enrolls enrolls, User user){
 		
-		boolean statusUser = false;
 		boolean statusEnrolls = false;
 		boolean transaction = false;
 		
@@ -26,15 +25,18 @@ public class ModelEnrolls {
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			
-			statusUser = DaoUser.insertUser(conn, user);
+			Long idUser = DaoUser.insertUser(conn, user);
 			//resultado da inserção do usuario + estudante
-			statusEnrolls = DaoEnrolls.insertEnrolls(conn, enrolls, user.getUserCode());
+			if ( idUser != null ){
+				statusEnrolls = DaoEnrolls.insertEnrolls(conn, enrolls, idUser);
+			}
 			
-			if(statusEnrolls && statusUser ) {
+			if( statusEnrolls ) {
 				conn.commit(); //se deu tudo certo comita!
 				transaction = true;
+			} else {
+				conn.rollback();
 			}
-			else conn.rollback();
 		}catch(SQLException e){
 			e.printStackTrace();
 			conn.rollback();

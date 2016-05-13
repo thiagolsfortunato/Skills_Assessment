@@ -9,49 +9,41 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.commons.Token;
-import br.com.fatec.connection.ConnectionFactory;
-import br.com.fatec.connection.ConnectionMySql;
 import br.com.fatec.entity.User;
 
 public class DaoUser {
 	
 	@SuppressWarnings("finally")
-	public static User getLogin(String userName, String password) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
+	public static User getLogin(Connection conn, String userName, String password) throws SQLException{
 		User user = null;
+		String query = "SELECT usr_type, usr_code, usr_token,usr_name FROM user WHERE usr_username = ? AND usr_password = ?;";
 		try {
-			String query = "select usr_type, usr_code, usr_token,usr_name from user where usr_username = ? and usr_password = ?;";		
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, userName);
-			conn.getStatement().setString(2, password);			
-			if (conn.executeQuery()){
-				user = buildLogin(conn.returnRegister());
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, userName);
+			stmt.setString(2, password);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				user = buildLogin( conn, rs );
 			}
 		} finally {		
-			conn.close();
 			return user;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	private static String updateTokenUser(String id) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	private static String updateTokenUser(Connection conn, String id) throws SQLException {
 		String token = null;
+		String query = "UPDATE USER SET usr_token=?  WHERE usr_code=?";
 		try {
 			token = Token.createJsonWebToken(id, (long) 1);
-			String query = "UPDATE USER SET usr_token=?  WHERE usr_code=?";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setString(1, token);
-			conn.getStatement().setString(2, id);
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, token);
+			stmt.setString(2, id);
 			
-			if(conn.executeSql()){
+			if( stmt.executeUpdate() != 0 ){
 				System.out.println("An existing user was updated successfully!");
-				return token;
 			}
 		}finally {
-			conn.close();
 			return token;
 		}
 	}
@@ -73,8 +65,7 @@ public class DaoUser {
 			stmt.setString(5, user.getName());
 			stmt.setInt(6, user.getInstCode());
 			// executa
-			int i = stmt.executeUpdate(); 
-			if(  i != 0 ){
+			if(  stmt.executeUpdate() != 0 ){
 				System.out.println("sorte. .");
 				System.out.println("the User has been successfully inserted!");
 				ResultSet rs = stmt.getGeneratedKeys();
@@ -92,139 +83,143 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public static User searchUserById(Long userCode) throws SQLException{ //in process
-		ConnectionMySql conn = new ConnectionMySql();
+	public static User searchUserById(Connection conn, Long userCode) throws SQLException{ //in process
 		User user = null;
+		String query = "SELECT usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified "
+				+ "FROM user WHERE usr_code = ?;";
 		try {
-			String query = "select usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified from user where usr_code = ?;";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, userCode);
-			if (conn.executeQuery()){
-				user = buildUser(conn.returnRegister());
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, userCode);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				user = buildUser( rs );
 			}
+			rs.close();
+			stmt.close();
 		} finally {		
-			conn.close();
 			return user;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static User searchStudentById(Long id) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
+	public static User searchStudentById(Connection conn, Long id) throws SQLException{
 		User student = null;
+		String query = "SELECT user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period "
+						+ "FROM enrolls JOIN user ON (enrolls.usr_code = user.usr_code) "
+						+ "JOIN course ON (enrolls.crs_code = course.crs_code) "
+						+ "WHERE usr_type = 'student' AND user.usr_code = ?";
 		try{
-			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code) where usr_type = 'student' and user.usr_code = ?";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, id);
-			if(conn.executeQuery()){
-				student = buildUser(conn.returnRegister());
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				student = buildUser( rs );
 			}
+			rs.close();
+			stmt.close();
 		} finally {		
-			conn.close();
 			return student;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<User> searchAllStudents() throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
+	public static List<User> searchAllStudents(Connection conn) throws SQLException{
 		List<User> students = new LinkedList<User>();
+		String query = "SELECT user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period "
+						+ "FROM enrolls JOIN user ON (enrolls.usr_code = user.usr_code) "
+						+ "JOIN course ON (enrolls.crs_code = course.crs_code) "
+						+ "WHERE usr_type = 'student'";
 		try{
-			String query = "select user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period from enrolls join user on (enrolls.usr_code = user.usr_code) join course on (enrolls.crs_code = course.crs_code) where usr_type = 'student'";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			if(conn.executeQuery()){
-				students = buildUsers(conn);
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				students = buildUsers( rs );
 			}
+			rs.close();
+			stmt.close();
 		} finally {		
-			conn.close();
 			return students;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<User> searchAllUsers() throws SQLException{ //in process
-		ConnectionMySql conn = new ConnectionMySql();
+	public static List<User> searchAllUsers(Connection conn) throws SQLException{ //in process
 		List<User> user = new LinkedList<User>();
-
+		String query = "SELECT usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified "
+						+ "FROM user";
 		try {
-			String query = "select usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified from user";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			if (conn.executeQuery()){
-				user = buildUsers(conn);
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				user = buildUsers( rs );
 			}
+			rs.close();
+			stmt.close();
 		} finally {		
-			conn.close();
 			return user;
 		}
 	}
 
 	@SuppressWarnings("finally")
-	public static boolean updateUser(User user) throws SQLException{
-		ConnectionMySql conn = new ConnectionMySql();
+	public static boolean updateUser(Connection conn, User user) throws SQLException{
 		boolean returnUpdate = false;
+		String sql = "UPDATE user SET usr_userName = ?, usr_password = ?, usr_ra = ?, usr_type = ?, usr_name = ? "
+						+ "WHERE usr_code = ?;";
 		try {
-			String update = "update user set usr_userName = ?, usr_password = ?, usr_ra = ?, usr_type = ?, usr_name = ? where usr_code = ?;";
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(update));
-			conn.getStatement().setString(1, user.getUserName());
-			conn.getStatement().setString(2, user.getPassword());
-			conn.getStatement().setString(3, user.getRa());
-			conn.getStatement().setString(4, user.getType());
-			conn.getStatement().setString(5, user.getName());
-			conn.getStatement().setLong(6, user.getUserCode());
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, user.getUserName());
+			stmt.setString(2, user.getPassword());
+			stmt.setString(3, user.getRa());
+			stmt.setString(4, user.getType());
+			stmt.setString(5, user.getName());
+			stmt.setLong(6, user.getUserCode());
 			
-			if(conn.executeSql()){
+			if( stmt.executeUpdate() != 0 ){
 				System.out.println("the User has been successfully updated!");
-					returnUpdate =  true;	
+				returnUpdate =  true;	
 			}
+			stmt.close();
 		}finally {
-			conn.close();
 			return returnUpdate;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteUser(Long code) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	public static boolean deleteUser(Connection conn, Long code) throws SQLException {
 		boolean delete = false;
+		String sql = "DELETE FROM User WHERE usr_code = ?;";
 		try {
-			conn.conect();
-			String sql = "delete from User where USR_CODE = ?;";
-			conn.setStatement(conn.getConnection().prepareStatement(sql));
-			conn.getStatement().setLong(1, code);
-			if (conn.executeSql()) {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, code);
+			if ( stmt.executeUpdate() != 0 ) {
 				delete = true;
 			}
+			stmt.close();
 		} finally {
-			conn.close();
 			return delete;
 		}
 	}
 
-	private static User buildLogin(ResultSet rs) throws SQLException {
+	private static User buildLogin(Connection conn, ResultSet rs) throws SQLException {
 		User user = new User();
-		String token = updateTokenUser(rs.getString("USR_CODE"));
-		user.setType(rs.getString("USR_TYPE"));
-		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-		user.setUserName(rs.getString("USR_NAME"));
+		String token = updateTokenUser(conn, rs.getString("USR_CODE") );
+		user.setType( rs.getString("USR_TYPE") );
+		user.setUserCode( rs.getLong("USR_CODE") );
+		user.setUserName( rs.getString("USR_NAME") );
 		user.setToken(token); 
 		return user;
 	}
 	
 	private static User buildUser (ResultSet rs) throws SQLException {
 		User user = new User();
-		user.setUserCode(Long.parseLong(rs.getString("USR_CODE")));
-		user.setUserName(rs.getString("USR_NAME"));
-		user.setSituation(Integer.parseInt(rs.getString("USR_SITUATION")));
-		user.setVerification(Integer.parseInt(rs.getString("USR_VERIFIED")));
 		
-		String userType = rs.getString("USR_TYPE").toLowerCase();
-		user.setType(userType);
-		if(userType.equals("student")){
+		user.setUserCode(rs.getLong("USR_CODE"));
+		user.setUserName(rs.getString("USR_NAME"));
+		user.setSituation(rs.getInt("USR_SITUATION"));
+		user.setVerification(rs.getInt("USR_VERIFIED"));
+		user.setType(rs.getString("USR_TYPE").toLowerCase());//coloca em minusculo
+		
+		if( user.getType().equals("student") ){
 			user.setCourseStudent(rs.getString("CRS_NAME"));
 			user.setYearStudent(rs.getInt("ERN_YEAR"));
 			user.setPeriodStudent(rs.getInt("ERN_PERIOD"));
@@ -232,11 +227,11 @@ public class DaoUser {
 		return user;
 	}
 	
-	private static List<User> buildUsers (ConnectionMySql conn) throws SQLException {
+	private static List<User> buildUsers ( ResultSet rs ) throws SQLException {
 		List<User> user = new LinkedList<User>();
-		do {
-			user.add(buildUser(conn.returnRegister()));
-		} while (conn.nextRegister());
+		while ( rs.next() ) {
+			user.add( buildUser(rs) );
+		}
 		return user;
 	}
 	

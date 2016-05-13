@@ -32,7 +32,7 @@ import br.com.fatec.entity.Competence;
 
 public class ModelCompetencies {
 
-private Connection conn;
+	private Connection conn;
 	
 	// Add competence
 	@SuppressWarnings("finally")

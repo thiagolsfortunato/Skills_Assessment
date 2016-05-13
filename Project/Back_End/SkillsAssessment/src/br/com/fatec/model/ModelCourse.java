@@ -33,6 +33,11 @@ public class ModelCourse {
 			conn.rollback();
 			System.out.println("Will not it was possible to enter the Course");
 		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return status;
 		}		
 	}
@@ -55,6 +60,11 @@ public class ModelCourse {
 			conn.rollback();
 			System.out.println("Will not it was possible to delete the Course");
 		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return status;
 		}
 	}
@@ -77,6 +87,11 @@ public class ModelCourse {
 			conn.rollback();
 			e.printStackTrace();
 		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return status;
 		}
 	}
@@ -86,12 +101,16 @@ public class ModelCourse {
 		Course course = null;
 		try{
 			conn = new ConnectionFactory().getConnection();
-			conn.setAutoCommit(false);
 			course = DaoCourse.searchCourseById(conn, code);
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to search a course");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return course;
 		}
 	}
@@ -101,12 +120,16 @@ public class ModelCourse {
 		List<Course> courses = null;
 		try{
 			conn = new ConnectionFactory().getConnection();
-			conn.setAutoCommit(false);
 			courses = DaoCourse.searchAllCourse(conn); 
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to search a course");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return courses;
 		}
 	}
@@ -116,12 +139,16 @@ public class ModelCourse {
 		List<Course> courses = null;
 		try{
 			conn = new ConnectionFactory().getConnection();
-			conn.setAutoCommit(false);
 			courses = DaoCourse.searchCoursesByInstitionId(conn, codeInstitution); 
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to search a course");
 		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return courses;
 		}
 	}	

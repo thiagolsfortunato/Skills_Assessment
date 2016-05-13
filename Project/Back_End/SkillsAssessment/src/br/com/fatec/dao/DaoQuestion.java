@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.fatec.connection.ConnectionMySql;
-
 import br.com.fatec.entity.Answer;
 import br.com.fatec.entity.Competence;
 import br.com.fatec.entity.Question;
@@ -19,19 +17,15 @@ public class DaoQuestion {
 	
 	@SuppressWarnings("finally")
 	public static boolean insertQuestion(Connection conn, Question question) throws SQLException{
-		//ConnectionMySql conn = new ConnectionMySql();
-		String query = "INSERT INTO question (qst_introduction, qst_question, qst_situation) VALUES (?, ?, ?);";
+		String query = "INSERT INTO question (qst_introduction, qst_question, qst_situation) "
+						+ "VALUES (?, ?, ?);";
 		boolean returnQuestion = false;
 		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-//			conn.conect();
-//			conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS));
-//			insert = conn.getStatement();
 			stmt.setString(1, question.getIntroduction());
 			stmt.setString(2, question.getQuestion());
 			stmt.setInt(3, 1);
-			//conn.getStatement().setInt(3, question.getSituation());
 			if ( stmt.executeUpdate() != 0 ) {
 				ResultSet generatedKeys = stmt.getGeneratedKeys();
 				if( generatedKeys.next() ){
@@ -44,146 +38,156 @@ public class DaoQuestion {
 			}
 			stmt.close();
 		}finally {
-			//conn.close();
 			return returnQuestion;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateQuestion(Question question) throws SQLException{
-	
-		ConnectionMySql conn = new ConnectionMySql();
+	public static boolean updateQuestion(Connection conn, Question question) throws SQLException{
 		boolean returnUpdate = false;
+		boolean statusQuestion = false;
+		boolean statusAnswers = false;
+		boolean statusComepetence = false;
 		
+		String updateQuestion = "UPDATE question SET qst_question = ?, qst_introduction = ?, qst_situation = ? "
+								+ "WHERE qst_code = ?;";
 		try {
-			conn.conect();
-			String updateQuestion = "UPDATE question SET qst_question = ?, qst_introduction = ?, qst_situation = ? WHERE qst_code = ?;";
-			
-			conn.setStatement(conn.getConnection().prepareStatement(updateQuestion));
-			conn.getStatement().setString(1, question.getQuestion());
-			conn.getStatement().setString(2, question.getIntroduction());
-			conn.getStatement().setLong(3, question.getSituation());
-			conn.getStatement().setLong(4, question.getCode());
-			if(conn.executeSql()){
+			PreparedStatement stmt0 = conn.prepareStatement(updateQuestion);
+			stmt0.setString(1, question.getQuestion());
+			stmt0.setString(2, question.getIntroduction());
+			stmt0.setLong(3, question.getSituation());
+			stmt0.setLong(4, question.getCode());
+			if( stmt0.executeUpdate() != 0 ){
+				statusQuestion = true;
 				System.out.println("the question has been successfully updated!");			
 			}
+			stmt0.close();
 			
 			for(int i = 0; i < question.getAnswers().size(); i++){
 			
-				String updateASnswer = "UPDATE alternatives SET alt_description = ? WHERE qst_code = ? AND alt_code = ?; ";
-				conn.setStatement(conn.getConnection().prepareStatement(updateASnswer));
-				conn.getStatement().setString(1, question.getAnswers().get(i).getDescription());
-				conn.getStatement().setLong(2, question.getCode());
-				conn.getStatement().setLong(3, question.getAnswers().get(i).getCode());
+				String updateAnswer = "UPDATE alternatives SET alt_description = ? WHERE qst_code = ? AND alt_code = ?;";
+				PreparedStatement stmt1 = conn.prepareStatement(updateAnswer);
+				stmt1.setString(1, question.getAnswers().get(i).getDescription());
+				stmt1.setLong(2, question.getCode());
+				stmt1.setLong(3, question.getAnswers().get(i).getCode());
 				
-				if(conn.executeSql()){
+				if( stmt1.executeUpdate() != 0 ){
+					statusAnswers = true;
 					System.out.println("the alternative has been successfully updated!");
+				} else {
+					statusAnswers = false;
 				}
-			
+				stmt1.close();
 				
 				for(int j = 0; j < question.getAnswers().get(i).getCompetencies().size() ; j++){
 					
-					String updateComepetence = "UPDATE alt_com SET alt_code = ?, com_code = ? ,rsc_weight = ? WHERE rsc_code = ?; ";
-					conn.setStatement(conn.getConnection().prepareStatement(updateComepetence));
-					conn.getStatement().setLong(1, question.getAnswers().get(i).getCode());
-					conn.getStatement().setLong(2, question.getAnswers().get(i).getCompetencies().get(j).getCode());
-					conn.getStatement().setLong(3, question.getAnswers().get(i).getCompetencies().get(j).getWeight());
-					conn.getStatement().setLong(4, question.getAnswers().get(i).getCompetencies().get(j).getRscCode());
+					String updateComepetence = "UPDATE alt_com SET alt_code = ?, com_code = ? ,rsc_weight = ? WHERE rsc_code = ?;";
+					PreparedStatement stmt2 = conn.prepareStatement(updateComepetence);
+					stmt2.setLong(1, question.getAnswers().get(i).getCode());
+					stmt2.setLong(2, question.getAnswers().get(i).getCompetencies().get(j).getCode());
+					stmt2.setLong(3, question.getAnswers().get(i).getCompetencies().get(j).getWeight());
+					stmt2.setLong(4, question.getAnswers().get(i).getCompetencies().get(j).getRscCode());
+
 					
-					
-					//show current command
-					System.out.println(conn.getStatement());
-					
-					if(conn.executeSql()){
+					if( stmt2.executeUpdate() != 0 ){
+						statusComepetence = true;
 						System.out.println("the competence has been successfully updated!");
+					} else {
+						statusComepetence = false;
 					}
-					
+					stmt2.close();
 				}
+					
 			}
-			returnUpdate =  true;
-		}
-		catch(Exception e){
-			System.out.println(e);
+			//validação se deu tudo certo
+			if ( statusQuestion && statusAnswers && statusComepetence ){
+				returnUpdate =  true;
+			}
 		}
 		finally {
-			conn.close();
 			return returnUpdate;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteQuestion(Long code) throws SQLException {
-		ConnectionMySql conn0 = new ConnectionMySql();
-		ConnectionMySql conn1 = new ConnectionMySql();
-		ConnectionMySql conn2 = new ConnectionMySql();
-		boolean delete = false;
+	public static boolean deleteQuestion(Connection conn, Long code) throws SQLException {
+		boolean transaction = false;
+		boolean statusQuestion = false;
+		boolean statusAnswers = false;
+		boolean statusComepetence = false;
 		try {
-			Question question = DaoQuestion.searchQuestionByCode(code);
+			Question question = DaoQuestion.searchQuestionByCode(conn, code);
 			for( int i = 0; i < question.getAnswers().size(); i++){
-				conn0.conect();
-				String deleteCompetencies = "delete from alt_com where alt_code = ?";
-				conn0.setStatement(conn0.getConnection().prepareStatement(deleteCompetencies));
-				conn0.getStatement().setLong( 1, question.getAnswers().get(i).getCode() );
-				if (conn0.executeSql()) {
+				
+				String deleteCompetencies = "DELETE FROM alt_com WHERE alt_code = ?";
+				PreparedStatement stmt0 = conn.prepareStatement(deleteCompetencies);
+				stmt0.setLong( 1 , question.getAnswers().get(i).getCode() );
+				if ( stmt0.executeUpdate() != 0 ) {
+					statusComepetence = true;
 					System.out.println("Was deletd a competence");
 				}
+				stmt0.close();
 			}
 			
-			conn1.conect();
-			String deleteAnswers = "delete from alternatives where qst_code = ?";
-			conn1.setStatement(conn1.getConnection().prepareStatement(deleteAnswers));
-			conn1.getStatement().setLong(1, question.getCode());
-			if (conn1.executeSql()) {
+			String deleteAnswers = "DELETE FROM alternatives WHERE qst_code = ?";
+			PreparedStatement stmt1 = conn.prepareStatement(deleteAnswers);
+			stmt1.setLong(1, question.getCode());
+			if ( stmt1.executeUpdate() != 0 ) {
+				statusAnswers = true;
 				System.out.println("Was deletd a answer");
 			}
+			stmt1.close();
 			
-			conn2.conect();
-			String deleteQuestion = "delete from question where qst_code = ?";
-			conn2.setStatement(conn2.getConnection().prepareStatement(deleteQuestion));
-			conn2.getStatement().setLong(1, question.getCode());
-			if (conn2.executeSql()) {
+			String deleteQuestion = "DELETE FROM question WHERE qst_code = ?";
+			PreparedStatement stmt2 = conn.prepareStatement(deleteQuestion);
+			stmt2.setLong(1, question.getCode());
+			if ( stmt2.executeUpdate() != 0 ) {
+				statusQuestion = true;
 				System.out.println("Was deletd a question");
 			}
-			delete = true;
+			stmt2.close();
+			//validação se deu tudo certo
+			if ( statusQuestion && statusAnswers && statusComepetence ){
+				transaction =  true;
+			}
 		} finally {
-			conn0.close();
-			conn1.close();
-			conn2.close();
-			return delete;
+			return transaction;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<Question> searchAllQuestion() throws SQLException {
+	public static List<Question> searchAllQuestion(Connection conn) throws SQLException {
 		List<Question> listQuestion = new ArrayList<>();
-		ConnectionMySql conn = new ConnectionMySql();
-		String query = "select q.qst_code, q.qst_question, q.qst_situation, q.qst_introduction from question q ;";
+		String query = "SELECT q.qst_code, q.qst_question, q.qst_situation, q.qst_introduction "
+						+ "FROM question q ;";
 		try {
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			if (conn.executeQuery()) {
-				listQuestion = DaoQuestion.buildQuestions(conn);
-			} 
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				listQuestion = DaoQuestion.buildQuestions( conn, rs );
+			}
+			rs.close();
+			stmt.close();
 		} finally {
-			conn.close();
 			return listQuestion;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static Question searchQuestionByCode(Long codeQuestion) throws SQLException {
+	public static Question searchQuestionByCode(Connection conn, Long codeQuestion) throws SQLException {
 		Question question = new Question();
-		ConnectionMySql conn = new ConnectionMySql();
-		String query = "SELECT qst_code, qst_question, qst_situation, qst_introduction FROM question WHERE qst_code = ?;";
+		String query = "SELECT qst_code, qst_question, qst_situation, qst_introduction "
+						+ "FROM question WHERE qst_code = ?;";
 		try {
-			conn.conect();
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, codeQuestion);
-			if (conn.executeQuery()) {
-				question = DaoQuestion.buildQuestion(conn.returnRegister());
-			} 
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, codeQuestion);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				question = DaoQuestion.buildQuestion( conn, rs );
+			}
+			rs.close();
+			stmt.close();
 		} finally {
-			conn.close();
 			return question;
 		}
 	}
@@ -193,15 +197,10 @@ public class DaoQuestion {
 	//AUXILIA INSERT QUESTION
 	@SuppressWarnings("finally")
 	public static boolean insertAnswer(Connection conn, Long codeQuestion, Answer answer) throws SQLException{
-		//ConnectionMySql conn = new ConnectionMySql();
 		String query = "INSERT INTO alternatives (alt_description, qst_code) values (?, ?);";
-		
 		boolean returnAnswer = false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			//conn.conect();
-			//conn.setStatement(conn.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS) );
-			//insert = conn.getStatement();
 			stmt.setString(1, answer.getDescription());
 			stmt.setLong(2, codeQuestion );
 			if ( stmt.executeUpdate() != 0 ) {
@@ -216,43 +215,44 @@ public class DaoQuestion {
 			}
 			stmt.close();
 		}finally {
-			//conn.close();
 			return returnAnswer;
 		}
 	}
 	
 	//AUXILIA GETQUESTION
 	@SuppressWarnings("finally")
-	public static List<Answer> getAnswers(Long id) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	public static List<Answer> getAnswers(Connection conn, Long id) throws SQLException {
 		List<Answer> answers = new LinkedList<Answer>();
+		String query = "SELECT * FROM alternatives WHERE qst_code = ?;";
 		try {
-			conn.conect();
-			String query = "SELECT * FROM alternatives WHERE qst_code = ?;";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, id);
-			if (conn.executeQuery()) {
-				answers = buildAnswersToQuestion(conn);
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				answers = buildAnswersToQuestion( conn,  rs );
 			}
+			rs.close();
+			stmt.close();
 		} finally {
-			conn.close();
 			return answers;
 		}
 	}
 	//AUXILIA GET_ANSWER QUE AUXILIA GET_QUESTION
 	@SuppressWarnings("finally")
-	public static List<Competence> getCompetencies(Long id) throws SQLException {
-		ConnectionMySql conn = new ConnectionMySql();
+	public static List<Competence> getCompetencies(Connection conn, Long id) throws SQLException {
 		List<Competence> competencies = new LinkedList<Competence>();
+		String query = "SELECT alt_com.rsc_code, comp.com_code, alt_com.alt_code, comp.com_type, alt_com.rsc_weight "
+						+ "FROM competence comp INNER JOIN alt_com on alt_com.com_code = comp.com_code "
+						+ "WHERE alt_com.alt_code = ?;";
 		try {
-			conn.conect();
-			String query = "SELECT alt_com.rsc_code, comp.com_code, alt_com.alt_code, comp.com_type, alt_com.rsc_weight FROM competence comp"
-					+ " INNER JOIN alt_com on alt_com.com_code = comp.com_code WHERE alt_com.alt_code = ?;";
-			conn.setStatement(conn.getConnection().prepareStatement(query));
-			conn.getStatement().setLong(1, id);
-			if (conn.executeQuery()) {
-				competencies = buildCompetenciesToQuestion(conn);
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				competencies = buildCompetenciesToQuestion( rs );
 			}
+			rs.close();
+			stmt.close();
 		} finally {
 			return competencies;
 		}
@@ -262,11 +262,9 @@ public class DaoQuestion {
 	//AUXILIA INSERT ALTERNATIVE QUE AUXILIA INSERT QUESTION
 	@SuppressWarnings("finally")
 	public static boolean insertCompetenceInAnswer(Connection conn, Long altCode, Competence competence) throws SQLException{
-		//ConnectionMySql conn = new ConnectionMySql();
 		String query = "INSERT INTO alt_com (alt_code, com_code, rsc_weight) values (?, ?, ?);";
 		boolean returnCompetence = false;
 		try {
-			//conn.conect();
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setLong(1, altCode);
 			stmt.setLong(2, competence.getCode());
@@ -276,24 +274,23 @@ public class DaoQuestion {
 			}
 			stmt.close();
 		}finally {
-			//conn.close();
 			return returnCompetence;
 		}
 	}
 		
-	private static List<Question> buildQuestions(ConnectionMySql conn) throws SQLException {
+	private static List<Question> buildQuestions( Connection conn, ResultSet rs ) throws SQLException {
 		List<Question> questions = new LinkedList<Question>();
 		do {
-			questions.add(buildQuestion(conn.returnRegister()));
-		} while (conn.nextRegister());
+			questions.add(buildQuestion( conn, rs ));
+		} while ( rs.next() );
 		return questions;
 	}
 
-	private static Question buildQuestion(ResultSet rs) throws SQLException {
+	private static Question buildQuestion( Connection conn, ResultSet rs ) throws SQLException {
 		Question question = new Question();
 		List<Answer> answers = new LinkedList<Answer>();
-		answers = getAnswers( rs.getLong("qst_code") );
 		
+		answers = getAnswers(conn, rs.getLong("qst_code") );
 		question.setCode(rs.getLong("qst_code"));
 		question.setQuestion(rs.getString("qst_question"));
 		question.setSituation(rs.getInt("qst_situation"));
@@ -304,15 +301,15 @@ public class DaoQuestion {
 		return question;
 	}
 	
-	private static List<Competence> buildCompetenciesToQuestion(ConnectionMySql conn) throws SQLException {
+	private static List<Competence> buildCompetenciesToQuestion( ResultSet rs ) throws SQLException {
 		List<Competence> competencies = new LinkedList<Competence>();
 		do {
-			competencies.add(buildCompetenceToQuestion(conn.returnRegister()));
-		} while (conn.nextRegister());
+			competencies.add(buildCompetenceToQuestion( rs ));
+		} while ( rs.next() );
 		return competencies;
 	}
 	
-	private static Competence buildCompetenceToQuestion(ResultSet rs) throws SQLException {
+	private static Competence buildCompetenceToQuestion( ResultSet rs ) throws SQLException {
 		Competence competence = new Competence();
 		competence.setRscCode(rs.getLong("alt_com.rsc_code") );
 		competence.setCode(rs.getLong("comp.com_code") );
@@ -322,22 +319,22 @@ public class DaoQuestion {
 		return competence;
 	}	
 	
-	private static List<Answer> buildAnswersToQuestion(ConnectionMySql conn) throws SQLException {
+	private static List<Answer> buildAnswersToQuestion( Connection conn, ResultSet rs ) throws SQLException {
 		List<Answer> answers = new LinkedList<Answer>();
 		do {
-			answers.add(buildAnswerToQuestion(conn.returnRegister()));
-		} while (conn.nextRegister());
+			answers.add(buildAnswerToQuestion( conn, rs ));
+		} while ( rs.next() );
 		return answers;
 	}
 	
-	private static Answer buildAnswerToQuestion(ResultSet rs) throws SQLException {
+	private static Answer buildAnswerToQuestion( Connection conn, ResultSet rs ) throws SQLException {
 		List<Competence> competencies = new LinkedList<Competence>();
 		Answer answer = new Answer();
 		
 		answer.setCode( rs.getLong("alt_code" ) );
 		answer.setDescription( rs.getString("alt_description") );
 		answer.setCodeQuestion( rs.getLong("qst_code") );
-		competencies = getCompetencies( answer.getCode() );
+		competencies = getCompetencies( conn, answer.getCode() );
 		
 		answer.setCompetencies(competencies);
 		

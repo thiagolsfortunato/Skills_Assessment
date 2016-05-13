@@ -62,7 +62,7 @@ public class DaoEnrolls {
 			stmt.setLong(3, enrolls.getCodeCourse());
 			stmt.setLong(4, enrolls.getCodeUser());
 			stmt.setLong(5, enrolls.getCodeEnrolls());
-			if(stmt.executeUpdate() != 0){
+			if( stmt.executeUpdate() != 0 ){
 				update = true;
 			}
 			stmt.close();
