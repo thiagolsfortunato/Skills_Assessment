@@ -25,10 +25,10 @@
 
         <div class="col-md-6 col-sm-6 col-xs-12">
             <label class="radio-inline">
-                <input data-ng-model="user.type" type="radio" name="optradio" value="Pro">Psicólogo
+                <input data-ng-model="user.type" type="radio" name="optradio" value="Psicólogo">Psicólogo
             </label>
             <label class="radio-inline">
-                <input data-ng-model="user.type" type="radio" name="optradio" value="Business">Administrador
+                <input data-ng-model="user.type" type="radio" name="optradio" value="Administrador">Administrador
             </label>
         </div>
 
@@ -40,7 +40,7 @@
         </label>
         <!--teste-->
         <div class="col-xs-6">
-            <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="user.istitution" data-ng-options="fatec.company for fatec in fatecs">
+            <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="user.instCode" data-ng-options="fatec.company for fatec in fatecs">
                 <option value="">Fatec *</option>
             </select>
         </div>
@@ -53,7 +53,7 @@
             Email: 
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" data-ng-model="user.email" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
+            <input type="text" data-ng-model="user.userName" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
         </div>
     </div>
 
@@ -75,7 +75,7 @@
     <div class="form-group">
         <div class="col-md-6 col-md-offset-3">
             <button type="submit" class="btn btn-primary">Cancelar</button>
-            <button id="send" type="submit" class="btn btn-success">Salvar</button>
+            <button id="send" type="submit" class="btn btn-success" ng-click="employeeAdd(user)">Salvar</button>
         </div>
     </div>
 
