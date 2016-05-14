@@ -62,6 +62,7 @@ public class DaoInstitution {
 			stmt.setString(1, institution.getCompany());
 			stmt.setString(2, institution.getCnpj());
 			stmt.setString(3, institution.getCity());
+			stmt.setLong(4, institution.getCodeInstitution());
 		
 			if(stmt.executeUpdate() != 0){
 				transaction = true;	
