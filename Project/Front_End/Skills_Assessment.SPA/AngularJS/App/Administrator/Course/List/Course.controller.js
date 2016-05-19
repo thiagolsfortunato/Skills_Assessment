@@ -1,6 +1,6 @@
 ﻿FatecControllers.controller('CourseController',
-    ['$scope', '$routeParams', 'CourseService', '$log', 'localStorageService',
-        function ($scope, $routeParams, courseService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'CourseService', 'InstitutionService', '$log', 'localStorageService',
+        function ($scope, $routeParams, courseService, institutionService, $log, localStorageService) {
 
             //Declaração de funções
             $scope.courseList = _courseList;
@@ -40,7 +40,7 @@
 
                 courseService.courseList().then(function (data) {
 
-                    console.log(data);
+                    //console.log(data);
 
                     $scope.courses = data;
 
@@ -59,21 +59,37 @@
 
             }
 
+            //ARRUMAR - problema, quero saber id da fatec cadastrada no banco
             function _courseAdd(course) {
                 // courseAdd é o obj que chama a função da service
+                var idFatec = institutionService.institutionList().then(function (data) {
+                    if (data == 600) {
+                        alert('Nao possui FATEC cadastrada!');
+                    } else {
+                        //console.log(data[0].codeInstitution);
+                        return data[0].codeInstitution;
+                    }
+
+                });
+                console.log(idFatec.value);
+                course.codeInstitution = idFatec;     //define fatec de codigo 1
+                course.situation = 1;           //define situação ativa
                 console.log(course);
                 courseService.courseAdd(course).then(function (data) {
+                    if (data == 600) {
+                        alert('verifique se há FATEC cadastrada!');
+                    } else {
+                        $scope.courseList();
+                        alert("Salvouuu");
+                    }
                     
-                    $scope.courseList();
-                    alert("Salvouuu");
-
                 });
             }
 
-            function _courseDelete(id) {
+            function _courseDelete(idCourse, idFatec) {
                 
-                console.log(id);
-                courseService.courseDelete(id).then(function (data) {
+                console.log(idCourse, idFatec);
+                courseService.courseDelete(idCourse, idFatec).then(function (data) {
 
                     $scope.courseList();
                     alert("Deletouuu");

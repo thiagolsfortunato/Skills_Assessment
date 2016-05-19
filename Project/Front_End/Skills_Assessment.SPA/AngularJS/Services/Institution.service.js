@@ -37,7 +37,11 @@
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
-           });
+           }).
+            error(function (data, status, headers, config) {
+                //console.log(status);
+                deferred.resolve(status);
+            });
 
         return deferred.promise;
     }

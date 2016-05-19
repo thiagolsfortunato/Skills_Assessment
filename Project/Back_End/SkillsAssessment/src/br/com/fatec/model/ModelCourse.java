@@ -16,14 +16,14 @@ public class ModelCourse {
 	@SuppressWarnings("finally")
 	public boolean insertCourse(Course course){
 		boolean status = false;
-		boolean curso = false;
+		Long idCurso = null;
 		boolean institution = false;
 		try{
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
-			curso = DaoCourse.insertCourse(conn, course);
-			institution = DaoInstitutionCourse.insertIntitutionCourse(conn, course.getCodeInstitution(), course.getCodeCourse());
-			if (curso && institution){
+			idCurso = DaoCourse.insertCourse(conn, course);
+			institution = DaoInstitutionCourse.insertIntitutionCourse(conn, course.getCodeInstitution(), idCurso);
+			if ( (idCurso!=null) && institution){
 				conn.commit();
 				status = true;
 			}else{
@@ -70,13 +70,13 @@ public class ModelCourse {
 	}
 
 	@SuppressWarnings("finally")
-	public boolean deleteCourse(Long code){
+	public boolean deleteCourse(Long idCourse, Long idFatec){
 		boolean status = false;
 		boolean curso = false;
 		try{
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
-			curso = DaoCourse.deleteCourse(conn, code);
+			curso = DaoCourse.deleteCourse(conn, idCourse, idFatec);
 			if (curso){
 				conn.commit();
 				status = true;

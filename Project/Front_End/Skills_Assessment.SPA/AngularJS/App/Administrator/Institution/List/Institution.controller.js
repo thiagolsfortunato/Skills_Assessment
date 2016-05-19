@@ -14,6 +14,7 @@
 
             $scope.institutions;
             $scope.institution;
+            $scope.registered;
 
 
             init();
@@ -40,9 +41,15 @@
 
                 institutionService.institutionList().then(function (data) {
 
-                    console.log(data);
-
-                    $scope.institutions = data;
+                    if (data == 600) {
+                        $scope.registered = false;
+                        $scope.institutions = {};
+                    } else {
+                        $scope.registered = true;
+                        $scope.institutions = data;
+                    }
+                    
+                    
 
                 });
 
@@ -66,7 +73,7 @@
 
                     $scope.institutionList();
                     alert("Salvouuu");
-
+                    $scope.institution = null;
                 });
             }
 

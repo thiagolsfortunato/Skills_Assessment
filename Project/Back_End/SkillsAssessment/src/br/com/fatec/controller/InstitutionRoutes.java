@@ -112,7 +112,7 @@ public class InstitutionRoutes {
 			if(fatecs.size() > 0){
 				return fatecs;
 			}else{
-				res.status(404);
+				res.status(600);
 				return "no FATEC registered";
 			}
 		}, JsonUtil.json());

@@ -36,21 +36,25 @@
         }).
            success(function (dataObj, status, headers, config) {
                deferred.resolve(dataObj);
-           });
+           }).
+            error(function (data, status, headers, config) {
+                deferred.resolve(status);
+           });;
 
         return deferred.promise;
     }
 
-    function _courseDelete(id) {
+    function _courseDelete(id, idFatec) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'DELETE',
             url: config.generateApiUrl('course'),
-            params: { "codeCourse": id }
+            params: { "codeCourse": id, "codeFatec": idFatec }
         }).
            success(function (data, status, headers, config) {
+               console.log(data);
                deferred.resolve(data);
            });
 
