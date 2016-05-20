@@ -33,13 +33,12 @@
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('institution/find/all')
+            url: config.generateApiUrl('institution/find/all'),
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            }).
             error(function (data, status, headers, config) {
-                //console.log(status);
                 deferred.resolve(status);
             });
 
@@ -58,7 +57,10 @@
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
-           });
+           }).
+            error(function (dat, status, headers, config) {
+                deferred.resolve(status);
+            });
 
         return deferred.promise;
     }

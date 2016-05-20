@@ -81,9 +81,13 @@
 
                 console.log(id);
                 institutionService.institutionDelete(id).then(function (data) {
-
-                    $scope.institutionList();
-                    alert("Deletouuu");
+                    if (data == 400) {
+                        alert('erro de constraint, há cursos a está faculdade!');
+                    } else {
+                        $scope.institutionList();
+                        alert("Deletouuu");
+                    }
+                    
 
                 });
             }

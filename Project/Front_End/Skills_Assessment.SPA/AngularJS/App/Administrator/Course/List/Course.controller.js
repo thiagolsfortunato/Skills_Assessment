@@ -10,17 +10,27 @@
             $scope.courseCancel = _courseCancel;
             $scope.courseUpdate = _courseUpdate;
 
+            $scope.loadFatec = _loadFatec; //pega fatec cadastrada.
+
             $scope.btnLabel = "Adicionar";
 
             $scope.courses;
             $scope.course;
 
-
+            $scope.fatec;
+            
             init();
 
             function init() {
 
                 $scope.courseList();
+                $scope.loadFatec(); //carrega fatec cadastrada
+            }
+
+            function _loadFatec() {
+                institutionService.institutionList().then(function (data) {
+                    $scope.fatec = data[0];
+                });
             }
 
             function _courseCancel() {
@@ -62,19 +72,14 @@
             //ARRUMAR - problema, quero saber id da fatec cadastrada no banco
             function _courseAdd(course) {
                 // courseAdd é o obj que chama a função da service
-                var idFatec = institutionService.institutionList().then(function (data) {
-                    if (data == 600) {
-                        alert('Nao possui FATEC cadastrada!');
-                    } else {
-                        //console.log(data[0].codeInstitution);
-                        return data[0].codeInstitution;
-                    }
-
-                });
-                console.log(idFatec.value);
-                course.codeInstitution = idFatec;     //define fatec de codigo 1
+                if (!$scope.fatec) {
+                    alert('não há fatec cadastrada!');
+                    return 0;
+                };
+                course.codeInstitution = $scope.fatec.codeInstitution;     //pega o codigo da fatec cadastrada e seta no curso
                 course.situation = 1;           //define situação ativa
                 console.log(course);
+
                 courseService.courseAdd(course).then(function (data) {
                     if (data == 600) {
                         alert('verifique se há FATEC cadastrada!');
@@ -82,8 +87,11 @@
                         $scope.courseList();
                         alert("Salvouuu");
                     }
-                    
+
                 });
+
+               
+                
             }
 
             function _courseDelete(idCourse, idFatec) {
