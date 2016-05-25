@@ -25,7 +25,7 @@
     <div class="row">
         <!-- Dropdown menu escolha do curso-->
         <div class="col-md-3">
-            <div class="form-group">
+            <div layout="column">
                 <select class="selectpicker form-control" data-ng-model="cursoSelected" data-ng-options="curso.nome for curso in cursos">
                     <option value="">Select Curso *</option>
                 </select>
@@ -43,12 +43,12 @@
 
         <div class="col-md-2">
             <div class="input-group">
-                <input type="radio" aria-label="..."> 1º Semestre
+                <input type="radio" value="1" aria-label="..." data-ng-model="semestreSelected"> 1º Semestre
             </div>
         </div>
         <div class="col-md-2">
             <div class="input-group">
-                <input type="radio" aria-label="..."> 2º Semestre
+                <input type="radio" value="2" aria-label="..." data-ng-model="semestreSelected"> 2º Semestre
             </div>
         </div>
         <div class="btn-group" role="group" aria-label="...">

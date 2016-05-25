@@ -18,10 +18,22 @@
 
             $scope.cursoSelected;
             $scope.anoSelected;
+            $scope.semestreSelected;
 
             $scope.func = function () {
-                console.log($scope.cursoSelected);
-                console.log($scope.anoSelected);
+                console.log($scope.cursoSelected.nome);
+                console.log($scope.anoSelected.ano);
+                console.log($scope.semestreSelected);
+            }
+
+            function Ctrl($scope) {
+                // Can replace this with: ng-init="checkboxSelection = '1'".
+                $scope.semestreSelected = '1';
+
+                // Can use parseInt(x, 10) on $scope.checkboxSelection or index.toString() if you want to remove the single quotes you see in isCheckboxSelected('1').
+                $scope.isCheckboxSelected = function (index) {
+                    return index === $scope.semestreSelected;
+                };
             }
 
             // FAZER
