@@ -7,14 +7,16 @@
             };
 
             $scope.alunos = [
-                { "id": 1, "nome": "pé de muleque", "situacao": "andamento" },
-                { "id": 2, "nome": "zé pequeno", "situacao": "concluido" },
-                { "id": 3, "nome": "aluno 42", "situacao": "parado" }
+                { "id": 1, "nome": "pé de muleque", curso: "Aeronáutica", ano: "2014", "semestre": "1", "situacao": "andamento" },
+                { "id": 2, "nome": "zé pequeno", curso: "Logistica", ano: "2016", "semestre": "1", "situacao": "concluido" },
+                { "id": 3, "nome": "aluno 42", curso: "Gestão Produção", ano: "2016", "semestre": "2", "situacao": "parado" },
+                { "id": 4, "nome": "Thiago F", curso: "Banco de Dados", ano: "2016", "semestre": "2", "situacao": "andamento" },
+                { "id": 5, "nome": "Daniel W", curso: "ADS", ano: "2015", "semestre": "2", "situacao": "andamento" }
             ];
 
-            $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
+            $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }, { nome: "Banco de Dados" }, { nome: "ADS" }];
 
-            $scope._ano = [{ ano: "corrente" }, { ano: 2015 }, { ano: 2014 }];
+            $scope._ano = [{ ano: 2016 }, { ano: 2015 }, { ano: 2014 }];
 
             $scope.cursoSelected;
             $scope.anoSelected;
@@ -28,11 +30,11 @@
 
             function Ctrl($scope) {
                 // Can replace this with: ng-init="checkboxSelection = '1'".
-                $scope.semestreSelected = '1';
+                $scope.semestreSelected = 1;
 
                 // Can use parseInt(x, 10) on $scope.checkboxSelection or index.toString() if you want to remove the single quotes you see in isCheckboxSelected('1').
                 $scope.isCheckboxSelected = function (index) {
-                    return index === $scope.semestreSelected;
+                    return index == $scope.semestreSelected;
                 };
             }
 

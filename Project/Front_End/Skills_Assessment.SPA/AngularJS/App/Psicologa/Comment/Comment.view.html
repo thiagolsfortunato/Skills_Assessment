@@ -17,20 +17,33 @@
         <div class="tools">
             <a href="javascript:;" class="collapse"> </a>
         </div>
+
     </div>
     <div class="portlet-body">
         <div class="table-toolbar">
-            <h2>Dilma</h2>
+            <h2>{{aluno}}</h2>
         </div>
         <!-- BEGIN CHART-->
-        <div class="table-responsive">
+        <div class="row" style="margin-left:auto; margin-right:auto; width:600px">
             
             <canvas id="radarChart" width="600" height="450"></canvas>
 
-            <br>
-            <div></div>
-            <textarea rows="4" cols="50"></textarea>
+            <br />
+            
         </div>
+        <div class="row" style="margin-left:auto; margin-right:auto; width:520px">
+            <textarea rows="6" cols="71" data-ng-model="txt"></textarea>
+        </div>
+        
+        <div class="row">
+            
+            <div class="col-md-6 col-md-offset-3">
+                <a class="btn btn-default" href="#/">Voltar</a>
+                <a class="btn btn-default" ng-click="sendComment(txt)" style="float:right">Enviar</a>
+            </div>
+            
+        </div>
+        
         <!-- END CHART-->
     </div>
 </div>

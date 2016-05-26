@@ -74,11 +74,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="item in alunos">
+                    <tr data-ng-repeat="item in alunos | filter:cursoSelected.nome | filter:anoSelected.ano | filter:semestreSelected">
                         <td>{{item.id}}</td>
                         <td>{{item.nome}}</td>
                         <td>
-                            {{item.situacao}}
+                            <a href="#/comment">{{item.situacao}}</a>
                             <!--<a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="userDelete(item.Id);"> <i class="fa fa-trash-o"></i></a>-->
                         </td>
                     </tr>
