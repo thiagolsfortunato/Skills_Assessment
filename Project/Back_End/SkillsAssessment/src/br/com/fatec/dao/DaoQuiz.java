@@ -11,6 +11,7 @@ import br.com.fatec.entity.Answer;
 import br.com.fatec.entity.Competence;
 import br.com.fatec.entity.Question;
 import br.com.fatec.entity.Quiz;
+import br.com.fatec.entity.Result;
 
 public class DaoQuiz{
 
@@ -18,7 +19,7 @@ public class DaoQuiz{
 	public static Integer getValidQuestions(Connection conn, Long userId) throws SQLException {
 		Integer count = null;
 		String query = "select count(*) as questions "
-				+ "from question where question.qst_situation <> 1 and qst_code "
+				+ "from question where question.qst_situation <> 0 and qst_code "
 				+ "not in (select qst_code from quiz where usr_code = ?);";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -37,7 +38,7 @@ public class DaoQuiz{
 	public static Integer getQuestionAmount(Connection conn) throws SQLException {
 		Integer count = null;
 		String query = "select count(*) as questions from question "
-				+ "where question.qst_situation <> 1;";
+				+ "where question.qst_situation <> 0;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			ResultSet rs = stmt.executeQuery();
@@ -55,7 +56,7 @@ public class DaoQuiz{
 	private static String getUnansweredQuestions(Connection conn, Long id) throws SQLException {
 		String question = null;
 		String query = "select min(qst_code) as code from question "
-				+ "where question.qst_situation <> 1 and question.qst_code "
+				+ "where question.qst_situation <> 0 and question.qst_code "
 				+ "not in (select quiz.qst_code from quiz where usr_code = ?);";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -75,7 +76,7 @@ public class DaoQuiz{
 	public static Question getQuestion(Connection conn, Long idUser) throws SQLException {
 		Question qst = new Question();
 		String query = "select * from  (select question.qst_code as qst_code,question.qst_question  ,qst_introduction from question "
-				+ "where question.qst_situation <> 1 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?) order by question.qst_code ) "
+				+ "where question.qst_situation <> 0 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?) order by question.qst_code ) "
 				+ "as question where question.qst_code = ?;";
 		try {
 			String question = getUnansweredQuestions(conn, idUser);
@@ -137,12 +138,12 @@ public class DaoQuiz{
 		String sql = "INSERT INTO quiz (usr_code,qst_code,alt_code,quz_date) "
 				+ "VALUES (?, ?, ?,date_format(now(), '%Y-%m-%d'));";
 		try {
-		//String insert = " insert into quiz (usr_code,qst_code,alt_code,quz_date,quz_duration) values (?,?,?,date_format(now(), '%Y-%m-%d', null);";
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setLong(1, quiz.getUser());
 			stmt.setLong(2, quiz.getQuestion());
 			stmt.setLong(3, quiz.getAnswer());
-			//conn.getStatement().setString(4, quiz.getDuration());
+	
 			if( stmt.executeUpdate() != 0 ){
 				System.out.println("the question has been successfully inserted!");
 				returnInsert =  true;
@@ -152,21 +153,162 @@ public class DaoQuiz{
 			return returnInsert;
 		}
 	}
+	
+	@SuppressWarnings("finally")
+	public static List<Long>  getCompetenciesQuiz(Connection conn, Long userCode) throws SQLException {
+		List<Long> competencies = new LinkedList<Long>();
+		String query = "select distinct com.com_code as code from competence com inner join alt_com alc on com.com_code ="
+				+ " alc.com_code inner join alternatives alt on alt.alt_code = alc.alt_code inner join quiz quz on "
+				+ "quz.alt_code = alt.alt_code where quz.usr_code = ?;";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, userCode);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				competencies = buildCompetenciesToQuiz(rs);
+			}
+			rs.close();
+			stmt.close();
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
+			return competencies;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static Long calculateAverage(Connection conn, Long comCode, Long userCode) throws SQLException {
+		Long sumCompetencie = null;
+		
+		String query = "select sum(alc.rsc_weight) as sum_com from quiz quz inner join alternatives alt on quz.alt_code = "
+				+ " alt.alt_code inner join alt_com alc on alc.alt_code = alt.alt_code where alc.com_code = ? and quz.usr_code = ?;";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, comCode);
+			stmt.setLong(2, userCode);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				sumCompetencie = rs.getLong("sum_com");
+			}
+			rs.close();
+			stmt.close();
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		finally {
+			return sumCompetencie;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static boolean insertAverage(Connection conn, Long com_code, Long userCode) throws SQLException {
+		Long userResult = null;
+		Long competenceSum = null;
+		boolean returnInsert = false;
+		String sql = "INSERT INTO AVERAGE (RST_CODE, COM_CODE, AVR_FINAL) VALUES (?, ?, ?);";
+		try {
+			userResult = DaoEnrolls.getResult(conn, userCode);
+			competenceSum = DaoQuiz.calculateAverage(conn, com_code,userCode);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, userResult);
+			stmt.setLong(2, com_code);
+			stmt.setLong(3, competenceSum);
+			if( stmt.executeUpdate() != 0 ){
+				System.out.println("the average has been successfully inserted!");
+				returnInsert =  true;
+			}
+			stmt.close();
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		finally {
+			return returnInsert;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	private static Result getResultStudent(Connection conn, Long userCode) throws SQLException{
+		Result result  = new Result();
+		String query = "select distinct usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,rst.rst_comment,"
+				+ "avr.avr_final,crs.crs_name,ist.ist_company from result rst inner join average avr on rst.rst_code ="
+				+ " avr.rst_code inner join competence com on com.com_code = avr.com_code inner join "
+				+ "user usr on usr.usr_code = rst.usr_code inner join enrolls erl on erl.usr_code = "
+				+ "usr.usr_code inner join course crs on crs.crs_code = erl.crs_code inner join"
+				+ " ist_crs itc on itc.crs_code = crs.crs_code inner join  institution ist on"
+				+ " ist.ist_code = itc.ist_code where usr.usr_code = ?";
 
-	private static String getNumberOfQuestion(ResultSet rs) throws SQLException {
-//		String numberQuestion;
-//		numberQuestion = rs.getString("code");
-//		return numberQuestion;
-		return rs.getString("code");
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, userCode);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				result = buildResult(conn, rs);
+			}
+			rs.close();
+			stmt.close();
+		} finally {
+			return result;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static Result getAverage(Connection conn, Long userCode) throws SQLException {
+		Result result  = new Result();
+		boolean returnInsert = false;
+		boolean returnUpdateResult = false;
+		try {
+			List<Long> competencies = DaoQuiz.getCompetenciesQuiz(conn,userCode);
+			if(competencies != null){
+				for (int i = 0; i < competencies.size(); i++) {
+					returnInsert = DaoQuiz.insertAverage(conn, competencies.get(i), userCode);
+				}
+				if(returnInsert != false){
+					returnUpdateResult = DaoEnrolls.updateResult(conn, userCode);
+					if(returnUpdateResult !=false){
+						result  = DaoQuiz.getResultStudent(conn,userCode);
+					}
+				}
+			}
+		}finally {
+			return result;
+		}
 	}
 
+	private static String getNumberOfQuestion(ResultSet rs) throws SQLException {
+		return rs.getString("code");
+	}
+	
+	private static Result buildResult(Connection conn, ResultSet rs) throws SQLException {
+		Result result  = new Result();
+		result.setComments(rs.getString("rst_comment"));
+		result.setCourse(rs.getString("crs_name"));
+		result.setInstitution(rs.getString("ist_company"));
+		result.setPeriod(rs.getInt("ern_period"));
+		result.setRa(rs.getString("usr_ra"));
+		result.setUserName(rs.getString("usr_name"));
+		result.setYear(rs.getInt("ern_year"));
+		result.setCompetencies(buildResults(conn,rs));
+		return result;
+	}
+	
+	private static List<Competence> buildResults( Connection conn, ResultSet rs ) throws SQLException {
+		List<Competence> competencies = new LinkedList<Competence>();
+		do {
+			Competence competence = new Competence();
+			competence.setCode(rs.getLong("com_code"));
+			competence.setType(rs.getString("com_type"));
+			competence.setWeight(rs.getInt("avr_final"));
+			competencies.add(competence);
+		} while ( rs.next() );
+		return competencies;
+	}
+	
 	private static Question buildQuestion(Connection conn, ResultSet rs) throws SQLException {
 		Question question = new Question();
 		List<Answer> answers = new LinkedList<Answer>();
 		question.setCode(rs.getLong("question.qst_code"));
 		question.setQuestion(rs.getString("question.qst_question"));
 		question.setIntroduction(rs.getString("question.qst_introduction"));
-		//answers = getAnswers(question.getCode());
 		answers = getAnswers(conn, rs.getLong("question.qst_code"));
 		question.setAnswers(answers);
 		return question;
@@ -206,5 +348,12 @@ public class DaoQuiz{
 		return competencies;
 	}
 	
+	private static List<Long> buildCompetenciesToQuiz( final ResultSet rs ) throws SQLException {
+		List<Long> competencies = new LinkedList<Long>();
+		do {
+			competencies.add(rs.getLong("code"));
+		} while ( rs.next() );
+		return competencies;
+	}
 
 }

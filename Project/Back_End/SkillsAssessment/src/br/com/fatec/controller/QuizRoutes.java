@@ -9,6 +9,7 @@ import br.com.fatec.commons.Token;
 import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Question;
 import br.com.fatec.entity.Quiz;
+import br.com.fatec.entity.Result;
 import br.com.fatec.entity.TokenInfo;
 import br.com.fatec.model.ModelQuiz;
 
@@ -30,7 +31,7 @@ public class QuizRoutes {
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//quiz.setUser(tk.getUserId());
-				quiz.setUser((long)2);
+				quiz.setUser((long)4);
 				return model.insertQuiz(quiz);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -45,13 +46,30 @@ public class QuizRoutes {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
 				//question = model.getQuestion(tk.getUserId());
-				question = model.getQuestion((long)2);
+				question = model.getQuestion((long)4);
 				return question;
 				
 			} catch (Exception e) {
 				System.out.println("ops, an error with inserting, check the fields! "+e);
 				e.printStackTrace();
 				return "ops, an error with get the question, check the fields!";
+			}
+		}, JsonUtil.json());
+		
+		get("/result", (req, res) -> {
+			Result result = new Result();
+			//String token = req.queryParams("token");
+			try {
+				//TokenInfo tk = Token.verifyToken(token);
+				//System.out.println(tk.getUserId());
+				//question = model.getQuestion(tk.getUserId());
+				result = model.getAverage((long)4);
+				return result;
+				
+			} catch (Exception e) {
+				System.out.println("ops, an error with result, check the fields! "+e);
+				e.printStackTrace();
+				return "ops, an error with get the result, check the fields!";
 			}
 		}, JsonUtil.json());
 	}

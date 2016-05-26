@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 public class ConnectionFactory {
 	
 	private static String USER = "root";
-    private static String PASSWORD = "inacio";
-    private static String IP = "localhost:3306/SkillsAssessment?useSSL=false";
+    private static String PASSWORD = "eduardo";
+    private static String IP = "192.168.98.130:3306/SkillsAssessment?useSSL=false";
     private static String DRIVER = "com.mysql.jdbc.Driver";
     
     public Connection getConnection(){
@@ -24,11 +24,11 @@ public class ConnectionFactory {
     		return DriverManager.getConnection("jdbc:mysql://" + IP , USER, PASSWORD);
     	
     	}catch(ClassNotFoundException ex){
-    		
+    		System.out.println("Falha na conexão com o banco "+ex);
     		Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE,null, ex);
             
     	}catch (SQLException e) {
-            
+            System.out.println("Falha de sql "+e);
     		throw new RuntimeException(e);
     	}
 		return null;           	
