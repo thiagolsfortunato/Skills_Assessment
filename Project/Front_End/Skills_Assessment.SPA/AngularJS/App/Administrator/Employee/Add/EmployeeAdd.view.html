@@ -2,7 +2,7 @@
 
     <br />
     <h2>
-        <span class="section">Usuário</span>
+        <span class="section">Psicóloga</span>
     </h2>
     <br />
     <br />
@@ -24,11 +24,8 @@
         </label>
 
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <label class="radio-inline">
-                <input data-ng-model="user.type" type="radio" name="optradio" value="Psicólogo">Psicólogo
-            </label>
-            <label class="radio-inline">
-                <input data-ng-model="user.type" type="radio" name="optradio" value="Administrador">Administrador
+            <label class="control-label">
+                Psicóloga
             </label>
         </div>
 
@@ -40,9 +37,9 @@
         </label>
         <!--teste-->
         <div class="col-xs-6">
-            <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="user.instCode" data-ng-options="fatec.company for fatec in fatecs">
-                <option value="">Fatec *</option>
-            </select>
+            <label class="control-label">
+                {{fatec.company}}
+            </label>
         </div>
     </div>
 

@@ -88,7 +88,9 @@ public class DaoInstitution {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setLong(1, code);
 			ResultSet rs = stmt.executeQuery();
-			institution = buildInstitution(rs);
+			if( rs.next() ){
+				institution = buildInstitution(rs);
+			}
 			rs.close();
 			stmt.close();
 		} finally {

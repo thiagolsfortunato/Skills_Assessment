@@ -1,5 +1,5 @@
 ﻿FatecControllers.controller('LoginController',
-    ['$scope', '$routeParams', 'AuthenticationService', 'localStorageService',
+    ['$scope', '$routeParams', 'AuthenticationService', 'localStorageService', 
         function ($scope, $routeParams, authenticationService, localStorageService) {
             $scope.Login = _login;
             
@@ -22,9 +22,27 @@
 
 
                 authenticationService.Login(loginUser).then(function (data) {
+                    
+                    
+                    switch(data["type"].toLowerCase()) {
+                        case "student":
+                            //document.location = "../#/question/" + data["unansweredQuestions"];
+                            document.location = "/Student.html";
+                            break;
+                        
+                        case "administrador":
 
-                    if (data["type"] == "student")
-                        document.location = "../#/question/" + data["unansweredQuestions"];
+                            document.location = "/Administrator.html";
+                            break;
+                        
+                        case "psycology":
+                            document.location = "/Psiologa.html";
+                            break;
+                        default:
+                            document.location = "/Login.html";
+                            break;
+                    }
+                        
 
                     //document.location = "Administrator.html";
 

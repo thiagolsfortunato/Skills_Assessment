@@ -16,7 +16,7 @@ public class DaoUser {
 	@SuppressWarnings("finally")
 	public static User getLogin(Connection conn, String userName, String password) throws SQLException{
 		User user = null;
-		String query = "SELECT usr_type, usr_code, usr_token,usr_name FROM user WHERE usr_username = ? AND usr_password = ?;";
+		String query = "SELECT usr_type, ist_code, usr_code, usr_token, usr_name FROM user WHERE usr_username = ? AND usr_password = ?;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, userName);
@@ -206,6 +206,7 @@ public class DaoUser {
 		user.setType( rs.getString("USR_TYPE") );
 		user.setUserCode( rs.getLong("USR_CODE") );
 		user.setUserName( rs.getString("USR_NAME") );
+		user.setInstCode(rs.getLong("IST_CODE"));
 		user.setToken(token); 
 		return user;
 	}
@@ -214,6 +215,7 @@ public class DaoUser {
 		User user = new User();
 		
 		user.setUserCode(rs.getLong("USR_CODE"));
+		user.setInstCode(rs.getLong("IST_CODE"));
 		user.setUserName(rs.getString("USR_NAME"));
 		user.setSituation(rs.getInt("USR_SITUATION"));
 		user.setVerification(rs.getInt("USR_VERIFIED"));

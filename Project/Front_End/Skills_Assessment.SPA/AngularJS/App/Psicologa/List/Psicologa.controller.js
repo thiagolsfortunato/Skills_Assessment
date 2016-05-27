@@ -10,8 +10,8 @@
 });
 
 FatecControllers.controller('PsicologaController',
-    ['$scope', '$routeParams', 'PsicologaService', '$log',
-        function ($scope, $routeParams, psicologaService, $log) {
+    ['$scope', '$routeParams', 'PsicologaService', '$log', 'localStorageService',
+        function ($scope, $routeParams, psicologaService, $log, localStorageService) {
 
             $scope.psicologa = {
                 "nome": "nome da psicoloca",
@@ -48,6 +48,16 @@ FatecControllers.controller('PsicologaController',
                 $scope.isCheckboxSelected = function (index) {
                     return index == $scope.semestreSelected;
                 };
+            }
+
+            init();
+
+            function init() {
+                if (localStorageService.get('user').type != 'Psicologa') {
+                    document.location.href = '/Login.html';
+                } else {
+                    $scope.admistrador = localStorageService.get('user');
+                }
             }
 
             // FAZER
