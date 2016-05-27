@@ -49,11 +49,11 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Long insertUser(Connection conn, User user) throws SQLException{
+	public static Long insertUser(Connection conn, User user, Long idFatec) throws SQLException{
 		
 		Long idUser = null;
-		String sql = "INSERT INTO user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) "+
-				"values ( ?, ?, ?, ?, ?, date_format(now(), '%Y-%m-%d'), ?);";
+		String sql = "INSERT INTO user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) "
+				+"VALUES ( ?, ?, ?, ?, ?, date_format(now(), '%Y-%m-%d'), ?);";
 		try {
 			// prepared statement para inserção
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -63,7 +63,7 @@ public class DaoUser {
 			stmt.setString(3, user.getRa());
 			stmt.setString(4, user.getType());
 			stmt.setString(5, user.getName());
-			stmt.setInt(6, user.getInstCode());
+			stmt.setLong(6, idFatec);
 			// executa
 			if(  stmt.executeUpdate() != 0 ){
 				System.out.println("sorte. .");

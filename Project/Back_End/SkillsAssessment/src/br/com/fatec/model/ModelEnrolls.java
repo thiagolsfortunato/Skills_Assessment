@@ -25,7 +25,7 @@ public class ModelEnrolls {
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			
-			Long idUser = DaoUser.insertUser(conn, user);
+			Long idUser = DaoUser.insertUser(conn, user, user.getInstCode());
 			//resultado da inserção do usuario + estudante
 			if ( idUser != null ){
 				statusEnrolls = DaoEnrolls.insertEnrolls(conn, enrolls, idUser);

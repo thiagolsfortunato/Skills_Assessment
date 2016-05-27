@@ -16,7 +16,7 @@ public class User {
 	private String registration_date;
 	private Integer situation;
 	private Integer verification;
-	private Integer instCode;
+	private Long instCode;
 	private String token;
 	
 	
@@ -68,10 +68,10 @@ public class User {
 	public void setVerification(Integer verification) {
 		this.verification = verification;
 	}
-	public Integer getInstCode() {
+	public Long getInstCode() {
 		return instCode;
 	}
-	public void setInstCode(Integer instCode) {
+	public void setInstCode(Long instCode) {
 		this.instCode = instCode;
 	}
 	public String getToken() {

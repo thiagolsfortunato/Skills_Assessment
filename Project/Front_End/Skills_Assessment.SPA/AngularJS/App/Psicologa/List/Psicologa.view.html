@@ -27,7 +27,7 @@
         <div class="col-md-3">
             <div layout="column">
                 <select class="selectpicker form-control" data-ng-model="cursoSelected" data-ng-options="curso.nome for curso in cursos">
-                    <option value="">Select Curso *</option>
+                    <option value="">Select Curso</option>
                 </select>
             </div>
 
@@ -36,21 +36,19 @@
         <div class="col-md-3">
             <div class="form-group">
                 <select class="selectpicker form-control" data-ng-model="anoSelected" data-ng-options="year.ano for year in _ano">
-                    <option value="">Select Ano *</option>
+                    <option value="">Select Ano</option>
+                </select>
+            </div>
+        </div>
+        <!-- Dropdown menu escolha do semestre-->
+        <div class="col-md-3">
+            <div class="form-group">
+                <select class="selectpicker form-control" data-ng-model="semestreSelected" data-ng-options="sem.desc for sem in semestres">
+                    <option value="">Select Semestre</option>
                 </select>
             </div>
         </div>
 
-        <div class="col-md-2">
-            <div class="input-group">
-                <input type="radio" value="1" aria-label="..." data-ng-model="semestreSelected"> 1º Semestre
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="input-group">
-                <input type="radio" value="2" aria-label="..." data-ng-model="semestreSelected"> 2º Semestre
-            </div>
-        </div>
         <div class="btn-group" role="group" aria-label="...">
             <button type="button" class="btn btn-default" ng-click="func();"><span class="glyphicon glyphicon-search"></span></button>
         </div>
@@ -74,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="item in alunos | filter:cursoSelected.nome | filter:anoSelected.ano | filter:semestreSelected">
+                    <tr data-ng-repeat="item in alunos | filter:cursoSelected.nome | filter:anoSelected.ano | filter: (semestreSelected.id | zeros) ">
                         <td>{{item.id}}</td>
                         <td>{{item.nome}}</td>
                         <td>

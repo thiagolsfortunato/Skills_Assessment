@@ -1,4 +1,15 @@
-﻿FatecControllers.controller('PsicologaController',
+﻿FatecControllers.filter('zeros', function () {
+    return function (id) {
+        if (id == null) {
+            return;
+        } else {
+            return id.toString().concat('00');
+        }
+        
+    };
+});
+
+FatecControllers.controller('PsicologaController',
     ['$scope', '$routeParams', 'PsicologaService', '$log',
         function ($scope, $routeParams, psicologaService, $log) {
 
@@ -7,16 +18,17 @@
             };
 
             $scope.alunos = [
-                { "id": 1, "nome": "pé de muleque", curso: "Aeronáutica", ano: "2014", "semestre": "1", "situacao": "andamento" },
-                { "id": 2, "nome": "zé pequeno", curso: "Logistica", ano: "2016", "semestre": "1", "situacao": "concluido" },
-                { "id": 3, "nome": "aluno 42", curso: "Gestão Produção", ano: "2016", "semestre": "2", "situacao": "parado" },
-                { "id": 4, "nome": "Thiago F", curso: "Banco de Dados", ano: "2016", "semestre": "2", "situacao": "andamento" },
-                { "id": 5, "nome": "Daniel W", curso: "ADS", ano: "2015", "semestre": "2", "situacao": "andamento" }
+                { "id": 1, "nome": "pé de muleque", curso: "Aeronáutica", ano: "2014", "semestre": '100', "situacao": "andamento" },
+                { "id": 2, "nome": "zé pequeno", curso: "Logistica", ano: "2016", "semestre": '200', "situacao": "concluido" },
+                { "id": 3, "nome": "aluno 42", curso: "Gestão Produção", ano: "2016", "semestre": '200', "situacao": "parado" },
+                { "id": 4, "nome": "Thiago F", curso: "Banco de Dados", ano: "2016", "semestre": '100', "situacao": "andamento" },
+                { "id": 5, "nome": "Daniel W", curso: "ADS", ano: "2015", "semestre": '100', "situacao": "andamento" }
             ];
 
             $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }, { nome: "Banco de Dados" }, { nome: "ADS" }];
 
             $scope._ano = [{ ano: 2016 }, { ano: 2015 }, { ano: 2014 }];
+            $scope.semestres = [{ id: '1', desc: '1º Semestre' }, { id: '2', desc: '2º Semestre' }];
 
             $scope.cursoSelected;
             $scope.anoSelected;
@@ -25,7 +37,7 @@
             $scope.func = function () {
                 console.log($scope.cursoSelected.nome);
                 console.log($scope.anoSelected.ano);
-                console.log($scope.semestreSelected);
+                console.log($scope.semestreSelected.id);
             }
 
             function Ctrl($scope) {

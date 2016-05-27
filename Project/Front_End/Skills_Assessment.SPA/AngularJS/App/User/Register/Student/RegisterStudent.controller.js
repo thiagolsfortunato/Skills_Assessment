@@ -1,4 +1,4 @@
-﻿FatecControllers.controller('RegisterController',
+﻿FatecControllers.controller('RegisterStudentController',
     ['$scope', '$routeParams', 'localStorageService', 'RegisterService', 'CourseService',
         function ($scope, $routeParams, localStorageService, registerService, courseService) {
 
