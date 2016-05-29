@@ -9,33 +9,54 @@
 <hr />
 <br />
 <div class="panel panel-primary">
-    <div class="panel-heading">Informações</div>
-        
+    <div class="panel-heading">Informações {{institution.cnpj | cnpj}}</div>
+
     <div class="panel-body">
-            
+
         <div id="main" class="container-fluid" style="width:500px">
-            <form role="form"><!-- caso atributo loginState seje verdadeiro ativa essa função-->
+            <form role="form">
+                <!-- caso atributo loginState seje verdadeiro ativa essa função-->
                 <div class="alert alert-danger" ng-if="registerState">
                     <button class="close" data-close="alert"></button>
                     <span>
                         Verifique suas informações!
                     </span>
                 </div>
-                
-                <div class="row"><!--teste-->
+                <!-- INICIO DADOS DA FATEC -->
+                <div class="row">
+                    <!--teste-->
                     <div class="form-group col-xs-12">
                         <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                         <!--<label class="control-label visible-ie8 visible-ie9">Nome</label>-->
-                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.name" type="text" autocomplete="off" placeholder="Nome *" name="name" />
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="institution.company" type="text" autocomplete="off" placeholder="Razão Social" name="razão-social" />
                     </div>
                 </div>
-                <div class="row"><!--teste-->
+                <div class="row">
+                    <!--teste-->
                     <div class="form-group col-xs-12">
                         <!--<label class="control-label visible-ie8 visible-ie9">RA</label>-->
-                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.ra" type="text" autocomplete="off" placeholder="RA *" name="ra" />
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="institution.cnpj" type="text" size=18 maxlength=18 autocomplete="off" placeholder="CNPJ" name="cnpj" />
                     </div>
                 </div>
-                <div class="row"><!--teste-->
+                <div class="row">
+                    <!--teste-->
+                    <div class="form-group col-xs-12">
+                        <!--<label class="control-label visible-ie8 visible-ie9">RA</label>-->
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="institution.city" type="text" autocomplete="off" placeholder="Cidade" name="cidade" />
+                    </div>
+                </div>
+                <!-- FIM DADOS DA FATEC -->
+
+                <!-- INICIO DADOS DA USUARIO -->
+                <div class="row">
+                    <!--teste-->
+                    <div class="form-group col-xs-12">
+                        <!--<label class="control-label visible-ie8 visible-ie9">RA</label>-->
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.name" type="text" autocomplete="off" placeholder="Nome" name="nome" />
+                    </div>
+                </div>
+                <div class="row">
+                    <!--teste-->
                     <div class="form-group col-xs-12">
                         <!--<label class="control-label visible-ie8 visible-ie9">Email</label>-->
                         <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.userName" type="text" autocomplete="off" placeholder="Email *" name="Email" />
@@ -47,40 +68,29 @@
                             <!--<label class="control-label visible-ie8 visible-ie9">Senha</label>-->
                             <input class="form-control form-control-solid placeholder-no-fix" style="width:220px" data-ng-model="user.password" type="password" autocomplete="off" placeholder="Senha *" name="Senha" />
                         </div>
-                    </div>        
+                    </div>
                     <div class="form-group col-xs-6">
                         <div class="input-group">
                             <!--<label class="control-label visible-ie8 visible-ie9">Senha2</label>-->
-                            <input class="form-control form-control-solid placeholder-no-fix" style="width:220px; float:right" data-ng-model="user.password2"  type="password" autocomplete="off" placeholder="Senha *" name="Senha" />
+                            <input class="form-control form-control-solid placeholder-no-fix" style="width:220px; float:right" data-ng-model="user.password2" type="password" autocomplete="off" placeholder="Senha *" name="Senha" />
                         </div>
                     </div>
                 </div>
-                <div class="row" style="height:49px">
-                    <!--teste-->
-                    <div class="col-xs-6">
-                        <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="user.fatec" data-ng-options="fatec.company for fatec in fatecs">
-                            <option value="">Fatec *</option>
-                        </select>
-                    </div>
-                    <div class="col-xs-6"><!-- ng-disable : desabilita campo até que atenda a condição, ng-model : objeto temporario passado como parâmetro para função, ng-options : pega todos atributos e insere no dropdown  -->
-                        <select class="form-control-static col-xs-6" style="width:220px; float:right"  ng-disabled="!user.fatec" data-ng-model="user.curso" data-ng-options="curso.name for curso in cursos">
-                            <option value="">Curso *</option><!-- valor padrão definido ao dropdown -->
-                        </select>
-                   </div>
-                </div>
+
 
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <div class="btn-group" role="group">
                             <a href="/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
                         </div>
-                        <div class="btn-group" role="group" style="float:right"><!-- ng-click : chama função cadastrar(parametro) -->
-                            <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!user.name || !user.ra || !user.userName || !user.password || !user.password2">Cadastrar</button><!--chama função cadastar-->
+                        <div class="btn-group" role="group" style="float:right">
+                            <!-- ng-click : chama função cadastrar(parametro) -->
+                            <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!institution.company || !institution.cnpj || !institution.city || !user.name || !user.userName || !user.password || !user.password2">Cadastrar</button>
                         </div>
                     </div>
                 </div>
 
-            </form>           
+            </form>
         </div><!--fecha container-->
     </div><!--fecha panel body-->
     <div class="panel-footer"></div>

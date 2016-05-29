@@ -6,7 +6,9 @@ import java.util.List;
 
 import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoInstitution;
+import br.com.fatec.dao.DaoUser;
 import br.com.fatec.entity.Institution;
+import br.com.fatec.entity.User;
 
 public class ModelInstitution {
 	
@@ -67,12 +69,16 @@ public class ModelInstitution {
 	}
 	
 	@SuppressWarnings("finally")
-	public boolean insertInstitution (Institution fatec) {
+	public boolean insertInstitution (Institution fatec, User adm) {
 		boolean status = false;
 		try{
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
-			status = DaoInstitution.insertInstitution(conn, fatec);
+			Long idFatec = DaoInstitution.insertInstitution(conn, fatec);
+			Long idUser  = DaoUser.insertUser(conn, adm, idFatec);
+			if( idFatec != null && idUser != null ){
+				status = true;
+			}
 			if (status) {
 				conn.commit();
 			} else {

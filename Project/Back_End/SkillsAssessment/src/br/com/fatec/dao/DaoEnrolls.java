@@ -24,7 +24,7 @@ public class DaoEnrolls {
 			stmt.setLong(3, enrolls.getCodeCourse());
 			stmt.setLong(4, codeUser);
 			if( stmt.executeUpdate() != 0 ){
-				insert = true;
+				insert = insertResult(conn, codeUser);
 			}
 			stmt.close();
 		}finally{
@@ -124,6 +124,61 @@ public class DaoEnrolls {
 		}
 		
 	}
+	
+	@SuppressWarnings("finally")
+	public static boolean insertResult(Connection conn, Long codeUser) throws SQLException{
+		
+		String sql = "INSERT INTO RESULT (usr_code) VALUES (?);";
+		boolean insert = false;
+		try{
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, codeUser);
+			if( stmt.executeUpdate() != 0 ){
+				insert = true;
+			}
+			stmt.close();
+		}finally{
+			return insert;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static Long getResult(Connection conn, Long idUser) throws SQLException {
+
+		String query = "SELECT RST_CODE FROM RESULT WHERE USR_CODE = ?";
+		Long result_code = null;
+		try{
+			
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, idUser);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				result_code = rs.getLong("RST_CODE");
+			}
+		} finally {
+			return result_code;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static boolean updateResult(Connection conn, Long userCode) throws SQLException{
+
+		String sql = "UPDATE RESULT SET RST_DATE_FINAL = date_format(now(), '%Y-%m-%d'), RST_COMPLETED = ? where USR_CODE = ?;";
+		boolean update = false;
+		try {
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			stmt.setLong(2, userCode);
+	
+			if( stmt.executeUpdate() != 0 ){
+				update = true;
+			}
+			stmt.close();
+		} finally {
+			return update;
+		}
+	}	
 	
 	private static Enrolls buildEnroll (ResultSet rs) throws SQLException{
 		Enrolls enrolls = new Enrolls(); 

@@ -28,7 +28,14 @@ public class CourseRoutes {
 			String courseData = req.body();
 			Course course = gson.fromJson(courseData, Course.class);
 			try{
-				return modelCourses.insertCourse(course);
+				boolean operacao = modelCourses.insertCourse(course);
+				if (operacao){
+					return "SUCESS";
+				}else{
+					res.status(600);
+					return "FAIL";
+				}
+				
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				return "ops, an error with inserting, check the fields!";
@@ -38,8 +45,9 @@ public class CourseRoutes {
 		//FUNCIONANDO !
 		delete("/course", "application/json" , (req, res) -> {
 			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
+			Long codeFatec = Long.parseLong(req.queryParams("codeFatec"));
 			try{
-				return modelCourses.deleteCourse(codeCourse);
+				return modelCourses.deleteCourse(codeCourse, codeFatec);
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				res.status(400);

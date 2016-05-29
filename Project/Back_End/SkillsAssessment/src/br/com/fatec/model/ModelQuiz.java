@@ -7,6 +7,7 @@ import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoQuiz;
 import br.com.fatec.entity.Question;
 import br.com.fatec.entity.Quiz;
+import br.com.fatec.entity.Result;
 
 public class ModelQuiz {
 	
@@ -56,6 +57,25 @@ public class ModelQuiz {
 				e.printStackTrace();
 			}
 			return question;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public Result getAverage(Long userId){
+		Result result = null;
+		try {
+			conn = new ConnectionFactory().getConnection();
+			result = DaoQuiz.getAverage(conn, userId);
+		} catch (SQLException e) {
+			System.out.println("an error occurred while trying to get a average");
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
 		}
 	}
 	

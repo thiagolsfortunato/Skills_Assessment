@@ -2,8 +2,9 @@
     function ($http, $q, localStorageService) {
         return {
             Login: _Login,
-            Logout: _Logout
+            Logout: _Logout,
         };
+
 
         function _Login(loginUser) {
 
@@ -23,7 +24,11 @@
 
                    localStorageService.set('authorizationData', { token: data.token });
 
+                   localStorageService.set('user', data);
+
                    deferred.resolve(data);
+
+                   
 
                }).then(function successCallback(response) {
                    // this callback will be called asynchronously

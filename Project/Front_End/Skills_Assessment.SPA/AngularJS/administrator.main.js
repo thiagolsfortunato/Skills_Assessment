@@ -1,21 +1,11 @@
 ﻿window.publication = angular.module('administrator', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'FatecControllers']);
 
 publication.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
-
-    /*
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    $httpProvider.defaults.headers = { 'Content-Type': 'application/json;charset=utf-8' };
-    //$httpProvider.defaults.withCredentials = true;
-    //$httpProvider.defaults.headers.common = {};
-    $httpProvider.defaults.headers.post = {};
-    $httpProvider.defaults.headers.put = {};
-    $httpProvider.defaults.headers.delete = {};
-    //$httpProvider.defaults.headers.patch = {}; */
     
 
     $routeProvider
         
+        .when('/home', { templateUrl: 'AngularJS/App/Administrator/Home/AdministratorHome.view.html', controller: 'AdministratorHomeController' })
         .when('/user/list', { templateUrl: 'AngularJS/App/User/List/UserList.view.html', controller: 'UserListController' })
         .when('/user/add', { templateUrl: 'AngularJS/App/User/Add/UserAdd.view.html', controller: 'UserAddController' })
         .when('/user/edit', { templateUrl: 'AngularJS/App/User/Edit/UserEdit.view.html', controller: 'UserEditController' })
@@ -34,7 +24,7 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
 
         .when('/institution', { templateUrl: 'AngularJS/App/Administrator/Institution/List/Institution.view.html', controller: 'InstitutionController' })
         
-
+        .otherwise({  redirectTo: '/home'  });
 
 
     $httpProvider.interceptors.push('authorizationInterceptor');

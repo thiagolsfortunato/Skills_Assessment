@@ -16,7 +16,7 @@ public class DaoUser {
 	@SuppressWarnings("finally")
 	public static User getLogin(Connection conn, String userName, String password) throws SQLException{
 		User user = null;
-		String query = "SELECT usr_type, usr_code, usr_token,usr_name FROM user WHERE usr_username = ? AND usr_password = ?;";
+		String query = "SELECT usr_type, ist_code, usr_code, usr_token, usr_name FROM user WHERE usr_username = ? AND usr_password = ?;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, userName);
@@ -49,11 +49,11 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public static Long insertUser(Connection conn, User user) throws SQLException{
+	public static Long insertUser(Connection conn, User user, Long idFatec) throws SQLException{
 		
 		Long idUser = null;
-		String sql = "INSERT INTO user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) "+
-				"values ( ?, ?, ?, ?, ?, date_format(now(), '%Y-%m-%d'), ?);";
+		String sql = "INSERT INTO user (usr_userName ,usr_password ,usr_ra, usr_type, usr_name, usr_register, ist_code) "
+				+"VALUES ( ?, ?, ?, ?, ?, date_format(now(), '%Y-%m-%d'), ?);";
 		try {
 			// prepared statement para inserção
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -63,7 +63,7 @@ public class DaoUser {
 			stmt.setString(3, user.getRa());
 			stmt.setString(4, user.getType());
 			stmt.setString(5, user.getName());
-			stmt.setInt(6, user.getInstCode());
+			stmt.setLong(6, idFatec);
 			// executa
 			if(  stmt.executeUpdate() != 0 ){
 				System.out.println("sorte. .");
@@ -206,6 +206,7 @@ public class DaoUser {
 		user.setType( rs.getString("USR_TYPE") );
 		user.setUserCode( rs.getLong("USR_CODE") );
 		user.setUserName( rs.getString("USR_NAME") );
+		user.setInstCode(rs.getLong("IST_CODE"));
 		user.setToken(token); 
 		return user;
 	}
@@ -214,6 +215,7 @@ public class DaoUser {
 		User user = new User();
 		
 		user.setUserCode(rs.getLong("USR_CODE"));
+		user.setInstCode(rs.getLong("IST_CODE"));
 		user.setUserName(rs.getString("USR_NAME"));
 		user.setSituation(rs.getInt("USR_SITUATION"));
 		user.setVerification(rs.getInt("USR_VERIFIED"));

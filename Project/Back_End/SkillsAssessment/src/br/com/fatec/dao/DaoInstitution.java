@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,23 +14,27 @@ import br.com.fatec.entity.Institution;
 public class DaoInstitution {
 	
 	@SuppressWarnings("finally")
-	public static boolean insertInstitution(Connection conn, Institution institution) throws SQLException {
+	public static Long insertInstitution(Connection conn, Institution institution) throws SQLException {
 		
-		String insert = "INSERT INTO institution (ist_company ,ist_cnpj, ist_city) VALUES (?,?,?);";
+		String insert = "INSERT INTO institution (ist_company ,ist_cnpj, ist_city) VALUES (?, ?, ?);";
 		
-		boolean transaction = false;
+		Long idInstitution = null;
 		try {
-			PreparedStatement stmt = conn.prepareStatement(insert);
+			PreparedStatement stmt = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, institution.getCompany());
 			stmt.setString(2, institution.getCnpj());
 			stmt.setString(3, institution.getCity());
 			
 			if(stmt.executeUpdate() != 0){
-				transaction = true;
+				ResultSet generatedKeys = stmt.getGeneratedKeys();
+				if( generatedKeys.next() ){
+					idInstitution = generatedKeys.getLong(1);
+				}
+				generatedKeys.close();
 			}
 			stmt.close();
 		} finally {
-			return transaction;
+			return idInstitution;
 		}
 	}
 	
@@ -62,6 +67,7 @@ public class DaoInstitution {
 			stmt.setString(1, institution.getCompany());
 			stmt.setString(2, institution.getCnpj());
 			stmt.setString(3, institution.getCity());
+			stmt.setLong(4, institution.getCodeInstitution());
 		
 			if(stmt.executeUpdate() != 0){
 				transaction = true;	
@@ -82,7 +88,9 @@ public class DaoInstitution {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setLong(1, code);
 			ResultSet rs = stmt.executeQuery();
-			institution = buildInstitution(rs);
+			if( rs.next() ){
+				institution = buildInstitution(rs);
+			}
 			rs.close();
 			stmt.close();
 		} finally {

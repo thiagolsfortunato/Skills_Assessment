@@ -49,12 +49,12 @@
     <div class="row" style="padding-top: 10px">
         <div class="item form-group">
             <div class="col-md-8 col-sm-8 col-xs-8">
-                <a style="float:right" ng-show="btnLabel == 'Adicionar'" class="btn btn-success" ng-click="institutionAdd(institution)"> <i class="fa fa-trash-o"></i> {{btnLabel}}</a>
+                <button style="float:right" ng-show="btnLabel == 'Adicionar'" class="btn btn-success" ng-disabled="registered" ng-click="institutionAdd(institution)"> <i class="fa fa-trash-o"></i> {{btnLabel}}</button>
             </div>
             <div class="col-md-8 col-sm-8 col-xs-8">
                 <a style="float:right" ng-show="btnLabel == 'Alterar'" class="btn btn-success" ng-click="institutionUpdate(institution)"> <i class="fa fa-trash-o"></i> {{btnLabel}} </a>
                 
-                <a style="float:right" ng-show="btnLabel == 'Alterar'" class="btn btn-warning" ng-click="institutionCancel();"> <i class="fa fa-trash-o"></i> Cancelar </a>
+                <button style="float:right" ng-show="btnLabel == 'Alterar'" class="btn btn-warning" ng-click="institutionCancel();"> <i class="fa fa-trash-o"></i> Cancelar </button>
             </div>
 
         </div>

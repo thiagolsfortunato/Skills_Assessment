@@ -6,13 +6,17 @@ import static spark.Spark.post;
 import static spark.Spark.put;
 import static spark.Spark.delete;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.connection.CorsFilter;
+import br.com.fatec.entity.FatecAdm;
 import br.com.fatec.entity.Institution;
+import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelInstitution;
 
 public class InstitutionRoutes {
@@ -28,9 +32,11 @@ public class InstitutionRoutes {
 		post("/institution", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			Institution fatec = gson.fromJson(data, Institution.class);
+			FatecAdm fatecAdm = gson.fromJson(data, FatecAdm.class);
+			//User adm = gson.fromJson(data, User.class);
 	
-			boolean sucess = model.insertInstitution(fatec);
+			boolean sucess = model.insertInstitution(fatecAdm.getFatec(), fatecAdm.getAdm());
+			
 			if(sucess){
 				res.status(200);
 				return "successfully inserted";
@@ -112,7 +118,7 @@ public class InstitutionRoutes {
 			if(fatecs.size() > 0){
 				return fatecs;
 			}else{
-				res.status(404);
+				res.status(600);
 				return "no FATEC registered";
 			}
 		}, JsonUtil.json());

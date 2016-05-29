@@ -1,6 +1,15 @@
 ﻿FatecControllers.controller('ProfileController',
     ['$scope', '$routeParams', 'ProfileService', '$log', 'localStorageService',
         function ($scope, $routeParams, profileService, $log, localStorageService) {
+
+            $scope.aluno;
+
+            init();
+
+            function init() {
+                $scope.aluno = localStorageService.get('user');
+                console.log($scope.aluno);
+            }
             //EDITAR CONTEUDO
 /*            $scope.question;
 

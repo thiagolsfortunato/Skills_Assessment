@@ -1,21 +1,32 @@
 ﻿FatecControllers.controller('EmployeeAddController',
-    ['$scope', '$routeParams', 'EmployeeService','RegisterService',
-     function ($scope, $routeParams, employeeService, registerService) {
+    ['$scope', '$routeParams', 'EmployeeService','RegisterService', 'InstitutionService', 'localStorageService',
+     function ($scope, $routeParams, employeeService, registerService, institutionService, localStorageService) {
 
 
             $scope.employeeAdd = _employeeAdd;
-            $scope.user = {};
-            $scope.fatecs;
+
+         // scope.user é a nova psicologa a ser inserida no banco
+            $scope.user = {
+                //instCode: $scope.adm.instCode,
+                type: 'psicologa'
+            };
+
+            $scope.fatec;
+            
+            $scope.adm;
 
             function init () {
-                $scope.fatecLists();
+                $scope.adm = localStorageService.get('user'); //pega administrador logado
+                delete $scope.adm['token']; //remove atributo token do adm
+                $scope.user.instCode = $scope.adm.instCode; //seta codigo da fatec na nova psicologa
+                $scope.fatec = $scope.getFatec($scope.adm.instCode);
             }
 
 
-            $scope.fatecLists  = function () {
-                registerService.fatecList().then(function (data) {
-                    $scope.fatecs = data;
-                    console.log($scope.fatecs);
+            $scope.getFatec = function (idFatec) {
+                institutionService.institutionFindCode(idFatec).then(function (data) {
+                    $scope.fatec = data;
+                    console.log($scope.fatec);
 
                 });
             }

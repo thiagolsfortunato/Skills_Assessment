@@ -5,9 +5,29 @@
         institutionSave: _institutionSave,
         institutionList: _institutionsList,
         institutionDelete: _institutionDelete,
-        institutionUpdate: _institutionUpdate
+        institutionUpdate: _institutionUpdate,
+        institutionFindCode: _institutionFindCode
 
     };
+
+    function _institutionFindCode(code) {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('institution/find/code'),
+            params: { code: code }
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(data);
+           }).
+            error(function (data, status, headers, config) {
+                deferred.resolve(status);
+            });
+
+        return deferred.promise;
+    }
 
     function _institutionSave(obj) {
 
@@ -33,11 +53,14 @@
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('institution/find/all')
+            url: config.generateApiUrl('institution/find/all'),
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
-           });
+           }).
+            error(function (data, status, headers, config) {
+                deferred.resolve(status);
+            });
 
         return deferred.promise;
     }
@@ -54,7 +77,10 @@
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
-           });
+           }).
+            error(function (dat, status, headers, config) {
+                deferred.resolve(status);
+            });
 
         return deferred.promise;
     }

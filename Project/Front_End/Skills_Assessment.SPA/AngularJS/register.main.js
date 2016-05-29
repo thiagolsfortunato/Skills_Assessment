@@ -3,7 +3,8 @@
 publication.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $routeProvider
 
-        .when('/', { templateUrl: '../AngularJS/App/User/Register/Register.view.html', controller: 'RegisterController' });
+        .when('/Student', { templateUrl: '../AngularJS/App/User/Register/Student/RegisterStudent.view.html', controller: 'RegisterStudentController' })
+        .when('/Institution', { templateUrl: '../AngularJS/App/User/Register/Institution/RegisterInstitution.view.html', controller: 'RegisterInstitutionController' })
 
     $httpProvider.interceptors.push('authorizationInterceptor');
 }]);

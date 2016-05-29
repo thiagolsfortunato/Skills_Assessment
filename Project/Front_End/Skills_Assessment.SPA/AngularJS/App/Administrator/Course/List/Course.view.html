@@ -45,7 +45,7 @@
                     <tr data-ng-repeat="item in courses">
                         <td>{{item.name}}</td>
                         <td>
-                            <a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                            <button class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse, item.codeInstitution);"> <i class="fa fa-trash-o"></i> Apagar</button>
                             <a class="btn btn-warning" ng-click="courseLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                         </td>
                     </tr>
