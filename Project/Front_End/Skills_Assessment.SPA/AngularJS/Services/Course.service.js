@@ -5,8 +5,27 @@
         courseList: _courseList,
         courseAdd: _courseAdd,
         courseDelete: _courseDelete,
-        courseUpdate: _courseUpdate
+        courseUpdate: _courseUpdate,
+        courseFindId: _findId
     };
+
+    function _findId(code) {
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('course/search/code'),
+            params: { code: code }
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(data);
+           }).
+            error(function (data, status, headers, config) {
+                deferred.resolve(status);
+            });
+
+        return deferred.promise;
+    }
 
     function _courseList() {
 

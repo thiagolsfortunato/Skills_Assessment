@@ -49,7 +49,7 @@
     <div class="clearfix"> </div>
     <!-- END HEADER & CONTENT DIVIDER -->
     <!-- BEGIN CONTAINER -->
-    <div class="page-container">
+    <div class="page-container"  data-ng-app="psicologa">
         <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper">
             <!-- BEGIN SIDEBAR -->
@@ -80,6 +80,12 @@
                             <span class="title">Avaliação</span>
                         </a>
                     </li>
+                    <li class="nav-item" ng-controller="PsicologaController">
+                        <a href="/Login.html" ng-click="logout()">
+                            <i class="icon-home"></i>
+                            <span class="title">Abondonar</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- END SIDEBAR MENU -->
                 <!-- END SIDEBAR MENU -->
@@ -94,7 +100,7 @@
 
 
 
-                <div data-ng-app="psicologa">
+                <div>
                     <div data-ng-view></div>
                 </div>
 

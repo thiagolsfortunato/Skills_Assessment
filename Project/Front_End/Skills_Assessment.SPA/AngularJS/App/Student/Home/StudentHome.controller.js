@@ -5,18 +5,26 @@
 
             $scope.aluno;
 
+            $scope.logout = _logout;
 
             init();
 
             function init() {
-                if (localStorageService.get('user').type != 'Student') {
+                var identify = localStorageService.get('user');
+
+                if (identify == null) {
+                    document.location.href = '/Login.html';
+                }
+                else if (identify.type.toLowerCase() != 'student') {
                     document.location.href = '/Login.html';
                 } else {
-                    $scope.aluno = localStorageService.get('user');
-                    console.log($scope.aluno);
+                    $scope.aluno = identify;
                 }
             }
 
+            function _logout() {
+                localStorageService.clearAll();
+            }
 
 
         }]);

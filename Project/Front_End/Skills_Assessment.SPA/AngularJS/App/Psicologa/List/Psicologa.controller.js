@@ -17,6 +17,8 @@ FatecControllers.controller('PsicologaController',
                 "nome": "nome da psicoloca",
             };
 
+            $scope.logout = _logout;
+
             $scope.alunos = [
                 { "id": 1, "nome": "pé de muleque", curso: "Aeronáutica", ano: "2014", "semestre": '100', "situacao": "andamento" },
                 { "id": 2, "nome": "zé pequeno", curso: "Logistica", ano: "2016", "semestre": '200', "situacao": "concluido" },
@@ -53,44 +55,22 @@ FatecControllers.controller('PsicologaController',
             init();
 
             function init() {
-                if (localStorageService.get('user').type != 'psicologa') {
+                var identify = localStorageService.get('user');
+
+                if (identify == null) {
+                    document.location.href = '/Login.html';
+                }
+                else if (identify.type.toLowerCase() != 'psicologa') {
                     document.location.href = '/Login.html';
                 } else {
-                    $scope.admistrador = localStorageService.get('user');
+                    $scope.psicologa = identify;
                 }
             }
 
-            // FAZER
- /*           $scope.user = [];
-            $scope.userDelete = _userDelete;
-
-            init();
-
-            function init() {
-                userList();
+            function _logout() {
+                localStorageService.clearAll();
             }
 
-            function userList() {
-                userService.userList().then(function (data) {
-                    if (data.State == 0) {
-                        $scope.user = data.Result;
-                    }
-                    else {
-                        toastr.error(data.Message, "Error");
-                    }
-                });
-            }
 
-            function _userDelete(Id) {
-                userService.userDelete(Id).then(function (data) {
-                    if (data.State == 0) {
-                        toastr.success(data.Message);
-                        userList();
-                    }
-                    else {
-                        toastr.error(data.Message, "Error");
-                    }
-                });
-            }
-    */
+
         }]);

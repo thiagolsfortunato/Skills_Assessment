@@ -67,8 +67,8 @@ public class CourseRoutes {
 			}
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		get("/searchCourseById", "application/json" , (req, res) -> {
-			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
+		get("/course/search/code", "application/json" , (req, res) -> {
+			Long codeCourse = Long.parseLong(req.queryParams("code"));
 			try{
 				return  modelCourses.searchCourseByCode(codeCourse);
 			}catch(NullPointerException e){

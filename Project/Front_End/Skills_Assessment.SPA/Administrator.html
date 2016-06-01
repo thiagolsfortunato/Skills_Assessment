@@ -26,17 +26,19 @@
     <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
-        <div class="page-header-inner ">
-            <!-- BEGIN LOGO -->
-            <div class="page-logo">
-                <a href="#">
-                    <!--<img src="/Content/assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" />-->
-                </a>
+        <div class="row">
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo col-md-6">
+                    <a href="#">
+                        <!--<img src="/Content/img/cps_logo.jpg" alt="logo" class="logo-default" style="width:45px"/>-->
+                    </a>
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
             </div>
-            <!-- END LOGO -->
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-            <!-- END RESPONSIVE MENU TOGGLER -->
         </div>
         <!-- END HEADER INNER -->
     </div>
@@ -45,7 +47,7 @@
     <div class="clearfix"> </div>
     <!-- END HEADER & CONTENT DIVIDER -->
     <!-- BEGIN CONTAINER -->
-    <div class="page-container">
+    <div class="page-container"  data-ng-app="administrator">
         <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper">
             <!-- BEGIN SIDEBAR -->
@@ -112,6 +114,13 @@
                             <span class="title">Instituição</span>
                         </a>
                     </li>
+                    <li class="nav-item" ng-controller="AdministratorHomeController">
+                        <a href="/Login.html" ng-click="logout()">
+                            <i class="icon-home"></i>
+                            <span class="title">Abondonar</span>
+                        </a>
+                    </li>
+                    
 
                 </ul>
                 <!-- END SIDEBAR MENU -->
@@ -127,7 +136,7 @@
 
 
 
-                <div data-ng-app="administrator">
+                <div>
                     <div data-ng-view></div>
                 </div>
 

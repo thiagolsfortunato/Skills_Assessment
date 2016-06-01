@@ -9,7 +9,7 @@
                 Nome:
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+                <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="aluno.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
             </div>
         </div>
 
@@ -18,21 +18,21 @@
                 Email:
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" placeholder="Email" class="optional form-control col-md-7 col-xs-12">
+                <input id="occupation" type="text" name="occupation"  data-ng-model="aluno.userName" data-validate-length-range="5,20" placeholder="Email" class="optional form-control col-md-7 col-xs-12">
             </div>
         </div>
 
         <div class="item form-group">
             <label for="password" class="control-label col-md-3">Senha: </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="password" type="password" name="password" data-validate-length="6,8" placeholder="Senha" class="form-control col-md-7 col-xs-12" required="required">
+                <input id="password" type="password" name="password" data-ng-model="aluno.password" data-validate-length="6,8" placeholder="Senha" class="form-control col-md-7 col-xs-12" required="required">
             </div>
         </div>
 
         <div class="item form-group">
             <label for="lblInstitution" class="control-label col-md-3">Instituição: </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="institution" name="password" data-validate-length="6,8" placeholder="Instituição" class="form-control col-md-7 col-xs-12" required="required">
+                <input id="institution" type="text" name="instituicao" data-ng-model="fatec.company" data-validate-length="6,8" placeholder="Instituição" class="form-control col-md-7 col-xs-12" required="required">
             </div>
         </div>
 
