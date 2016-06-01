@@ -10,7 +10,7 @@ public class ConnectionFactory {
 	
 	private static String USER = "root";
     private static String PASSWORD = "eduardo";
-    private static String IP = "192.168.98.130:3306/SkillsAssessment?useSSL=false";
+    private static String IP = "192.168.98.135:3306/SkillsAssessment?useSSL=false";
     private static String DRIVER = "com.mysql.jdbc.Driver";
     
     public Connection getConnection(){

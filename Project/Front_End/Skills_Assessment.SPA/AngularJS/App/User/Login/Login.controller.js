@@ -35,8 +35,8 @@
                             document.location = "/Administrator.html";
                             break;
                         
-                        case "psycology":
-                            document.location = "/Psiologa.html";
+                        case "psicologa":
+                            document.location = "/Psicologa.html";
                             break;
                         default:
                             document.location = "/Login.html";

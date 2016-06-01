@@ -32,7 +32,8 @@
             }
 
             function _employeeAdd(user) {
-                user.instCode = user.instCode.codeInstitution
+                user.instCode = $scope.fatec.codeInstitution
+         
                 // courseAdd é o obj que chama a função da service
                 if (user.password != user.passwordConfirm) {
                     delete user["passwordConfirm"];

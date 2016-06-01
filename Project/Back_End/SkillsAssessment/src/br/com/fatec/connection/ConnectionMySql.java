@@ -12,7 +12,7 @@ public class ConnectionMySql {
 
 	private static String user="root";
     private static String password="eduardo";
-    private static String ip="192.168.98.130:3306/SkillsAssessment?useSSL=false";
+    private static String ip="192.168.98.135:3306/SkillsAssessment?useSSL=false";
     private static String driver="com.mysql.jdbc.Driver";
     private Connection connection = null;
     private PreparedStatement statement = null;

@@ -53,7 +53,7 @@ FatecControllers.controller('PsicologaController',
             init();
 
             function init() {
-                if (localStorageService.get('user').type != 'Psicologa') {
+                if (localStorageService.get('user').type != 'psicologa') {
                     document.location.href = '/Login.html';
                 } else {
                     $scope.admistrador = localStorageService.get('user');
