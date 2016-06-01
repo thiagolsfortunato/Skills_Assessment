@@ -19,7 +19,7 @@ public class User {
 	private Long instCode;
 	private String token;
 	
-	
+	//FUNCIONA PELO AMOR
 	public Long getUserCode() {
 		return userCode;
 	}
