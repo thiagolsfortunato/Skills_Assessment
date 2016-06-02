@@ -2,6 +2,8 @@ package br.com.fatec.model;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoQuiz;
@@ -66,6 +68,25 @@ public class ModelQuiz {
 		try {
 			conn = new ConnectionFactory().getConnection();
 			result = DaoQuiz.getAverage(conn, userId);
+		} catch (SQLException e) {
+			System.out.println("an error occurred while trying to get a average");
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public List<Result> getAverages(Long instCode){
+		List<Result> result = new LinkedList<>();
+		try {
+			conn = new ConnectionFactory().getConnection();
+			result = DaoQuiz.getResultStudents(conn, instCode);
 		} catch (SQLException e) {
 			System.out.println("an error occurred while trying to get a average");
 			e.printStackTrace();

@@ -2,6 +2,10 @@ package br.com.fatec.controller;
 import static spark.Spark.get;
 import static spark.Spark.options;
 import static spark.Spark.post;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.gson.Gson;
 
 import br.com.fatec.commons.JsonUtil;
@@ -41,7 +45,7 @@ public class QuizRoutes {
 		
 		get("/getQuizQuestion", (req, res) -> {
 			Question question = new Question();
-			String token = req.queryParams("token");
+			String token = req.headers("token");
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
@@ -58,12 +62,29 @@ public class QuizRoutes {
 		
 		get("/result", (req, res) -> {
 			Result result = new Result();
-			//String token = req.queryParams("token");
+			String token = req.headers("token");
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
 				//question = model.getQuestion(tk.getUserId());
-				result = model.getAverage((long)4);
+				result = model.getAverage(Long.parseLong(token));
+				return result;
+				
+			} catch (Exception e) {
+				System.out.println("ops, an error with result, check the fields! "+e);
+				e.printStackTrace();
+				return "ops, an error with get the result, check the fields!";
+			}
+		}, JsonUtil.json());
+		
+		get("/resultStudents", (req, res) -> {
+			List<Result> result = new LinkedList<>();
+			String token = req.headers("token");
+			try {
+				//TokenInfo tk = Token.verifyToken(token);
+				//System.out.println(tk.getUserId());
+				//question = model.getQuestion(tk.getUserId());
+				result = model.getAverages(Long.parseLong(token));
 				return result;
 				
 			} catch (Exception e) {

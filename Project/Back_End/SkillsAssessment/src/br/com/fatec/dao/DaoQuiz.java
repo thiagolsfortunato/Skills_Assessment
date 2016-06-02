@@ -14,7 +14,9 @@ import br.com.fatec.entity.Quiz;
 import br.com.fatec.entity.Result;
 
 public class DaoQuiz{
-
+	static Long aux = null;
+	static Competence auxCom = null;
+	
 	@SuppressWarnings("finally")
 	public static Integer getValidQuestions(Connection conn, Long userId) throws SQLException {
 		Integer count = null;
@@ -252,6 +254,31 @@ public class DaoQuiz{
 	}
 	
 	@SuppressWarnings("finally")
+	public static List<Result> getResultStudents(Connection conn, Long instCode) throws SQLException{
+		List<Result> result  = new LinkedList<>();
+		String query = "select distinct usr.usr_code, usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,avr.avr_final,crs.crs_name,ist.ist_company,rst.rst_comment"
+				+" from result rst inner join average avr on rst.rst_code = avr.rst_code inner join competence com on com.com_code = avr.com_code "
+				+" inner join user usr on usr.usr_code = rst.usr_code inner join enrolls erl on erl.usr_code = usr.usr_code "
+				+" inner join course crs on crs.crs_code = erl.crs_code inner join ist_crs itc on itc.crs_code = crs.crs_code "
+				+" inner join  institution ist on ist.ist_code = itc.ist_code where ist.ist_code = ? order by usr.usr_code;";
+
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, instCode);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ) {
+				result = buildResultQuiz(conn, rs);
+			}
+			rs.close();
+			stmt.close();
+		} catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			return result;
+		}
+	}
+	
+	@SuppressWarnings("finally")
 	public static Result getAverage(Connection conn, Long userCode) throws SQLException {
 		Result result  = new Result();
 		boolean returnInsert = false;
@@ -277,6 +304,64 @@ public class DaoQuiz{
 	private static String getNumberOfQuestion(ResultSet rs) throws SQLException {
 		return rs.getString("code");
 	}
+	private static List<Result> buildResultQuiz( Connection conn, ResultSet rs ) throws SQLException {
+		List<Result> results = new LinkedList<Result>();
+		do {
+			results.add(buildResultStudents(conn,rs));
+		} while ( rs.next() );
+		return results;
+	}
+	
+	private static Result buildResultStudents(Connection conn, ResultSet rs) throws SQLException {
+		Result result  = new Result();
+		Long aux2 = rs.getLong("usr_code");
+		result.setComments(rs.getString("rst_comment"));
+		result.setCourse(rs.getString("crs_name"));
+		result.setInstitution(rs.getString("ist_company"));
+		result.setPeriod(rs.getInt("ern_period"));
+		result.setRa(rs.getString("usr_ra"));
+		result.setUserName(rs.getString("usr_name"));
+		result.setYear(rs.getInt("ern_year"));
+		result.setCompetencies(buildResultsStudent(conn,rs));
+		return result;
+	}
+	
+	private static List<Competence> buildResultsStudent( Connection conn, ResultSet rs ) throws SQLException {
+		List<Competence> competencies = new LinkedList<Competence>();
+		aux = rs.getLong("usr_code");
+		do {
+			Long aux2 = rs.getLong("usr_code");
+			if(aux != aux2){
+				auxCom = new Competence();
+				auxCom.setCode(rs.getLong("com_code"));
+				auxCom.setType(rs.getString("com_type"));
+				auxCom.setWeight(rs.getInt("avr_final"));
+				System.out.println(auxCom.getWeight());
+				break;
+			}else if(auxCom == null){
+				Competence competence = new Competence();
+				competence.setCode(rs.getLong("com_code"));
+				competence.setType(rs.getString("com_type"));
+				competence.setWeight(rs.getInt("avr_final"));
+				competencies.add(competence);
+			}else{
+				Competence competence2 = new Competence();
+				competence2.setCode(rs.getLong("com_code"));
+				competence2.setType(rs.getString("com_type"));
+				competence2.setWeight(rs.getInt("avr_final"));
+				competencies.add(competence2); 
+				
+				Competence competence = new Competence();
+				competence.setCode(auxCom.getCode());
+				competence.setType(auxCom.getType());
+				competence.setWeight(auxCom.getWeight());
+				competencies.add(competence);
+				auxCom = null;
+			}
+		} while ( rs.next());
+		return competencies;
+	}
+	
 	
 	private static Result buildResult(Connection conn, ResultSet rs) throws SQLException {
 		Result result  = new Result();
