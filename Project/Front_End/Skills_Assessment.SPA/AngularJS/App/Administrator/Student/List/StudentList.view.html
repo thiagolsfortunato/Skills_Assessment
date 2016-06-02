@@ -1,0 +1,47 @@
+﻿<form class="form-horizontal form-label-left" novalidate>
+
+    <br />
+    <h1>
+        <span class="section">Alunos Cadastrados</span>
+    </h1>
+
+    <hr />
+    <center>
+        <div class="blog-page blog-content-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-single-content bordered blog-container">
+
+                        <!-- BEGIN FORM-->
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>RA</th>
+                                        <th>Nome</th>
+                                        <th>Curso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="aluno in alunos">
+                                        <td>{{aluno.ra}}</td>
+                                        <td>{{aluno.nome}}</td>
+                                        <td>{{aluno.curso}}</td>
+                                        <td>
+                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir esse aluno?" ng-really-title="Confirmação" ng-really-click=";"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-warning" ng-click="goToEditPage(aluno);"> <i class="fa fa-trash-o"></i> Editar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END FORM-->
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+</form>

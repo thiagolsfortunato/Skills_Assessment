@@ -23,7 +23,11 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
         .when('/course', { templateUrl: 'AngularJS/App/Administrator/Course/List/Course.view.html', controller: 'CourseController' })
 
         .when('/institution', { templateUrl: 'AngularJS/App/Administrator/Institution/List/Institution.view.html', controller: 'InstitutionController' })
-        
+
+        .when('/myfatec', { templateUrl: 'AngularJS/App/Administrator/Institution/MyFatec/MyFatec.view.html', controller: 'MyFatecController' })
+        .when('/student/list', { templateUrl: 'AngularJS/App/Administrator/Student/List/StudentList.view.html', controller: 'StudentListController' })
+        .when('/student/edit', { templateUrl: 'AngularJS/App/Administrator/Student/Edit/StudentEdit.view.html', controller: 'StudentEditController' })
+
         .otherwise({  redirectTo: '/home'  });
 
 

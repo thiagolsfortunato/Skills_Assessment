@@ -26,7 +26,12 @@ public class CourseRoutes {
 		//FUNCIONANDO !
 		post("/course", (req, res) -> {
 			String courseData = req.body();
-			Course course = gson.fromJson(courseData, Course.class);
+			
+			byte ptext[] = courseData.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			Course course = gson.fromJson(value, Course.class);
+			
 			try{
 				boolean operacao = modelCourses.insertCourse(course);
 				if (operacao){
@@ -58,7 +63,12 @@ public class CourseRoutes {
 		//FUNCIONANDO !
 		put("/course", (req, res) -> {
 			String courseData = req.body();
-			Course course = gson.fromJson(courseData, Course.class);
+			
+			byte ptext[] = courseData.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8");
+			
+			Course course = gson.fromJson(value, Course.class);
+			
 			try{
 				return modelCourses.updateCourse(course);
 			}catch(NullPointerException e){

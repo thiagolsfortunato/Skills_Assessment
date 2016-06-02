@@ -37,7 +37,12 @@ public class CompetenciesRoutes {
 		// insert
 		post("/competence", (req, res) -> {
 			String competenceData = req.body();
-			Competence competence = gson.fromJson(competenceData, Competence.class);
+			
+			byte ptext[] = competenceData.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			Competence competence = gson.fromJson(value, Competence.class);
+			
 			try{
 				return modelCompetencies.insertCompetence(competence);
 			}catch(NullPointerException e){
@@ -61,7 +66,11 @@ public class CompetenciesRoutes {
 		// update
 		put("/competence", (req, res) -> {
 			String competenceData = req.body();
-			Competence competence = gson.fromJson(competenceData, Competence.class);
+			
+			byte ptext[] = competenceData.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8");
+			
+			Competence competence = gson.fromJson(value, Competence.class);
 			try{
 				return modelCompetencies.updateCompetence(competence);
 			}catch(NullPointerException e){

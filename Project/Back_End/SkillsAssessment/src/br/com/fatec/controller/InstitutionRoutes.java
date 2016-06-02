@@ -6,9 +6,7 @@ import static spark.Spark.post;
 import static spark.Spark.put;
 import static spark.Spark.delete;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -16,7 +14,6 @@ import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.FatecAdm;
 import br.com.fatec.entity.Institution;
-import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelInstitution;
 
 public class InstitutionRoutes {
@@ -32,7 +29,11 @@ public class InstitutionRoutes {
 		post("/institution", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			FatecAdm fatecAdm = gson.fromJson(data, FatecAdm.class);
+			
+			byte ptext[] = data.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			FatecAdm fatecAdm = gson.fromJson(value, FatecAdm.class);
 			//User adm = gson.fromJson(data, User.class);
 	
 			boolean sucess = model.insertInstitution(fatecAdm.getFatec(), fatecAdm.getAdm());
@@ -49,7 +50,11 @@ public class InstitutionRoutes {
 		put("/institution", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			Institution fatec = gson.fromJson(data, Institution.class);
+			
+			byte ptext[] = data.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8");
+			
+			Institution fatec = gson.fromJson(value, Institution.class);
 			
 			boolean sucess = model.updateInstitution(fatec);
 			if(sucess){

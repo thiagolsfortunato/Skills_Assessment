@@ -1,0 +1,63 @@
+﻿<form class="form-horizontal form-label-left" novalidate>
+
+    <br />
+    <h2>
+        <span class="section">Alteração Aluno</span>
+    </h2>
+    <br />
+    <br />
+
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+            Ra:
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input data-ng-model="aluno.ra" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Ra" required="required" type="text">
+        </div>
+    </div>
+
+
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+            Nome:
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input data-ng-model="aluno.nome" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+        </div>
+    </div>
+
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+            E-mail:
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input data-ng-model="aluno.userName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Email" required="required" type="text">
+        </div>
+    </div>
+
+    <div class="item form-group">
+        <label for="password" class="control-label col-md-3">Senha: </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="password" data-ng-model="user.password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+        </div>
+    </div>
+
+    <div class="item form-group row">
+        <label for="password" class="control-label col-md-3">Curso: </label>
+        <div class="col-md-6 col-xs-3">
+            <!-- ng-disable : desabilita campo até que atenda a condição, ng-model : objeto temporario passado como parâmetro para função, ng-options : pega todos atributos e insere no dropdown  -->
+            <select class="form-control-static" data-ng-model="aluno.curso" data-ng-options="curso.name for curso in cursos">
+                <option value="">Curso *</option><!-- valor padrão definido ao dropdown -->
+            </select>
+        </div>
+    </div>
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-3">
+                <button ng-click="cancel();" class="btn btn-primary">Cancelar</button>
+                <button id="send" type="submit" class="btn btn-success" ng-click="studentUpdate(aluno);">Salvar</button>
+            </div>
+        </div>
+
+
+</form>

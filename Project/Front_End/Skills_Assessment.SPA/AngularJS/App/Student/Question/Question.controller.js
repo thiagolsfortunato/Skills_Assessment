@@ -9,12 +9,14 @@
             $scope.questionAmount = $routeParams.param1;
             $scope.currentAnwswerCode = -1;
 
+            $scope.porcentagem = 0;
 
             init();
 
             function init() {
 
                 questionList();
+                console.log($scope.porcentagem);
             }
 
 

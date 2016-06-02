@@ -1,6 +1,6 @@
 ﻿FatecControllers.controller('ProfileController',
-    ['$scope', '$routeParams', 'ProfileService', 'InstitutionService', 'CourseService', '$log', 'localStorageService',
-        function ($scope, $routeParams, profileService, institutionService, courseService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'StudentService', 'InstitutionService', 'CourseService', '$log', 'localStorageService',
+        function ($scope, $routeParams, studentService, institutionService, courseService, $log, localStorageService) {
 
             $scope.aluno;
             $scope.fatec;
@@ -14,7 +14,7 @@
             function init() {
                 $scope.aluno = localStorageService.get('user');
                 $scope.getFatec($scope.aluno.instCode);
-                $scope.getCurso(/*CODIGO*/);
+                //$scope.getCurso(/*CODIGO*/);
                 console.log($scope.aluno);
             }
 
