@@ -24,14 +24,14 @@ public class QuizRoutes {
 		});
 		
 		post("/quiz", (req, res) -> {
-			//String token = req.headers("token");
+			String token = req.headers("token");
 			String data = req.body();
 			Gson gson = new Gson();
 			Quiz quiz = gson.fromJson(data, Quiz.class);
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//quiz.setUser(tk.getUserId());
-				quiz.setUser((long)4);
+				quiz.setUser( Long.parseLong(token) );
 				return model.insertQuiz(quiz);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -41,12 +41,12 @@ public class QuizRoutes {
 		
 		get("/getQuizQuestion", (req, res) -> {
 			Question question = new Question();
-			//String token = req.queryParams("token");
+			String token = req.queryParams("token");
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
 				//question = model.getQuestion(tk.getUserId());
-				question = model.getQuestion((long)4);
+				question = model.getQuestion( Long.parseLong(token) );
 				return question;
 				
 			} catch (Exception e) {

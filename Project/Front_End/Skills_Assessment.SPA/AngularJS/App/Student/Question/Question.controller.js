@@ -5,6 +5,7 @@
             $scope.question;
 
             var authData = localStorageService.get('authorizationData');
+            var aluno = localStorageService.get('user');
 
             $scope.questionAmount = $routeParams.param1;
             $scope.currentAnwswerCode = -1;
@@ -14,8 +15,8 @@
             init();
 
             function init() {
-
-                questionList();
+                //passa o codigo do aluno como parametro, para buscar as questoes
+                questionList(aluno.userCode);
                 console.log($scope.porcentagem);
             }
 
@@ -43,11 +44,11 @@
                     question: $scope.question.code
 
                 };
+                
+                questionService.saveAnswer(quiz, aluno.userCode).then(function (data) {
 
-                questionService.saveAnswer(quiz).then(function (data) {
 
-
-                    questionList();
+                    questionList(aluno.userCode);
 
 
                     //toastr.error(data.Message, "Error");
@@ -59,9 +60,9 @@
 
 
 
-            function questionList() {
+            function questionList(alunoCode) {
 
-                questionService.questionList().then(function (data) {
+                questionService.questionList(alunoCode).then(function (data) {
 
                     console.log(data);
 

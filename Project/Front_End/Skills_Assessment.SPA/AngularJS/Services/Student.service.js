@@ -8,7 +8,7 @@
         getStudentCurrent: _getCurrent,
         setStudentCurrent: _setCurrent,
         studentsList: _studentsList,
-        studentsFindCode: _studentsFindCode,
+        studentFindCode: _studentFindCode,
         
     };
     function _getCurrent() {
@@ -33,15 +33,16 @@
 
         return deferred.promise;
     }
+
     //retorna um aluno por um determinado codigo
-    function _studentsFindCode(studentId) {
+    function _studentFindCode(idStudent) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('search/student/code'),
-            params: { "codeCourse": studentId },
+            url: config.generateApiUrl('search/student/code'),//searchStudentsByCode
+            params: { "idStudent": idStudent },
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             
         }).

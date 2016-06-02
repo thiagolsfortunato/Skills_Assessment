@@ -26,13 +26,14 @@
         return deferred.promise;
     }
 
-    function _questionList() {
+    function _questionList(alunoId) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('getQuizQuestion')
+            url: config.generateApiUrl('getQuizQuestion'),
+            params: { "token": alunoId }
             //params: { "token": token }
         }).
            success(function (data, status, headers, config) {
@@ -58,13 +59,14 @@
         return deferred.promise;
     }
 
-    function _saveAnswer(quiz) {
-
+    function _saveAnswer(quiz, alunoId) {
+        
         var deferred = $q.defer();
 
         $http({
             method: 'POST',
             url: config.generateApiUrl('quiz'),
+            headers: { 'token': alunoId }, //neste caso ta mandando o codigo do aluno, mas será o token futuramente..
             data: JSON.stringify(quiz)
         }).
            success(function (data, status, headers, config) {
