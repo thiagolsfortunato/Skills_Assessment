@@ -21,6 +21,7 @@
                 else if (identify.type.toLowerCase() != 'student') { //se não for aluno redireciona para login
                     document.location.href = '/Login.html';
                 } else {
+					$scope.aluno = identify;
                     //loadAluno(identify.userCode); //se der tudo certo irá carregar o aluno logado chamando a função especifica
                 }
             }

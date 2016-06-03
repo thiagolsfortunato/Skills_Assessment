@@ -133,24 +133,6 @@ public class ModelUser {
 		}
 	}	
 	
-	@SuppressWarnings("finally")
-	public List<User> searchAllStudents(){
-		List<User> students = new LinkedList<User>();
-		try{
-			conn = new ConnectionFactory().getConnection();
-			students = DaoUser.searchAllStudents(conn);
-		}catch(SQLException e){
-			e.printStackTrace();
-			System.out.println("Will not it was possible to find the Students");
-		}finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return students;
-		}
-	}
 	
 	@SuppressWarnings("finally")
 	public List<User> searchAllUsers(){
@@ -171,23 +153,7 @@ public class ModelUser {
 		}
 	}
 	
-	@SuppressWarnings("finally")
-	public User searchStudentById(Long id) throws SQLException{
-		User user = new User();
-		try{
-			conn = new ConnectionFactory().getConnection();
-			user = DaoUser.searchStudentById(conn, id); 
-		}catch (SQLException e ){
-			System.out.println("Will not it was possible to find the Student");
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return user;
-		}
-	}
+	
 	
 	public void updatePassword(Integer code, String newPassword){
 		//atualiza a senha de algum usuario

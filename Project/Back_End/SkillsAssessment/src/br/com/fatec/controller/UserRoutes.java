@@ -57,7 +57,11 @@ public class UserRoutes {
 		post("/user", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			User user = gson.fromJson(data, User.class);
+			
+			byte ptext[] = data.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			User user = gson.fromJson(value, User.class);
 
 			try {
 				return modelUser.insertUser(user);
@@ -94,8 +98,13 @@ public class UserRoutes {
 		put("/user", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
-			User user = gson.fromJson(data, User.class);
-			Enrolls enrolls = gson.fromJson(data, Enrolls.class);
+			
+			byte ptext[] = data.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			User user = gson.fromJson(value, User.class);
+			Enrolls enrolls = gson.fromJson(value, Enrolls.class);
+			
 			try {
 				enrolls.setCodeUser(user.getUserCode());
 				if(user.getType().equals("Student")){
@@ -131,17 +140,6 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 		
-		get("/searchStudentsByCode", (req, res) -> {
-			Long idStudent = Long.parseLong(req.queryParams("idStudent"));
-			User user = null;
-			try{
-				user = modelUser.searchStudentById(idStudent);
-				return user;
-			}catch(NullPointerException e) {
-				e.printStackTrace();
-				return "ops, an error with LOGIN, check the fields!";
-			}
-		}, JsonUtil.json());
 		
 		get("/searchAllUsers", (req, res) -> {
 			try{
@@ -151,13 +149,7 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 		
-		get("/searchAllStudents", (req, res) -> {
-			try{
-				return modelUser.searchAllStudents();
-			}catch(NullPointerException e){
-				return "ops, It wasin't possible find all Studentss!";
-			}
-		}, JsonUtil.json());
+		
 	}
 }
 

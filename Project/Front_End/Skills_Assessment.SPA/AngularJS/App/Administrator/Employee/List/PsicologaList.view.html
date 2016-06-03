@@ -2,9 +2,13 @@
 
     <br />
     <h1>
-        <span class="section">Alunos Cadastrados</span>
+        <span class="section">Psicologas</span>
     </h1>
+    <br />
+    <br />
 
+
+    <a href="#/employee/add" id="send" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar</a>
     <hr />
     <center>
         <div class="blog-page blog-content-2">
@@ -17,19 +21,17 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>RA</th>
-                                        <th>Nome</th>
-                                        <th>Curso</th>
+                                        <th>ID</th>
+                                        <th>Nomes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-ng-repeat="aluno in alunos">
-                                        <td>{{aluno.ra}}</td>
-                                        <td>{{aluno.user.name}}</td>
-                                        <td>{{aluno.course}}</td>
+                                    <tr data-ng-repeat="psico in psicologas">
+                                        <td>{{psico.id}}</td>
+                                        <td>{{psico.nome}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir esse aluno?" ng-really-title="Confirmação" ng-really-click=";"> <i class="fa fa-trash-o"></i> Apagar</a>
-                                            <a class="btn btn-warning" ng-click="goToEditPage(aluno);"> <i class="fa fa-trash-o"></i> Editar</a>
+                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirmação" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-warning" ng-click="goToEditPage(psico);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
                                     </tr>
                                 </tbody>

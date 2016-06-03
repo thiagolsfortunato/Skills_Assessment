@@ -6,9 +6,9 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
     $routeProvider
         
         .when('/home', { templateUrl: 'AngularJS/App/Administrator/Home/AdministratorHome.view.html', controller: 'AdministratorHomeController' })
-        .when('/user/list', { templateUrl: 'AngularJS/App/User/List/UserList.view.html', controller: 'UserListController' })
-        .when('/user/add', { templateUrl: 'AngularJS/App/User/Add/UserAdd.view.html', controller: 'UserAddController' })
-        .when('/user/edit', { templateUrl: 'AngularJS/App/User/Edit/UserEdit.view.html', controller: 'UserEditController' })
+        .when('/psicologa/list', { templateUrl: 'AngularJS/App/Administrator/Employee/List/PsicologaList.view.html', controller: 'PsicologoListController' })
+        .when('/psicologa/add', { templateUrl: 'AngularJS/App/Administrator/Employee/Add/EmployeeAdd.view.html', controller: 'EmployeeAddController' })
+        .when('/psicologa/edit', { templateUrl: 'AngularJS/App/Administrator/Employee/Edit/PsicologaEdit.view.html', controller: 'PsicologaEditController' })
         .when('/user/edit/:Id', { templateUrl: 'AngularJS/App/User/Edit/UserEdit.view.html', controller: 'UserEditController' })
         .when('/user/changepassword', { templateUrl: 'AngularJS/App/User/ChangePassword/ChangePassword.view.html', controller: 'ChangePasswordController' })
         .when('/user/logout', { templateUrl: 'AngularJS/App/User/Logout/Logout.view.html', controller: 'LogoutController' })

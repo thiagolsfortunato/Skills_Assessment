@@ -1,22 +1,21 @@
 package br.com.fatec.entity;
 
-import java.util.Date;
 
 public class User {
 	
 	private Long userCode;
 	private String name;
-	private String courseStudent;
-	private Integer yearStudent;
-	private Integer periodStudent;
+	private String courseStudent; //aluno
+	private Integer yearStudent; //aluno
+	private Integer periodStudent; //aluno
 	private String userName;
 	private String password;
-	private String ra;
+	private String ra; //aluno
 	private String type;
 	private String registration_date;
 	private Integer situation;
-	private Integer verification;
-	private Long instCode;
+	private Integer verification; //aluno
+	private Long instCode; //aluno
 	private String token;
 	
 	//FUNCIONA PELO AMOR

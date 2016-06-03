@@ -3,17 +3,18 @@
         function ($scope, $routeParams, studentService, courseService, $log, localStorageService) {
 
             //Declaração de funções
+            var studentsLoad = _studentsLoad;
+
             $scope.goToEditPage = _goToEdit;
-            $scope.studentsLoad = _studentsLoad;
             $scope.admin;
-            $scope.alunos = [{ ra: 123456, nome: "Fulano de tal", curso: "Aeronautica" },
-                             { ra: 789123, nome: "Cicrano Soares", curso: "Gestão da Produção" }];
+            $scope.alunos;// = [{ ra: 123456, nome: "Fulano de tal", curso: "Aeronautica" },
+                            // { ra: 789123, nome: "Cicrano Soares", curso: "Gestão da Produção" }];
 
             init();
 
             function init() {
                 $scope.admin = localStorageService.get('user');
-                //$scope.studentsLoad();
+                studentsLoad();
             }
 
             function _goToEdit (obj) {
@@ -33,6 +34,7 @@
                         alert('ops algum erro aqui..');
                     } else {
                         $scope.alunos = data;
+                        console.log($scope.alunos);
                     }
 
                 });

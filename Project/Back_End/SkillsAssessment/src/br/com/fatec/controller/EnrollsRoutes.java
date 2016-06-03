@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import static spark.Spark.get; // select
 import static spark.Spark.options;
 import static spark.Spark.put; // update
+
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
@@ -12,6 +13,7 @@ import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.entity.Result;
+import br.com.fatec.entity.Student;
 import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEnrolls;
 
@@ -28,8 +30,13 @@ public class EnrollsRoutes {
 		//FUNCIONANDO !!
 		post("/enrolls", (req, res) -> {
 			String enrollsData = req.body();
-			User user = gson.fromJson(enrollsData, User.class);
-			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);	
+			
+			byte ptext[] = enrollsData.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8"); 
+			
+			User user = gson.fromJson(value, User.class);
+			Enrolls enrolls = gson.fromJson(value, Enrolls.class);
+			
 			try{
 				if( modelEnrolls.insertEnrolls(enrolls, user) ){
 					res.status(200);
@@ -54,8 +61,12 @@ public class EnrollsRoutes {
 		//FUNCIONANDO !!
 		post("/comment", (req, res) -> {
 			String comment = req.body();
-			Result result = gson.fromJson(comment, Result.class);
 			String token = req.headers("token");
+			
+			byte ptext[] = comment.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8");
+			
+			Result result = gson.fromJson(value, Result.class);
 			
 			try{
 				//TokenInfo tk = Token.verifyToken(token);
@@ -89,7 +100,12 @@ public class EnrollsRoutes {
 
 		put("/enrolls", (req, res) -> {
 			String enrollsData = req.body();
-			Enrolls enrolls = gson.fromJson(enrollsData, Enrolls.class);
+
+			byte ptext[] = enrollsData.getBytes("ISO-8859-1"); 
+			String value = new String(ptext, "UTF-8");
+			
+			Enrolls enrolls = gson.fromJson(value, Enrolls.class);
+			
 			try{
 				return modelEnrolls.updateEnrolls(enrolls);
 			}catch(NullPointerException e){
@@ -98,6 +114,20 @@ public class EnrollsRoutes {
 			}
 		}, JsonUtil.json());
 
+		get("/search/student/code", (req, res) -> {
+			Long idStudent = Long.parseLong(req.queryParams("idStudent"));
+			Student student = null;
+			try{
+				student = modelEnrolls.searchStudentById(idStudent);
+				return student;
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+				return "ops, an error with LOGIN, check the fields!";
+			}
+		}, JsonUtil.json());
+
+/* 		SE FORMOS UTILIZAR EM ALGUM LUGAR AIVAMOS NOVAMENTE
+ * 		
 		get("/searchAllEnrolls", (req, res) -> {
 			try{
 				return modelEnrolls.searchAllEnrolls();
@@ -115,6 +145,16 @@ public class EnrollsRoutes {
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				return "It wasin't possible find all Enrolls!";
+			}
+		}, JsonUtil.json());
+*/
+
+		get("/search/students/all/fatec", (req, res) -> {
+			Long idFatec = Long.parseLong(req.queryParams("fatecCode"));
+			try{
+				return modelEnrolls.searchAllStudents(idFatec);
+			}catch(NullPointerException e){
+				return "ops, It wasin't possible find all Studentss!";
 			}
 		}, JsonUtil.json());
 	}

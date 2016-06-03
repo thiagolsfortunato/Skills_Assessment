@@ -9,6 +9,7 @@
         setStudentCurrent: _setCurrent,
         studentsList: _studentsList,
         studentFindCode: _studentFindCode,
+        studentUpdate: _studentUpdate,
 
     };
     function _getCurrent() {
@@ -53,6 +54,23 @@
         return deferred.promise;
     }
 
+    //atualiza um aluno -- REALIZAR TESTES E FUNCIONALIDADE -- IMPLEMENTAR NO BACK-END!
+    //FAZER PREPARAÇÃO DO JSON PARA ENVIO.
+    function _studentUpdate() {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'PUT',
+            url: config.generateApiUrl('student')
+
+        }).
+           success(function (dataObj, status, headers, config) {
+               deferred.resolve(dataObj);
+           });
+
+        return deferred.promise;
+    }
 
 
 }]);

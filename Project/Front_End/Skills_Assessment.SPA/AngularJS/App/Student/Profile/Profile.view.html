@@ -1,15 +1,23 @@
 ﻿
 <div class="page-header">
-    <h2>Aluno</h2>
+    <h2>Meu Perfil</h2>
 </div>
 <form class="form-horizontal form-label-left" novalidate>
-                   
+         
+        <div class="item form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                RA:
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="aluno.ra" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="RA" required="required" type="text">
+            </div>
+        </div>          
         <div class="item form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
                 Nome:
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="aluno.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+                <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="aluno.user.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
             </div>
         </div>
 
@@ -18,28 +26,28 @@
                 Email:
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="occupation" type="text" name="occupation"  data-ng-model="aluno.userName" data-validate-length-range="5,20" placeholder="Email" class="optional form-control col-md-7 col-xs-12">
+                <input id="occupation" type="text" name="occupation"  data-ng-model="aluno.user.userName" data-validate-length-range="5,20" placeholder="Email" class="optional form-control col-md-7 col-xs-12">
             </div>
         </div>
 
         <div class="item form-group">
             <label for="password" class="control-label col-md-3">Senha: </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="password" type="password" name="password" data-ng-model="aluno.password" data-validate-length="6,8" placeholder="Senha" class="form-control col-md-7 col-xs-12" required="required">
+                <input id="password" type="password" name="password" data-ng-model="aluno.user.password" data-validate-length="6,8" placeholder="Senha" class="form-control col-md-7 col-xs-12" required="required">
             </div>
         </div>
 
         <div class="item form-group">
             <label for="lblInstitution" class="control-label col-md-3">Instituição: </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="institution" type="text" name="instituicao" data-ng-model="fatec.company" data-validate-length="6,8" placeholder="Instituição" class="form-control col-md-7 col-xs-12" required="required">
+                <input disabled id="institution" type="text" name="instituicao" data-ng-model="aluno.institution" data-validate-length="6,8" placeholder="Instituição" class="form-control col-md-7 col-xs-12" required="required">
             </div>
         </div>
 
         <div class="item form-group">
             <label for="lblCourse" class="control-label col-md-3">Curso: </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="course" name="course" data-validate-length="6,8" placeholder="Curso" class="form-control col-md-7 col-xs-12" required="required">
+                <input disabled id="course" name="course" data-ng-model="aluno.course" data-validate-length="6,8" placeholder="Curso" class="form-control col-md-7 col-xs-12" required="required">
             </div>
         </div>
 
@@ -47,8 +55,8 @@
         <div class="ln_solid"></div>
         <div class="form-group">
             <div class="col-md-6 col-md-offset-3">
-                <button type="submit" class="btn btn-primary">Cancelar</button>
-                <button id="send" type="submit" class="btn btn-success">Salvar</button>
+                <button ng-click="cancel();" class="btn btn-primary">Cancelar</button>
+                <button ng-click="update();" class="btn btn-success">Salvar</button>
             </div>
         </div>
 </form>

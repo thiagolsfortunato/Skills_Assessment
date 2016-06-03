@@ -45,7 +45,10 @@
         function _Logout() {
             var deferred = $q.defer();
 
-            $http({ method: 'GET', url: config.generateApiUrl('/Authenticate/Auth') }).
+            $http({
+                method: 'GET',
+                url: config.generateApiUrl('/Authenticate/Auth')
+            }).
                 success(function (data, status, headers, config) {
                     localStorageService.remove('authorizationData');
 

@@ -22,7 +22,7 @@
             Nome:
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input data-ng-model="aluno.nome" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+            <input data-ng-model="aluno.user.name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
         </div>
     </div>
 
@@ -31,14 +31,14 @@
             E-mail:
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input data-ng-model="aluno.userName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Email" required="required" type="text">
+            <input data-ng-model="aluno.user.userName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Email" required="required" type="text">
         </div>
     </div>
 
     <div class="item form-group">
         <label for="password" class="control-label col-md-3">Senha: </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="password" data-ng-model="user.password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+            <input type="password" data-ng-model="aluno.user.password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
         </div>
     </div>
 

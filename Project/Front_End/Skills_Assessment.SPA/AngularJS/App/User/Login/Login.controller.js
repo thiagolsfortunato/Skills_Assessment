@@ -1,14 +1,17 @@
 ﻿FatecControllers.controller('LoginController',
     ['$scope', '$routeParams', 'AuthenticationService', 'localStorageService', 
         function ($scope, $routeParams, authenticationService, localStorageService) {
+
             $scope.Login = _login;
-            
             
             $scope.loginEmail;
             $scope.loginPassword;
             $scope.loginState = true;
 
-            
+            $scope.btn_enter = function (keyEvent) {
+                if (keyEvent.which === 13)
+                    $scope.Login();
+            }
 
             function _login() {
 

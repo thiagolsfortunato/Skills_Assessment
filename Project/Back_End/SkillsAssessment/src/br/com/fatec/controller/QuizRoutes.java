@@ -22,12 +22,12 @@ public class QuizRoutes {
 	public static void getQuiz() {
 		ModelQuiz model = new ModelQuiz();
 		
-		options("/quiz", (req, res) -> {
+		options("/quiz/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
-		
-		post("/quiz", (req, res) -> {
+
+		post("/quiz/", (req, res) -> {
 			String token = req.headers("token");
 			String data = req.body();
 			Gson gson = new Gson();
@@ -43,9 +43,9 @@ public class QuizRoutes {
 			}
 		}, JsonUtil.json());
 		
-		get("/getQuizQuestion", (req, res) -> {
+		get("/quiz/question", (req, res) -> {
 			Question question = new Question();
-			String token = req.headers("token");
+			String token = req.headers(("token"));
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());

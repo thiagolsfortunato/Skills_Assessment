@@ -32,8 +32,8 @@
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('getQuizQuestion'),
-            params: { "token": alunoId }
+            url: config.generateApiUrl('quiz/question'),
+            headers: { "token": alunoId },
             //params: { "token": token }
         }).
            success(function (data, status, headers, config) {
@@ -65,7 +65,7 @@
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('quiz'),
+            url: config.generateApiUrl('quiz/'),
             headers: { 'token': alunoId }, //neste caso ta mandando o codigo do aluno, mas será o token futuramente..
             data: JSON.stringify(quiz)
         }).
@@ -82,9 +82,9 @@
         var deferred = $q.defer();
 
         $http({
-            header : {'Content-Type' : 'application/json; charset=UTF-8'},
             method: 'POST',
             url: config.generateApiUrl('question'),
+            header: { 'Content-Type': 'application/json; charset=UTF-8' },
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
@@ -99,8 +99,8 @@
         var deferred = $q.defer();
 
         $http({
-            header : {'Content-Type' : 'application/json; charset=UTF-8'},
             method: 'PUT',
+            header: { 'Content-Type': 'application/json; charset=UTF-8' },
             url: config.generateApiUrl('question'),
             data: JSON.stringify(dataObj)
         }).

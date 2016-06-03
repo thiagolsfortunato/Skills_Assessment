@@ -2,6 +2,7 @@ package br.com.fatec.model;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.connection.ConnectionFactory;
@@ -9,6 +10,7 @@ import br.com.fatec.dao.DaoEnrolls;
 import br.com.fatec.dao.DaoUser;
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.entity.Result;
+import br.com.fatec.entity.Student;
 import br.com.fatec.entity.User;
 
 public class ModelEnrolls {
@@ -134,6 +136,8 @@ public class ModelEnrolls {
 		}
 	}
 
+/*	SE FOR NECESSARIO EM ALGUM LUGAR ATIVAMOS NOVAMENTE
+ * 	
 	@SuppressWarnings("finally")
 	public Enrolls searchEnrollsByCode(Long code) {
 		Enrolls enrolls = null;
@@ -167,6 +171,43 @@ public class ModelEnrolls {
 				e.printStackTrace();
 			}
 			return enrolls;
+		}
+	}
+*/	
+	@SuppressWarnings("finally")
+	public Student searchStudentById(Long id) throws SQLException{
+		Student student = new Student();
+		try{
+			conn = new ConnectionFactory().getConnection();
+			student = DaoEnrolls.searchStudentById(conn, id); 
+		}catch (SQLException e ){
+			System.out.println("Will not it was possible to find the Student");
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return student;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public List<Student> searchAllStudents(Long idFatec){
+		List<Student> students = new LinkedList<Student>();
+		try{
+			conn = new ConnectionFactory().getConnection();
+			students = DaoEnrolls.searchAllStudents(conn, idFatec);
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("Will not it was possible to find the Students");
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return students;
 		}
 	}
 }

@@ -101,46 +101,8 @@ public class DaoUser {
 		}
 	}
 	
-	@SuppressWarnings("finally")
-	public static User searchStudentById(Connection conn, Long id) throws SQLException{
-		User student = null;
-		String query = "SELECT user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period "
-						+ "FROM enrolls JOIN user ON (enrolls.usr_code = user.usr_code) "
-						+ "JOIN course ON (enrolls.crs_code = course.crs_code) "
-						+ "WHERE usr_type = 'student' AND user.usr_code = ?";
-		try{
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setLong(1, id);
-			ResultSet rs = stmt.executeQuery();
-			if ( rs.next() ){
-				student = buildUser( rs );
-			}
-			rs.close();
-			stmt.close();
-		} finally {		
-			return student;
-		}
-	}
 	
-	@SuppressWarnings("finally")
-	public static List<User> searchAllStudents(Connection conn) throws SQLException{
-		List<User> students = new LinkedList<User>();
-		String query = "SELECT user.usr_code, usr_type, usr_name, crs_name, ern_year, ern_period "
-						+ "FROM enrolls JOIN user ON (enrolls.usr_code = user.usr_code) "
-						+ "JOIN course ON (enrolls.crs_code = course.crs_code) "
-						+ "WHERE usr_type = 'student'";
-		try{
-			PreparedStatement stmt = conn.prepareStatement(query);
-			ResultSet rs = stmt.executeQuery();
-			if ( rs.next() ){
-				students = buildUsers( rs );
-			}
-			rs.close();
-			stmt.close();
-		} finally {		
-			return students;
-		}
-	}
+	
 	
 	@SuppressWarnings("finally")
 	public static List<User> searchAllUsers(Connection conn) throws SQLException{ //in process

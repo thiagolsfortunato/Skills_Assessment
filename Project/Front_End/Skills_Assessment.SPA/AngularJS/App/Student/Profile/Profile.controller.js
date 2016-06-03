@@ -1,37 +1,35 @@
 ﻿FatecControllers.controller('ProfileController',
-    ['$scope', '$routeParams', 'StudentService', 'InstitutionService', 'CourseService', '$log', 'localStorageService',
-        function ($scope, $routeParams, studentService, institutionService, courseService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'StudentService', '$log', 'localStorageService',
+        function ($scope, $routeParams, studentService, $log, localStorageService) {
+
+            var identify;
 
             $scope.aluno;
-            $scope.fatec;
-            $scope.curso;
+            $scope.cancel = _cancel;
+            $scope.update = _update;
 
-            $scope.getFatec = _getFatec;
-            $scope.getCurso = _getCurso;
+            var getAluno = _getAluno;
 
             init();
 
             function init() {
-                $scope.aluno = localStorageService.get('user');
-                $scope.getFatec($scope.aluno.instCode);
-                //$scope.getCurso(/*CODIGO*/);
+                identify = localStorageService.get('user');
+                getAluno(identify.userCode);
+            }
+
+            function _getAluno(idAluno) {
+                studentService.studentFindCode(idAluno).then(function (data) {
+                    $scope.aluno = data;
+                    console.log($scope.aluno);
+                });
+            }
+
+            function _cancel() {
+                document.location.href = '#/home';
+            }
+
+            function _update() { //chamara serviço de alterar aluno
                 console.log($scope.aluno);
             }
-
-            function _getFatec(idFatec) {
-                institutionService.institutionFindCode(idFatec).then(function (data) {
-                    $scope.fatec = data;
-
-                });
-            }
-
-            function _getCurso(idCurso) {
-                courseService.courseFindId(idCurso).then(function (data) {
-                    $scope.curso = data;
-
-                });
-            }
-            //EDITAR CONTEUDO
-
 
         }]);

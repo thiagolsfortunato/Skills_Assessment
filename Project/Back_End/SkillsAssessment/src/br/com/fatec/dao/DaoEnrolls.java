@@ -4,14 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.entity.Enrolls;
 import br.com.fatec.entity.Result;
+import br.com.fatec.entity.Student;
+
 
 public class DaoEnrolls {
-	//ESPERANDO METODO DO MARCELO
+
 	@SuppressWarnings("finally")
 	public static boolean insertEnrolls(Connection conn, Enrolls enrolls, Long codeUser) throws SQLException{
 
@@ -73,6 +75,58 @@ public class DaoEnrolls {
 	}	
 
 	@SuppressWarnings("finally")
+	public static Student searchStudentById(Connection conn, Long id) throws SQLException{
+		Student student = null;
+		String query = "SELECT usr.usr_code, usr.usr_userName, usr.usr_password, usr.usr_ra, usr.usr_verified, usr.usr_type, usr.usr_name, usr.usr_register, "
+				+ "crs.crs_name, ins.ist_company, enr.ern_year, enr.ern_period "
+				+ "FROM  user usr "
+				+ "INNER JOIN enrolls enr ON (usr.usr_code = enr.usr_code) "
+				+ "INNER JOIN course crs ON (enr.crs_code = crs.crs_code) "
+				+ "INNER JOIN ist_crs  icr ON (crs.crs_code = icr.crs_code) "
+				+ "INNER JOIN institution ins ON (icr.ist_code = ins.ist_code) "
+				+ "WHERE usr.usr_type = 'student' AND usr.usr_code = ?";
+		try{
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				student = buildStudent( rs );
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex){
+			ex.printStackTrace();
+		} finally {		
+			return student;
+		}
+	}
+	@SuppressWarnings("finally")
+	public static List<Student> searchAllStudents(Connection conn, Long idFatec) throws SQLException{
+		List<Student> students = new LinkedList<Student>();
+		String query = "SELECT usr.usr_code, usr.usr_userName, usr.usr_password, usr.usr_ra, usr.usr_verified, usr.usr_type, usr.usr_name, usr.usr_register, "
+				+ "crs.crs_name, ins.ist_company, enr.ern_year, enr.ern_period "
+				+ "FROM  user usr "
+				+ "INNER JOIN enrolls enr ON (usr.usr_code = enr.usr_code) "
+				+ "INNER JOIN course crs ON (enr.crs_code = crs.crs_code) "
+				+ "INNER JOIN ist_crs  icr ON (crs.crs_code = icr.crs_code) "
+				+ "INNER JOIN institution ins ON (icr.ist_code = ins.ist_code) "
+				+ "WHERE usr.usr_type = 'student' AND ins.ist_code = ?";
+		try{
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, idFatec);
+			ResultSet rs = stmt.executeQuery();
+			if ( rs.next() ){
+				students = buildStudents( rs );
+			}
+			rs.close();
+			stmt.close();
+		} finally {		
+			return students;
+		}
+	}
+/*	SE FORMOS UTILIZAR EM ALGUM LUGAR AIVAMOS NOVAMENTE
+ * 
+	@SuppressWarnings("finally")
 	public static List<Enrolls> searchAllEnrolls(Connection conn) throws SQLException {
 		
 		List<Enrolls> listEnrolls = new ArrayList<>();
@@ -106,7 +160,7 @@ public class DaoEnrolls {
 			return enrolls;
 		}
 	}
-	
+*/	
 	@SuppressWarnings("finally")
 	public static Long searchEnrollsByUserId(Connection conn, Long idUser) throws SQLException {
 
@@ -200,14 +254,36 @@ public class DaoEnrolls {
 		}
 	}	
 	
-	private static Enrolls buildEnroll (ResultSet rs) throws SQLException{
-		Enrolls enrolls = new Enrolls(); 
-		enrolls.setCodeEnrolls(rs.getLong("ERN_CODE"));
-		enrolls.setYear(rs.getInt("ERN_YEAR"));
-		enrolls.setPeriod(rs.getInt("ERN_PERIOD"));
-		enrolls.setCodeCourse(rs.getLong("CRS_CODE"));
-		enrolls.setCodeUser(rs.getLong("USR_CODE"));
-		return enrolls;
+	private static List<Student> buildStudents ( ResultSet rs ) throws SQLException {
+		List<Student> students = new LinkedList<Student>();
+		
+		do {
+			students.add( buildStudent(rs) );
+		} while (rs.next() );
+		
+		return students;
+	}
+	
+	private static Student buildStudent (ResultSet rs){
+		Student student = new Student();
+		try {
+			student.setRa(rs.getString("usr.usr_ra"));
+			student.setYear(rs.getInt("enr.ern_year"));
+			student.setPeriod(rs.getInt("enr.ern_period"));
+			student.setCourse(rs.getString("crs.crs_name"));
+			student.setInstitution(rs.getString("ins.ist_company"));
+			student.setRegistration_date(rs.getString("usr.usr_register"));
+			student.setVerification(rs.getInt("usr.usr_verified"));
+			student.getUser().setName(rs.getString("usr.usr_name"));
+			student.getUser().setUserName(rs.getString("usr.usr_userName"));
+			student.getUser().setPassword(rs.getString("usr.usr_password"));
+			student.getUser().setType(rs.getString("usr.usr_type"));
+			student.getUser().setUserCode(rs.getLong("usr.usr_code"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return student;
 	}
 	
 }
