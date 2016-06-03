@@ -11,6 +11,7 @@ import static spark.Spark.post; // insert
 import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Enrolls;
+import br.com.fatec.entity.Result;
 import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEnrolls;
 
@@ -43,6 +44,37 @@ public class EnrollsRoutes {
 				return "ops, an error with inserting, check the fields!";
 			}
 		}, JsonUtil.json());
+		
+		
+		options("/comment", (req, res) -> {
+			res.status(200);
+			return CorsFilter.getCorsheaders();
+		});
+		
+		//FUNCIONANDO !!
+		post("/comment", (req, res) -> {
+			String comment = req.body();
+			Result result = gson.fromJson(comment, Result.class);
+			String token = req.headers("token");
+			
+			try{
+				//TokenInfo tk = Token.verifyToken(token);
+				//quiz.setUser(tk.getUserId());
+				if( modelEnrolls.insertComment(result, Long.parseLong(token)) ){
+					res.status(200);
+					return "sucess";
+				}else{
+					res.status(400);
+					return "ops, an error with inserting, check the fields!";
+				}
+				
+			}catch(NullPointerException e){
+				e.printStackTrace();
+				return "ops, an error with inserting, check the fields!";
+			}
+		}, JsonUtil.json());
+		
+		
 		//FUNCIONANDO !!
 		delete("/enrolls", "application/json" , (req, res) -> {
 			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
