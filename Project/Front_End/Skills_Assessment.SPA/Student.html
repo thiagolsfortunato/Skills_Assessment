@@ -82,6 +82,12 @@
                             <span class="title">Meu Perfil</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#/result">
+                            <i class="icon-home"></i>
+                            <span class="title">Meu Resultado</span>
+                        </a>
+                    </li>
                     <li class="nav-item" ng-controller="StudentHomeController">
                         <a href="/Login.html" ng-click="logout()">
                             <i class="icon-home"></i>
@@ -131,7 +137,7 @@
     <script src="/Content/assets/global/plugins/angularjs/plugins/ui-select/select.min.js"></script>
     <script src="/Scripts/angular-checklist-module.js"></script>
 
-
+    <script src="Scripts/Chart.js"></script> <!-- Necessário renderizar Chart Radar-->
 
     <script src="/AngularJS/estudante.main.js"></script>
     <script src="/AngularJS/Helpers/authorizationInterceptor.js"></script>
@@ -150,6 +156,8 @@
     <script src="/AngularJS/App/Student/Question/Question.controller.js"></script>
     <script src="/AngularJS/App/Student/Profile/Profile.controller.js"></script>
     <script src="AngularJS/App/Student/Home/StudentHome.controller.js"></script>
+    <script src="/AngularJS/App/Student/Completed/Completed.controller.js"></script>
+    <script src="/AngularJS/App/Student/Result/Result.controller.js"></script>
 
     <script src="/AngularJS/App/User/Edit/UserEdit.controller.js"></script>
     <script src="/AngularJS/App/User/ChangePassword/ChangePassword.controller.js"></script>

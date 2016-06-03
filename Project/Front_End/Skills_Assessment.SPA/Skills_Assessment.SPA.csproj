@@ -73,10 +73,14 @@
     <Content Include="AngularJS\App\Psicologa\Comment\Comment.view.html" />
     <Content Include="AngularJS\App\Psicologa\List\Psicologa.controller.js" />
     <Content Include="AngularJS\App\Psicologa\List\Psicologa.view.html" />
+    <Content Include="AngularJS\App\Student\Completed\Completed.controller.js" />
+    <Content Include="AngularJS\App\Student\Completed\Completed.view.html" />
     <Content Include="AngularJS\App\Student\Home\StudentHome.controller.js" />
     <Content Include="AngularJS\App\Student\Home\StudentHome.view.html" />
     <Content Include="AngularJS\App\Student\Profile\Profile.controller.js" />
     <Content Include="AngularJS\App\Student\Profile\Profile.view.html" />
+    <Content Include="AngularJS\App\Student\Result\Result.controller.js" />
+    <Content Include="AngularJS\App\Student\Result\Result.view.html" />
     <Content Include="AngularJS\App\User\Register\Register.controller.js" />
     <Content Include="AngularJS\App\User\Register\Register.view.html" />
     <Content Include="AngularJS\login.main.js" />

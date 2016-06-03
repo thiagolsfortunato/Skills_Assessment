@@ -1,0 +1,51 @@
+﻿<!-- BEGIN PAGE BAR -->
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <h2>Meu Resultado</h2>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<br />
+<!-- END PAGE TITLE-->
+<div class="portlet box purple">
+    <div class="portlet-title">
+
+        <div class="tools">
+            <a href="javascript:;" class="collapse"> </a>
+        </div>
+
+    </div>
+    <div class="portlet-body">
+
+        <div class="table-toolbar">
+            <h2>{{aluno.name}}</h2>
+        </div>
+
+        <div ng-show="terminou" style="margin-left:50px">
+            <!-- BEGIN CHART-->
+            <div class="row">
+
+                <canvas id="radarChart" style="width:300px; height:300px; "></canvas>
+
+                <br />
+            </div>
+            <!-- END CHART-->
+            <div class="row">
+                <p>
+                    Messagem para aluno..
+                </p>
+            </div>
+        </div>
+
+        <div ng-show="!terminou" style="margin-left:50px">
+            <p>
+                :/ Ops! parece que você ainda não concluiu.. 
+            </p>
+        </div>
+
+    </div>
+</div>

@@ -10,6 +10,10 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
 
         .when('/perfil', { templateUrl: 'AngularJS/App/Student/Profile/Profile.view.html', controller: 'ProfileController' })
 
+        .when('/completed', { templateUrl: 'AngularJS/App/Student/Completed/Completed.view.html', controller: 'CompletedController' })
+
+        .when('/result', { templateUrl: 'AngularJS/App/Student/Result/Result.view.html', controller: 'ResultController' })
+
         .otherwise({ redirectTo: '/home' });
 
     $httpProvider.interceptors.push('authorizationInterceptor');

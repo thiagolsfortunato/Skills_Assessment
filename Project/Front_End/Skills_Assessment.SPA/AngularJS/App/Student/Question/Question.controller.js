@@ -6,18 +6,20 @@
 
             var authData = localStorageService.get('authorizationData');
             var aluno = localStorageService.get('user');
+            var percent;
 
             $scope.questionAmount = $routeParams.param1;
             $scope.currentAnwswerCode = -1;
 
-            $scope.porcentagem = 0;
+            $scope.porcentagem;
+
 
             init();
 
             function init() {
                 //passa o codigo do aluno como parametro, para buscar as questoes
                 questionList(aluno.userCode);
-                console.log($scope.porcentagem);
+                
             }
 
 
@@ -64,12 +66,11 @@
 
                 questionService.questionList(alunoCode).then(function (data) {
 
-                    console.log(data);
+                    //console.log(data);
 
                     $scope.question = data;
 
                     $scope.media = $scope.question.introduction;
-
 
                     var passo1 = $scope.question.unansweredQuestions / $scope.question.questionAmount;
                     var passo2 = passo1 * 100;
@@ -77,6 +78,13 @@
                     var passo4 = passo3 * -1;
                     
                     $scope.porcentagem = Math.round(passo4 * 100) / 100;
+
+                    percent = $scope.porcentagem;
+
+                    if (percent == 100) {
+                        alert('Obrigado vc concluiu com sucesso!');
+                        document.location.href = '#/completed';
+                    }
 
 
                     //toastr.error(data.Message, "Error");
