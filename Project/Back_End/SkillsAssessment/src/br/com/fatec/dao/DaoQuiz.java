@@ -229,7 +229,7 @@ public class DaoQuiz{
 	}
 	
 	@SuppressWarnings("finally")
-	private static Result getResultStudent(Connection conn, Long userCode) throws SQLException{
+	public static Result getResultStudent(Connection conn, Long userCode) throws SQLException{
 		Result result  = new Result();
 		String query = "select distinct usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,rst.rst_comment,"
 				+ "avr.avr_final,crs.crs_name,ist.ist_company from result rst inner join average avr on rst.rst_code ="
@@ -279,8 +279,7 @@ public class DaoQuiz{
 	}
 	
 	@SuppressWarnings("finally")
-	public static Result getAverage(Connection conn, Long userCode) throws SQLException {
-		Result result  = new Result();
+	public static boolean getAverage(Connection conn, Long userCode) throws SQLException {
 		boolean returnInsert = false;
 		boolean returnUpdateResult = false;
 		try {
@@ -290,14 +289,11 @@ public class DaoQuiz{
 					returnInsert = DaoQuiz.insertAverage(conn, competencies.get(i), userCode);
 				}
 				if(returnInsert != false){
-					returnUpdateResult = DaoEnrolls.updateResult(conn, userCode);
-					if(returnUpdateResult !=false){
-						result  = DaoQuiz.getResultStudent(conn,userCode);
-					}
+					returnInsert = DaoEnrolls.updateResult(conn, userCode);
 				}
 			}
 		}finally {
-			return result;
+			return returnInsert;
 		}
 	}
 

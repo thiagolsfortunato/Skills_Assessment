@@ -63,8 +63,8 @@ public class ModelQuiz {
 	}
 	
 	@SuppressWarnings("finally")
-	public Result getAverage(Long userId){
-		Result result = null;
+	public boolean setAverage(Long userId){
+		boolean result = false;
 		try {
 			conn = new ConnectionFactory().getConnection();
 			result = DaoQuiz.getAverage(conn, userId);
@@ -82,11 +82,30 @@ public class ModelQuiz {
 	}
 	
 	@SuppressWarnings("finally")
-	public List<Result> getAverages(Long instCode){
+	public List<Result> getAveragesStudents(Long instCode){
 		List<Result> result = new LinkedList<>();
 		try {
 			conn = new ConnectionFactory().getConnection();
 			result = DaoQuiz.getResultStudents(conn, instCode);
+		} catch (SQLException e) {
+			System.out.println("an error occurred while trying to get a average");
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public Result getAveragesStudent(Long userCode){
+		Result result = new Result();
+		try {
+			conn = new ConnectionFactory().getConnection();
+			result = DaoQuiz.getResultStudent(conn, userCode);
 		} catch (SQLException e) {
 			System.out.println("an error occurred while trying to get a average");
 			e.printStackTrace();

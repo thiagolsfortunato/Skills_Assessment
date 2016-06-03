@@ -60,14 +60,38 @@ public class QuizRoutes {
 			}
 		}, JsonUtil.json());
 		
-		get("/result", (req, res) -> {
-			Result result = new Result();
+		get("/quiz/generate/average", (req, res) -> {
+			boolean result = false;
 			String token = req.headers("token");
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
 				//question = model.getQuestion(tk.getUserId());
-				result = model.getAverage(Long.parseLong(token));
+				result = model.setAverage(Long.parseLong(token));
+				if(result = true){
+					res.status(200);
+					return "SUCESS";
+				}
+				else{
+					res.status(400);
+					return "FAIL";
+				}
+				
+			} catch (Exception e) {
+				System.out.println("ops, an error with result, check the fields! "+e);
+				e.printStackTrace();
+				return "ops, an error with get the result, check the fields!";
+			}
+		}, JsonUtil.json());
+		
+		get("/quiz/result/students", (req, res) -> {
+			List<Result> result = new LinkedList<>();
+			String instCode = req.queryParams("instCode");
+			try {
+				//TokenInfo tk = Token.verifyToken(token);
+				//System.out.println(tk.getUserId());
+				//question = model.getQuestion(tk.getUserId());
+				result = model.getAveragesStudents(Long.parseLong(instCode));
 				return result;
 				
 			} catch (Exception e) {
@@ -77,14 +101,14 @@ public class QuizRoutes {
 			}
 		}, JsonUtil.json());
 		
-		get("/resultStudents", (req, res) -> {
-			List<Result> result = new LinkedList<>();
+		get("/quiz/result/student", (req, res) -> {
+			Result result = new Result();
 			String token = req.headers("token");
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
 				//question = model.getQuestion(tk.getUserId());
-				result = model.getAverages(Long.parseLong(token));
+				result = model.getAveragesStudent(Long.parseLong(token));
 				return result;
 				
 			} catch (Exception e) {
