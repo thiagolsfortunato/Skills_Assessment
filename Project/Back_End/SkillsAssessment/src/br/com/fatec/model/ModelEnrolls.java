@@ -8,12 +8,41 @@ import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoEnrolls;
 import br.com.fatec.dao.DaoUser;
 import br.com.fatec.entity.Enrolls;
+import br.com.fatec.entity.Result;
 import br.com.fatec.entity.User;
 
 public class ModelEnrolls {
 	
 	//conexão com o banco de dados
 	private Connection conn = null;
+	
+	@SuppressWarnings("finally")
+	public boolean insertComment(Result result, Long userCode){
+		boolean transaction = false;
+		try{
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			
+			boolean idUser = DaoEnrolls.insertComment(conn, result, userCode);
+			
+			if( idUser != false ) {
+				conn.commit(); 
+				transaction = true;
+			} else {
+				conn.rollback();
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			conn.rollback();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return transaction;
+		}
+	}
 	
 	@SuppressWarnings("finally")
 	public boolean insertEnrolls(Enrolls enrolls, User user){

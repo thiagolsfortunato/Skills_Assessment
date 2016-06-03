@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fatec.entity.Enrolls;
+import br.com.fatec.entity.Result;
 
 public class DaoEnrolls {
 	//ESPERANDO METODO DO MARCELO
@@ -133,6 +134,25 @@ public class DaoEnrolls {
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setLong(1, codeUser);
+			if( stmt.executeUpdate() != 0 ){
+				insert = true;
+			}
+			stmt.close();
+		}finally{
+			return insert;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static boolean insertComment(Connection conn, Result result, Long codeUser) throws SQLException{
+
+		String sql = "INSERT INTO RESULT (RST_COMMENT) VALUES (?) WHERE USR_CODE = ?;";
+		boolean insert = false;
+		
+		try{
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, result.getComments());
+			stmt.setLong(2, codeUser);
 			if( stmt.executeUpdate() != 0 ){
 				insert = true;
 			}
