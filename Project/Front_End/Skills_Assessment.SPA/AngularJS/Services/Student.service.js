@@ -9,7 +9,7 @@
         setStudentCurrent: _setCurrent,
         studentsList: _studentsList,
         studentFindCode: _studentFindCode,
-        
+
     };
     function _getCurrent() {
         return studentCurrent;
@@ -44,7 +44,7 @@
             url: config.generateApiUrl('search/student/code'),//searchStudentsByCode
             params: { "idStudent": idStudent },
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            
+
         }).
            success(function (dataObj, status, headers, config) {
                deferred.resolve(dataObj);
@@ -53,6 +53,6 @@
         return deferred.promise;
     }
 
-    
+
 
 }]);
