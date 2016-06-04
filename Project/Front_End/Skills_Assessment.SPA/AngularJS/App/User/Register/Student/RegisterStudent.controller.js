@@ -1,16 +1,17 @@
 ﻿FatecControllers.controller('RegisterStudentController',
-    ['$scope', '$routeParams', 'localStorageService', 'RegisterService', 'CourseService',
-        function ($scope, $routeParams, localStorageService, registerService, courseService) {
+    ['$scope', '$routeParams', 'localStorageService', 'RegisterService',
+        function ($scope, $routeParams, localStorageService, registerService) {
 
             //Declaração de funções
             $scope.userAdd = _userAdd;
             $scope.fatecList = _fatecsList;
-            $scope.courseList = _courseList;
 
             $scope.registerState = false;
             $scope.user = {};
             $scope.fatecs; // = [{ nome: "Jessen" }, { nome: "Jacarei" }, { nome: "Pindamonhangaba" }];
             $scope.cursos; // = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
+
+            $scope.fatecSelecionada;
 
             $scope.errorClass = function () {
                 
@@ -28,7 +29,6 @@
             function init() {
 
                 $scope.fatecList();
-                $scope.courseList();
             }
 
             function _userAdd(user) {
@@ -60,46 +60,5 @@
 
             }
 
-            function _courseList() {
-                
-                courseService.courseList().then(function (data) {
-
-                    console.log(data);
-
-                    $scope.cursos = data;
-
-                });
-
-            }
-
-/*
-            function _login() {
-                var loginUser = {
-                    userName : $scope.loginEmail,
-                    password: $scope.loginPassword
-                };
-
-                console.log(loginUser);
-
-
-                authenticationService.Login(loginUser).then(function (data) {
-
-                    if (data["type"] == "student")
-                        document.location = "../#/question/" + data["unansweredQuestions"];
-
-                    //document.location = "Administrator.html";
-
-                }, function errorCallback(response) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-
-                    console.log(loginUser);
-                    alert("We failed again!");
-                    //document.location = "../#/question";
-                    //$scope.loginState = false;
-                });
-            }
-*/
-           
 
         }]);

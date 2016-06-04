@@ -14,7 +14,7 @@ public class ModelCourse {
 	private Connection conn;
 
 	@SuppressWarnings("finally")
-	public boolean insertCourse(Course course){
+	public boolean insertCourse(Course course, Long fatecCode){
 		boolean status = false;
 		Long idCurso = null;
 		boolean institution = false;
@@ -22,7 +22,7 @@ public class ModelCourse {
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			idCurso = DaoCourse.insertCourse(conn, course);
-			institution = DaoInstitutionCourse.insertIntitutionCourse(conn, course.getCodeInstitution(), idCurso);
+			institution = DaoInstitutionCourse.insertIntitutionCourse(conn, fatecCode, idCurso);
 			if ( (idCurso!=null) && institution){
 				conn.commit();
 				status = true;
@@ -116,11 +116,11 @@ public class ModelCourse {
 	}
 
 	@SuppressWarnings("finally")
-	public List<Course> searchAllCourse(){ 
+	public List<Course> searchAllCourse(Long fatecCode){ 
 		List<Course> courses = null;
 		try{
 			conn = new ConnectionFactory().getConnection();
-			courses = DaoCourse.searchAllCourse(conn); 
+			courses = DaoCourse.searchAllCourse(conn, fatecCode); 
 		}catch(SQLException e){
 			e.printStackTrace();
 			System.out.println("an error occurred while trying to search a course");

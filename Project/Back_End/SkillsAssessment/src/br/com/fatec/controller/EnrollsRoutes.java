@@ -53,13 +53,8 @@ public class EnrollsRoutes {
 		}, JsonUtil.json());
 		
 		
-		options("/comment", (req, res) -> {
-			res.status(200);
-			return CorsFilter.getCorsheaders();
-		});
-		
 		//FUNCIONANDO !!
-		post("/comment", (req, res) -> {
+		post("/enrolls/comment", (req, res) -> {
 			String comment = req.body();
 			String token = req.headers("token");
 			
@@ -87,7 +82,7 @@ public class EnrollsRoutes {
 		
 		
 		//FUNCIONANDO !!
-		delete("/enrolls", "application/json" , (req, res) -> {
+		delete("/enrolls/", "application/json" , (req, res) -> {
 			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
 			try{
 				return modelEnrolls.deleteEnrolls(codeEnrolls);
@@ -98,7 +93,7 @@ public class EnrollsRoutes {
 			}
 		}, JsonUtil.json());
 
-		put("/enrolls", (req, res) -> {
+		put("/enrolls/", (req, res) -> {
 			String enrollsData = req.body();
 
 			byte ptext[] = enrollsData.getBytes("ISO-8859-1"); 
@@ -149,7 +144,7 @@ public class EnrollsRoutes {
 		}, JsonUtil.json());
 */
 
-		get("/search/students/all/fatec", (req, res) -> {
+		get("/enrolls/search/students/all/fatec", (req, res) -> {
 			Long idFatec = Long.parseLong(req.queryParams("fatecCode"));
 			try{
 				return modelEnrolls.searchAllStudents(idFatec);

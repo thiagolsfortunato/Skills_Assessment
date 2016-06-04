@@ -35,7 +35,7 @@
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('institution'),
+            url: config.generateApiUrl('institution/'),
             data: JSON.stringify(obj),
             headers: { 'content-type': 'application/json' }
         }).
@@ -71,7 +71,7 @@
 
         $http({
             method: 'DELETE',
-            url: config.generateApiUrl('institution'),
+            url: config.generateApiUrl('institution/'),
             params: { "code": id }
 
         }).
@@ -91,7 +91,7 @@
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('institution'),
+            url: config.generateApiUrl('institution/'),
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {

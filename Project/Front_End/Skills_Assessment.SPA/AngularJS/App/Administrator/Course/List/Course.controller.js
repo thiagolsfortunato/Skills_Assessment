@@ -18,12 +18,14 @@
             $scope.course;
 
             $scope.fatec;
+
+            var admin = localStorageService.get('user');
             
             init();
 
             function init() {
 
-                $scope.courseList();
+                $scope.courseList(admin.instCode);
                 $scope.loadFatec(); //carrega fatec cadastrada
             }
 
@@ -46,9 +48,9 @@
 
             }
 
-            function _courseList() {
+            function _courseList(fatecCode) {
 
-                courseService.courseList().then(function (data) {
+                courseService.courseList(fatecCode).then(function (data) {
 
                     //console.log(data);
 
@@ -63,7 +65,7 @@
                 console.log(course);
                 courseService.courseUpdate(course).then(function (data) {
 
-                    $scope.courseList();
+                    $scope.courseList(admin.instCode);
                     alert("Alterou");
                 });
 
@@ -76,15 +78,15 @@
                     alert('não há fatec cadastrada!');
                     return 0;
                 };
-                course.codeInstitution = $scope.fatec.codeInstitution;     //pega o codigo da fatec cadastrada e seta no curso
+                //course.codeInstitution = admin.instCode;     //pega o codigo da fatec cadastrada e seta no curso
                 course.situation = 1;           //define situação ativa
                 console.log(course);
 
-                courseService.courseAdd(course).then(function (data) {
+                courseService.courseAdd(course, admin.instCode).then(function (data) {
                     if (data == 600) {
                         alert('verifique se há FATEC cadastrada!');
                     } else {
-                        $scope.courseList();
+                        $scope.courseList(admin.instCode);
                         alert("Salvouuu");
                     }
 
@@ -99,7 +101,7 @@
                 console.log(idCourse, idFatec);
                 courseService.courseDelete(idCourse, idFatec).then(function (data) {
 
-                    $scope.courseList();
+                    $scope.courseList(admin.instCode);
                     alert("Deletouuu");
 
                 });

@@ -1,8 +1,5 @@
 package br.com.fatec.entity;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class Quiz {
 	private Long code;
 	private Long user;

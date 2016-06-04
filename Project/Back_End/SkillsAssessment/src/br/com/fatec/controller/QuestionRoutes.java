@@ -20,12 +20,12 @@ public class QuestionRoutes{
 	public static void getQuestions(){
 		ModelQuestion model = new ModelQuestion();
 		
-		options("/question", (req, res) -> {
+		options("/question/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
 		
-		post("/question", (req, res) -> {
+		post("/question/", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			
@@ -69,7 +69,7 @@ public class QuestionRoutes{
 			
 		}, JsonUtil.json());
 	
-		put("/question", (req, res) -> {
+		put("/question/", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			
@@ -88,7 +88,7 @@ public class QuestionRoutes{
 			}
 		}, JsonUtil.json());
 		
-		delete("/question", (req, res) -> {
+		delete("/question/", (req, res) -> {
 			if( req.queryParams("code") == null ){
 				res.status(400);
 				return "invalid parameter";

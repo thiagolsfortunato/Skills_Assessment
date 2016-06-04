@@ -26,7 +26,7 @@ public class UserRoutes {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
-		options("/user", (req, res) -> {
+		options("/user/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
@@ -54,7 +54,7 @@ public class UserRoutes {
 
 		}, JsonUtil.json());
 
-		post("/user", (req, res) -> {
+		post("/user/", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			
@@ -72,7 +72,7 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 
-		delete("/user", (req, res) -> {
+		delete("/user/", (req, res) -> {
 			String data = req.body();
 			String token = req.headers("token");
 			Gson gson = new Gson();
@@ -95,7 +95,7 @@ public class UserRoutes {
 			}
 		}, JsonUtil.json());
 
-		put("/user", (req, res) -> {
+		put("/user/", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			

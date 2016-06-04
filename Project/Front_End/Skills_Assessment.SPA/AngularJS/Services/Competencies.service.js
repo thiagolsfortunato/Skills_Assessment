@@ -29,7 +29,7 @@
        
         $http({
             method: 'POST',
-            url: config.generateApiUrl('competence'),
+            url: config.generateApiUrl('competence/'),
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
@@ -44,8 +44,8 @@
         var deferred = $q.defer();
 
         $http({
-            method: 'delete',
-            url: config.generateApiUrl('competence'),
+            method: 'DELETE',
+            url: config.generateApiUrl('competence/'),
             params: { "competenceCode": id }
             
         }).
@@ -62,7 +62,7 @@
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('competence'),
+            url: config.generateApiUrl('competence/'),
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {

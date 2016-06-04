@@ -18,14 +18,16 @@ public class CourseRoutes {
 		ModelCourse modelCourses = new ModelCourse();
 		Gson gson = new Gson();
 		
-		options("/course", (req, res) -> {
+		options("/course/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
 		
 		//FUNCIONANDO !
-		post("/course", (req, res) -> {
+		post("/course/", (req, res) -> {
 			String courseData = req.body();
+			String code = req.queryParams("fatecCode");
+			Long fatecCode = Long.parseLong(code);
 			
 			byte ptext[] = courseData.getBytes("ISO-8859-1"); 
 			String value = new String(ptext, "UTF-8"); 
@@ -33,7 +35,7 @@ public class CourseRoutes {
 			Course course = gson.fromJson(value, Course.class);
 			
 			try{
-				boolean operacao = modelCourses.insertCourse(course);
+				boolean operacao = modelCourses.insertCourse(course, fatecCode);
 				if (operacao){
 					return "SUCESS";
 				}else{
@@ -48,7 +50,7 @@ public class CourseRoutes {
 			
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		delete("/course", "application/json" , (req, res) -> {
+		delete("/course/", "application/json" , (req, res) -> {
 			Long codeCourse = Long.parseLong(req.queryParams("codeCourse"));
 			Long codeFatec = Long.parseLong(req.queryParams("codeFatec"));
 			try{
@@ -61,7 +63,7 @@ public class CourseRoutes {
 			
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		put("/course", (req, res) -> {
+		put("/course/", (req, res) -> {
 			String courseData = req.body();
 			
 			byte ptext[] = courseData.getBytes("ISO-8859-1"); 
@@ -88,9 +90,11 @@ public class CourseRoutes {
 			}
 		}, JsonUtil.json());
 		//FUNCIONANDO !
-		get("/searchAllCourses", (req, res) -> {
+		get("/course/search/all", (req, res) -> {
+			String code = req.queryParams("fatecCode");
+			Long fatecCode = Long.parseLong(code);
 			try{
-				return modelCourses.searchAllCourse();
+				return modelCourses.searchAllCourse(fatecCode);
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				return "It wasin't possible find all Courses!";

@@ -11,7 +11,7 @@
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('user'),
+            url: config.generateApiUrl('user/'),
             data: JSON.stringify(dataObj),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
 

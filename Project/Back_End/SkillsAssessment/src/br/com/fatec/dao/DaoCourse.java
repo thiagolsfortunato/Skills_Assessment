@@ -88,12 +88,16 @@ public class DaoCourse {
 
 	// FUNCIONANDO !
 	@SuppressWarnings("finally")
-	public static List<Course> searchAllCourse(Connection conn) throws SQLException {
+	public static List<Course> searchAllCourse(Connection conn, Long fatecCode) throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
-		String query = "SELECT c.crs_code AS ID_COURSE, crs_name, crs_situation, date_format(crs_registration_date, '%d-%m-%Y') AS CRS_REGISTRATION_DATE, ist_code "
-				+ "FROM course c INNER JOIN ist_crs i ON c.crs_code = i.crs_code;";
+		String query = "SELECT c.crs_code AS ID_COURSE, c.crs_name, c.crs_situation, "
+				+ "date_format(c.crs_registration_date, '%d-%m-%Y') AS CRS_REGISTRATION_DATE, ins.ist_code "
+				+ "FROM course c INNER JOIN ist_crs i ON c.crs_code = i.crs_code "
+				+ "INNER JOIN institution ins ON i.ist_code = ins.ist_code "
+				+ "WHERE ins.ist_code = ?;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setLong(1, fatecCode);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				do {

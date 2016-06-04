@@ -27,13 +27,14 @@
         return deferred.promise;
     }
 
-    function _courseList() {
+    function _courseList(fatecCode) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('searchAllCourses')
+            url: config.generateApiUrl('course/search/all'),
+            params: {"fatecCode": fatecCode }
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
@@ -42,13 +43,14 @@
         return deferred.promise;
     }
 
-    function _courseAdd(dataObj) {
+    function _courseAdd(dataObj, FatecCode) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('course'),
+            url: config.generateApiUrl('course/'),
+            params: {'fatecCode' : FatecCode},
             data: JSON.stringify(dataObj),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
             
@@ -69,7 +71,7 @@
 
         $http({
             method: 'DELETE',
-            url: config.generateApiUrl('course'),
+            url: config.generateApiUrl('course/'),
             params: { "codeCourse": id, "codeFatec": idFatec }
         }).
            success(function (data, status, headers, config) {
@@ -86,7 +88,7 @@
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('course'),
+            url: config.generateApiUrl('course/'),
             header : {'Content-Type' : 'application/json; charset=UTF-8'},
             data: JSON.stringify(obj)
         }).

@@ -1,7 +1,5 @@
 package br.com.fatec.entity;
 
-import java.util.Date;
-
 public class Competence {
 	
 	private Long code;

@@ -15,18 +15,19 @@ import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.FatecAdm;
 import br.com.fatec.entity.Institution;
 import br.com.fatec.model.ModelInstitution;
+import br.com.fatec.entity.Fatec_Courses;
 
 public class InstitutionRoutes {
 	
 	public static void getInstitution(){
 		ModelInstitution model = new ModelInstitution();
 		
-		options("/institution", (req, res) -> {
+		options("/institution/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
 		
-		post("/institution", (req, res) -> {
+		post("/institution/", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			
@@ -47,7 +48,7 @@ public class InstitutionRoutes {
 			}
 		}, JsonUtil.json());
 		
-		put("/institution", (req, res) -> {
+		put("/institution/", (req, res) -> {
 			String data = req.body();
 			Gson gson = new Gson();
 			
@@ -101,7 +102,7 @@ public class InstitutionRoutes {
 			}
 		}, JsonUtil.json());
 		
-		delete("/institution", (req, res) -> {
+		delete("/institution/", (req, res) -> {
 			if( req.queryParams("code") == null ){
 				res.status(400);
 				return "invalid parameter";
@@ -120,6 +121,16 @@ public class InstitutionRoutes {
 		
 		get("/institution/find/all", (req, res) -> {
 			List<Institution> fatecs = model.searchAllInstitution();
+			if(fatecs.size() > 0){
+				return fatecs;
+			}else{
+				res.status(600);
+				return "no FATEC registered";
+			}
+		}, JsonUtil.json());
+		
+		get("/institution/find/all/courses", (req, res) -> {
+			List<Fatec_Courses> fatecs = model.searchAllInstitutionCourses();
 			if(fatecs.size() > 0){
 				return fatecs;
 			}else{

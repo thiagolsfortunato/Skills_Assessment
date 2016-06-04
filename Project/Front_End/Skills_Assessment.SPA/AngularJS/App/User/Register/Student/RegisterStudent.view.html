@@ -67,12 +67,12 @@
                 <div class="row" style="height:49px">
                     <!--teste-->
                     <div class="col-xs-6">
-                        <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="user.fatec" data-ng-options="fatec.company for fatec in fatecs">
+                        <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="fatecSelecionada" data-ng-options="fatec.name for fatec in fatecs track by fatec.code">
                             <option value="">Fatec *</option>
                         </select>
                     </div>
                     <div class="col-xs-6"><!-- ng-disable : desabilita campo até que atenda a condição, ng-model : objeto temporario passado como parâmetro para função, ng-options : pega todos atributos e insere no dropdown  -->
-                        <select class="form-control-static col-xs-6" style="width:220px; float:right"  ng-disabled="!user.fatec" data-ng-model="user.curso" data-ng-options="curso.name for curso in cursos">
+                        <select class="form-control-static col-xs-6" style="width:220px; float:right"  ng-disabled="!fatecSelecionada" data-ng-model="user.curso" data-ng-options="course.name for course in fatecSelecionada.courses track by course.code">
                             <option value="">Curso *</option><!-- valor padrão definido ao dropdown -->
                         </select>
 					</div>

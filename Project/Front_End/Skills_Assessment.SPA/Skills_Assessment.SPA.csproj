@@ -61,6 +61,8 @@
     <Content Include="AngularJS\App\Administrator\Home\AdministratorHome.view.html" />
     <Content Include="AngularJS\App\Administrator\Institution\List\Institution.view.html" />
     <Content Include="AngularJS\App\Administrator\Institution\List\Institution.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Institution\MyFatec\MyFatec.controller.js" />
+    <Content Include="AngularJS\App\Administrator\Institution\MyFatec\MyFatec.view.html" />
     <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.controller.js" />
     <Content Include="AngularJS\App\Administrator\Question\Add\QuestionAdd.view.html" />
     <Content Include="AngularJS\App\Administrator\Question\Menu\QuestionMenu.controller.js" />
@@ -81,8 +83,10 @@
     <Content Include="AngularJS\App\Student\Profile\Profile.view.html" />
     <Content Include="AngularJS\App\Student\Result\Result.controller.js" />
     <Content Include="AngularJS\App\Student\Result\Result.view.html" />
-    <Content Include="AngularJS\App\User\Register\Register.controller.js" />
-    <Content Include="AngularJS\App\User\Register\Register.view.html" />
+    <Content Include="AngularJS\App\User\Register\Institution\RegisterInstitution.controller.js" />
+    <Content Include="AngularJS\App\User\Register\Institution\RegisterInstitution.view.html" />
+    <Content Include="AngularJS\App\User\Register\Student\RegisterStudent.controller.js" />
+    <Content Include="AngularJS\App\User\Register\Student\RegisterStudent.view.html" />
     <Content Include="AngularJS\login.main.js" />
     <Content Include="AngularJS\Services\Institution.service.js" />
     <Content Include="AngularJS\Services\Student.service.js" />

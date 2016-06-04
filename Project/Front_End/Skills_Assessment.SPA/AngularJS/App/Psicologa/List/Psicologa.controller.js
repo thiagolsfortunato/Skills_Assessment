@@ -10,28 +10,24 @@
 });
 
 FatecControllers.controller('PsicologaController',
-    ['$scope', '$routeParams', 'PsicologaService', '$log', 'localStorageService',
-        function ($scope, $routeParams, psicologaService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'PsicologaService', 'StudentService', '$log', 'localStorageService',
+        function ($scope, $routeParams, psicologaService, studentService, $log, localStorageService) {
 
-            $scope.psicologa = {
-                "nome": "nome da psicoloca",
-            };
+            var Login = _login;
+            var LoadStudents = _loadStudents;
+
+            $scope.psicologa = { "nome": "nome da psicoloca" };
 
             $scope.logout = _logout;
 
-            $scope.alunos = [
-                { "id": 1, "nome": "pé de muleque", curso: "Aeronáutica", ano: "2014", "semestre": '100', "situacao": "andamento" },
-                { "id": 2, "nome": "zé pequeno", curso: "Logistica", ano: "2016", "semestre": '200', "situacao": "concluido" },
-                { "id": 3, "nome": "aluno 42", curso: "Gestão Produção", ano: "2016", "semestre": '200', "situacao": "parado" },
-                { "id": 4, "nome": "Thiago F", curso: "Banco de Dados", ano: "2016", "semestre": '100', "situacao": "andamento" },
-                { "id": 5, "nome": "Daniel W", curso: "ADS", ano: "2015", "semestre": '100', "situacao": "andamento" }
-            ];
+            $scope.alunos;
 
             $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }, { nome: "Banco de Dados" }, { nome: "ADS" }];
 
             $scope._ano = [{ ano: 2016 }, { ano: 2015 }, { ano: 2014 }];
             $scope.semestres = [{ id: '1', desc: '1º Semestre' }, { id: '2', desc: '2º Semestre' }];
 
+            //usado em filtros
             $scope.cursoSelected;
             $scope.anoSelected;
             $scope.semestreSelected;
@@ -55,6 +51,24 @@ FatecControllers.controller('PsicologaController',
             init();
 
             function init() {
+                Login();
+                LoadStudents();
+            }
+
+            function _loadStudents() {
+
+                var fatecCode = $scope.psicologa.instCode;
+
+                studentService.studentsLoadResults(fatecCode).then(function (data) {
+
+                    $scope.alunos = data;
+
+                    console.log($scope.alunos);
+
+                });
+            }
+
+            function _login() {
                 var identify = localStorageService.get('user');
 
                 if (identify == null) {

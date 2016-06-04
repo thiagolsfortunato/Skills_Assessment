@@ -65,7 +65,7 @@
 
         $http({
             method: 'DELETE',
-            url: config.generateApiUrl('question'),
+            url: config.generateApiUrl('question/'),
             params: { "code": code}
         }).
            success(function (data, status, headers, config) {
@@ -99,7 +99,7 @@
 
         $http({
             method: 'POST',
-            url: config.generateApiUrl('question'),
+            url: config.generateApiUrl('question/'),
             header: { 'Content-Type': 'application/json; charset=UTF-8' },
             data: JSON.stringify(dataObj)
         }).
@@ -117,7 +117,7 @@
         $http({
             method: 'PUT',
             header: { 'Content-Type': 'application/json; charset=UTF-8' },
-            url: config.generateApiUrl('question'),
+            url: config.generateApiUrl('question/'),
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {

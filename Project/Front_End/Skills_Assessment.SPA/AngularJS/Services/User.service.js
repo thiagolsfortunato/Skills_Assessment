@@ -16,7 +16,11 @@
     function _userRetrieve(Id) {
         var deferred = $q.defer();
 
-        $http({ method: 'POST', url: config.generateApiUrl('User/Retrieve'), params: { "Id": Id } }).
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('User/Retrieve'),
+            params: { "Id": Id }
+        }).
             success(function (data, status, headers, config) {
                 deferred.resolve(data.Result);
             });
@@ -29,7 +33,11 @@
 
         var httpMethod = "POST";
 
-        $http({ method: httpMethod, url: config.generateApiUrl('User/Add'), data: JSON.stringify(obj) }).
+        $http({
+            method: httpMethod,
+            url: config.generateApiUrl('User/Add'),
+            data: JSON.stringify(obj)
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
@@ -42,7 +50,11 @@
 
         var httpMethod = "POST";
 
-        $http({ method: httpMethod, url: config.generateApiUrl('User/Edit'), data: JSON.stringify(obj) }).
+        $http({
+            method: httpMethod,
+            url: config.generateApiUrl('User/Edit'),
+            data: JSON.stringify(obj)
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
@@ -53,7 +65,10 @@
     function _getUserInfo() {
         var deferred = $q.defer();
 
-        $http({ method: 'GET', url: config.generateApiUrl('Authenticate/Get') }).
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('Authenticate/Get')
+        }).
             success(function (data, status, headers, config) {
                 deferred.resolve(data);
             });
@@ -64,7 +79,10 @@
     function _userList() {
         var deferred = $q.defer();
 
-        $http({ method: 'POST', url: config.generateApiUrl('User/GetAll') }).
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('User/GetAll')
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
@@ -77,7 +95,11 @@
 
         var httpMethod = "POST";
 
-        $http({ method: httpMethod, url: config.generateApiUrl('User/Delete'), params: { "Id": Id } }).
+        $http({
+            method: httpMethod,
+            url: config.generateApiUrl('User/Delete'),
+            params: { "Id": Id }
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
@@ -88,7 +110,10 @@
     function _getAllUsers() {
         var deferred = $q.defer();
 
-        $http({ method: 'POST', url: config.generateApiUrl('User/GetAll') }).
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('User/GetAll')
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
@@ -99,7 +124,11 @@
     function _getUser(userID) {
         var deferred = $q.defer();
 
-        $http({ method: 'GET', url: config.generateApiUrl('User/UserEdit'), params: { "userID": userID == null ? "" : userID } }).
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('User/UserEdit'),
+            params: { "userID": userID == null ? "" : userID }
+        }).
             success(function (data, status, headers, config) {
                 deferred.resolve(data);
             });
@@ -115,7 +144,11 @@
             httpMethod = "PUT";
         }
 
-        $http({ method: httpMethod, url: config.generateApiUrl('User/UserEdit'), data: JSON.stringify(user) }).
+        $http({
+            method: httpMethod,
+            url: config.generateApiUrl('User/UserEdit'),
+            data: JSON.stringify(user)
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });
@@ -126,7 +159,11 @@
     function _changeUserPassword(user) {
         var deferred = $q.defer();
 
-        $http({ method: 'POST', url: config.generateApiUrl('User/ChangePassword'), params: { "Password": user.Password } }).
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('User/ChangePassword'),
+            params: { "Password": user.Password }
+        }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
            });

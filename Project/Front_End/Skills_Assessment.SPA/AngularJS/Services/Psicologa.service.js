@@ -41,7 +41,7 @@
 
         $http({
             method: 'DELETE',
-            url: config.generateApiUrl('psicologa'),
+            url: config.generateApiUrl('psicologa/'),
             params: { "code": id }
         }).
            success(function (data, status, headers, config) {
@@ -50,42 +50,5 @@
 
         return deferred.promise;
     }
-/*
-    function _courseAdd(dataObj) {
 
-        var deferred = $q.defer();
-
-        $http({
-            method: 'POST',
-            url: config.generateApiUrl('course'),
-            data: JSON.stringify(dataObj),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
-            
-        }).
-           success(function (dataObj, status, headers, config) {
-               deferred.resolve(dataObj);
-           });
-
-        return deferred.promise;
-    }
-
-    
-
-    function _courseUpdate(obj) {
-
-        var deferred = $q.defer();
-
-        $http({
-            method: 'PUT',
-            url: config.generateApiUrl('course'),
-            header : {'Content-Type' : 'application/json; charset=UTF-8'},
-            data: JSON.stringify(obj)
-        }).
-           success(function (data, status, headers, config) {
-               deferred.resolve(data);
-           });
-
-        return deferred.promise;
-    }
-*/
 }]);

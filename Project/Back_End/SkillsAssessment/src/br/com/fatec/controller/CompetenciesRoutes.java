@@ -29,13 +29,13 @@ public class CompetenciesRoutes {
 		ModelCompetencies modelCompetencies = new ModelCompetencies();
 		Gson gson = new Gson();
 		
-		options("/competence", (req, res) -> {
+		options("/competence/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
 		
 		// insert
-		post("/competence", (req, res) -> {
+		post("/competence/", (req, res) -> {
 			String competenceData = req.body();
 			
 			byte ptext[] = competenceData.getBytes("ISO-8859-1"); 
@@ -52,7 +52,7 @@ public class CompetenciesRoutes {
 		}, JsonUtil.json());
 		
 		// delete
-		delete("/competence", "application/json", (req, res) -> {
+		delete("/competence/", "application/json", (req, res) -> {
 			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
 			try{
 				return modelCompetencies.deleteCompetence(competenceCode);
@@ -64,7 +64,7 @@ public class CompetenciesRoutes {
 		}, JsonUtil.json());
 		
 		// update
-		put("/competence", (req, res) -> {
+		put("/competence/", (req, res) -> {
 			String competenceData = req.body();
 			
 			byte ptext[] = competenceData.getBytes("ISO-8859-1"); 

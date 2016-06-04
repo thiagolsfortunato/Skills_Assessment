@@ -14,7 +14,7 @@ import br.com.fatec.entity.Institution;
 public class DaoInstitution {
 	
 	@SuppressWarnings("finally")
-	public static Long insertInstitution(Connection conn, Institution institution) throws SQLException {
+	public static Long insertInstitution(Connection conn, Institution institution){
 		
 		String insert = "INSERT INTO institution (ist_company ,ist_cnpj, ist_city) VALUES (?, ?, ?);";
 		
@@ -33,13 +33,15 @@ public class DaoInstitution {
 				generatedKeys.close();
 			}
 			stmt.close();
+		} catch (SQLException ex){
+			ex.printStackTrace();
 		} finally {
 			return idInstitution;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteInstitution(Connection conn, Long code) throws SQLException {
+	public static boolean deleteInstitution(Connection conn, Long code){
 		
 		String sql = "DELETE FROM institution WHERE ist_code = ?;";
 		
@@ -52,13 +54,15 @@ public class DaoInstitution {
 				transaction = true;
 			}
 			stmt.close();
+		} catch(SQLException ex){
+			ex.printStackTrace();
 		} finally {
 			return transaction;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean updateInstitution(Connection conn, Institution institution) throws SQLException {
+	public static boolean updateInstitution(Connection conn, Institution institution){
 		String update = "UPDATE institution SET ist_company = ?, ist_cnpj = ?, ist_city = ? WHERE ist_code = ?;";
 
 		boolean transaction = false;
@@ -73,13 +77,15 @@ public class DaoInstitution {
 				transaction = true;	
 			}
 			stmt.close();
-		}finally {
+		} catch(SQLException ex){
+			ex.printStackTrace();
+		} finally {
 			return transaction;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static Institution searchInstitutionByCode(Connection conn, Long code) throws SQLException {
+	public static Institution searchInstitutionByCode(Connection conn, Long code){
 		Institution institution = new Institution();
 		String query = "SELECT * FROM institution WHERE ist_code = ?;";
 
@@ -93,13 +99,15 @@ public class DaoInstitution {
 			}
 			rs.close();
 			stmt.close();
+		} catch(SQLException ex){
+			ex.printStackTrace();
 		} finally {
 			return institution;
 		}
 	}
 	//usar clausula %like% do banco, para trazer por parte do nome
 	@SuppressWarnings("finally")
-	public static List<Institution> searchInstitutionByName(Connection conn, String strName) throws SQLException {
+	public static List<Institution> searchInstitutionByName(Connection conn, String strName){
 		List<Institution> institutions = new LinkedList<Institution>();
 		String query = "SELECT * FROM institution WHERE ist_company LIKE '%"+ strName +"%';";
 			
@@ -113,13 +121,15 @@ public class DaoInstitution {
 			}
 			rs.close();
 			stmt.close();
+		} catch (SQLException ex){
+			ex.printStackTrace();
 		} finally {
 			return institutions;
 		}
 	}
 	
 	@SuppressWarnings("finally")
-	public static List<Institution> searchAllInstitution(Connection conn) throws SQLException {
+	public static List<Institution> searchAllInstitution(Connection conn){
 		List<Institution> institutions = new LinkedList<Institution>();
 		String query = "SELECT * FROM institution;";
 
@@ -130,8 +140,9 @@ public class DaoInstitution {
 			while (rs.next()){
 				institutions.add(buildInstitution(rs));
 			}
+		} catch (SQLException ex){
+			ex.printStackTrace();
 		} finally {
-			conn.close();
 			return institutions;
 		}
 	}

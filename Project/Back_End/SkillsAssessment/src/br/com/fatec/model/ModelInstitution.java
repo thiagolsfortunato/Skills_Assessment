@@ -6,7 +6,9 @@ import java.util.List;
 
 import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoInstitution;
+import br.com.fatec.dao.DaoInstitutionCourse;
 import br.com.fatec.dao.DaoUser;
+import br.com.fatec.entity.Fatec_Courses;
 import br.com.fatec.entity.Institution;
 import br.com.fatec.entity.User;
 
@@ -15,13 +17,27 @@ public class ModelInstitution {
 	private Connection conn;
 	
 	@SuppressWarnings("finally")
+	public List<Fatec_Courses> searchAllInstitutionCourses(){
+		List<Fatec_Courses> fatecCourses = null;
+		try{
+			conn = new ConnectionFactory().getConnection();
+			fatecCourses = DaoInstitutionCourse.searchAllFatecCourses(conn);
+		}finally{
+			try{
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return fatecCourses;
+		}
+	}
+	
+	@SuppressWarnings("finally")
 	public Institution searchInstitutionByCode(Long code){
 		Institution institution = null;
 		try{
 			conn = new ConnectionFactory().getConnection();
 			institution = DaoInstitution.searchInstitutionByCode(conn, code);
-		}catch(SQLException e){
-			e.printStackTrace();
 		}finally{
 			try{
 				conn.close();
@@ -38,8 +54,6 @@ public class ModelInstitution {
 		try{
 			conn = new ConnectionFactory().getConnection();
 			institutions = DaoInstitution.searchInstitutionByName(conn, name);
-		}catch(SQLException e){
-			e.printStackTrace();
 		}finally{
 			try {
 				conn.close();
@@ -56,8 +70,6 @@ public class ModelInstitution {
 		try{
 			conn = new ConnectionFactory().getConnection();
 			institutions = DaoInstitution.searchAllInstitution(conn);
-		} catch(SQLException e){
-			e.printStackTrace();
 		}finally{
 			try {
 				conn.close();

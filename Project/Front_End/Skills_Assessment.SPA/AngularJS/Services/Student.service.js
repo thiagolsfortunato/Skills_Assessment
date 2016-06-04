@@ -11,13 +11,32 @@
         studentFindCode: _studentFindCode,
         studentUpdate: _studentUpdate,
 
+        studentsLoadResults: _studentsLoadResults,
+
     };
+
     function _getCurrent() {
         return studentCurrent;
     }
     function _setCurrent(Student) {
         studentCurrent = Student;
     }
+
+    function _studentsLoadResults(fatecCode) {
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('quiz/result/students'),
+            params: { "instCode": fatecCode }
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(data);
+           });
+
+        return deferred.promise;
+    }
+
     //retorna todos alunos de uma determinada fatec
     function _studentsList(fatecCode) {
 
@@ -25,7 +44,7 @@
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('search/students/all/fatec'),
+            url: config.generateApiUrl('enrolls/search/students/all/fatec'),
             params: { "fatecCode": fatecCode }
         }).
            success(function (data, status, headers, config) {
@@ -62,7 +81,7 @@
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('student')
+            url: config.generateApiUrl('student/')
 
         }).
            success(function (dataObj, status, headers, config) {
