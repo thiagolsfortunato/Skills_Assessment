@@ -42,7 +42,7 @@
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('search/student/code'),//searchStudentsByCode
+            url: config.generateApiUrl('enrolls/search/student/code'),//searchStudentsByCode
             params: { "idStudent": idStudent },
             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
 

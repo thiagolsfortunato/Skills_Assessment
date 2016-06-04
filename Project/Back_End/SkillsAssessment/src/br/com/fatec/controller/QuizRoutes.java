@@ -33,9 +33,9 @@ public class QuizRoutes {
 			Gson gson = new Gson();
 			Quiz quiz = gson.fromJson(data, Quiz.class);
 			try {
-				//TokenInfo tk = Token.verifyToken(token);
-				//quiz.setUser(tk.getUserId());
-				quiz.setUser( Long.parseLong(token) );
+				TokenInfo tk = Token.verifyToken(token);
+				quiz.setUser(tk.getUserId());
+				
 				return model.insertQuiz(quiz);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -47,10 +47,10 @@ public class QuizRoutes {
 			Question question = new Question();
 			String token = req.headers(("token"));
 			try {
-				//TokenInfo tk = Token.verifyToken(token);
-				//System.out.println(tk.getUserId());
-				//question = model.getQuestion(tk.getUserId());
-				question = model.getQuestion( Long.parseLong(token) );
+				TokenInfo tk = Token.verifyToken(token);
+				System.out.println(tk.getUserId());
+				question = model.getQuestion(tk.getUserId());
+				
 				return question;
 				
 			} catch (Exception e) {
@@ -64,10 +64,10 @@ public class QuizRoutes {
 			boolean result = false;
 			String token = req.headers("token");
 			try {
-				//TokenInfo tk = Token.verifyToken(token);
-				//System.out.println(tk.getUserId());
-				//question = model.getQuestion(tk.getUserId());
-				result = model.setAverage(Long.parseLong(token));
+				TokenInfo tk = Token.verifyToken(token);
+				System.out.println(tk.getUserId());
+				
+				result = model.setAverage(tk.getUserId());
 				if(result = true){
 					res.status(200);
 					return "SUCESS";

@@ -22,7 +22,7 @@ public class EnrollsRoutes {
 		ModelEnrolls modelEnrolls = new ModelEnrolls();
 		Gson gson = new Gson();
 		
-		options("/enrolls", (req, res) -> {
+		options("/enrolls/*", (req, res) -> {
 			res.status(200);
 			return CorsFilter.getCorsheaders();
 		});
@@ -114,7 +114,7 @@ public class EnrollsRoutes {
 			}
 		}, JsonUtil.json());
 
-		get("/search/student/code", (req, res) -> {
+		get("/enrolls/search/student/code", (req, res) -> {
 			Long idStudent = Long.parseLong(req.queryParams("idStudent"));
 			Student student = null;
 			try{

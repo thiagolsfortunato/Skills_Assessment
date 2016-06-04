@@ -7,9 +7,25 @@
         questionGetAll: _questionGetAll,
         questionUpdate: _questionUpdate,
         questionDelete: _questionDelete,
-        saveAnswer: _saveAnswer
+        saveAnswer: _saveAnswer,
+        generateResult: _generateResult,
     };
 
+    function _generateResult() {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: config.generateApiUrl('quiz/generate/average'),
+            //heades: { "token": token }
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(status);
+           });
+
+        return deferred.promise;
+    }
 
     function _questionGetAll() {
 
@@ -66,7 +82,7 @@
         $http({
             method: 'POST',
             url: config.generateApiUrl('quiz/'),
-            headers: { 'token': alunoId }, //neste caso ta mandando o codigo do aluno, mas será o token futuramente..
+            //headers: { 'token': alunoId }, //neste caso ta mandando o codigo do aluno, mas será o token futuramente..
             data: JSON.stringify(quiz)
         }).
            success(function (data, status, headers, config) {

@@ -82,6 +82,11 @@
                     percent = $scope.porcentagem;
 
                     if (percent == 100) {
+                        questionService.generateResult().then(function (status) {
+                            if (status == 200) {
+                                console.log('calculo gerado com sucesso!');
+                            }
+                        });
                         alert('Obrigado vc concluiu com sucesso!');
                         document.location.href = '#/completed';
                     }

@@ -8,7 +8,7 @@
 
             if (authData) {
 
-                //config.headers.token = 'Token ' + authData.token;
+                config.headers.token = authData.token;
 
             }
 
