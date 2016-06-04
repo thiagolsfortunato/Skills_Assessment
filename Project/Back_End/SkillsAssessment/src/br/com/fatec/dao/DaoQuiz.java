@@ -231,13 +231,16 @@ public class DaoQuiz{
 	@SuppressWarnings("finally")
 	public static Result getResultStudent(Connection conn, Long userCode) throws SQLException{
 		Result result  = new Result();
-		String query = "select distinct usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,rst.rst_comment,"
-				+ "avr.avr_final,crs.crs_name,ist.ist_company from result rst inner join average avr on rst.rst_code ="
-				+ " avr.rst_code inner join competence com on com.com_code = avr.com_code inner join "
-				+ "user usr on usr.usr_code = rst.usr_code inner join enrolls erl on erl.usr_code = "
-				+ "usr.usr_code inner join course crs on crs.crs_code = erl.crs_code inner join"
-				+ " ist_crs itc on itc.crs_code = crs.crs_code inner join  institution ist on"
-				+ " ist.ist_code = itc.ist_code where usr.usr_code = ?";
+		String query = "SELECT DISTINCT usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,rst.rst_comment,"
+				+ "avr.avr_final,crs.crs_name,ist.ist_company "
+				+ "FROM result rst INNER JOIN average avr ON rst.rst_code = avr.rst_code "
+				+ "INNER JOIN competence com ON com.com_code = avr.com_code "
+				+ "INNER JOIN user usr on usr.usr_code = rst.usr_code "
+				+ "INNER JOIN enrolls erl ON erl.usr_code = usr.usr_code "
+				+ "INNER JOIN course crs ON crs.crs_code = erl.crs_code "
+				+ "INNER JOIN ist_crs itc ON itc.crs_code = crs.crs_code "
+				+ "INNER JOIN institution ist ON ist.ist_code = itc.ist_code "
+				+ "WHERE usr.usr_code = ?";
 
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -316,7 +319,7 @@ public class DaoQuiz{
 		result.setInstitution(rs.getString("ist_company"));
 		result.setPeriod(rs.getInt("ern_period"));
 		result.setRa(rs.getString("usr_ra"));
-		result.setUserName(rs.getString("usr_name"));
+		result.setName(rs.getString("usr_name"));
 		result.setYear(rs.getInt("ern_year"));
 		result.setCompetencies(buildResultsStudent(conn,rs));
 		return result;
@@ -366,7 +369,7 @@ public class DaoQuiz{
 		result.setInstitution(rs.getString("ist_company"));
 		result.setPeriod(rs.getInt("ern_period"));
 		result.setRa(rs.getString("usr_ra"));
-		result.setUserName(rs.getString("usr_name"));
+		result.setName(rs.getString("usr_name"));
 		result.setYear(rs.getInt("ern_year"));
 		result.setCompetencies(buildResults(conn,rs));
 		return result;

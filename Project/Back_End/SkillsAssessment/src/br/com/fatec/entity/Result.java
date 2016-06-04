@@ -5,7 +5,7 @@ import java.util.List;
 public class Result {
 	
 	private Long userCode;
-	private String userName;
+	private String name;
 	private String ra;
 	private Integer period;
 	private Integer year;
@@ -20,11 +20,11 @@ public class Result {
 	public void setUserCode(Long userCode) {
 		this.userCode = userCode;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getRa() {
 		return ra;

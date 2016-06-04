@@ -11,7 +11,7 @@
         studentFindCode: _studentFindCode,
         studentUpdate: _studentUpdate,
 
-        studentsLoadResults: _studentsLoadResults,
+        studentResult: _studentResult,
 
     };
 
@@ -22,13 +22,13 @@
         studentCurrent = Student;
     }
 
-    function _studentsLoadResults(fatecCode) {
+    function _studentResult(userCode) {
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('quiz/result/students'),
-            params: { "instCode": fatecCode }
+            url: config.generateApiUrl('quiz/result/student'),
+            params: { "userCode": userCode }
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);

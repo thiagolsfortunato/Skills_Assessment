@@ -92,7 +92,8 @@ public class DaoCompetencies {
 		@SuppressWarnings({ "finally" })
 		public static List<Competence> searchAll(Connection conn) throws SQLException {
 			List<Competence> listCompetence = new ArrayList<>();
-			String sql = "select COM_CODE, COM_TYPE, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') as COM_REGISTRATION_DATE from COMPETENCE ;";
+			String sql = "SELECT com_code, com_type, DATE_FORMAT(COM_REGISTRATION_DATE, '%d-%m-%Y') AS COM_REGISTRATION_DATE "
+					+ "FROM competence ORDER BY com_code;";
 			
 			try {
 				PreparedStatement stmt = conn.prepareStatement(sql);

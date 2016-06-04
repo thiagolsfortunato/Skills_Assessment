@@ -104,11 +104,13 @@ public class QuizRoutes {
 		get("/quiz/result/student", (req, res) -> {
 			Result result = new Result();
 			String token = req.headers("token");
+			String code = req.queryParams("userCode");
+			Long studentCode = Long.parseLong(code);
 			try {
 				//TokenInfo tk = Token.verifyToken(token);
 				//System.out.println(tk.getUserId());
 				//question = model.getQuestion(tk.getUserId());
-				result = model.getAveragesStudent(Long.parseLong(token));
+				result = model.getAveragesStudent(studentCode);
 				return result;
 				
 			} catch (Exception e) {

@@ -10,17 +10,25 @@
 });
 
 FatecControllers.controller('PsicologaController',
-    ['$scope', '$routeParams', 'PsicologaService', 'StudentService', '$log', 'localStorageService',
-        function ($scope, $routeParams, psicologaService, studentService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'PsicologaService', 'StudentService', '$log', 'localStorageService', 'AuthenticationService',
+        function ($scope, $routeParams, psicologaService, studentService, $log, localStorageService, authenticationService) {
 
-            var Login = _login;
+            
             var LoadStudents = _loadStudents;
 
-            $scope.psicologa = { "nome": "nome da psicoloca" };
+            $scope.psicologa;
+
+            $scope.avaliar = _avaliar;
 
             $scope.logout = _logout;
 
-            $scope.alunos;
+            $scope.situacao = [{ code: 0, nome: 'andamento' },
+                               { code: 1, nome: 'avaliar' },
+                               { code: 2, nome: 'avaliado' }];
+
+            $scope.alunos = [{ ra: 1234120, name: 'pedro', situacao: 0 },
+                             { ra: 1234320, name: 'mariana', situacao: 1 },
+                             { ra: 1234420, name: 'alan', situacao: 2 }];
 
             $scope.cursos = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }, { nome: "Banco de Dados" }, { nome: "ADS" }];
 
@@ -32,11 +40,6 @@ FatecControllers.controller('PsicologaController',
             $scope.anoSelected;
             $scope.semestreSelected;
 
-            $scope.func = function () {
-                console.log($scope.cursoSelected.nome);
-                console.log($scope.anoSelected.ano);
-                console.log($scope.semestreSelected.id);
-            }
 
             function Ctrl($scope) {
                 // Can replace this with: ng-init="checkboxSelection = '1'".
@@ -51,8 +54,9 @@ FatecControllers.controller('PsicologaController',
             init();
 
             function init() {
-                Login();
-                LoadStudents();
+
+                $scope.psicologa = authenticationService.Validation('psicologa');
+                //LoadStudents();
             }
 
             function _loadStudents() {
@@ -68,17 +72,14 @@ FatecControllers.controller('PsicologaController',
                 });
             }
 
-            function _login() {
-                var identify = localStorageService.get('user');
+            function _avaliar(userCode) {
+                //busca o aluno a ser avaliado e seta-o na service
+                studentService.studentResult(fatecCode).then(function (data) {
 
-                if (identify == null) {
-                    document.location.href = '/Login.html';
-                }
-                else if (identify.type.toLowerCase() != 'psicologa') {
-                    document.location.href = '/Login.html';
-                } else {
-                    $scope.psicologa = identify;
-                }
+                    studentService.setStudentCurrent(data);
+
+                }); 
+                document.location.href = '#/comment';
             }
 
             function _logout() {

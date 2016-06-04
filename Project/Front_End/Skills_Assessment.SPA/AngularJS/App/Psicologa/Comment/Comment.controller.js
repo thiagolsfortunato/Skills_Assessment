@@ -1,6 +1,8 @@
 ﻿FatecControllers.controller('CommentController',
-    ['$scope', '$routeParams', 'PsicologaService', '$log',
-        function ($scope, $routeParams, psicologaService, $log) {
+    ['$scope', '$routeParams', 'PsicologaService', 'StudentService', '$log',
+        function ($scope, $routeParams, psicologaService, studentService, $log) {
+
+            var LoadStudent = _loadStudent;
 
             $scope.psicologa;
 
@@ -11,6 +13,12 @@
 
             $scope.sendComment = function (txt) {
                 console.log(txt);
+            }
+
+            init();
+
+            function init() {
+                LoadStudent();
             }
 
             var radarData =
@@ -24,6 +32,7 @@
                     data: $scope.pesos
                 }]
             }
+
             var options = {
                 segmentShowStroke: false,
                 animateScale: true
@@ -32,16 +41,14 @@
             var ctx2 = document.getElementById("radarChart").getContext("2d");
             var myNewChart = new Chart(ctx2).Radar(radarData);
             new Chart(ctx2).Radar(radarData, options);
-            // FAZER
- /*           $scope.user = [];
-            $scope.userDelete = _userDelete;
+            
+            function _loadStudent() {
 
-            init();
+                $scope.aluno = studentService.getStudentCurrent();
 
-            function init() {
-                userList();
             }
-
+            
+/*
             function userList() {
                 userService.userList().then(function (data) {
                     if (data.State == 0) {

@@ -1,6 +1,6 @@
 ﻿FatecControllers.controller('AdministratorHomeController',
-    ['$scope', '$routeParams', '$log', 'localStorageService',
-        function ($scope, $routeParams, $log, localStorageService) {
+    ['$scope', '$routeParams', '$log', 'localStorageService', 'AuthenticationService',
+        function ($scope, $routeParams, $log, localStorageService, authenticationService) {
 
 
             $scope.admistrador;
@@ -10,16 +10,9 @@
             init();
 
             function init() {
-                var identify = localStorageService.get('user');
 
-                if (identify == null) {
-                    document.location.href = '/Login.html';
-                }
-                else if (identify.type.toLowerCase() != 'administrador') {
-                    document.location.href = '/Login.html';
-                } else {
-                    $scope.admistrador = identify;
-                }
+                $scope.admistrador = authenticationService.Validation('administrador');
+
             }
 
             function _logout() {

@@ -2,6 +2,7 @@
     function ($http, $q, localStorageService) {
         return {
             Login: _Login,
+            Validation: _validation,
             Logout: _Logout,
         };
 
@@ -24,7 +25,10 @@
 
                    localStorageService.set('authorizationData', { token: data.token });
 
-                   localStorageService.set('user', data);
+                   var user = data;
+                   delete user['token'];
+
+                   localStorageService.set('user', user);
 
                    deferred.resolve(data);
 
@@ -56,5 +60,18 @@
                 });
 
             return deferred.promise;
+        }
+
+        function _validation(type) {
+            var identify = localStorageService.get('user'); //identifica o usuario logado
+
+            if (identify == null) {
+                document.location.href = '/Login.html'; //se não houver identificação redireciona para login
+            }
+            else if (identify.type.toLowerCase() != type) { //se não for aluno redireciona para login
+                document.location.href = '/Login.html';
+            } else {
+                return identify; //se der tudo certo irá retornar os dados de quem está logado chamando a função especifica
+            }
         }
     }]);

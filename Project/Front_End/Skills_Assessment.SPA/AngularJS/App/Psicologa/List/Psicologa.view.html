@@ -3,7 +3,7 @@
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
-            <h2>Olá - {{psicologa.userName}}</h2>
+            <h2>Olá - {{psicologa.name}}</h2>
             <i class="fa fa-circle"></i>
         </li>
         
@@ -49,9 +49,6 @@
             </div>
         </div>
 
-        <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" ng-click="func();"><span class="glyphicon glyphicon-search"></span></button>
-        </div>
 
     </div>
 
@@ -73,11 +70,12 @@
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="item in alunos | filter:cursoSelected.nome | filter:anoSelected.ano | filter: (semestreSelected.id | zeros) ">
-                        <td>{{item.id}}</td>
-                        <td>{{item.nome}}</td>
+                        <td>{{item.ra}}</td>
+                        <td>{{item.name}}</td>
                         <td>
-                            <a href="#/comment">{{item.situacao}}</a>
-                            <!--<a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="userDelete(item.Id);"> <i class="fa fa-trash-o"></i></a>-->
+                            <b ng-show="item.situacao == situacao[0].code" style="color:orangered;">{{situacao[0].nome}}</b>
+                            <a ng-show="item.situacao == situacao[1].code" class="btn btn-info" ng-click="avaliar(item.code);">{{situacao[1].nome}}</a>
+                            <b ng-show="item.situacao == situacao[2].code" style="color:forestgreen">{{situacao[2].nome}}</b>
                         </td>
                     </tr>
                 </tbody>

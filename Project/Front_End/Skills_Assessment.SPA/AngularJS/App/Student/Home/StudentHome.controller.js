@@ -1,10 +1,10 @@
 ﻿FatecControllers.controller('StudentHomeController',
-    ['$scope', '$routeParams', '$log', 'StudentService', 'localStorageService',
-        function ($scope, $routeParams, $log, studentService, localStorageService) {
+    ['$scope', '$routeParams', '$log', 'StudentService', 'localStorageService', 'AuthenticationService',
+        function ($scope, $routeParams, $log, studentService, localStorageService, authenticationService) {
 
             var usuario;
 
-            $scope.aluno = { nome: 'Cicrano' };
+            $scope.aluno;
 
             var loadAluno = _loadAluno;
 
@@ -13,17 +13,9 @@
             init();
 
             function init() {
-                var identify = localStorageService.get('user'); //identifica o usuario logado
 
-                if (identify == null) {
-                    document.location.href = '/Login.html'; //se não houver identificação redireciona para login
-                }
-                else if (identify.type.toLowerCase() != 'student') { //se não for aluno redireciona para login
-                    document.location.href = '/Login.html';
-                } else {
-					$scope.aluno = identify;
-                    //loadAluno(identify.userCode); //se der tudo certo irá carregar o aluno logado chamando a função especifica
-                }
+                $scope.aluno = authenticationService.Validation('student');
+
             }
 
             function _loadAluno(userId) {

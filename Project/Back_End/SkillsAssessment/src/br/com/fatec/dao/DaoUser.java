@@ -165,9 +165,10 @@ public class DaoUser {
 	private static User buildLogin(Connection conn, ResultSet rs) throws SQLException {
 		User user = new User();
 		String token = updateTokenUser(conn, rs.getString("USR_CODE") );
-		user.setType( rs.getString("USR_TYPE") );
+		
 		user.setUserCode( rs.getLong("USR_CODE") );
-		user.setUserName( rs.getString("USR_NAME") );
+		user.setType( rs.getString("USR_TYPE") );
+		user.setName( rs.getString("USR_NAME") );
 		user.setInstCode(rs.getLong("IST_CODE"));
 		user.setToken(token); 
 		return user;
