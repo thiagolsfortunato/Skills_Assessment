@@ -7,6 +7,7 @@
         setPsicologaCurrent: _setCurrent,
         getAllPsicologas: _getList,
         deletePsicologa: _delete,
+        sendComment: _sendComment,
 
     };
     
@@ -16,6 +17,23 @@
 
     function _setCurrent(psicologa) {
         psicologaCurrent = psicologa;
+    }
+
+    function _sendComment(txt, studentCode ) {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: 'PUT',
+            url: config.generateApiUrl('enrolls/comment'),
+            params: { "studentCode": studentCode },
+            data: JSON.stringify(txt)
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(data);
+           });
+
+        return deferred.promise;
     }
 
     //IMPLEMENTAR NO BACK-END !

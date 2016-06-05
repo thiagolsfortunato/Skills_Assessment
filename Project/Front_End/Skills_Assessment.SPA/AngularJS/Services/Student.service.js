@@ -44,6 +44,7 @@
 
         $http({
             method: 'GET',
+            async: true,
             url: config.generateApiUrl('enrolls/search/students/all/fatec'),
             params: { "fatecCode": fatecCode }
         }).

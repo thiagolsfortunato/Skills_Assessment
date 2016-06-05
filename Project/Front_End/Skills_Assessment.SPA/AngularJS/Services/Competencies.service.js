@@ -14,10 +14,13 @@
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('searchAllCompetencies')
+            url: config.generateApiUrl('competence/search/all')
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);
+           })
+            .error(function (status) {
+               deferred.resolve(status);
            });
 
         return deferred.promise;
@@ -34,7 +37,10 @@
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(dataObj);
-           });
+           })
+            .error(function (data, status) {
+                deferred.resolve(status);
+            });
 
         return deferred.promise;  
     }
@@ -50,8 +56,11 @@
             
         }).
            success(function (data, status, headers, config) {
-               deferred.resolve(data);
-           });
+               deferred.resolve(status);
+           })
+            .error(function (data, status) {
+                deferred.resolve(status);
+            });
 
         return deferred.promise;
     }
@@ -67,6 +76,9 @@
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(dataObj);
+           })
+            .error(function (data, status) {
+               deferred.resolve(status);
            });
 
         return deferred.promise;

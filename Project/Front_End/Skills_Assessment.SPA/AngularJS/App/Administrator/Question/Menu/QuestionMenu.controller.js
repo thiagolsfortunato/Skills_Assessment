@@ -4,8 +4,6 @@
 
                 $scope.questions = [];
 
-
-
                 init();
 
                 function init() {
@@ -25,7 +23,8 @@
 
                     questionMenuService.questionDelete(code).then(function (data) {
 
-                        alert("Let's go home, becuase its late! im tired");
+                        getAllQuestions();
+                        alert("Deletouu, [QuestionMenu.controller]");
 
                     });
 

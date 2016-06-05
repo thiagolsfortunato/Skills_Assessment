@@ -198,20 +198,22 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean insertComment(Connection conn, Result result, Long codeUser) throws SQLException{
+	public static boolean insertComment(Connection conn, String txt, Long codeUser) throws SQLException{
 
-		String sql = "INSERT INTO RESULT (RST_COMMENT) VALUES (?) WHERE USR_CODE = ?;";
+		String sql = "UPDATE result SET rst_comment = ? WHERE usr_code = ?;";
 		boolean insert = false;
 		
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, result.getComments());
+			stmt.setString(1, txt);
 			stmt.setLong(2, codeUser);
 			if( stmt.executeUpdate() != 0 ){
 				insert = true;
 			}
 			stmt.close();
-		}finally{
+		} catch(SQLException ex){
+			ex.printStackTrace();
+		} finally {
 			return insert;
 		}
 	}
@@ -254,6 +256,26 @@ public class DaoEnrolls {
 		}
 	}	
 	
+	@SuppressWarnings("finally")
+	public static boolean setVerified(Connection conn, Long userCode, Integer status){
+		String sql = "UPDATE user SET usr_verified = ? WHERE usr_code = ?;";
+		boolean update = false;
+		try {
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, status);
+			stmt.setLong(2, userCode);
+	
+			if( stmt.executeUpdate() != 0 ){
+				update = true;
+			}
+			stmt.close();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			return update;
+		}
+	}
 	private static List<Student> buildStudents ( ResultSet rs ) throws SQLException {
 		List<Student> students = new LinkedList<Student>();
 		

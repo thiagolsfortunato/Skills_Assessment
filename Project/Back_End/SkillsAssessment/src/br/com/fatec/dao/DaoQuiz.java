@@ -231,7 +231,7 @@ public class DaoQuiz{
 	@SuppressWarnings("finally")
 	public static Result getResultStudent(Connection conn, Long userCode) throws SQLException{
 		Result result  = new Result();
-		String query = "SELECT DISTINCT usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,rst.rst_comment,"
+		String query = "SELECT DISTINCT usr.usr_code, usr.usr_name, usr.usr_ra, erl.ern_period, erl.ern_year,com.com_code,com.com_type,rst.rst_comment,"
 				+ "avr.avr_final,crs.crs_name,ist.ist_company "
 				+ "FROM result rst INNER JOIN average avr ON rst.rst_code = avr.rst_code "
 				+ "INNER JOIN competence com ON com.com_code = avr.com_code "
@@ -284,7 +284,7 @@ public class DaoQuiz{
 	@SuppressWarnings("finally")
 	public static boolean getAverage(Connection conn, Long userCode) throws SQLException {
 		boolean returnInsert = false;
-		boolean returnUpdateResult = false;
+		//boolean returnUpdateResult = false;
 		try {
 			List<Long> competencies = DaoQuiz.getCompetenciesQuiz(conn,userCode);
 			if(competencies != null){
@@ -293,6 +293,9 @@ public class DaoQuiz{
 				}
 				if(returnInsert != false){
 					returnInsert = DaoEnrolls.updateResult(conn, userCode);
+				}
+				if(returnInsert != false){
+					returnInsert = DaoEnrolls.setVerified(conn, userCode, 1);
 				}
 			}
 		}finally {
@@ -364,6 +367,7 @@ public class DaoQuiz{
 	
 	private static Result buildResult(Connection conn, ResultSet rs) throws SQLException {
 		Result result  = new Result();
+		result.setUserCode(rs.getLong("usr.usr_code"));
 		result.setComments(rs.getString("rst_comment"));
 		result.setCourse(rs.getString("crs_name"));
 		result.setInstitution(rs.getString("ist_company"));

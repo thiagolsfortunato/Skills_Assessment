@@ -43,6 +43,8 @@ public class DaoCompetencies {
 					transaction = true;
 				}
 				stmt.close();
+			} catch(SQLException ex){
+				ex.printStackTrace();
 			} finally {
 				return transaction;
 			}

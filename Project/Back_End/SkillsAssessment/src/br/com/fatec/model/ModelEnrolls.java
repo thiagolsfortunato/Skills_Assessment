@@ -9,7 +9,6 @@ import br.com.fatec.connection.ConnectionFactory;
 import br.com.fatec.dao.DaoEnrolls;
 import br.com.fatec.dao.DaoUser;
 import br.com.fatec.entity.Enrolls;
-import br.com.fatec.entity.Result;
 import br.com.fatec.entity.Student;
 import br.com.fatec.entity.User;
 
@@ -19,15 +18,16 @@ public class ModelEnrolls {
 	private Connection conn = null;
 	
 	@SuppressWarnings("finally")
-	public boolean insertComment(Result result, Long userCode){
+	public boolean insertComment(String txt, Long userCode){
 		boolean transaction = false;
 		try{
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			
-			boolean idUser = DaoEnrolls.insertComment(conn, result, userCode);
+			boolean idUser = DaoEnrolls.insertComment(conn, txt, userCode);
+			boolean status = DaoEnrolls.setVerified(conn, userCode, 2);
 			
-			if( idUser != false ) {
+			if( (idUser != false) && status ) {
 				conn.commit(); 
 				transaction = true;
 			} else {

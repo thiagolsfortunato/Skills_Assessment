@@ -2,34 +2,49 @@
     ['$scope', '$routeParams', 'PsicologaService', 'StudentService', '$log',
         function ($scope, $routeParams, psicologaService, studentService, $log) {
 
-            var LoadStudent = _loadStudent;
+            
 
             $scope.psicologa;
 
-            $scope.aluno = 'zé';
-            $scope.competencias = ['linda', 'comuna', 'feia','inteligencia', 'feminista'];
-            $scope.pesos = [5, 60, 77, 33, 9];
+            $scope.aluno;
+            var competencias = [];
+            var pesos = [];
             $scope.txt;
 
             $scope.sendComment = function (txt) {
+
                 console.log(txt);
+                var codigoAluno = $scope.aluno.userCode;
+                psicologaService.sendComment(txt, codigoAluno).then(function (data) {
+
+                    alert('comentado com sucesso!');
+                });
+                
+            }
+
+            var LoadComp = _loadCompetencies;
+
+            function init() {
+
+                $scope.aluno = studentService.getStudentCurrent();
+
+                console.log($scope.aluno);
+
+                LoadComp($scope.aluno.competencies);
+                
             }
 
             init();
 
-            function init() {
-                LoadStudent();
-            }
-
             var radarData =
             {
-                labels: $scope.competencias,
+                labels: competencias,
                 datasets: [{
                     fillColor: "rgba(63,169,245,.1)",
                     strokeColor: "rgba(63,169,245,1)",
                     pointColor: "rgba(151,187,205,1)",
                     pointStrokeColor: "#fff",
-                    data: $scope.pesos
+                    data: pesos
                 }]
             }
 
@@ -42,34 +57,17 @@
             var myNewChart = new Chart(ctx2).Radar(radarData);
             new Chart(ctx2).Radar(radarData, options);
             
-            function _loadStudent() {
+            function _loadCompetencies(obj) {
 
-                $scope.aluno = studentService.getStudentCurrent();
+                angular.forEach(obj, function (value, key) {
+                    competencias.push(value.type);
+                    pesos.push(value.weight);
+                    
+                });
 
             }
+
             
-/*
-            function userList() {
-                userService.userList().then(function (data) {
-                    if (data.State == 0) {
-                        $scope.user = data.Result;
-                    }
-                    else {
-                        toastr.error(data.Message, "Error");
-                    }
-                });
-            }
+              
 
-            function _userDelete(Id) {
-                userService.userDelete(Id).then(function (data) {
-                    if (data.State == 0) {
-                        toastr.success(data.Message);
-                        userList();
-                    }
-                    else {
-                        toastr.error(data.Message, "Error");
-                    }
-                });
-            }
-    */
         }]);

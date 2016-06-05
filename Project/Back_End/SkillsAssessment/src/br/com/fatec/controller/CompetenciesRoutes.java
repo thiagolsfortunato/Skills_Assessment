@@ -3,6 +3,9 @@ package br.com.fatec.controller;
 import static spark.Spark.get; // select
 import static spark.Spark.options;
 import static spark.Spark.put; // update
+
+import java.util.List;
+
 import static spark.Spark.delete; // delete
 import static spark.Spark.post; // insert
 
@@ -42,10 +45,17 @@ public class CompetenciesRoutes {
 			String value = new String(ptext, "UTF-8"); 
 			
 			Competence competence = gson.fromJson(value, Competence.class);
-			
+			boolean operation = false;
 			try{
-				return modelCompetencies.insertCompetence(competence);
-			}catch(NullPointerException e){
+				operation = modelCompetencies.insertCompetence(competence);
+				if(operation){
+					res.status(200);
+					return "SUCESS";
+				}else{
+					res.status(600);
+					return "FAIL";
+				}
+			}catch(Exception e){
 				e.printStackTrace();
 				return "ops, an error with inserting, check the fields!";
 			}
@@ -54,11 +64,19 @@ public class CompetenciesRoutes {
 		// delete
 		delete("/competence/", "application/json", (req, res) -> {
 			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
+			boolean operation = false;
 			try{
-				return modelCompetencies.deleteCompetence(competenceCode);
-			}catch(NullPointerException e){
+				operation = modelCompetencies.deleteCompetence(competenceCode);
+				if(operation){
+					res.status(200);
+					return "SUCESS";
+				}else{
+					res.status(600);
+					return "FAIL";
+				}
+			}catch(Exception e){
 				e.printStackTrace();
-				res.status(400);
+				res.status(600);
 				return "ops, an error with deleting, check the fields!";
 			}
 		}, JsonUtil.json());
@@ -71,8 +89,16 @@ public class CompetenciesRoutes {
 			String value = new String(ptext, "UTF-8");
 			
 			Competence competence = gson.fromJson(value, Competence.class);
+			boolean operation = false;
 			try{
-				return modelCompetencies.updateCompetence(competence);
+				operation = modelCompetencies.updateCompetence(competence);
+				if(operation){
+					res.status(200);
+					return "SUCESS";
+				}else{
+					res.status(600);
+					return "FAIL";
+				}
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				return "ops, an error with updating, check the fields!";
@@ -82,9 +108,17 @@ public class CompetenciesRoutes {
 		// search by code
 		get("/searchCompetenciesById", "application/json", (req, res) -> {
 			Long competenceCode = Long.parseLong(req.queryParams("competenceCode"));
+			Competence competence = null;
 			try{
-				return modelCompetencies.searchCompetenceByCode(competenceCode);
-			}catch(NullPointerException e){
+				competence = modelCompetencies.searchCompetenceByCode(competenceCode);
+				if(competence != null){
+					res.status(200);
+					return "SUCESS";
+				}else{
+					res.status(600);
+					return "FAIL";
+				}
+			}catch(Exception e){
 				e.printStackTrace();
 				res.status(400);
 				return "It was not possible to find a Competence";
@@ -92,9 +126,17 @@ public class CompetenciesRoutes {
 		} , JsonUtil.json());
 		
 		// search all
-		get("/searchAllCompetencies", (req, res) -> {
+		get("/competence/search/all", (req, res) -> {
+			List<Competence> competencias = null;
 			try{
-				return modelCompetencies.searchAllCompetence();
+				competencias = modelCompetencies.searchAllCompetence();
+				if(competencias.size() > 0){
+					res.status(200);
+					return competencias;
+				}else{
+					res.status(600);
+					return "FAIL";
+				}
 			}catch(NullPointerException e){
 				e.printStackTrace();
 				return "It wasin't possible find all Competences!";

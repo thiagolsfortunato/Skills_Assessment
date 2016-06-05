@@ -40,9 +40,13 @@
 
                 competenciesService.competenciesList().then(function (data) {
 
-                    console.log(data);
-
-                    $scope.competencies = data;
+                    if (data == null) {
+                        alert('ops!, parece que não há nenhuma competência cadastrada. \n'
+                            + '- Tente veificar a conexão com servidor. ');
+                    } else {
+                        $scope.competencies = data;
+                        console.log(data);
+                    }
 
                 });
             }
@@ -52,9 +56,14 @@
                 console.log(competence);
                 competenciesService.competencieUpdate(competence).then(function (data) {
 
-                    $scope.competenciesList();
-                    alert("Alterou");
-
+                    if (status != 200) {
+                        alert('ops!, contate seu prestador e informe que há algum erro no update. \n'
+                            + '- Tente veificar a conexão com servidor. ');
+                    } else {
+                        $scope.competenciesList();
+                        alert("Alterou");
+                    }
+                    
                 });
             }
 
@@ -63,8 +72,13 @@
                 console.log(competence);
                 competenciesService.competencieAdd(competence).then(function (data) {
                     
-                    $scope.competenciesList();
-                    alert("Salvouuu");
+                    if (status != 200) {
+                        alert('ops!, contate seu prestador e informe que há algum erro na inserção. \n'
+                            + '- Tente veificar a conexão com servidor. ');
+                    } else {
+                        $scope.competenciesList();
+                        alert("Salvouuu");
+                    }                    
 
                 });
             }
@@ -72,10 +86,15 @@
             function _competencieDelete(id) {
                 // competencieAdd é o obj que chama a função da service
                 console.log(id);
-                competenciesService.competencieDelete(id).then(function (data) {
+                competenciesService.competencieDelete(id).then(function (status) {
 
-                    $scope.competenciesList();
-                    alert("Deletouuu");
+                    if (status != 200) {
+                        alert('ops!, verifique se não há questões ligadas a esta competencia. \n'
+                            + '- Tente veificar a conexão com servidor. ');
+                    } else {
+                        $scope.competenciesList();
+                        alert("Deletouuu");
+                    }
 
                 });
             }

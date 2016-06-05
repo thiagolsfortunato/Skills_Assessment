@@ -54,19 +54,22 @@ public class EnrollsRoutes {
 		
 		
 		//FUNCIONANDO !!
-		post("/enrolls/comment", (req, res) -> {
+		put("/enrolls/comment", (req, res) -> {
 			String comment = req.body();
 			String token = req.headers("token");
+			String code = req.queryParams("studentCode");
+			
+			Long studentCode = Long.parseLong(code);
 			
 			byte ptext[] = comment.getBytes("ISO-8859-1"); 
 			String value = new String(ptext, "UTF-8");
 			
-			Result result = gson.fromJson(value, Result.class);
+			//Result result = gson.fromJson(value, Result.class);
 			
 			try{
 				//TokenInfo tk = Token.verifyToken(token);
 				//quiz.setUser(tk.getUserId());
-				if( modelEnrolls.insertComment(result, Long.parseLong(token)) ){
+				if( modelEnrolls.insertComment(value, studentCode) ){
 					res.status(200);
 					return "sucess";
 				}else{
