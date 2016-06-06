@@ -25,24 +25,32 @@
             <h2>{{aluno.name}}</h2>
         </div>
 
-        <div ng-show="terminou" style="margin-left:50px">
+        <div>
+
+        </div> 
+        <div class="row" ng-show="finalizado" style="margin-left:50px">
             <!-- BEGIN CHART-->
-            <div class="row">
+            <div class="col-md-6">
 
-                <canvas id="radarChart" style="width:300px; height:300px; "></canvas>
+                <canvas id="radarChart" width=600 height=300></canvas>
 
-                <br />
             </div>
             <!-- END CHART-->
-            <div class="row">
-                <p>
-                    Messagem para aluno..
+            
+            <label style="padding-left:5%">Comentário:</label>
+            <div class="col-md-6" style="padding-top:5%; padding-left:10%;">
+                <p ng-if="comentario.length > 0">
+                    {{comentario}}
                 </p>
+                <b style="color:orangered" ng-if="!comentario.length > 0">
+                    AGUARDE RESPOSTA DA PSICOLOGA...
+                </b>
             </div>
         </div>
 
-        <div ng-show="!terminou" style="margin-left:50px">
+        <div ng-hide="finalizado" style="margin-left:50px">
             <p>
+                <br />
                 :/ Ops! parece que você ainda não concluiu.. 
             </p>
         </div>

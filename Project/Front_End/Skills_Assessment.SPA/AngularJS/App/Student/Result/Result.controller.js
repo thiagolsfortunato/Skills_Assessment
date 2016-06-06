@@ -2,34 +2,81 @@
     ['$scope', '$routeParams', '$log', 'StudentService', 'localStorageService',
         function ($scope, $routeParams, $log, studentService, localStorageService) {
 
-            $scope.aluno = { name: 'Tom' };
+            $scope.aluno;
+            
+            $scope.comentario = '';
+            $scope.finalizado = true;
 
-            $scope.terminou = true;
+            var LoadResult = _resultado;
 
-            $scope.competencias = ['linda', 'comuna', 'feia', 'inteligencia', 'feminista'];
-            $scope.pesos = [5, 6, 7, 3, 9];
+            function init() {
 
-            var radarData =
-            {
-                labels: $scope.competencias,
-                datasets: [{
-                    fillColor: "rgba(63,169,245,.1)",
-                    strokeColor: "rgba(63,169,245,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    data: $scope.pesos
-                }]
-            }
-            var options = {
-                segmentShowStroke: false,
-                animateScale: true
+                $scope.aluno = localStorageService.get('user');
+
+                LoadResult($scope.aluno.userCode);
+
             }
 
-            var ctx2 = document.getElementById("radarChart").getContext("2d");
-            var myNewChart = new Chart(ctx2).Radar(radarData);
-            new Chart(ctx2).Radar(radarData, options);
+            init();
+                        
 
+            function _resultado(userCode) {
+                
+                studentService.studentResult(userCode).then(function (data) {
 
+                    var resultado = data;
+                    //verifica se o objeto veio vazio, igual a -> {}
+                    var finished = Object.keys(resultado).length !== 0;
+                    console.log(resultado);
+
+                    if (finished) {
+                        console.log('aqui');
+                        $scope.finalizado = true;
+                        $scope.comentario = resultado.comments;
+
+                        var competencias = [];
+                        var pesos = [];
+                        //insere as competencias e os respectivos pesos no gráfico
+                        angular.forEach(resultado.competencies, function (value, key) {
+                            competencias.push(value.type);
+                            pesos.push(value.weight);
+
+                        });
+                        
+                        _radarChart(competencias, pesos);
+                        
+                    } else {
+                        $scope.finalizado = false;
+                    }
+
+                });
+
+            }
+
+            function _radarChart(competencias, pesos) {
+
+                var radarData =
+                    {
+                        labels: competencias,
+                        datasets: [{
+                            fillColor: "rgba(63,169,245,.1)",
+                            strokeColor: "rgba(63,169,245,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            data: pesos
+                        }]
+                    }
+
+                var options = {
+                    segmentShowStroke: false,
+                    animateScale: true
+                }
+
+                var ctx2 = document.getElementById("radarChart").getContext("2d");
+                var myNewChart = new Chart(ctx2).Radar(radarData);
+                new Chart(ctx2).Radar(radarData, options);
+
+            }
 
 
         }]);

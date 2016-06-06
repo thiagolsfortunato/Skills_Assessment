@@ -13,6 +13,10 @@
 
             $scope.porcentagem;
 
+            
+            var midia = [/http/.test($scope.media)];
+            
+            $scope.isStreaming = midia;
 
             init();
 
@@ -70,8 +74,6 @@
 
                     $scope.question = data;
 
-                    $scope.media = $scope.question.introduction;
-
                     var passo1 = $scope.question.unansweredQuestions / $scope.question.questionAmount;
                     var passo2 = passo1 * 100;
                     var passo3 = passo2 - 100;
@@ -89,6 +91,10 @@
                         });
                         alert('Obrigado vc concluiu com sucesso!');
                         document.location.href = '#/completed';
+                    } else {
+                        $scope.media = $scope.question.introduction.replace('watch?v=', 'embed/');
+
+                        console.log($scope.media);
                     }
 
 
