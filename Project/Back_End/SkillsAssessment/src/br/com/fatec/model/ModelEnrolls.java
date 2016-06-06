@@ -117,6 +117,7 @@ public class ModelEnrolls {
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
 			transaction = DaoEnrolls.deleteEnrolls(conn, code);
+			transaction = DaoUser.deleteUser(conn, code);
 			
 			if (transaction) {
 				conn.commit();

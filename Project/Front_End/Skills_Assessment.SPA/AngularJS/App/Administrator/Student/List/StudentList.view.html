@@ -28,7 +28,7 @@
                                         <td>{{aluno.user.name}}</td>
                                         <td>{{aluno.course}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir esse aluno?" ng-really-title="Confirmação" ng-really-click=";"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir esse aluno?" ng-really-title="Confirmação" ng-really-click="deleteStudent(aluno);"> <i class="fa fa-trash-o"></i> Apagar</a>
                                             <a class="btn btn-warning" ng-click="goToEditPage(aluno);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
                                     </tr>

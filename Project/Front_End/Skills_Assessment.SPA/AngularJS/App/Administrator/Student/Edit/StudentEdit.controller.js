@@ -14,8 +14,9 @@
             init();
 
             function init() {
-                $scope.loadCourses();
+                
                 $scope.admin = localStorageService.get('user');
+                $scope.loadCourses($scope.admin.instCode);
                 $scope.aluno = studentService.getStudentCurrent();
             }
 
@@ -24,22 +25,33 @@
             }
 
             function _studentUpdate(Student) {
-                console.log($scope.cursos);
-            /*    studentService.studentsUpdate(Student).then(function (data) {
+                var codeCourse = Student.curso.codeCourse;
+                
+                var user = Student.user;
+                delete Student['curso'];
+                delete Student['user'];
+                angular.forEach(user, function (value, key) {
+                    Student[key] = value;
 
-                    if (data == 600) {
+                });
+                Student['codeCourse'] = codeCourse;
+                console.log(Student);
+
+                studentService.studentUpdate(Student).then(function (status) {
+                    
+                    if (status == 600) {
                         alert('ops algum erro aqui..');
                     } else {
                         alert('sucesso..');
                     }
                     
                 });
-                */
+                
             }
 
-            function _loadCourses() {
+            function _loadCourses(fatecCode) {
 
-                courseService.courseList().then(function (data) {
+                courseService.courseList(fatecCode).then(function (data) {
 
                     $scope.cursos = data;
 

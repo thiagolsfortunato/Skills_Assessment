@@ -10,11 +10,12 @@
 });
 
 FatecControllers.controller('PsicologaController',
-    ['$scope', '$routeParams', 'PsicologaService', 'StudentService', '$log', '$location', 'localStorageService', 'AuthenticationService',
-        function ($scope, $routeParams, psicologaService, studentService, $log, $location, localStorageService, authenticationService) {
+    ['$scope', '$routeParams', 'PsicologaService', 'StudentService', 'CourseService', '$log', '$location', 'localStorageService', 'AuthenticationService',
+        function ($scope, $routeParams, psicologaService, studentService, courseService, $log, $location, localStorageService, authenticationService) {
 
             
             var LoadStudents = _loadStudents;
+            var LoadCourses = _loadCourses;
 
             $scope.psicologa;
 
@@ -28,7 +29,7 @@ FatecControllers.controller('PsicologaController',
 
             $scope.alunos;
 
-            $scope.cursos = [{ nome: "Aeronautica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }, { nome: "Banco de Dados" }, { nome: "ADS" }];
+            $scope.cursos;// = [{ nome: "Aeronautica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }, { nome: "Banco de Dados" }, { nome: "ADS" }];
 
             $scope._ano = [{ ano: 2016 }, { ano: 2015 }, { ano: 2014 }];
             $scope.semestres = [{ id: '1', desc: '1º Semestre' }, { id: '2', desc: '2º Semestre' }];
@@ -45,6 +46,7 @@ FatecControllers.controller('PsicologaController',
             function init() {
 
                 $scope.psicologa = authenticationService.Validation('psicologa');
+                LoadCourses();
                 LoadStudents();
                 
             }
@@ -61,10 +63,20 @@ FatecControllers.controller('PsicologaController',
                     angular.forEach(data, function (value, key) {
                         $scope.alunos[key].period = value.period * 1000;
                     });
-  
-                    console.log($scope.alunos);
 
                 });
+            }
+
+            function _loadCourses(fatecCode) {
+
+                var fatecCode = $scope.psicologa.instCode;
+
+                courseService.courseList(fatecCode).then(function (data) {
+
+                    $scope.cursos = data;
+                    
+                });
+
             }
 
             function _avaliar(userCode) {

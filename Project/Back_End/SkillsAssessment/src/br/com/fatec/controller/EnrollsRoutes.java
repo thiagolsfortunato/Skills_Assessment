@@ -12,7 +12,6 @@ import static spark.Spark.post; // insert
 import br.com.fatec.commons.JsonUtil;
 import br.com.fatec.connection.CorsFilter;
 import br.com.fatec.entity.Enrolls;
-import br.com.fatec.entity.Result;
 import br.com.fatec.entity.Student;
 import br.com.fatec.entity.User;
 import br.com.fatec.model.ModelEnrolls;
@@ -28,7 +27,7 @@ public class EnrollsRoutes {
 		});
 		
 		//FUNCIONANDO !!
-		post("/enrolls", (req, res) -> {
+		post("/enrolls/", (req, res) -> {
 			String enrollsData = req.body();
 			
 			byte ptext[] = enrollsData.getBytes("ISO-8859-1"); 
@@ -85,13 +84,24 @@ public class EnrollsRoutes {
 		
 		
 		//FUNCIONANDO !!
+		/*para deletar aluno terá que excluir os dados tambem das tabelas
+		 * quiz, result e average fazendo todas validações necessárias!
+		 */
 		delete("/enrolls/", "application/json" , (req, res) -> {
-			Long codeEnrolls = Long.parseLong(req.queryParams("codeEnrolls"));
+			String userCode = req.queryParams("userCode");
+			Long codeEnrolls = Long.parseLong(userCode);
+			boolean operacao = false;
 			try{
-				return modelEnrolls.deleteEnrolls(codeEnrolls);
-			}catch(NullPointerException e){
+				operacao = modelEnrolls.deleteEnrolls(codeEnrolls);
+				if(operacao){
+					res.status(200);
+				}else{
+					res.status(600);
+				}
+				return operacao;
+			}catch(Exception e){
 				e.printStackTrace();
-				res.status(400);
+				res.status(600);
 				return "ops, an error with deleting, check the fields!";
 			}
 		}, JsonUtil.json());

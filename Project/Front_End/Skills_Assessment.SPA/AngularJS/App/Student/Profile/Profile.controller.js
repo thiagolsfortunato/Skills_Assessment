@@ -1,6 +1,6 @@
 ﻿FatecControllers.controller('ProfileController',
-    ['$scope', '$routeParams', 'StudentService', '$log', 'localStorageService',
-        function ($scope, $routeParams, studentService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'StudentService', 'UserService', '$log', 'localStorageService',
+        function ($scope, $routeParams, studentService, userService, $log, localStorageService) {
 
             var identify;
 
@@ -20,7 +20,6 @@
             function _getAluno(idAluno) {
                 studentService.studentFindCode(idAluno).then(function (data) {
                     $scope.aluno = data;
-                    console.log($scope.aluno);
                 });
             }
 
@@ -29,7 +28,21 @@
             }
 
             function _update() { //chamara serviço de alterar aluno
-                console.log($scope.aluno);
+                var aluno = $scope.aluno;
+                var user = aluno.user;
+                delete aluno['user'];
+                angular.forEach(user, function (value, key) {
+                    aluno[key] = value;
+
+                });
+               
+                studentService.studentUpdate(aluno).then(function (status) {
+                    if (status) {
+                        alert('alterado com sucesso');
+                    }
+                    getAluno(identify.userCode);
+                });
+                
             }
 
         }]);

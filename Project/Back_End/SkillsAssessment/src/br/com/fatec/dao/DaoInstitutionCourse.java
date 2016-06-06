@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fatec.entity.Course;
 import br.com.fatec.entity.Fatec_Courses;
 
 public class DaoInstitutionCourse {
@@ -55,14 +54,14 @@ public class DaoInstitutionCourse {
 	@SuppressWarnings("finally")
 	public static List<Fatec_Courses> searchAllFatecCourses(Connection conn){
 		List<Fatec_Courses> fatec_courses = null;
-		String sql = "SELECT i.ist_code, i.ist_company, c.crs_code, c.crs_name "
-				+ "FROM institution i INNER JOIN ist_crs ic ON i.ist_code = ic.ist_code "
-				+ "INNER JOIN course c ON ic.crs_code = c.crs_code;";
+		String sql = "SELECT i.ist_code, i.ist_company "
+					+ "FROM institution i;";
+				
 		try{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			if( rs.next() ){
-				fatec_courses = buildFatecsCourses(rs);
+				fatec_courses = buildFatecsCourses(conn, rs);
 			}
 			rs.close();
 			stmt.close();
@@ -74,35 +73,22 @@ public class DaoInstitutionCourse {
 	}
 	
 	 
-	private static List<Fatec_Courses> buildFatecsCourses(ResultSet rs) throws SQLException{
+	private static List<Fatec_Courses> buildFatecsCourses(Connection conn, ResultSet rs) throws SQLException{
 		List<Fatec_Courses> fat_cur = new ArrayList<Fatec_Courses>();
 		do {
-			fat_cur.add( buildFatecCourses(rs) );
+			fat_cur.add( buildFatecCourses(conn, rs) );
 		} while (rs.next());
 		return fat_cur;
 	}
 	
-	private static Fatec_Courses buildFatecCourses(ResultSet rs) throws SQLException{
+	private static Fatec_Courses buildFatecCourses(Connection conn, ResultSet rs) throws SQLException{
 		Fatec_Courses fc = new Fatec_Courses();
 		fc.setCode(rs.getLong("i.ist_code"));
 		fc.setName(rs.getString("i.ist_company"));
-		fc.setCourses( buildCourses(rs) );
+		fc.setCourses( DaoCourse.searchCoursesByInstitionId(conn, fc.getCode()) );
 		
 		return fc;
 	}
 	
-	private static List<Course> buildCourses(ResultSet rs) throws SQLException{
-		List<Course> courses = new ArrayList<Course>();
-		do {
-			courses.add( buildCourse(rs) );
-		}while(rs.next());
-		return courses;
-	}
-	private static Course buildCourse(ResultSet rs) throws SQLException{
-		Course course = new Course();
-		course.setCodeCourse(rs.getLong("c.crs_code"));
-		course.setName(rs.getString("c.crs_name"));
-		return course;
-	}
 	
 }

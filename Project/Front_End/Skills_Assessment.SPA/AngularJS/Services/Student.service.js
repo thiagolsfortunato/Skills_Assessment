@@ -10,6 +10,7 @@
         studentsList: _studentsList,
         studentFindCode: _studentFindCode,
         studentUpdate: _studentUpdate,
+        studentDelete: _studentDelete,
 
         studentResult: _studentResult,
 
@@ -76,18 +77,37 @@
 
     //atualiza um aluno -- REALIZAR TESTES E FUNCIONALIDADE -- IMPLEMENTAR NO BACK-END!
     //FAZER PREPARAÇÃO DO JSON PARA ENVIO.
-    function _studentUpdate() {
+    function _studentUpdate(aluno) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'PUT',
-            url: config.generateApiUrl('student/')
-
+            url: config.generateApiUrl('user/'),
+            data: JSON.stringify(aluno)
         }).
-           success(function (dataObj, status, headers, config) {
-               deferred.resolve(dataObj);
+           success(function (data, status, headers, config) {
+               deferred.resolve(status);
            });
+
+        return deferred.promise;
+    }
+
+    function _studentDelete(code) {
+
+        var deferred = $q.defer();
+
+        $http({
+            method: "DELETE",
+            url: config.generateApiUrl('enrolls/'),
+            params: { "userCode": code }
+        }).
+           success(function (data, status, headers, config) {
+               deferred.resolve(status);
+           }).
+            error(function (status, headers, config) {
+                deferred.resolve(status);
+            });
 
         return deferred.promise;
     }

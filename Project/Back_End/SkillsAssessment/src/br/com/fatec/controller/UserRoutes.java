@@ -73,23 +73,23 @@ public class UserRoutes {
 		}, JsonUtil.json());
 
 		delete("/user/", (req, res) -> {
-			String data = req.body();
-			String token = req.headers("token");
-			Gson gson = new Gson();
-			//User user = gson.fromJson(data, User.class); // not being used at											// the time
+			//String token = req.headers("token");
+			String idUser = req.queryParams("userCode");
+			Long code = Long.parseLong(idUser);
+			boolean status = false;											// the time
 			try {
-				TokenInfo tokenInfo = Token.verifyToken(token);
-				Long id = tokenInfo.getUserId();				
-				User user = modelUser.searchUserById(id);
-				if(user.getType().equals("Student")){
-					if(modelEnrolls.deleteEnrolls(id)){
-						return modelUser.deleteUser(id);
-					}else{
-						return false;
-					}
+				//TokenInfo tokenInfo = Token.verifyToken(token);
+				//Long id = tokenInfo.getUserId();				
+				
+				status = modelUser.deleteUser(code);
+				
+				if (status){
+					res.status(200);
+				} else {
+					res.status(400);
 				}
-				return modelUser.deleteUser(id);
-			} catch (NullPointerException e) {
+				return status;
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "ops, an error with deleting, check the fields!";
 			}
@@ -104,18 +104,25 @@ public class UserRoutes {
 			
 			User user = gson.fromJson(value, User.class);
 			Enrolls enrolls = gson.fromJson(value, Enrolls.class);
-			
+			boolean operacao = false;
 			try {
 				enrolls.setCodeUser(user.getUserCode());
-				if(user.getType().equals("Student")){
+				if(user.getType().toLowerCase().equals("student")){
 					if(modelEnrolls.updateEnrolls(enrolls)){
-						return modelUser.updateUser(user);
+						operacao = modelUser.updateUser(user); 
+						res.status(200); 
 					}else{
-						return false;
+						res.status(400);
 					}
 				}
-				return modelUser.updateUser(user);
-			} catch (NullPointerException e) {
+				operacao = modelUser.updateUser(user); 
+				if(operacao){
+					res.status(200);
+				} else {
+					res.status(600);
+				}
+				return operacao;
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "ops, an error with updating, check the fields!";
 			}

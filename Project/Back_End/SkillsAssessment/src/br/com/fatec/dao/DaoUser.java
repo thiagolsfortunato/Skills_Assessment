@@ -85,7 +85,7 @@ public class DaoUser {
 	@SuppressWarnings("finally")
 	public static User searchUserById(Connection conn, Long userCode) throws SQLException{ //in process
 		User user = null;
-		String query = "SELECT usr_type, usr_code, usr_token, usr_name, usr_situation, usr_verified "
+		String query = "SELECT usr_type, usr_code, usr_name, ist_code "
 				+ "FROM user WHERE usr_code = ?;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -100,8 +100,6 @@ public class DaoUser {
 			return user;
 		}
 	}
-	
-	
 	
 	
 	@SuppressWarnings("finally")
@@ -125,16 +123,15 @@ public class DaoUser {
 	@SuppressWarnings("finally")
 	public static boolean updateUser(Connection conn, User user) throws SQLException{
 		boolean returnUpdate = false;
-		String sql = "UPDATE user SET usr_userName = ?, usr_password = ?, usr_ra = ?, usr_type = ?, usr_name = ? "
+		String sql = "UPDATE user SET usr_userName = ?, usr_password = ?, usr_ra = ?, usr_name = ? "
 						+ "WHERE usr_code = ?;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, user.getUserName());
 			stmt.setString(2, user.getPassword());
 			stmt.setString(3, user.getRa());
-			stmt.setString(4, user.getType());
-			stmt.setString(5, user.getName());
-			stmt.setLong(6, user.getUserCode());
+			stmt.setString(4, user.getName());
+			stmt.setLong(5, user.getUserCode());
 			
 			if( stmt.executeUpdate() != 0 ){
 				System.out.println("the User has been successfully updated!");
@@ -147,7 +144,7 @@ public class DaoUser {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteUser(Connection conn, Long code) throws SQLException {
+	public static boolean deleteUser(Connection conn, Long code){
 		boolean delete = false;
 		String sql = "DELETE FROM User WHERE usr_code = ?;";
 		try {
@@ -157,7 +154,9 @@ public class DaoUser {
 				delete = true;
 			}
 			stmt.close();
-		} finally {
+		} catch(SQLException ex){
+			ex.printStackTrace();
+		}finally {
 			return delete;
 		}
 	}
@@ -179,16 +178,9 @@ public class DaoUser {
 		
 		user.setUserCode(rs.getLong("USR_CODE"));
 		user.setInstCode(rs.getLong("IST_CODE"));
-		user.setUserName(rs.getString("USR_NAME"));
-		user.setSituation(rs.getInt("USR_SITUATION"));
-		user.setVerification(rs.getInt("USR_VERIFIED"));
+		user.setName(rs.getString("USR_NAME"));
 		user.setType(rs.getString("USR_TYPE").toLowerCase());//coloca em minusculo
 		
-		if( user.getType().equals("student") ){
-			user.setCourseStudent(rs.getString("CRS_NAME"));
-			user.setYearStudent(rs.getInt("ERN_YEAR"));
-			user.setPeriodStudent(rs.getInt("ERN_PERIOD"));
-		} 
 		return user;
 	}
 	

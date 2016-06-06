@@ -28,8 +28,6 @@
 
                 $scope.aluno = studentService.getStudentCurrent();
 
-                console.log($scope.aluno);
-
                 LoadComp($scope.aluno.competencies);
                 
             }

@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.fatec.entity.Enrolls;
-import br.com.fatec.entity.Result;
+
 import br.com.fatec.entity.Student;
 
 
@@ -36,13 +36,13 @@ public class DaoEnrolls {
 	}
 	
 	@SuppressWarnings("finally")
-	public static boolean deleteEnrolls(Connection conn, Long codeEnrolls) throws SQLException {
+	public static boolean deleteEnrolls(Connection conn, Long codeUser) throws SQLException {
 
-		String sql = "DELETE FROM ENROLLS WHERE ERN_CODE = ?;";
+		String sql = "DELETE FROM enrolls WHERE usr_code = ?;";
 		boolean delete = false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setLong(1, codeEnrolls);
+			stmt.setLong(1, codeUser);
 			if (stmt.executeUpdate() != 0) {
 				delete = true;
 			}
@@ -55,16 +55,13 @@ public class DaoEnrolls {
 	@SuppressWarnings("finally")
 	public static boolean updateEnrolls(Connection conn, Enrolls enrolls) throws SQLException{
 
-		String sql = "UPDATE ENROLLS SET ERN_YEAR = ?, ERN_PERIOD = ?, CRS_CODE = ?, USR_CODE = ? where ERN_CODE = ?;";
+		String sql = "UPDATE enrolls SET crs_code = ? WHERE usr_code = ?;";
 		boolean update = false;
 		try {
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, enrolls.getYear());
-			stmt.setInt(2, enrolls.getPeriod());
-			stmt.setLong(3, enrolls.getCodeCourse());
-			stmt.setLong(4, enrolls.getCodeUser());
-			stmt.setLong(5, enrolls.getCodeEnrolls());
+			stmt.setLong(1, enrolls.getCodeCourse());
+			stmt.setLong(2, enrolls.getCodeUser());
 			if( stmt.executeUpdate() != 0 ){
 				update = true;
 			}

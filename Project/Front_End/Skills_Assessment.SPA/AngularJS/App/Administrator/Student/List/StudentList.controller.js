@@ -6,6 +6,7 @@
             var studentsLoad = _studentsLoad;
 
             $scope.goToEditPage = _goToEdit;
+            $scope.deleteStudent = _deleteStudent;
             $scope.admin;
             $scope.alunos;// = [{ ra: 123456, nome: "Fulano de tal", curso: "Aeronautica" },
                             // { ra: 789123, nome: "Cicrano Soares", curso: "Gestão da Produção" }];
@@ -34,13 +35,26 @@
                         alert('ops algum erro aqui..');
                     } else {
                         $scope.alunos = data;
-                        console.log($scope.alunos);
+                        
                     }
 
                 });
 
             }
 
+            function _deleteStudent(aluno) {
+                var code = aluno.user.userCode
+                studentService.studentDelete(code).then(function (status) {
+                    console.log(status);
+                    if (status != 200) {
+                        alert('ops algum erro aqui..\n -entre em contato com desenvolvedor');
+                    } else {
+                        console.log('excluído com sucesso!');
+                    }
+
+                });
+                
+            }
             
 
         }]);

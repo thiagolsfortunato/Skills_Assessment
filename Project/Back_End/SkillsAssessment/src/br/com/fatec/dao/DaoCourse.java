@@ -146,15 +146,19 @@ public class DaoCourse {
 	public static List<Course> searchCoursesByInstitionId(Connection conn, Long code) throws SQLException {
 		List<Course> listCourse = new ArrayList<>();
 		try {
-			String query = "SELECT COURSE.CRS_CODE, CRS_NAME FROM COURSE JOIN IST_CRS ON (COURSE.CRS_CODE = IST_CRS.CRS_CODE) WHERE IST_CRS.ITC_CODE = ?";
+			String query = "SELECT c.crs_code, crs_name "
+					+ "FROM course c INNER JOIN ist_crs ic ON (c.crs_code = ic.crs_code)"
+				    + "INNER JOIN institution i ON ic.ist_code = i.ist_code "
+					+ "WHERE i.ist_code = ?;";
+			
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setLong(1, code);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()){
 				do {
 					Course course = new Course();
-					course.setCodeCourse(rs.getLong("CRS_CODE"));
-					course.setName(rs.getString("CRS_NAME"));
+					course.setCodeCourse(rs.getLong("c.crs_code"));
+					course.setName(rs.getString("crs_name"));
 					listCourse.add(course);
 				} while (rs.next());
 			}
