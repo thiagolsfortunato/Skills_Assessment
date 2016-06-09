@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <form class="form-horizontal form-label-left" novalidate>
 
     <br />
@@ -25,14 +26,20 @@
                                         <th>Nomes</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-if="psicologas.length >= 1">
                                     <tr data-ng-repeat="psico in psicologas">
                                         <td>{{psico.userCode}}</td>
                                         <td>{{psico.name}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirmação" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa(e) psicologa(o)?" ng-really-title="Confirmação" ng-really-click="psicologaDelete(psico.userCode);"> <i class="fa fa-trash-o"></i> Apagar</a>
                                             <a class="btn btn-warning" ng-click="goToEditPage(psico);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if="psicologas.length == 0">
+                                    <tr>
+                                        <td>-</td>
+                                        <td>Nenhum(a) psicologo(a) cadastrado(a)</td>
                                     </tr>
                                 </tbody>
                             </table>

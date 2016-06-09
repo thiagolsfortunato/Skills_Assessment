@@ -45,35 +45,38 @@
                     } else {
                        
                         $scope.competencies = null;
-                    }
-                   
-                    console.log("sss   "+data);
-                    
+                    }                    
 
                 });
             }
 
             function _competencieUpdate(competence) {
                 // competencieupdate é o obj que chama a função da service
-                console.log(competence);
-                competenciesService.competencieUpdate(competence).then(function (data) {
+                
+                competenciesService.competencieUpdate(competence).then(function (status) {
 
-                    
-                    $scope.competenciesList();
-                    alert("Alterou");
-                    
+                    if (status == 200) {
+                        $scope.competenciesList();
+                        alert("Alterado com sucesso");
+                    } else {
+                        alert(':/ Ops! Problema ao salvar.');
+                    }                  
                     
                 });
             }
 
             function _competencieAdd(competence) {
                 // competencieAdd é o obj que chama a função da service
-                console.log(competence);
-                competenciesService.competencieAdd(competence).then(function (data) {
+                competenciesService.competencieAdd(competence).then(function (status) {
                     
+                    if (status == 200) {
+                        $scope.competenciesList();
+                        alert("Salvo com sucesso.");
+                    } else {
+                        alert(':/ Ops! Problema ao salvar.');
+                    }
+
                     
-                    $scope.competenciesList();
-                    alert("Salvouuu");
                                       
 
                 });
@@ -84,8 +87,13 @@
                 console.log(id);
                 competenciesService.competencieDelete(id).then(function (status) {
 
-                    $scope.competenciesList();
-                    alert("Deletouuu");
+                    if (status != 200) {
+                        alert(':/ Ops! Deve haver questões ligadas a esta competência');
+                    } else {
+                        $scope.competenciesList();
+                        alert("Deletado com sucesso.");
+                    }
+                    
                 });
             }
 

@@ -8,8 +8,8 @@
 
             $scope.registerState = false;
             $scope.user = {};
-            $scope.fatecs; // = [{ nome: "Jessen" }, { nome: "Jacarei" }, { nome: "Pindamonhangaba" }];
-            $scope.cursos; // = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
+            $scope.fatecs; 
+            $scope.cursos; 
 
             $scope.fatecSelecionada;
 			$scope.cursoSelecionado;
@@ -34,9 +34,8 @@
 
             function _userAdd(user) {
                 // userAdd é o obj que chama a função da service
-                
+                //preparo o JSON para o back-end
                 user.type = "Student";
-                //console.log($scope.fatecSelecionada);
                 user.codeCourse = $scope.cursoSelecionado.codeCourse;
                 user.instCode = $scope.fatecSelecionada.code;
                 delete user["password2"];
@@ -46,12 +45,12 @@
                 registerService.validate(user).then(function (data) {
 
                     if(data == 'true'){
-                    	alert('Aluno já cadastrado \n -se perdeu a senha entre em contato com marquinhos!');
+                    	alert('RA ou EMAIL já cadastrado \n -se perdeu a senha entre em contato com administrador de sua FATEC!');
                     }else{
                     	
                     	registerService.userAdd(user).then(function (data) {
 
-                            alert("Cadastrado, clique em ENTRAR");
+                            alert("Cadastrado com sucesso, clique em ENTRAR");
 
                         });
                     }

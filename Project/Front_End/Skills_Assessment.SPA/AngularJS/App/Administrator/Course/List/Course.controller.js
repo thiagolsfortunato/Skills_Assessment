@@ -51,7 +51,7 @@
             function _courseList(fatecCode) {
 
                 courseService.courseList(fatecCode).then(function (data) {
-
+                    
                     $scope.courses = data;
 
                 });
@@ -61,10 +61,15 @@
             function _courseUpdate(course) {
                 // courseupdate é o obj que chama a função da service
                 console.log(course);
-                courseService.courseUpdate(course).then(function (data) {
-
-                    $scope.courseList(admin.instCode);
-                    alert("Alterou");
+                courseService.courseUpdate(course).then(function (status) {
+                    if (status != 200) {
+                        alert(":/ Ops! Problema ao alterar.");
+                    } else {
+                        $scope.courseList(admin.instCode);
+                        alert("Alterado com sucesso");
+                        $scope.courseCancel();
+                    }
+                    
                 });
 
             }
@@ -80,12 +85,13 @@
                 course.situation = 1;           //define situação ativa
                 console.log(course);
 
-                courseService.courseAdd(course, admin.instCode).then(function (data) {
-                    if (data == 600) {
-                        alert('verifique se há FATEC cadastrada!');
+                courseService.courseAdd(course, admin.instCode).then(function (status) {
+                    if (status != 200) {
+                        alert(':/ Ops! problema ao cadastrar.');
                     } else {
                         $scope.courseList(admin.instCode);
-                        alert("Salvouuu");
+                        alert("Salvo com sucesso.");
+                        $scope.course.name = '';
                     }
 
                 });
@@ -97,10 +103,15 @@
             function _courseDelete(idCourse, idFatec) {
                 
                 console.log(idCourse, idFatec);
-                courseService.courseDelete(idCourse, idFatec).then(function (data) {
+                courseService.courseDelete(idCourse, idFatec).then(function (status) {
 
-                    $scope.courseList(admin.instCode);
-                    alert("Deletouuu");
+                    if (status != 200) {
+                        alert(':/ Ops! Deve haver aluno cadastrado neste curso.');
+                    } else {
+                        $scope.courseList(admin.instCode);
+                        alert("Deletado com sucesso.");
+                    }
+                    
 
                 });
             }

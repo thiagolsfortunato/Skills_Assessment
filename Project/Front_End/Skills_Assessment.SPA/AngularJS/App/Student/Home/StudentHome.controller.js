@@ -24,7 +24,6 @@
 
                 studentService.studentFindCode(userId).then(function (data) { // devolve o aluno inteiro
                     $scope.aluno = data;
-                    console.log($scope.aluno);
                 });
             }
 

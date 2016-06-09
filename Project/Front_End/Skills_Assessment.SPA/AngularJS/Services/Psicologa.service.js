@@ -59,8 +59,8 @@
 
         $http({
             method: 'DELETE',
-            url: config.generateApiUrl('psicologa/'),
-            params: { "code": id }
+            url: config.generateApiUrl('user/'),
+            params: { "userCode": id }
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);

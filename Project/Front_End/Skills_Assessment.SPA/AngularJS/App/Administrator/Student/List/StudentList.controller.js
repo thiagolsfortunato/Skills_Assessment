@@ -8,8 +8,7 @@
             $scope.goToEditPage = _goToEdit;
             $scope.deleteStudent = _deleteStudent;
             $scope.admin;
-            $scope.alunos;// = [{ ra: 123456, nome: "Fulano de tal", curso: "Aeronautica" },
-                            // { ra: 789123, nome: "Cicrano Soares", curso: "Gestão da Produção" }];
+            $scope.alunos;
 
             init();
 
@@ -30,31 +29,23 @@
                 var code = $scope.admin.instCode;
 
                 studentService.studentsList(code).then(function (data) {
-
-                    if (data == 600) {
-                        alert('ops algum erro aqui..');
-                    } else {
+                    
                         $scope.alunos = data;
                         
-                    }
-
                 });
 
             }
 
             function _deleteStudent(aluno) {
+
                 var code = aluno.user.userCode
+
                 studentService.studentDelete(code).then(function (status) {
-                    console.log(status);
-                    if (status != 200) {
-                        alert('ops algum erro aqui..\n -entre em contato com desenvolvedor');
-                    } else {
+                    
                         console.log('excluído com sucesso!');
-                    }
 
                 });
                 
             }
             
-
         }]);

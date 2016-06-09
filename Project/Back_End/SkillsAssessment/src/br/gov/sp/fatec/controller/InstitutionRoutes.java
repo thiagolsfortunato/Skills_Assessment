@@ -93,11 +93,10 @@ public class InstitutionRoutes {
 				Long code = Long.parseLong( req.queryParams("code") );
 				Institution fatec = model.searchInstitutionByCode(code);
 				
-				if( fatec.getCodeInstitution() == null ){
-					res.status(404);
-					return "FATEC not found";
-				}else{
+				if( fatec.getCodeInstitution() != null ){
 					return fatec;
+				}else{
+					return null;
 				}	
 			}
 		}, JsonUtil.json());

@@ -44,6 +44,7 @@
                 questionService.questionAdd(obj).then(function (data) {
 
                     alert("Questão salva com suceso!");
+                    document.location.href = "#/question";
 
                 });
             }

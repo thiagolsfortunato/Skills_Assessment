@@ -36,7 +36,7 @@
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
-               deferred.resolve(dataObj);
+               deferred.resolve(status);
            })
             .error(function (data, status) {
                 deferred.resolve(status);
@@ -75,7 +75,7 @@
             data: JSON.stringify(dataObj)
         }).
            success(function (data, status, headers, config) {
-               deferred.resolve(dataObj);
+               deferred.resolve(status);
            })
             .error(function (data, status) {
                deferred.resolve(status);

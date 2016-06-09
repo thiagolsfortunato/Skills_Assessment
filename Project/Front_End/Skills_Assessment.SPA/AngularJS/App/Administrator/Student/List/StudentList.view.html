@@ -22,15 +22,23 @@
                                         <th>Curso</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-if="alunos.length > 0">
                                     <tr data-ng-repeat="aluno in alunos">
                                         <td>{{aluno.ra}}</td>
                                         <td>{{aluno.user.name}}</td>
                                         <td>{{aluno.course}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir esse aluno?" ng-really-title="Confirmação" ng-really-click="deleteStudent(aluno);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <!--botão de excluir um aluno-->
+                                            <!--<a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir esse aluno?" ng-really-title="Confirmação" ng-really-click="deleteStudent(aluno);"> <i class="fa fa-trash-o"></i> Apagar</a>-->
                                             <a class="btn btn-warning" ng-click="goToEditPage(aluno);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if="alunos.length == 0">
+                                    <tr>
+                                        <td>-</td>
+                                        <td>Nenhum aluno cadastrado</td>
+                                        <td>-</td>
                                     </tr>
                                 </tbody>
                             </table>

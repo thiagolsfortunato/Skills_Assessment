@@ -38,11 +38,9 @@ public class EnrollsRoutes {
 			
 			try{
 				if( modelEnrolls.insertEnrolls(enrolls, user) ){
-					res.status(200);
-					return "sucess";
+					return true;
 				}else{
-					res.status(400);
-					return "ops, an error with inserting, check the fields!";
+					return false;
 				}
 				
 			}catch(NullPointerException e){
@@ -63,17 +61,13 @@ public class EnrollsRoutes {
 			byte ptext[] = comment.getBytes("ISO-8859-1"); 
 			String value = new String(ptext, "UTF-8");
 			
-			//Result result = gson.fromJson(value, Result.class);
-			
 			try{
 				//TokenInfo tk = Token.verifyToken(token);
 				//quiz.setUser(tk.getUserId());
 				if( modelEnrolls.insertComment(value, studentCode) ){
-					res.status(200);
-					return "sucess";
-				}else{
-					res.status(400);
-					return "ops, an error with inserting, check the fields!";
+					return true;
+				}else{				
+					return false;
 				}
 				
 			}catch(NullPointerException e){
@@ -83,7 +77,7 @@ public class EnrollsRoutes {
 		}, JsonUtil.json());
 		
 		
-		//FUNCIONANDO !!
+		//NÃO FUNCIONANDO !!
 		/*para deletar aluno terá que excluir os dados tambem das tabelas
 		 * quiz, result e average fazendo todas validações necessárias!
 		 */
@@ -93,15 +87,10 @@ public class EnrollsRoutes {
 			boolean operacao = false;
 			try{
 				operacao = modelEnrolls.deleteEnrolls(codeEnrolls);
-				if(operacao){
-					res.status(200);
-				}else{
-					res.status(600);
-				}
 				return operacao;
 			}catch(Exception e){
 				e.printStackTrace();
-				res.status(600);
+				res.status(400);
 				return "ops, an error with deleting, check the fields!";
 			}
 		}, JsonUtil.json());

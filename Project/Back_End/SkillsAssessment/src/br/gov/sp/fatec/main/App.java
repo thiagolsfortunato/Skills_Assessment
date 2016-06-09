@@ -11,11 +11,10 @@ import br.gov.sp.fatec.controller.UserRoutes;
 
 import spark.servlet.SparkApplication;
 
-public class App implements SparkApplication{
+public class App{
 
-	@Override
-	public void init() {
-		
+	public static void main(String[] args) {
+			
 		CorsFilter.apply();
 		 
 		 QuizRoutes.getQuiz();

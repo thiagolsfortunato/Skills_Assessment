@@ -81,10 +81,10 @@
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <div class="btn-group" role="group">
-                            <a href="/fatec/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
+                            <a href="/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
                         </div>
                         <div class="btn-group" role="group" style="float:right"><!-- ng-click : chama função cadastrar(parametro) -->
-                            <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!user.name || !user.ra || !user.userName || !user.password || !user.password2">Cadastrar</button><!--chama função cadastar-->
+                            <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!user.name || !user.ra || !user.userName || !user.password || !user.password2 || !cursoSelecionado">Cadastrar</button><!--chama função cadastar-->
                         </div>
                     </div>
                 </div>

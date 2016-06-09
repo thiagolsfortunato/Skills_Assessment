@@ -25,9 +25,9 @@
                 var code = $scope.admin.instCode;
 
                 institutionService.institutionFindCode(code).then(function (data) {
-
-                    if (data == 600) {
-                        alert('ops algum erro aqui..');
+                    
+                    if (data == 'null') {
+                        alert(':/ Ops! Algum problema ao procurar seus dados.');
                     } else {
                         $scope.institution = data;
                     }
@@ -39,10 +39,10 @@
             function _institutionUpdate(institution) {
                 // courseupdate é o obj que chama a função da service
                 console.log(institution);
-                institutionService.institutionUpdate(institution).then(function (data) {
+                institutionService.institutionUpdate(institution).then(function (status) {
 
                     $scope.institutionLoad();
-                    alert("Alterou");
+                    alert("Alterado com sucesso!");
                 });
 
             }

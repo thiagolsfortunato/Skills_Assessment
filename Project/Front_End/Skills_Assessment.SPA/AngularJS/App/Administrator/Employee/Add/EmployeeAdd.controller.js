@@ -49,7 +49,8 @@
                 delete user["passwordConfirm"];
                 employeeService.employeeAdd(user).then(function (data) {
 
-                    alert("Salvouuu");
+                    alert("Cadastrado com sucesso!");
+                    document.location.href = "#/psicologa/list";
                 });
             }
          }

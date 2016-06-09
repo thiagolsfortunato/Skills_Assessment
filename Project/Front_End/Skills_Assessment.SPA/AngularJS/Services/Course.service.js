@@ -56,7 +56,7 @@
             
         }).
            success(function (dataObj, status, headers, config) {
-               deferred.resolve(dataObj);
+               deferred.resolve(status);
            }).
             error(function (data, status, headers, config) {
                 deferred.resolve(status);
@@ -75,8 +75,8 @@
             params: { "codeCourse": id, "codeFatec": idFatec }
         }).
            success(function (data, status, headers, config) {
-               console.log(data);
-               deferred.resolve(data);
+               console.log(status);
+               deferred.resolve(status);
            });
 
         return deferred.promise;
@@ -93,7 +93,7 @@
             data: JSON.stringify(obj)
         }).
            success(function (data, status, headers, config) {
-               deferred.resolve(data);
+               deferred.resolve(status);
            });
 
         return deferred.promise;

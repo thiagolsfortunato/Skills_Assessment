@@ -41,13 +41,18 @@
                         <th>Descrição</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody ng-if="courses.length > 0">
                     <tr data-ng-repeat="item in courses">
                         <td>{{item.name}}</td>
                         <td>
-                            <button class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse, item.codeInstitution);"> <i class="fa fa-trash-o"></i> Apagar</button>
+                            <button class="btn btn-danger" ng-really-message="Deseja relamente deletar este curso ?" ng-really-title="Confirmation" ng-really-click="courseDelete(item.codeCourse, item.codeInstitution);"> <i class="fa fa-trash-o"></i> Apagar</button>
                             <a class="btn btn-warning" ng-click="courseLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                         </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="courses.length == 0">
+                    <tr>
+                        <td>Nenhum curso cadastrado</td>
                     </tr>
                 </tbody>
             </table>

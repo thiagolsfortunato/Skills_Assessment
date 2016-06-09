@@ -24,13 +24,18 @@
                                         <th>Descri&ccedil;&atilde;o</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody nf-if="questions.length > 0">
                                     <tr data-ng-repeat="item in questions">
                                         <td style="width:85%">{{item.question}}</td>
                                         <td>
                                             <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirmação" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
                                             <a  class="btn btn-warning" ng-click="goToEditPage(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if="questions.length == 0">
+                                    <tr>
+                                        <td>Nenhuma pergunta cadastrada</td>
                                     </tr>
                                 </tbody>
                             </table>

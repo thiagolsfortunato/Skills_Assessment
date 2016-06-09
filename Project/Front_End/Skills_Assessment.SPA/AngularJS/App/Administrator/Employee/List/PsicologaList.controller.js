@@ -6,8 +6,7 @@
                 $scope.psicologaDelete = _delete;
                 
                 $scope.admin;
-                $scope.psicologas;// = [{ id: 001, nome: 'Vanessa', email: 'vanessa@fatec.com', password: 'vanessa', fatec: 'Jessen Vidal' },
-                                    // { id: 002, nome: 'Amanda', email: 'amanda@fatec.com', password: 'amanda', fatec: 'Jessen Vidal' }];
+                $scope.psicologas;
 
                 var loadPsicologas = _loadPsicologas;
 
@@ -29,8 +28,14 @@
                 function _delete (code) {
 
                     psicologaService.deletePsicologa(code).then(function (data) {
-
-                        alert("Deletada...");
+                        var resposta = data;
+                        if (resposta) {
+                            alert("Excluido com sucesso.");
+                            loadPsicologas($scope.admin.instCode);
+                        } else {
+                            alert(":/ Ops! Algum problema.. ");
+                        }
+                        
 
                     });
 

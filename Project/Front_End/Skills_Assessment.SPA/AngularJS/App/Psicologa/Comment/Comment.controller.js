@@ -18,6 +18,8 @@
                 psicologaService.sendComment(txt, codigoAluno).then(function (data) {
 
                     alert('comentado com sucesso!');
+                    document.location.href = "#/list";
+
                 });
                 
             }
