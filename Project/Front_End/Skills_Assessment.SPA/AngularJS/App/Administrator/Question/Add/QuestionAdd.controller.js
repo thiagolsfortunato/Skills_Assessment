@@ -43,7 +43,7 @@
 
                 questionService.questionAdd(obj).then(function (data) {
 
-                    alert("We areeee the champiom my frieeeend");
+                    alert("Questão salva com suceso!");
 
                 });
             }

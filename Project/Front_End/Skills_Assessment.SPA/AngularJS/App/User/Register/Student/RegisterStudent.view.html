@@ -1,9 +1,9 @@
-Ôªø<!-- BEGIN REGISTER FORM -->
+<!-- BEGIN REGISTER FORM -->
 <form class="login-form" role="form">
     <div class="form-title">
         <span class="form-title">Bem vindo!</span>
         <br />
-        <span class="form-subtitle">Insira algumas informa√ß√µes.</span>
+        <span class="form-subtitle">Insira algumas informa&ccedil&otildees.</span>
     </div>
 </form>
 <hr />
@@ -12,7 +12,7 @@
     <div class="panel-heading">
         <div class="row" style="padding-top: 10px">
             <div class="col-xs-9" style="margin-top: 10px">
-                Informa√ß√µes
+                Informa&ccedil&otildees
             </div>
             <div class="col-xs-3">
                 <a class="btn btn-primary btn-block" href="#/Institution">Sou Fatec</a>
@@ -23,31 +23,31 @@
     <div class="panel-body">
             
         <div id="main" class="container-fluid" style="width:500px">
-            <form role="form"><!-- caso atributo loginState seje verdadeiro ativa essa fun√ß√£o-->
+            <form role="form"><!-- caso atributo loginState seje verdadeiro ativa essa funÁ„o-->
                 <div class="alert alert-danger" ng-if="registerState">
                     <button class="close" data-close="alert"></button>
                     <span>
-                        Verifique suas informa√ß√µes!
+                        Verifique suas informa&ccedil&otildees!
                     </span>
                 </div>
                 
-                <div class="row"><!--teste-->
+                <div class="row">
                     <div class="form-group col-xs-12">
                         <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                         <!--<label class="control-label visible-ie8 visible-ie9">Nome</label>-->
-                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.name" type="text" autocomplete="off" placeholder="Nome *" name="name" />
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.name" type="text" autocomplete="off" placeholder="Nome *" name="name" autofocus/>
                     </div>
                 </div>
-                <div class="row"><!--teste-->
+                <div class="row">
                     <div class="form-group col-xs-12">
                         <!--<label class="control-label visible-ie8 visible-ie9">RA</label>-->
-                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.ra" type="text" autocomplete="off" placeholder="RA *" name="ra" />
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.ra" type="number" min="100" autocomplete="off" placeholder="RA *" name="ra" />
                     </div>
                 </div>
-                <div class="row"><!--teste-->
+                <div class="row">
                     <div class="form-group col-xs-12">
                         <!--<label class="control-label visible-ie8 visible-ie9">Email</label>-->
-                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.userName" type="text" autocomplete="off" placeholder="Email *" name="Email" />
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="user.userName" type="email" autocomplete="off" placeholder="Email *" name="Email" />
                     </div>
                 </div>
                 <div class="row">
@@ -67,13 +67,13 @@
                 <div class="row" style="height:49px">
                     <!--teste-->
                     <div class="col-xs-6">
-                        <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="fatecSelecionada" data-ng-options="fatec.name for fatec in fatecs track by fatec.code">
+                        <select class="form-control-static col-xs-6" style="width:220px" data-ng-model="fatecSelecionada" data-ng-options="fatec.name for fatec in fatecs track by fatec.name">
                             <option value="">Fatec *</option>
                         </select>
                     </div>
-                    <div class="col-xs-6"><!-- ng-disable : desabilita campo at√© que atenda a condi√ß√£o, ng-model : objeto temporario passado como par√¢metro para fun√ß√£o, ng-options : pega todos atributos e insere no dropdown  -->
-                        <select class="form-control-static col-xs-6" style="width:220px; float:right"  ng-disabled="!fatecSelecionada" data-ng-model="user.curso" data-ng-options="course.name for course in fatecSelecionada.courses track by course.code">
-                            <option value="">Curso *</option><!-- valor padr√£o definido ao dropdown -->
+                    <div class="col-xs-6"><!-- ng-disable : desabilita campo atÈ que atenda a condiÁ„o, ng-model : objeto temporario passado como par‚metro para funÁ„o, ng-options : pega todos atributos e insere no dropdown  -->
+                        <select class="form-control-static col-xs-6" style="width:220px; float:right"  ng-disabled="!fatecSelecionada" data-ng-model="cursoSelecionado" data-ng-options="course.name for course in fatecSelecionada.courses track by course.codeCourse">
+                            <option value="">Curso *</option><!-- valor padr„o definido ao dropdown -->
                         </select>
 					</div>
                 </div>
@@ -81,10 +81,10 @@
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <div class="btn-group" role="group">
-                            <a href="/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
+                            <a href="/fatec/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
                         </div>
-                        <div class="btn-group" role="group" style="float:right"><!-- ng-click : chama fun√ß√£o cadastrar(parametro) -->
-                            <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!user.name || !user.ra || !user.userName || !user.password || !user.password2">Cadastrar</button><!--chama fun√ß√£o cadastar-->
+                        <div class="btn-group" role="group" style="float:right"><!-- ng-click : chama funÁ„o cadastrar(parametro) -->
+                            <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!user.name || !user.ra || !user.userName || !user.password || !user.password2">Cadastrar</button><!--chama funÁ„o cadastar-->
                         </div>
                     </div>
                 </div>

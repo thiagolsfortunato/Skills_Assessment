@@ -1,5 +1,5 @@
 ﻿var config = {
-    apiurl: "http://127.0.0.1:4567/",
+    apiurl: "http://localhost:8585/fatec/map/",			//teste-inacio.rhcloud.com
     weburl: "http://localhost:16178/",
 
     generateApiUrl: function (serviceUrl) {

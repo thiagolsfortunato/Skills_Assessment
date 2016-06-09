@@ -36,14 +36,14 @@
         return deferred.promise;
     }
 
-    //IMPLEMENTAR NO BACK-END !
-    function _getList() {
+    function _getList(code) {
 
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: config.generateApiUrl('search/all/psicologas')
+            params: {'fatecCode': code},
+            url: config.generateApiUrl('user/search/all/psicologas')
         }).
            success(function (data, status, headers, config) {
                deferred.resolve(data);

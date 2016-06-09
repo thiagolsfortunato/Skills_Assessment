@@ -1,4 +1,4 @@
-ï»¿<form class="form-horizontal form-label-left" novalidate>
+<form class="form-horizontal form-label-left" novalidate>
 
     <br />
     <h1>
@@ -27,10 +27,10 @@
                                 </thead>
                                 <tbody>
                                     <tr data-ng-repeat="psico in psicologas">
-                                        <td>{{psico.id}}</td>
-                                        <td>{{psico.nome}}</td>
+                                        <td>{{psico.userCode}}</td>
+                                        <td>{{psico.name}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="VocÃª tem certeza que deseja excluir essa pergunta?" ng-really-title="ConfirmaÃ§Ã£o" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirmação" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
                                             <a class="btn btn-warning" ng-click="goToEditPage(psico);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
                                     </tr>

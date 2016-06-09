@@ -38,11 +38,12 @@
 
             function _competenciesList() {
 
-                competenciesService.competenciesList().then(function (data) {
+                competenciesService.competenciesList().then(function (status) {
 
-                    if (data == null) {
+                    if (status != 200) {
                         alert('ops!, parece que não há nenhuma competência cadastrada. \n'
                             + '- Tente veificar a conexão com servidor. ');
+                        return;
                     } else {
                         $scope.competencies = data;
                         console.log(data);

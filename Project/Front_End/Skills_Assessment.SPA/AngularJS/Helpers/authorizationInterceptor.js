@@ -19,7 +19,7 @@
             switch (rejection.status) {
                 case 401: {
                     console.log($location);
-                    $window.location.href = 'Login.html';
+                    $window.location.href = '/fatec/Login.html';
                     break;
                 }
                 default: {

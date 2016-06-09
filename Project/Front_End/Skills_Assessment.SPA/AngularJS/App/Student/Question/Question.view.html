@@ -1,4 +1,4 @@
-﻿    <!-- Custom styling plus plugins -->
+    <!-- Custom styling plus plugins -->
 <!--[if lt IE 9]>
     <script src="../assets/js/ie8-responsive-file-warning.js"></script>
     <![endif]-->
@@ -48,12 +48,9 @@
 
                                             <center>
                                                 <!--iframe ng-if="false" width="560" height="315" src="https://www.youtube.com/embed/aFoYmEmb8Mg" frameborder="0" allowfullscreen></!--iframe-->
-                                                <iframe ng-if="isStreaming" width="560" height="350" ng-src={{trustSrc(media)}} frameborder="0" allowfullscreen></iframe>
-                                                <p ng-if="!isStreaming">
-                                                        Eu prefiro ser
-                                                        Essa metamorfose ambulante
-                                                        Eu prefiro ser
-                                                        Essa metamorfose ambulante
+                                                <iframe ng-if="isStreaming[0]" width="560" height="350" ng-src={{trustSrc(media)}} frameborder="0" allowfullscreen></iframe>
+                                                <p ng-if="!isStreaming[0]" style="padding-top:50px; padding-bottom:50px; font-size: 20px;">
+                                                        {{media}}
                                                 </p>
                                                 <!--<object width="420" height="315"
                                                         data="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQFRRNOh_BQAy4TnOI_My8RLUwwQUTWx_oty5TstXUZLkt-Fq-b7ff_kmUO"></object>-->
@@ -62,13 +59,13 @@
                                             </center>
 
                                             <center class="form-group">
-                                                <label class="control-label" for="last-name">
+                                                <label class="control-label" for="last-name" style="text-align:-webkit-center;font-size: 17px;">
                                                    Pergunta: {{question.question}}
                                                 </label>
                                             </center>
 
                                             <div class="form-group" style="margin-left:19%">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Resposta</label>
+                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Alternativas</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
 
@@ -96,7 +93,7 @@
                                                     <div class="ln_solid"></div>
                                                     <div class="form-group">
                                                         <div class="col-md-6 col-md-offset-3">
-                                                            <button id="send" type="submit" class="btn btn-success" ng-click="saveAnswer()">Próximo</button>
+                                                            <button id="send" type="submit" class="btn btn-success" ng-click="saveAnswer()">Pr&oacute;ximo</button>
                                                         </div>
                                                     </div>
 

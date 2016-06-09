@@ -30,19 +30,19 @@
                     switch(data["type"].toLowerCase()) {
                         case "student":
                             //document.location = "../#/question/" + data["unansweredQuestions"];
-                            document.location = "/Student.html";
+                            document.location = "/fatec/Student.html";
                             break;
                         
                         case "administrador":
 
-                            document.location = "/Administrator.html";
+                            document.location = "/fatec/Administrator.html";
                             break;
                         
                         case "psicologa":
-                            document.location = "/Psicologa.html";
+                            document.location = "/fatec/Psicologa.html";
                             break;
                         default:
-                            document.location = "/Login.html";
+                            document.location = "/fatec/Login.html";
                             break;
                     }
                         
@@ -54,7 +54,7 @@
                     // or server returns response with an error status.
 
                     console.log(loginUser);
-                    alert("We failed again!");
+                    alert("Falha ao Logar\n -Verifique seu login!");
                     //document.location = "../#/question";
                     //$scope.loginState = false;
                 });

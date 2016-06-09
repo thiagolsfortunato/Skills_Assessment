@@ -4,9 +4,10 @@
 
                 $scope.goToEditPage = _goToEdit;
                 $scope.psicologaDelete = _delete;
+                
                 $scope.admin;
-                $scope.psicologas = [{ id: 001, nome: 'Vanessa', email: 'vanessa@fatec.com', password: 'vanessa', fatec: 'Jessen Vidal' },
-                                     { id: 002, nome: 'Amanda', email: 'amanda@fatec.com', password: 'amanda', fatec: 'Jessen Vidal' }];
+                $scope.psicologas;// = [{ id: 001, nome: 'Vanessa', email: 'vanessa@fatec.com', password: 'vanessa', fatec: 'Jessen Vidal' },
+                                    // { id: 002, nome: 'Amanda', email: 'amanda@fatec.com', password: 'amanda', fatec: 'Jessen Vidal' }];
 
                 var loadPsicologas = _loadPsicologas;
 
@@ -14,7 +15,7 @@
 
                 function init() {
                     $scope.admin = localStorageService.get('user');
-                    //loadPsicologas();
+                    loadPsicologas($scope.admin.instCode);
 
                 }
 
@@ -37,9 +38,9 @@
 
                 }
 
-                function _loadPsicologas() {
+                function _loadPsicologas(fatecCode) {
 
-                    psicologaService.getAllPsicologas().then(function (data) {
+                    psicologaService.getAllPsicologas(fatecCode).then(function (data) {
 
                         $scope.psicologas = data;
 

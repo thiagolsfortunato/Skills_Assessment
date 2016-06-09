@@ -3,7 +3,7 @@
         function ($scope, $routeParams, localStorageService, registerService) {
 
             //Declaração de funções
-            $scope.userAdd = _userAdd;
+            var userAdd = _userAdd;
             $scope.fatecList = _fatecsList;
 
             $scope.registerState = false;
@@ -12,12 +12,13 @@
             $scope.cursos; // = [{ nome: "Aeronáutica" }, { nome: "Gestão Produção" }, { nome: "Logistica" }];
 
             $scope.fatecSelecionada;
+			$scope.cursoSelecionado;
 
             $scope.errorClass = function () {
                 
                 if ($scope.user.password == $scope.user.password2){
                     $scope.registerState = false;
-                    $scope.userAdd($scope.user);
+                    userAdd($scope.user);
                 }
                     
                 else
@@ -35,17 +36,28 @@
                 // userAdd é o obj que chama a função da service
                 
                 user.type = "Student";
-                user.codeCourse = user.curso.codeCourse;
-                user.instCode = user.fatec.codeInstitution;
+                //console.log($scope.fatecSelecionada);
+                user.codeCourse = $scope.cursoSelecionado.codeCourse;
+                user.instCode = $scope.fatecSelecionada.code;
                 delete user["password2"];
-                delete user["fatec"];
-                delete user["curso"];
                 console.log(user);
-                registerService.userAdd(user).then(function (data) {
+                
+                /*** aqui ocorre uma validação, verificando se o aluno ja existe!	**/
+                registerService.validate(user).then(function (data) {
 
-                    alert("Salvouuu");
+                    if(data == 'true'){
+                    	alert('Aluno já cadastrado \n -se perdeu a senha entre em contato com marquinhos!');
+                    }else{
+                    	
+                    	registerService.userAdd(user).then(function (data) {
+
+                            alert("Cadastrado, clique em ENTRAR");
+
+                        });
+                    }
 
                 });
+               
             }
 
             function _fatecsList() {

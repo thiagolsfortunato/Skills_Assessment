@@ -52,8 +52,6 @@
 
                 courseService.courseList(fatecCode).then(function (data) {
 
-                    //console.log(data);
-
                     $scope.courses = data;
 
                 });

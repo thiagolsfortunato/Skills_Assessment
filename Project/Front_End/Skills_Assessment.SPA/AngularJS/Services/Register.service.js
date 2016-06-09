@@ -5,9 +5,27 @@
         userAdd: _userAdd,
         fatecList: _fatecList,
         fatecAdd: _fatecAdd,
+        validate: _validate,
         //userDelete: _userDelete,
         //userUpdate: _userUpdate
     };
+    
+    function _validate(user){
+    	
+    	var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: config.generateApiUrl('enrolls/search/student/validate'),
+            params:{'email':user.userName, 'ra':user.ra},
+            headers: { 'Content-Type' : 'application/json' }
+        }).
+           success(function (dataObj, status, headers, config) {
+               deferred.resolve(dataObj);
+           });
+
+        return deferred.promise;
+    }
 
     function _userAdd(dataObj) {
 

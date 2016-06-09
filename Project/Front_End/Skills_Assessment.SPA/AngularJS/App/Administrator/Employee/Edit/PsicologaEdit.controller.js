@@ -1,19 +1,23 @@
 ﻿FatecControllers.controller('PsicologaEditController',
-    ['$scope', '$routeParams', 'PsicologaService', '$log', 'localStorageService',
-        function ($scope, $routeParams, psicologaService, $log, localStorageService) {
+    ['$scope', '$routeParams', 'PsicologaService', 'InstitutionService','$log', 'localStorageService',
+        function ($scope, $routeParams, psicologaService, institutionService, $log, localStorageService) {
 
             //Declaração de funções
             
+    		var institutionLoad = _institutionLoad;
             $scope.psicologaUpdate = _psicologaUpdate;
             $scope.cancel = _cancel;
             $scope.admin;
             $scope.psicologa;
+            $scope.institution;
+            
 
             init();
 
             function init() {
                 $scope.admin = localStorageService.get('user');
                 $scope.psicologa = psicologaService.getPsicologaCurrent();
+                institutionLoad();
             }
 
             function _cancel() {
@@ -34,7 +38,21 @@
                     */
             }
 
-            
+            function _institutionLoad() {
+
+                var code = $scope.admin.instCode;
+
+                institutionService.institutionFindCode(code).then(function (data) {
+                	
+                    if (data == null) {
+                        alert('ops algum erro aqui..');
+                    } else {
+                        $scope.institution = data;
+                    }
+
+                });
+
+            }
 
 
 

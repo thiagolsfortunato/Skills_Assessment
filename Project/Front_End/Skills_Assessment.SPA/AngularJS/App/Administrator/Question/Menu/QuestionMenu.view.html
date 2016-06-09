@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal form-label-left" novalidate>
+<form class="form-horizontal form-label-left" novalidate>
 
     <br />
     <h1>
@@ -21,14 +21,14 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Descrição</th>
+                                        <th>Descri&ccedil;&atilde;o</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr data-ng-repeat="item in questions">
-                                        <td>{{item.question}}</td>
+                                        <td style="width:85%">{{item.question}}</td>
                                         <td>
-                                            <a class="btn btn-danger" ng-really-message="Você tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirmação" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
+                                            <a class="btn btn-danger" ng-really-message="Voc� tem certeza que deseja excluir essa pergunta?" ng-really-title="Confirma��o" ng-really-click="questionDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
                                             <a  class="btn btn-warning" ng-click="goToEditPage(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                                         </td>
                                     </tr>

@@ -1,25 +1,25 @@
-﻿<!-- BEGIN REGISTER FORM -->
+<!-- BEGIN REGISTER FORM -->
 <form class="login-form" role="form">
     <div class="form-title">
         <span class="form-title">Bem vindo!</span>
         <br />
-        <span class="form-subtitle">Insira algumas informações.</span>
+        <span class="form-subtitle">Insira algumas informa&ccedil&otildees.</span>
     </div>
 </form>
 <hr />
 <br />
 <div class="panel panel-primary">
-    <div class="panel-heading">Informações {{institution.cnpj | cnpj}}</div>
+    <div class="panel-heading">Informa&ccedil&otildees {{institution.cnpj | cnpj}}</div>
 
     <div class="panel-body">
 
         <div id="main" class="container-fluid" style="width:500px">
             <form role="form">
-                <!-- caso atributo loginState seje verdadeiro ativa essa função-->
+                <!-- caso atributo loginState seje verdadeiro ativa essa fun��o-->
                 <div class="alert alert-danger" ng-if="registerState">
                     <button class="close" data-close="alert"></button>
                     <span>
-                        Verifique suas informações!
+                        Verifique suas informa&ccedil&otildees!
                     </span>
                 </div>
                 <!-- INICIO DADOS DA FATEC -->
@@ -28,7 +28,7 @@
                     <div class="form-group col-xs-12">
                         <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                         <!--<label class="control-label visible-ie8 visible-ie9">Nome</label>-->
-                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="institution.company" type="text" autocomplete="off" placeholder="Razão Social" name="razão-social" />
+                        <input class="form-control form-control-solid placeholder-no-fix" data-ng-model="institution.company" type="text" autocomplete="off" placeholder="Razao Social" name="raz�o-social" />
                     </div>
                 </div>
                 <div class="row">
@@ -81,10 +81,10 @@
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <div class="btn-group" role="group">
-                            <a href="/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
+                            <a href="/fatec/Login.html" type="button" class="btn red btn-block uppercase">Entrar</a><!--chama pagina login-->
                         </div>
                         <div class="btn-group" role="group" style="float:right">
-                            <!-- ng-click : chama função cadastrar(parametro) -->
+                            <!-- ng-click : chama fun��o cadastrar(parametro) -->
                             <button class="btn btn-primary btn-block" ng-click="errorClass()" ng-disabled="!institution.company || !institution.cnpj || !institution.city || !user.name || !user.userName || !user.password || !user.password2">Cadastrar</button>
                         </div>
                     </div>

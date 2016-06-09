@@ -87,7 +87,6 @@ FatecControllers.controller('PsicologaController',
                     $location.path("/comment");
                 });
                 
-                //document.location.href = '#/comment';
             }
 
             function _logout() {

@@ -1,4 +1,4 @@
-﻿<!-- BEGIN PAGE BAR -->
+<!-- BEGIN PAGE BAR -->
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -37,21 +37,33 @@
             </div>
             <!-- END CHART-->
             
-            <label style="padding-left:5%">Comentário:</label>
+            <label style="padding-left:5%">Coment&aacute;rio:</label>
             <div class="col-md-6" style="padding-top:5%; padding-left:10%;">
-                <p ng-if="comentario.length > 0">
-                    {{comentario}}
-                </p>
-                <b style="color:orangered" ng-if="!comentario.length > 0">
-                    AGUARDE RESPOSTA DA PSICOLOGA...
-                </b>
+	            <div ng-if="comentario.length > 0">
+		            <p>
+	                	<div class="row"> Ol&aacute; {{aluno.name}}, </div>
+	                	<div class="row" style="padding-top:20px; padding-left:10px"> {{comentario}} </div>
+	                    <div class="row" style="padding-top:20px;">
+		                    Att.
+		                    <br /><br />
+		                    Psic&oacute;loga
+	                    </div>	
+	                     
+	                </p>
+	            </div>
+                <div ng-if="comentario.length == 0" >
+                	<b style="color:orangered">
+                    	AGUARDE AVALIA&Ccedil;&Atilde;O DA PSICOLOGA...
+                	</b>
+                </div>
+                
             </div>
         </div>
 
         <div ng-hide="finalizado" style="margin-left:50px">
             <p>
                 <br />
-                :/ Ops! parece que você ainda não concluiu.. 
+                :/ Ops! parece que voc� ainda n�o concluiu.. 
             </p>
         </div>
 

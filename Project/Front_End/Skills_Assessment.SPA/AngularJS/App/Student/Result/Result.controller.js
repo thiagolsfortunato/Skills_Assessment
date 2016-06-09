@@ -27,13 +27,23 @@
                     var resultado = data;
                     //verifica se o objeto veio vazio, igual a -> {}
                     var finished = Object.keys(resultado).length !== 0;
-                    console.log(resultado);
+                    console.log($scope.comentario.length);
 
                     if (finished) {
-                        console.log('aqui');
+                        
                         $scope.finalizado = true;
-                        $scope.comentario = resultado.comments;
-
+                        console.log(resultado.comments);
+                        if(resultado.comments){
+                        	var txt = resultado.comments;
+                            
+                            txt = txt.toString().replace(/"/g, " ");
+                            console.log(txt);
+                            $scope.comentario = txt;
+                        }else{
+                        	$scope.comentario = '';
+                        }
+                        
+                        
                         var competencias = [];
                         var pesos = [];
                         //insere as competencias e os respectivos pesos no gráfico

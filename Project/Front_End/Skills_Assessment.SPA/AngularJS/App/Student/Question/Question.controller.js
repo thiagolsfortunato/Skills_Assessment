@@ -13,10 +13,6 @@
 
             $scope.porcentagem;
 
-            
-            var midia = [/http/.test($scope.media)];
-            
-            $scope.isStreaming = midia;
 
             init();
 
@@ -40,7 +36,7 @@
                 
                 if($scope.currentAnwswerCode <= 0)
                 {
-                    alert("se liga brow, responde essa po#%&!!!");
+                    alert("favor escolha uma opeção");
                 }
 
 
@@ -63,14 +59,9 @@
 
             }
 
-
-
-
             function questionList(alunoCode) {
 
                 questionService.questionList(alunoCode).then(function (data) {
-
-                    //console.log(data);
 
                     $scope.question = data;
 
@@ -93,8 +84,14 @@
                         document.location.href = '#/completed';
                     } else {
                         $scope.media = $scope.question.introduction.replace('watch?v=', 'embed/');
-
+                        //verifica se é video, se for seta flag como TRUE
+                        var midia = [/http/.test($scope.media)];
+                        
                         console.log($scope.media);
+                        
+                        $scope.isStreaming = midia;
+
+                        
                     }
 
 

@@ -14,7 +14,9 @@
 
             function init() {
 
-                $scope.aluno = authenticationService.Validation('student');
+                //$scope.aluno = authenticationService.Validation('student');
+            	usuario = authenticationService.Validation('student');
+            	loadAluno(usuario.userCode);
 
             }
 
@@ -22,7 +24,7 @@
 
                 studentService.studentFindCode(userId).then(function (data) { // devolve o aluno inteiro
                     $scope.aluno = data;
-
+                    console.log($scope.aluno);
                 });
             }
 

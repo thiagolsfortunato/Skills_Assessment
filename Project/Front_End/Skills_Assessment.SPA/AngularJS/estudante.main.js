@@ -4,15 +4,15 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
     $routeProvider
         
       
-        .when('/home', { templateUrl: 'AngularJS/App/Student/Home/StudentHome.view.html', controller: 'StudentHomeController' })
+        .when('/home', { templateUrl: '/fatec/AngularJS/App/Student/Home/StudentHome.view.html', controller: 'StudentHomeController' })
 
-        .when('/question', { templateUrl: 'AngularJS/App/Student/Question/Question.view.html', controller: 'QuestionController' })
+        .when('/question', { templateUrl: '/fatec/AngularJS/App/Student/Question/Question.view.html', controller: 'QuestionController' })
 
-        .when('/perfil', { templateUrl: 'AngularJS/App/Student/Profile/Profile.view.html', controller: 'ProfileController' })
+        .when('/perfil', { templateUrl: '/fatec/AngularJS/App/Student/Profile/Profile.view.html', controller: 'ProfileController' })
 
-        .when('/completed', { templateUrl: 'AngularJS/App/Student/Completed/Completed.view.html', controller: 'CompletedController' })
+        .when('/completed', { templateUrl: '/fatec/AngularJS/App/Student/Completed/Completed.view.html', controller: 'CompletedController' })
 
-        .when('/result', { templateUrl: 'AngularJS/App/Student/Result/Result.view.html', controller: 'ResultController' })
+        .when('/result', { templateUrl: '/fatec/AngularJS/App/Student/Result/Result.view.html', controller: 'ResultController' })
 
         .otherwise({ redirectTo: '/home' });
 
