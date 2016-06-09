@@ -52,7 +52,7 @@
 
                 questionService.questionUpdate(obj).then(function (data) {
 
-                    alert("Go Trumps Gooooooo, fucking hillary!!!!!");
+                    alert("Alterada com sucesso");
 
                 });
             }

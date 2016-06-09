@@ -16,7 +16,7 @@ public class Main {
 	//static ModelQuestion model = new ModelQuestion();
 	
 	public static void main(String[] args) throws JSONException{
-		 Spark.externalStaticFileLocation("..\\..\\Front_End\\Skills_Assessment.SPA");
+		 //Spark.externalStaticFileLocation("..\\..\\Front_End\\Skills_Assessment.SPA");
 		 CorsFilter.apply();
 		 
 		 QuizRoutes.getQuiz();

@@ -52,7 +52,7 @@ public class CompetenciesRoutes {
 					res.status(200);
 					return "SUCESS";
 				}else{
-					res.status(600);
+					//res.status(600);
 					return "FAIL";
 				}
 			}catch(Exception e){
@@ -134,7 +134,7 @@ public class CompetenciesRoutes {
 					res.status(200);
 					return competencias;
 				}else{
-					res.status(600);
+					//res.status(600);
 					return "FAIL";
 				}
 			}catch(NullPointerException e){

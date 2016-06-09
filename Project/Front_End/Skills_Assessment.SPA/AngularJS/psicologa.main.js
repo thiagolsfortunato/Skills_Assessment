@@ -5,8 +5,8 @@ publication.config(['$routeProvider', '$httpProvider', function ($routeProvider,
         
 
         //exemplo
-        .when('/list', { templateUrl: '/fatec/AngularJS/App/Psicologa/List/Psicologa.view.html', controller: 'PsicologaController' })
-        .when('/comment', { templateUrl: '/fatec/AngularJS/App/Psicologa/Comment/Comment.view.html', controller: 'CommentController' })
+        .when('/list', { templateUrl: '/AngularJS/App/Psicologa/List/Psicologa.view.html', controller: 'PsicologaController' })
+        .when('/comment', { templateUrl: '/AngularJS/App/Psicologa/Comment/Comment.view.html', controller: 'CommentController' })
 
         .otherwise({ redirectTo: '/list' });
 

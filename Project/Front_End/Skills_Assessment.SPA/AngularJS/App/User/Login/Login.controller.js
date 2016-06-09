@@ -30,19 +30,19 @@
                     switch(data["type"].toLowerCase()) {
                         case "student":
                             //document.location = "../#/question/" + data["unansweredQuestions"];
-                            document.location = "/fatec/Student.html";
+                            document.location = "/Student.html";
                             break;
                         
                         case "administrador":
 
-                            document.location = "/fatec/Administrator.html";
+                            document.location = "/Administrator.html";
                             break;
                         
                         case "psicologa":
-                            document.location = "/fatec/Psicologa.html";
+                            document.location = "/Psicologa.html";
                             break;
                         default:
-                            document.location = "/fatec/Login.html";
+                            document.location = "/Login.html";
                             break;
                     }
                         

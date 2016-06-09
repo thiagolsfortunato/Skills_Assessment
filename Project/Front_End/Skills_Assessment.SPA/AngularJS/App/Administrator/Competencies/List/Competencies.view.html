@@ -42,12 +42,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="item in competencies">
+                    <tr data-ng-repeat="item in competencies" ng-if="competencies.length != null">
                         <td>{{item.type}}</td>
                         <td>
                             <a class="btn btn-danger" ng-really-message="Are you sure you want to delete ?" ng-really-title="Confirmation" ng-really-click="competencieDelete(item.code);"> <i class="fa fa-trash-o"></i> Apagar</a>
                             <a class="btn btn-warning" ng-click="competencieLoad(item);"> <i class="fa fa-trash-o"></i> Editar</a>
                         </td>
+
+                    </tr>
+                    <tr ng-if="competencies.length == null">
+                        
+                         <td>Não existem Competencias Cadastradas</td>
+                        
                     </tr>
                 </tbody>
             </table>

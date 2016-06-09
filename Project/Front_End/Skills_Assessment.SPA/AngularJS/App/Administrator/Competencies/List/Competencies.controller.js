@@ -38,16 +38,17 @@
 
             function _competenciesList() {
 
-                competenciesService.competenciesList().then(function (status) {
+                competenciesService.competenciesList().then(function (data) {
 
-                    if (status != 200) {
-                        alert('ops!, parece que não há nenhuma competência cadastrada. \n'
-                            + '- Tente veificar a conexão com servidor. ');
-                        return;
-                    } else {
+                    if (String(data) != "\"FAIL\"") {
                         $scope.competencies = data;
-                        console.log(data);
+                    } else {
+                       
+                        $scope.competencies = null;
                     }
+                   
+                    console.log("sss   "+data);
+                    
 
                 });
             }
@@ -57,13 +58,10 @@
                 console.log(competence);
                 competenciesService.competencieUpdate(competence).then(function (data) {
 
-                    if (status != 200) {
-                        alert('ops!, contate seu prestador e informe que há algum erro no update. \n'
-                            + '- Tente veificar a conexão com servidor. ');
-                    } else {
-                        $scope.competenciesList();
-                        alert("Alterou");
-                    }
+                    
+                    $scope.competenciesList();
+                    alert("Alterou");
+                    
                     
                 });
             }
@@ -73,13 +71,10 @@
                 console.log(competence);
                 competenciesService.competencieAdd(competence).then(function (data) {
                     
-                    if (status != 200) {
-                        alert('ops!, contate seu prestador e informe que há algum erro na inserção. \n'
-                            + '- Tente veificar a conexão com servidor. ');
-                    } else {
-                        $scope.competenciesList();
-                        alert("Salvouuu");
-                    }                    
+                    
+                    $scope.competenciesList();
+                    alert("Salvouuu");
+                                      
 
                 });
             }
@@ -89,14 +84,8 @@
                 console.log(id);
                 competenciesService.competencieDelete(id).then(function (status) {
 
-                    if (status != 200) {
-                        alert('ops!, verifique se não há questões ligadas a esta competencia. \n'
-                            + '- Tente veificar a conexão com servidor. ');
-                    } else {
-                        $scope.competenciesList();
-                        alert("Deletouuu");
-                    }
-
+                    $scope.competenciesList();
+                    alert("Deletouuu");
                 });
             }
 
