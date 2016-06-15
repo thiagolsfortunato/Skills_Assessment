@@ -77,7 +77,7 @@ public class DaoQuiz{
 	@SuppressWarnings("finally")
 	public static Question getQuestion(Connection conn, Long idUser) throws SQLException {
 		Question qst = new Question();
-		String query = "select * from  (select question.qst_code as qst_code,question.qst_question  ,qst_introduction from question "
+		String query = "select * from (select question.qst_code as qst_code, question.qst_question, qst_introduction, qst_type from question "
 				+ "where question.qst_situation <> 0 and question.qst_code not in (select quiz.qst_code from quiz where usr_code = ?) order by question.qst_code ) "
 				+ "as question where question.qst_code = ?;";
 		try {
@@ -207,7 +207,7 @@ public class DaoQuiz{
 		Long userResult = null;
 		Long competenceSum = null;
 		boolean returnInsert = false;
-		String sql = "INSERT INTO AVERAGE (RST_CODE, COM_CODE, AVR_FINAL) VALUES (?, ?, ?);";
+		String sql = "INSERT INTO average (rst_code, com_code, avr_final) VALUES (?, ?, ?);";
 		try {
 			userResult = DaoEnrolls.getResult(conn, userCode);
 			competenceSum = DaoQuiz.calculateAverage(conn, com_code,userCode);
@@ -397,6 +397,7 @@ public class DaoQuiz{
 		question.setCode(rs.getLong("question.qst_code"));
 		question.setQuestion(rs.getString("question.qst_question"));
 		question.setIntroduction(rs.getString("question.qst_introduction"));
+		question.setType(rs.getString("question.qst_type"));
 		answers = getAnswers(conn, rs.getLong("question.qst_code"));
 		question.setAnswers(answers);
 		return question;

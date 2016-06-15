@@ -6,6 +6,7 @@ public class Question {
 	private Long code;
 	private String question;
 	private String introduction;
+	private String type;
 	private Integer situation;
 	private List<Answer> answers;
 	private Integer unansweredQuestions;
@@ -65,5 +66,13 @@ public class Question {
 
 	public void setQuestionAmount(Integer questionAmount) {
 		this.questionAmount = questionAmount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

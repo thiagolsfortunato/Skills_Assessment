@@ -17,8 +17,8 @@ public class DaoQuestion {
 	
 	@SuppressWarnings("finally")
 	public static boolean insertQuestion(Connection conn, Question question) throws SQLException{
-		String query = "INSERT INTO question (qst_introduction, qst_question, qst_situation) "
-						+ "VALUES (?, ?, ?);";
+		String query = "INSERT INTO question (qst_introduction, qst_question, qst_situation, qst_type) "
+						+ "VALUES (?, ?, ?, ?);";
 		boolean returnQuestion = false;
 		
 		try {
@@ -26,6 +26,7 @@ public class DaoQuestion {
 			stmt.setString(1, question.getIntroduction());
 			stmt.setString(2, question.getQuestion());
 			stmt.setInt(3, 1);
+			stmt.setString(4, question.getType());
 			if ( stmt.executeUpdate() != 0 ) {
 				ResultSet generatedKeys = stmt.getGeneratedKeys();
 				if( generatedKeys.next() ){
@@ -49,14 +50,15 @@ public class DaoQuestion {
 		boolean statusAnswers = false;
 		boolean statusComepetence = false;
 		
-		String updateQuestion = "UPDATE question SET qst_question = ?, qst_introduction = ?, qst_situation = ? "
+		String updateQuestion = "UPDATE question SET qst_question = ?, qst_introduction = ?, qst_situation = ?, qst_type = ? "
 								+ "WHERE qst_code = ?;";
 		try {
 			PreparedStatement stmt0 = conn.prepareStatement(updateQuestion);
 			stmt0.setString(1, question.getQuestion());
 			stmt0.setString(2, question.getIntroduction());
 			stmt0.setLong(3, question.getSituation());
-			stmt0.setLong(4, question.getCode());
+			stmt0.setString(4, question.getType());
+			stmt0.setLong(5, question.getCode());
 			if( stmt0.executeUpdate() != 0 ){
 				statusQuestion = true;
 				System.out.println("the question has been successfully updated!");			
@@ -99,7 +101,7 @@ public class DaoQuestion {
 				}
 					
 			}
-			//validação se deu tudo certo
+			//validaÃ§Ã£o se deu tudo certo
 			if ( statusQuestion && statusAnswers && statusComepetence ){
 				returnUpdate =  true;
 			}
@@ -146,7 +148,7 @@ public class DaoQuestion {
 				System.out.println("Was deletd a question");
 			}
 			stmt2.close();
-			//validação se deu tudo certo
+			//validaÃ§Ã£o se deu tudo certo
 			if ( statusQuestion && statusAnswers && statusComepetence ){
 				transaction =  true;
 			}
@@ -158,7 +160,7 @@ public class DaoQuestion {
 	@SuppressWarnings("finally")
 	public static List<Question> searchAllQuestion(Connection conn) throws SQLException {
 		List<Question> listQuestion = new ArrayList<>();
-		String query = "SELECT q.qst_code, q.qst_question, q.qst_situation, q.qst_introduction "
+		String query = "SELECT q.qst_code, q.qst_question, q.qst_situation, q.qst_introduction, q.qst_type "
 						+ "FROM question q ;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -176,7 +178,7 @@ public class DaoQuestion {
 	@SuppressWarnings("finally")
 	public static Question searchQuestionByCode(Connection conn, Long codeQuestion) throws SQLException {
 		Question question = new Question();
-		String query = "SELECT qst_code, qst_question, qst_situation, qst_introduction "
+		String query = "SELECT qst_code, qst_question, qst_situation, qst_introduction, qst_type "
 						+ "FROM question WHERE qst_code = ?;";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -295,6 +297,7 @@ public class DaoQuestion {
 		question.setQuestion(rs.getString("qst_question"));
 		question.setSituation(rs.getInt("qst_situation"));
 		question.setIntroduction(rs.getString("qst_introduction"));
+		question.setType(rs.getString("qst_type"));
 		
 		question.setAnswers(answers);
 		

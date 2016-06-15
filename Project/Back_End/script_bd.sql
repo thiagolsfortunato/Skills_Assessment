@@ -52,6 +52,7 @@ create table question(
     qst_question varchar(250) ,
     qst_introduction varchar(250) ,
     qst_situation int,
+	qst_type varchar(10),
     constraint pk_qst primary key (qst_code)
 )engine=innodb;
 
