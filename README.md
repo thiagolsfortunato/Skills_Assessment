@@ -8,3 +8,4 @@ Project development by students from Fatec-SJC
  - Video de funcionamento do painel da psicóloga:
    https://www.youtube.com/watch?v=R6PJgRTQCEw
  - Video de cadastro de uma FATEC: https://youtu.be/rAmVUOa0Bd4
+ - Video de cadastro de Cursos: https://youtu.be/nxJQktAWA1I
